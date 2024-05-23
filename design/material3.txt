@@ -1,0 +1,53 @@
+-------SHAPE------
+(textField)small - 4dp
+(card)medium - 8dp
+(bottom bar)large - 12dp
+
+
+-------TEXT-------
+FONT = Metropolis Font Family
+
+-------LIGHT------
+
+(buttons, cards that need enphasy)Primary - DB3022
+onPrimary - FFFFFF
+
+(filter chips) secondary - FFFFFF
+onSecondary - 9B9B9B
+
+(for buttom bar, top bar uses bakcground)secondaryContainer - 222222
+onSecondaryContainer - FFFFFF
+
+(background)Surface - F9F9F9
+onSurface - 222222
+InverseOnSurface - 9B9B9B
+
+(card for item in cart) neutral - FFFFFF
+onNeutral - 222222
+
+Error - F01F0E
+
+(for text in textField) scrim - 2D2D2D
+
+
+-------DARK------
+
+(buttons, cards that need enphasy)Primary - EF3651
+onPrimary - F5F5F5
+
+(filter chips) secondary - F6F6F6
+onSecondary - 2A2C36
+
+(for buttom bar, top bar uses bakcground)secondaryContainer - 1E1F28
+onSecondaryContainer - ABB4BD
+
+(background)Surface - 1E1F28
+onSurface - F6F6F6
+InverseOnSurface - ABB4BD
+
+(card for item in cart) neutral - 2A2C36
+onNeutral - F6F6F6
+
+(for error outline and text error)Error - FF2424
+
+(for text in textField) scrim - F5F5F5
