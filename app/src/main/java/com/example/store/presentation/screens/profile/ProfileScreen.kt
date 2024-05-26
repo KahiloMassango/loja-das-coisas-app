@@ -1,0 +1,108 @@
+package com.example.store.presentation.screens.profile
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.example.store.R
+import com.example.store.presentation.common.LargeTopBar
+import com.example.store.presentation.common.ThemePreviews
+import com.example.store.presentation.screens.profile.components.ProfileOptions
+import com.example.store.ui.theme.StoreTheme
+
+@Composable
+fun ProfileScreen(modifier: Modifier = Modifier) {
+    Scaffold(
+        topBar = {
+            LargeTopBar(title = "Meu perfil", canNavigateBack = false )
+        },
+    ) { paddingValues ->
+       Surface(
+           modifier = modifier.padding(paddingValues)
+       ) {
+           Column(
+               modifier = Modifier
+                   .fillMaxSize(),
+           ) {
+               Spacer(modifier = Modifier.height(16.dp))
+               ProfileHeader(
+                   modifier = Modifier.padding(horizontal = 16.dp),
+                   name = "Matilda Brown",
+                   email = "matildabrown@mail.com"
+               )
+               Spacer(modifier = Modifier.height(36.dp))
+               ProfileOptions(
+                   onMyOrdersClick = { /* TODO */ },
+                   onMyReviewsClick = { /* TODO */ },
+                   onSettingsClick = { /* TODO */ }
+               )
+           }
+       }
+    }
+}
+
+@Composable
+private fun ProfileHeader(
+    modifier: Modifier = Modifier,
+    name: String,
+    email: String
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(14.dp)
+    ) {
+        Image(
+            modifier = Modifier
+                .size(70.dp)
+                .clip(CircleShape),
+            painter = painterResource(id = R.drawable.dog_profile),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            modifier = Modifier,
+        ) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 18.sp
+            )
+            Text(
+                text = email,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.inverseOnSurface,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+private fun Preview() {
+    StoreTheme {
+        ProfileScreen()
+    }
+}

@@ -15,15 +15,15 @@ onPrimary - FFFFFF
 (filter chips) secondary - FFFFFF
 onSecondary - 9B9B9B
 
-(for buttom bar, top bar uses bakcground)secondaryContainer - 222222
+(for buttom bar, top bar uses bakcground)secondaryContainer - FFFFFF
 onSecondaryContainer - FFFFFF
 
 (background)Surface - F9F9F9
 onSurface - 222222
 InverseOnSurface - 9B9B9B
 
-(card for item in cart) neutral - FFFFFF
-onNeutral - 222222
+(card for item in cart) Tertiary - FFFFFF
+onTertiary - 222222
 
 Error - F01F0E
 
@@ -45,8 +45,8 @@ onSecondaryContainer - ABB4BD
 onSurface - F6F6F6
 InverseOnSurface - ABB4BD
 
-(card for item in cart) neutral - 2A2C36
-onNeutral - F6F6F6
+(card for item in cart) Tertiary - 2A2C36
+onTertiary - F6F6F6
 
 (for error outline and text error)Error - FF2424
 
