@@ -1,4 +1,4 @@
-package com.example.store.presentation.common
+package com.example.store.presentation.screens.autentication.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
-fun ClickableText(
+fun CustomClickableText(
     modifier: Modifier = Modifier,
     text: String,
     supportText: String? = null,
@@ -70,7 +70,7 @@ fun ClickableText(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ClickableText(
+        CustomClickableText(
             text = "Forgot your password?",
             onClick = {  }
         )

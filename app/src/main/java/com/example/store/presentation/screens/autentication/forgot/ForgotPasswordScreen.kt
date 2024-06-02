@@ -22,16 +22,18 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.common.CustomButton
 import com.example.store.presentation.common.CustomTextField
-import com.example.store.presentation.common.LargeTopBar
+import com.example.store.presentation.common.StoreLargeTopBar
 import com.example.store.presentation.common.ThemePreviews
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun ForgotPasswordScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
-    onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
@@ -39,7 +41,11 @@ fun ForgotPasswordScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            LargeTopBar(title = "Recuperar senha", canNavigateBack = true, onNavigateUp = onNavigateUp)
+            StoreLargeTopBar(
+                title = "Recuperar senha",
+                canNavigateBack = true,
+                onNavigateUp = navController::navigateUp
+            )
         }
     ) { paddingValues ->
         Surface(
@@ -47,13 +53,13 @@ fun ForgotPasswordScreen(
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
+                    .padding(start = 16.dp,end = 16.dp,top = 64.dp,bottom = 16.dp)
                     .fillMaxSize(),
             ) {
                 Text(
                     text = "Por favor, indique o seu endereço de e-mail." +
                         " Você receberá um link para criar uma nova senha por e-mail.",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
 
                 )
@@ -61,7 +67,7 @@ fun ForgotPasswordScreen(
                 CustomTextField(
                     modifier = Modifier,
                     value = email,
-                    placeholder = "Email",
+                    label = "Email",
                     onValueChange = { email = it },
                     isError = false,
                     errorMessage = "Não é um endereço de e-mail válido. Deve ser seu@email.com",
@@ -90,8 +96,6 @@ fun ForgotPasswordScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ForgotPasswordScreen {
-
-        }
+        ForgotPasswordScreen(rememberNavController())
     }
 }
