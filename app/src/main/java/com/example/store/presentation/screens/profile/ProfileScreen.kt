@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -23,19 +26,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.presentation.common.LargeTopBar
+import com.example.store.presentation.common.StoreLargeTopBar
 import com.example.store.presentation.common.ThemePreviews
+import com.example.store.presentation.navigation.Screen
 import com.example.store.presentation.screens.profile.components.ProfileOptions
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun ProfileScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
         topBar = {
-            LargeTopBar(title = "Meu perfil", canNavigateBack = false )
+            StoreLargeTopBar(title = "Meu perfil", canNavigateBack = false )
         },
+        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
        Surface(
            modifier = modifier.padding(paddingValues)
@@ -50,11 +59,11 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                    name = "Matilda Brown",
                    email = "matildabrown@mail.com"
                )
-               Spacer(modifier = Modifier.height(36.dp))
+               Spacer(modifier = Modifier.height(46.dp))
                ProfileOptions(
                    onMyOrdersClick = { /* TODO */ },
-                   onMyReviewsClick = { /* TODO */ },
-                   onSettingsClick = { /* TODO */ }
+                   onMyReviewsClick = { /* TODO */  },
+                   onSettingsClick = { navController.navigate(Screen.Settings) }
                )
            }
        }
@@ -91,7 +100,7 @@ private fun ProfileHeader(
             )
             Text(
                 text = email,
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
                 fontWeight = FontWeight.SemiBold
             )
@@ -103,6 +112,6 @@ private fun ProfileHeader(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProfileScreen()
+        ProfileScreen(rememberNavController())
     }
 }

@@ -9,20 +9,21 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.view.WindowCompat
 
 val LightColorScheme = lightColorScheme(
     primary = lightPrimary,
     secondary = lightSecondary,
     tertiary = lightTertiary,
 
-    background = lightSurface,
+    background = lightBackground,
     surface = lightSurface,
     onPrimary = lightOnPrimary,
     onSecondary = lightOnSecondary,
     secondaryContainer = lightSecondaryContainer,
     onSecondaryContainer = lightOnSecondaryContainer,
     onTertiary = lightOnTertiary,
-    onBackground = lightOnSurface,
+    onBackground = lightOnBackground,
     onSurface = lightOnSurface,
     inverseOnSurface = lightInverseOnSurface,
     error = lightError,
@@ -34,12 +35,12 @@ val DarkColorScheme = darkColorScheme(
     secondary = darkSecondary,
     tertiary = darkNeutral,
 
-    background = darkSurface,
+    background = darkBackground,
     surface = darkSurface,
     onPrimary = darkOnPrimary,
     onSecondary = darkOnSecondary,
     onTertiary = darkOnNeutral,
-    onBackground = darkOnSurface,
+    onBackground = darkOnBackground,
     onSurface = darkOnSurface,
     inverseOnSurface = darkInverseOnSurface,
 
@@ -61,6 +62,7 @@ fun StoreTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
 
         darkTheme -> DarkColorScheme
         else -> LightColorScheme

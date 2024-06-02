@@ -6,11 +6,14 @@ import androidx.compose.ui.graphics.Color
 val lightPrimary = Color(0xFFDB3022)
 val lightOnPrimary = Color(0xFFFFFFFF)
 
+val lightBackground = Color(0xFF222222)
+val lightOnBackground = Color(0xFFFFFFFF)
+
 val lightSecondary= Color(0xFFFFFFFF)
 val lightOnSecondary = Color(0xFF9B9B9B)
 
 val lightSecondaryContainer = Color(0xFFFFFFFF)
-val lightOnSecondaryContainer = Color(0xFF9B9B9B)
+val lightOnSecondaryContainer = Color(0xFF222222)
 
 val lightSurface = Color(0xFFF9F9F9)
 val lightOnSurface = Color(0xFF222222)
@@ -27,10 +30,13 @@ val lightScrim = Color(0xFF2D2D2D)
 val darkPrimary = Color(0xFFEF3651)
 val darkOnPrimary = Color(0xFFF5F5F5)
 
+val darkBackground = Color(0xFFF6F6F6)
+val darkOnBackground = Color(0xFF2A2C36)
+
 val darkSecondary = Color(0xFFF6F6F6)
 val darkOnSecondary = Color(0xFF2A2C36)
 
-val darkSecondaryContainer = Color(0xFF1E1F28)
+val darkSecondaryContainer = Color(0xFF2A2C36)
 val darkOnSecondaryContainer = Color(0xFFABB4BD)
 
 val darkSurface = Color(0xFF1E1F28)

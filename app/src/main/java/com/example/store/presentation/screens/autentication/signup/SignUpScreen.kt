@@ -26,20 +26,21 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.presentation.common.CustomButton
 import com.example.store.presentation.common.CustomTextField
 import com.example.store.presentation.common.SocialAuthButton
 import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.common.LargeTopBar
-import com.example.store.presentation.common.ClickableText
+import com.example.store.presentation.common.StoreLargeTopBar
+import com.example.store.presentation.screens.autentication.components.CustomClickableText
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun SignUpScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
-    onLogin: () -> Unit,
-    onNavigateUp: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
@@ -49,10 +50,10 @@ fun SignUpScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            LargeTopBar(
+            StoreLargeTopBar(
                 title = "Criar conta",
                 canNavigateBack = true,
-                onNavigateUp = onNavigateUp
+                onNavigateUp = navController::navigateUp
             )
         }
     ) { paddingValues ->
@@ -61,14 +62,14 @@ fun SignUpScreen(
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
+                    .padding(start = 16.dp,end = 16.dp,top = 64.dp,bottom = 16.dp)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CustomTextField(
                     modifier = Modifier,
                     value = name,
-                    placeholder = "Nome",
+                    label = "Nome",
                     onValueChange = { name = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -84,7 +85,7 @@ fun SignUpScreen(
                 CustomTextField(
                     modifier = Modifier,
                     value = phoneNumber,
-                    placeholder = "Telefone",
+                    label = "Telefone",
                     onValueChange = { phoneNumber = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -100,7 +101,7 @@ fun SignUpScreen(
                 CustomTextField(
                     modifier = Modifier,
                     value = email,
-                    placeholder = "Email",
+                    label = "Email",
                     onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -115,7 +116,7 @@ fun SignUpScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomTextField(
                     value = password,
-                    placeholder = "Senha",
+                    label = "Senha",
                     onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
@@ -129,12 +130,12 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-                ClickableText(
+                CustomClickableText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Já tem uma conta?",
                     supportText = "Entrar",
-                    onClick = onLogin
+                    onClick = { navController.navigateUp() }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomButton(
@@ -168,9 +169,6 @@ fun SignUpScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        SignUpScreen(
-            onLogin = {},
-            onNavigateUp = {}
-        )
+        SignUpScreen(rememberNavController())
     }
 }

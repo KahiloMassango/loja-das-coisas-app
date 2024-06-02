@@ -11,11 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.store.presentation.navigation.Screen
 
 @Composable
 fun HomeScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
-    onAuthGraph: () -> Unit
 ) {
     Surface(
         modifier = modifier.padding()
@@ -28,7 +31,11 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Home")
-            Button(onClick = onAuthGraph) {
+            Button(
+                onClick = {
+                    navController.navigate(Screen.AuthGraph)
+                }
+            ) {
                 Text(text = "Auth Graph")
             }
         }

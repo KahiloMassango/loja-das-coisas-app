@@ -40,7 +40,7 @@ internal fun ProfileOptions(
             onClick = onMyOrdersClick
         )
 
-        Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        Divider(thickness = 0.8.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         ProfileOption(
             modifier = Modifier,
@@ -49,7 +49,7 @@ internal fun ProfileOptions(
             onClick =  onMyReviewsClick
         )
 
-        Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        Divider(thickness = 0.8.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         ProfileOption(
             modifier = Modifier,
@@ -85,7 +85,7 @@ private fun ProfileOption(
             ) {
                 Text(
                     text = option,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold
                 )

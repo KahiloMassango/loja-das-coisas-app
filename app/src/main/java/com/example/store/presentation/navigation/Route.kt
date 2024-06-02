@@ -1,52 +1,78 @@
 package com.example.store.presentation.navigation
 
-import androidx.annotation.DrawableRes
-import com.example.store.R
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.Category
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.PersonOutline
+import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
+@Serializable
+sealed interface Screen {
 
-sealed class Screen(val route: String) {
-    data object Home : Screen("Home")
-    data object Profile : Screen("Perfil")
-    data object Shop : Screen("Loja")
-    data object Cart : Screen("Carrinho")
-    data object Details : Screen("Detalhes")
+    @Serializable
+    data object TopLevelGraph : Screen
+    @Serializable
+    data object Home : Screen
+    @Serializable
+    data object Profile : Screen
+    @Serializable
+    data object Cart : Screen
+    @Serializable
+    data object Shop : Screen
 
-    data object AuthGraph : Screen("AuthGraph")
-    data object Login : Screen("Entar")
-    data object SignUp : Screen("Registar")
-    data object ForgotPassword : Screen("RecuperarSenha")
+    @Serializable
+    data object Settings : Screen
+    data object MyReviews : Screen
+    data object ProductDetails : Screen
+    @Serializable
+    data object AuthGraph : Screen
+    @Serializable
+    data object Login : Screen
+    @Serializable
+    data object SignUp : Screen
+    @Serializable
+    data object ForgotPassword : Screen
+
+
 }
 
-
 data class TopLevelDestination (
-    val route: String,
-    @DrawableRes
-    val unselectedIcon: Int,
-    @DrawableRes
-    val selectedIcon: Int
+    val title: String,
+    val route: Screen,
+    val unselectedIcon: ImageVector,
+    val selectedIcon: ImageVector
 )
 
 
 val TOP_LEVEL_DESTINATIONS = listOf(
     TopLevelDestination(
-        route = Screen.Home.route,
-        unselectedIcon = R.drawable.home,
-        selectedIcon = R.drawable.selected_home
+        title = "Home",
+        route = Screen.Home,
+        unselectedIcon = Icons.Outlined.Home,
+        selectedIcon = Icons.Filled.Home
     ),
     TopLevelDestination(
-        route = Screen.Shop.route,
-        unselectedIcon = R.drawable.shop,
-        selectedIcon = R.drawable.selected_shop
+        title = "Loja",
+        route = Screen.Shop,
+        unselectedIcon = Icons.Outlined.Category,
+        selectedIcon = Icons.Filled.Category
     ),
     TopLevelDestination(
-        route = Screen.Cart.route,
-        unselectedIcon = R.drawable.cart,
-        selectedIcon = R.drawable.selected_cart
+        title = "Carrinho",
+        route = Screen.Cart,
+        unselectedIcon = Icons.Outlined.ShoppingCart,
+        selectedIcon = Icons.Filled.ShoppingCart
     ),
     TopLevelDestination(
-        route = Screen.Profile.route,
-        unselectedIcon = R.drawable.profile,
-        selectedIcon = R.drawable.selected_profile
-    ),
+        title = "Perfil",
+        route = Screen.Profile,
+        unselectedIcon = Icons.Outlined.PersonOutline,
+        selectedIcon = Icons.Filled.Person
+    )
 )

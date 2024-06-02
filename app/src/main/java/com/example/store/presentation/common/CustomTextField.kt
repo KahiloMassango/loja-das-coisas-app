@@ -27,8 +27,9 @@ import com.example.store.ui.theme.StoreTheme
 fun CustomTextField(
     modifier: Modifier = Modifier,
     value: String,
-    placeholder: String,
+    label: String,
     isError: Boolean = false,
+    enabled: Boolean = true,
     errorMessage: String = "",
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -48,10 +49,11 @@ fun CustomTextField(
             onValueChange = { onValueChange(it) },
             shape = MaterialTheme.shapes.medium,
             singleLine = true,
-            textStyle = MaterialTheme.typography.bodyLarge,
+            enabled = enabled,
+            textStyle = MaterialTheme.typography.bodyMedium,
             label = {
                 Text(
-                    text = placeholder,
+                    text = label,
                     style = MaterialTheme.typography.bodySmall,
                     color = if(isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
                 )
@@ -66,7 +68,11 @@ fun CustomTextField(
                 focusedTextColor = MaterialTheme.colorScheme.scrim,
                 unfocusedTextColor = MaterialTheme.colorScheme.scrim,
                 errorTextColor = MaterialTheme.colorScheme.scrim,
-                errorContainerColor = MaterialTheme.colorScheme.secondaryContainer
+                errorContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledTextColor = MaterialTheme.colorScheme.inverseOnSurface,
+                disabledBorderColor = Color.Transparent,
+                disabledLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
+                disabledContainerColor = MaterialTheme.colorScheme.tertiary,
             ),
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
@@ -89,12 +95,12 @@ fun CustomTextField(
 private fun Preview() {
     StoreTheme {
         var value by remember {
-            mutableStateOf("Input text")
+            mutableStateOf("")
         }
         CustomTextField(
             value = value,
             onValueChange = { value = it },
-            placeholder = "Password",
+            label = "Password",
             isError = false,
             errorMessage = "Error Message"
 

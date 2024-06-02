@@ -2,26 +2,28 @@ package com.example.store.presentation.screens.cart
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.store.presentation.common.LargeTopBar
+import com.example.store.presentation.common.StoreLargeTopBar
 
 @Composable
 fun CartScreen(modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {
-            LargeTopBar(title = "Meu Carrinho", canNavigateBack = false )
+            StoreLargeTopBar(title = "Meu Carrinho", canNavigateBack = false )
         },
+        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
         ) { paddingValues ->
         Surface(
             modifier = modifier.padding(paddingValues)

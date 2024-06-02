@@ -26,21 +26,22 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.presentation.common.CustomButton
 import com.example.store.presentation.common.CustomTextField
 import com.example.store.presentation.common.SocialAuthButton
 import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.common.LargeTopBar
-import com.example.store.presentation.common.ClickableText
+import com.example.store.presentation.common.StoreLargeTopBar
+import com.example.store.presentation.navigation.Screen
+import com.example.store.presentation.screens.autentication.components.CustomClickableText
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
-    onNavigateUp: () -> Unit,
-    onSignUp: () -> Unit,
-    onForgotPassword: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
@@ -48,7 +49,11 @@ fun LoginScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            LargeTopBar(title = "Login", canNavigateBack = true, onNavigateUp = onNavigateUp)
+            StoreLargeTopBar(
+                title = "Login",
+                canNavigateBack = true,
+                onNavigateUp = navController::navigateUp
+            )
         }
     ) { paddingValues ->
         Surface(
@@ -58,14 +63,14 @@ fun LoginScreen(
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
+                    .padding(start = 16.dp,end = 16.dp,top = 64.dp,bottom = 16.dp)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CustomTextField(
                     modifier = Modifier,
                     value = email,
-                    placeholder = "Email",
+                    label = "Email",
                     onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -80,7 +85,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomTextField(
                     value = password,
-                    placeholder = "Password",
+                    label = "Password",
                     onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
@@ -94,13 +99,13 @@ fun LoginScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-                ClickableText(
+                CustomClickableText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Esqueceu sua password?",
-                    onClick = onForgotPassword
+                    onClick = { navController.navigate(Screen.ForgotPassword) }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(32.dp))
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "ENTRAR",
@@ -124,13 +129,13 @@ fun LoginScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(46.dp))
-                ClickableText(
+                CustomClickableText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Não tem uma conta?",
                     supportText = "Criar",
                     textArrangement = Arrangement.Center,
-                    onClick = onSignUp
+                    onClick =  { navController.navigate(Screen.SignUp) }
                 )
             }
         }
@@ -141,10 +146,6 @@ fun LoginScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        LoginScreen(
-            onSignUp = {},
-            onForgotPassword = {},
-            onNavigateUp = {}
-        )
+        LoginScreen(rememberNavController())
     }
 }

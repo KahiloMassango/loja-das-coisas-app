@@ -26,7 +26,7 @@ fun CustomButton(
         )
     ) {
         Text(
-            modifier = Modifier.padding(vertical = 6.dp),
+            modifier = Modifier.padding(5.dp),
             text = text,
             style = MaterialTheme.typography.bodyMedium
         )
