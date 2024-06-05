@@ -28,7 +28,8 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListingContent(
+fun ProductListingGrid(
+    onProductClick: () -> Unit,
     modifier: Modifier = Modifier,
 
 ) {
@@ -76,16 +77,16 @@ fun ProductListingContent(
                 }
             }
             LazyVerticalGrid(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(18.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
                 horizontalArrangement = Arrangement.spacedBy(18.dp)
             ) {
                 repeat(15) {
                     item {
                         ProductCard(
                             modifier = Modifier,
-                            onClick = { /* TODO */ }
+                            onClick = { onProductClick() }
                         )
                     }
                 }
@@ -98,6 +99,6 @@ fun ProductListingContent(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductListingContent()
+        ProductListingGrid({})
     }
 }

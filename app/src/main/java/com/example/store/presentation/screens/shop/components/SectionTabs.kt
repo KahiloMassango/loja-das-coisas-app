@@ -34,7 +34,7 @@ internal fun ShopSectionTabs(
                 Text(
                     modifier = Modifier.padding(vertical = 14.dp),
                     text = section.second,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = if(selectedSection.ordinal == index) FontWeight.SemiBold else FontWeight.Normal
                 )
             }

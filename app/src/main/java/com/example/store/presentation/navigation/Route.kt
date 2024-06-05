@@ -4,40 +4,42 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.PersonOutline
+import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface Screen {
+sealed interface Screen{
 
     @Serializable
-    data object TopLevelGraph : Screen
+    data object TopLevelGraph: Screen
     @Serializable
-    data object Home : Screen
+    data object Home: Screen
     @Serializable
-    data object Profile : Screen
+    data object Profile: Screen
     @Serializable
-    data object Cart : Screen
+    data object Cart: Screen
     @Serializable
-    data object Shop : Screen
-
+    data object Shop: Screen
     @Serializable
-    data object Settings : Screen
-    data object MyReviews : Screen
-    data object ProductDetails : Screen
+    data object Settings: Screen
+    data object MyReviews: Screen
     @Serializable
-    data object AuthGraph : Screen
+    data object ProductDetail: Screen
     @Serializable
-    data object Login : Screen
+    data object AuthGraph: Screen
     @Serializable
-    data object SignUp : Screen
+    data object Login: Screen
     @Serializable
-    data object ForgotPassword : Screen
+    data object SignUp: Screen
+    @Serializable
+    data object ForgotPassword: Screen
 
 
 }
@@ -60,14 +62,14 @@ val TOP_LEVEL_DESTINATIONS = listOf(
     TopLevelDestination(
         title = "Loja",
         route = Screen.Shop,
-        unselectedIcon = Icons.Outlined.Category,
-        selectedIcon = Icons.Filled.Category
+        unselectedIcon = Icons.Outlined.ShoppingCart,
+        selectedIcon = Icons.Filled.ShoppingCart
     ),
     TopLevelDestination(
         title = "Carrinho",
         route = Screen.Cart,
-        unselectedIcon = Icons.Outlined.ShoppingCart,
-        selectedIcon = Icons.Filled.ShoppingCart
+        unselectedIcon = Icons.Outlined.ShoppingBag,
+        selectedIcon = Icons.Filled.ShoppingBag
     ),
     TopLevelDestination(
         title = "Perfil",

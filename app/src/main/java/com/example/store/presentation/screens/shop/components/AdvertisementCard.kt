@@ -40,7 +40,7 @@ internal fun AdvertisementCard(
         ) {
             Text(
                 text = mainText.uppercase(),
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold
             )
             if(description != null) {

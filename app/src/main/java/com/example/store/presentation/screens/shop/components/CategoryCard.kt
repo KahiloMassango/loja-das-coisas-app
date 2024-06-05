@@ -49,9 +49,9 @@ internal fun CategoryCard(
             Text(
                 modifier = Modifier.weight(1f),
                 text = category.description,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
             Image(
                 modifier = Modifier

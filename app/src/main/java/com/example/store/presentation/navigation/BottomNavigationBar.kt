@@ -1,8 +1,6 @@
-package com.example.store.presentation.common
+package com.example.store.presentation.navigation
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandIn
-import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -24,8 +22,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.store.presentation.navigation.Screen
-import com.example.store.presentation.navigation.TOP_LEVEL_DESTINATIONS
 
 private val navBarRoutes = TOP_LEVEL_DESTINATIONS.map { it.route::class }
 
@@ -48,6 +44,8 @@ fun BottomNavigationBar(
 
     AnimatedVisibility(
         visible = showBottomBar,
+        enter = slideInVertically(initialOffsetY = { it/2 }),
+        exit = slideOutVertically(targetOffsetY = { it/2 }),
     ){
         NavigationBar(
             modifier = modifier

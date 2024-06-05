@@ -30,13 +30,13 @@ fun DeliveryMethodSelector(
             title = "Entrega",
             description = "$deliveryPrice kz",
             selected = true,
-            onSelect = { /*TODO*/ }
+            onClick = { /*TODO*/ }
         )
         DeliveryMethodCard(
             title = "Levantar",
             description = "Grátis",
             selected = false,
-            onSelect = { /*TODO*/ }
+            onClick = { /*TODO*/ }
         )
     }
 }
@@ -48,18 +48,17 @@ private fun DeliveryMethodCard(
     title: String,
     description: String,
     selected: Boolean,
-    onSelect: () -> Unit
+    onClick: () -> Unit
 ) {
     OutlinedCard(
         modifier = modifier,
-        onClick = { /*TODO*/},
+        onClick = onClick,
         colors = CardDefaults.outlinedCardColors(
             containerColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
             contentColor = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
         ),
-        border = BorderStroke(
-            1.dp,
-            if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseSurface
+        border = BorderStroke(1.dp, if (selected) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.inverseSurface
         )
     ) {
         Column(
