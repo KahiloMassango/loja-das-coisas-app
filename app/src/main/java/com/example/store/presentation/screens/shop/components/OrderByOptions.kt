@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +32,7 @@ internal fun OrderByOptions(
 ) {
 
     ModalBottomSheet(
+        modifier = modifier.navigationBarsPadding(),
         sheetState = state,
         containerColor = MaterialTheme.colorScheme.onBackground,
         contentColor = MaterialTheme.colorScheme.background,
@@ -41,7 +43,7 @@ internal fun OrderByOptions(
         }
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 4.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),

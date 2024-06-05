@@ -49,7 +49,7 @@ fun ShippingAddressCard(
 
             Text(
                 modifier = Modifier.clickable { onChangeAddress() },
-                text = "Change",
+                text = "Alterar",
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Medium
             )

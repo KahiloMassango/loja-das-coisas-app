@@ -1,7 +1,7 @@
 package com.example.store.presentation.screens.shop.components
 
 
-internal data class Filter(val name: String, val description: String)
+data class Filter(val name: String, val description: String)
 
 
 internal val filterList = listOf(
