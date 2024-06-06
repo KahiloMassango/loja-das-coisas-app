@@ -17,16 +17,16 @@ import androidx.compose.ui.unit.dp
 import com.example.store.presentation.common.StoreCenteredTopBar
 
 @Composable
-fun ShopCategories(
-    currentSection: ShopSection,
-    onSectionClick: (ShopSection) -> Unit,
+fun CategorySelectionScreen(
+    currentSection: CategorySection,
+    onSectionClick: (CategorySection) -> Unit,
     onCategoryClick: (category: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
-                title = "Categoria",
+                title = "Categorias",
                 canNavigateBack = false
             )
         },
@@ -59,26 +59,20 @@ fun ShopCategories(
                         label = ""
                     ) { section ->
                         when (section) {
-                            ShopSection.Women -> CategoriesList(
+                            CategorySection.Women -> CategoriesList(
                                 categories = womenCategories,
                                 onCategoryClick = { category ->
                                     onCategoryClick(category)
                                 }
                             )
-                            ShopSection.Men -> CategoriesList(
+                            CategorySection.Men -> CategoriesList(
                                 categories = menCategories,
                                 onCategoryClick = { category ->
                                     onCategoryClick(category)
                                 }
                             )
-                            ShopSection.Kids -> CategoriesList(
+                            CategorySection.Kids -> CategoriesList(
                                 categories = kidsCategories,
-                                onCategoryClick = { category ->
-                                    onCategoryClick(category)
-                                }
-                            )
-                            else -> CategoriesList(
-                                categories = womenCategories,
                                 onCategoryClick = { category ->
                                     onCategoryClick(category)
                                 }

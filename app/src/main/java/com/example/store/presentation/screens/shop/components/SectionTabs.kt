@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun ShopSectionTabs(
-    selectedSection: ShopSection,
-    onTabClick: (ShopSection) -> Unit,
+    selectedSection: CategorySection,
+    onTabClick: (CategorySection) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 

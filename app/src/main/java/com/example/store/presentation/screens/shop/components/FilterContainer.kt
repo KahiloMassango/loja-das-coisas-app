@@ -66,7 +66,7 @@ private fun Preview() {
     StoreTheme {
         FilterContainer(
             onFilterSelected = {},
-            filters = filterList
+            filters = getCategorySectionFilters(CategorySection.Kids)
         )
     }
 }
