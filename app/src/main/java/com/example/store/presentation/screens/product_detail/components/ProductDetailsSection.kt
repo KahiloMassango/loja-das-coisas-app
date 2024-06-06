@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.detail.components
+package com.example.store.presentation.screens.product_detail.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.store.R
-import com.example.store.presentation.common.CustomButton
 import com.example.store.presentation.common.StarRating
 
 @Composable

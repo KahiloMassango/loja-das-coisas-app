@@ -1,6 +1,5 @@
-package com.example.store.presentation.screens.detail
+package com.example.store.presentation.screens.product_detail
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,16 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,11 +31,11 @@ import com.example.store.presentation.common.CustomButton
 import com.example.store.presentation.common.FavoriteButton
 import com.example.store.presentation.common.StoreCenteredTopBar
 import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.screens.checkout.components.ColorSelector
-import com.example.store.presentation.screens.checkout.components.SizeSelector
-import com.example.store.presentation.screens.detail.components.ProductDetailsSection
-import com.example.store.presentation.screens.detail.components.ProductImageSlider
-import com.example.store.presentation.screens.detail.components.RelatedProductsSection
+import com.example.store.presentation.screens.product_detail.components.AttributeSelector
+import com.example.store.presentation.screens.product_detail.components.ProductAttributeSection
+import com.example.store.presentation.screens.product_detail.components.ProductDetailsSection
+import com.example.store.presentation.screens.product_detail.components.ProductImageCarousel
+import com.example.store.presentation.screens.product_detail.components.RelatedProductsSection
 import com.example.store.ui.theme.StoreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -51,7 +43,7 @@ import kotlinx.coroutines.launch
 val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(
+fun ProductDetailsScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
@@ -70,12 +62,13 @@ fun DetailScreen(
     val isFavorite = false
 
     if(showSizeOptions) {
-        SizeSelector(
+        AttributeSelector(
             state = sizeOptionsState,
-            selectedSize = selectedSize,
-            sizeOptions = availableSizes,
+            selectorDescription = "Selecionar tamanho",
+            selectedAttribute =  selectedSize,
+            attributes = availableSizes,
             onDismissRequest = { showSizeOptions = false },
-            onSelectSize = { size ->
+            onSelectAttribute = { size ->
                 selectedSize = size
                 coroutineScope.launch {
                     delay(350)
@@ -87,12 +80,13 @@ fun DetailScreen(
         )
     }
     if(showColorOptions) {
-        ColorSelector(
+        AttributeSelector(
             state = colorOptionsState,
-            selectedColor = selectedColor,
-            colors = availableColors,
+            selectorDescription = "Selecionar cor",
+            selectedAttribute = selectedColor,
+            attributes = availableColors,
             onDismissRequest = { showColorOptions = false },
-            onSelectColor = { color ->
+            onSelectAttribute = { color ->
                 selectedColor = color
                 coroutineScope.launch {
                     delay(350)
@@ -122,7 +116,7 @@ fun DetailScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
             ) {
-                ProductImageSlider(images = images)
+                ProductImageCarousel(images = images)
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -133,17 +127,12 @@ fun DetailScreen(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        AttributeSelector(
+                        ProductAttributeSection(
                             modifier = Modifier.weight(1f),
-                            attribute = "Tamanho",
-                            selectedAttribute = selectedSize,
-                            onClick = { showSizeOptions = true }
-                        )
-                        AttributeSelector(
-                            modifier = Modifier.weight(1f),
-                            attribute = "Cor",
-                            selectedAttribute = selectedColor,
-                            onClick = { showColorOptions = true }
+                            selectedSize = selectedSize,
+                            selectedColor = selectedColor,
+                            showSizeOptions = { showSizeOptions = true },
+                            showColorOptions = { showColorOptions = true }
                         )
                         FavoriteButton(
                             modifier = Modifier,
@@ -168,49 +157,10 @@ fun DetailScreen(
 }
 
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun AttributeSelector(
-    attribute: String,
-    selectedAttribute: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-
-    OutlinedCard(
-        modifier = modifier ,
-        onClick = onClick,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.inverseOnSurface),
-        colors = CardDefaults.outlinedCardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
-            contentColor = MaterialTheme.colorScheme.onTertiary
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "$attribute: $selectedAttribute",
-                style = MaterialTheme.typography.labelMedium
-            )
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = "Show size options" // Add content description
-            )
-        }
-    }
-}
-
-
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        DetailScreen(rememberNavController())
+        ProductDetailsScreen(rememberNavController())
     }
 }

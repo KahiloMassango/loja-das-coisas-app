@@ -13,7 +13,7 @@ import com.example.store.presentation.common.ThemePreviews
 import com.example.store.presentation.navigation.Screen
 import com.example.store.presentation.navigation.navGraphs.authNavGraph
 import com.example.store.presentation.navigation.navGraphs.topLevelGraph
-import com.example.store.presentation.screens.detail.DetailScreen
+import com.example.store.presentation.screens.product_detail.ProductDetailsScreen
 import com.example.store.presentation.screens.settings.SettingsScreen
 import com.example.store.ui.theme.StoreTheme
 
@@ -39,7 +39,7 @@ fun NavigationGraph(
             }
 
             composable<Screen.ProductDetail> {
-                DetailScreen(navController,)
+                ProductDetailsScreen(navController,)
             }
 
         }
