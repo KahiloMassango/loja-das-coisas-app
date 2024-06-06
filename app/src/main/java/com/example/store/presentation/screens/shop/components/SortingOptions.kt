@@ -23,7 +23,7 @@ import com.example.store.presentation.common.CustomDragHandle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun OrderByOptions(
+internal fun SortingOptions(
     state: SheetState,
     selectedOption: Int,
     onDismissRequest: () -> Unit,

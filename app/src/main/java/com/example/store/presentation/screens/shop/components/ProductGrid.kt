@@ -13,11 +13,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,29 +26,31 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListingGrid(
-    onProductClick: () -> Unit,
+fun ProductGrid(
     modifier: Modifier = Modifier,
+    products: List<Any> = emptyList(),
+    onProductClick: () -> Unit,
+    selectedOption: Int = 0,
+    onOptionClick: (Int) -> Unit
 
 ) {
-    var showOrderByOptions by remember { mutableStateOf(false) }
-    var selectedOption by rememberSaveable { mutableIntStateOf(0) }
+    var isSortingOptionOpen by remember { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
 
 
-    if (showOrderByOptions){
-        OrderByOptions(
+    if (isSortingOptionOpen){
+        SortingOptions(
             state = bottomSheetState,
             selectedOption = selectedOption,
             onOptionClick = {
-                selectedOption = it
+                onOptionClick(it)
              coroutineScope.launch {
                  bottomSheetState.hide()
-             }   .invokeOnCompletion { showOrderByOptions = false }
+             }   .invokeOnCompletion { isSortingOptionOpen = false }
             },
             onDismissRequest = {
-                showOrderByOptions = false
+                isSortingOptionOpen = false
             }
         )
     }
@@ -70,9 +70,9 @@ fun ProductListingGrid(
                     modifier = Modifier
                         .fillMaxWidth(),
                 ) {
-                    OrderByButton(
+                    SortingHeader(
                         modifier = Modifier.padding(start = 16.dp, bottom = 4.dp),
-                        onClick = { showOrderByOptions = true }
+                        onClick = { isSortingOptionOpen = true }
                     )
                 }
             }
@@ -99,6 +99,9 @@ fun ProductListingGrid(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductListingGrid({})
+        ProductGrid(
+            onProductClick = {},
+            onOptionClick = {}
+        )
     }
 }

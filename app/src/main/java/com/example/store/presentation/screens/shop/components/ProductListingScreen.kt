@@ -12,25 +12,33 @@ import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.common.StoreCenteredTopBar
 
 @Composable
-fun ProductListingContent(
-    title: String,
-    category: String,
+fun ProductListingScreen(
+    productSection: CategorySection,
+    productCategory: String,
     filterList: List<Filter>,
+    onFilterChange: (String) -> Unit,
     onProductClick: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var currentFilter by remember {
+        mutableStateOf(getCategorySectionFilters(productSection).first().name) }
+    var selectedOption by remember { mutableStateOf(0) }
     BackHandler { onNavigateUp() }
     Scaffold(
         modifier = modifier,
         topBar = {
             StoreCenteredTopBar(
-                title = title,
+                title = productSection.getSectionTitle(),
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )
@@ -43,17 +51,20 @@ fun ProductListingContent(
             Column(
                 Modifier.fillMaxSize()
             ) {
-                if (category != "Shoes") {
+                if (productCategory != "Shoes") {
                     FilterContainer(
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         filters = filterList,
-                        onFilterSelected = { /* TODO */ }
+                        selected = currentFilter,
+                        onSelectFilter = { currentFilter = it }
                     )
                 }
-                ProductListingGrid(
+                ProductGrid(
                     modifier = Modifier,
+                    selectedOption = selectedOption,
+                    onOptionClick = { selectedOption = it },
                     onProductClick = { onProductClick() }
                 )
             }

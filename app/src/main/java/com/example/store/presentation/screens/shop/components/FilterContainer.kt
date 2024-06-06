@@ -25,22 +25,19 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 internal fun FilterContainer(
     filters: List<Filter>,
-    onFilterSelected: (String) -> Unit,
+    selected: String,
+    onSelectFilter: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selected by rememberSaveable { mutableIntStateOf(0) }
     Row(
         modifier = modifier.horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        filters.forEachIndexed { index, filter ->
+        filters.forEach{ filter ->
             FilterChip(
-                selected = selected == index,
-                onClick = {
-                    onFilterSelected(filter.name)
-                    selected = index
-                          },
+                    selected = selected == filter.name,
+                onClick = { onSelectFilter(filter.name) },
                 label = { Text(text = filter.description) },
                 shape = RoundedCornerShape(50),
                 colors = FilterChipDefaults.filterChipColors(
@@ -64,9 +61,9 @@ internal fun FilterContainer(
 @Composable
 private fun Preview() {
     StoreTheme {
-        FilterContainer(
-            onFilterSelected = {},
+       /* FilterContainer(
+            onSelectFilter = {},
             filters = getCategorySectionFilters(CategorySection.Kids)
-        )
+        )*/
     }
 }

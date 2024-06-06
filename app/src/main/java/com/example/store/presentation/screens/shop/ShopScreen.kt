@@ -13,11 +13,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.common.ThemePreviews
 import com.example.store.presentation.navigation.Screen
 import com.example.store.presentation.screens.shop.components.CategorySection
-import com.example.store.presentation.screens.shop.components.ProductListingContent
 import com.example.store.presentation.screens.shop.components.CategorySelectionScreen
+import com.example.store.presentation.screens.shop.components.ProductListingScreen
 import com.example.store.presentation.screens.shop.components.ShopSection
 import com.example.store.presentation.screens.shop.components.getCategorySectionFilters
-import com.example.store.presentation.screens.shop.components.getSectionTitle
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
@@ -26,22 +25,22 @@ fun ShopScreen(
     modifier: Modifier = Modifier,
 ) {
     // State to keep track of the current content being displayed on the ShopScreen
-    var currentShopContent by rememberSaveable { mutableStateOf(ShopSection.Categories) }
+    var currentShopContent by rememberSaveable { mutableStateOf(ShopSection.Products) }
 
     // State to save the current category section when navigating back from ShopCategories
     var currentCategorySection by rememberSaveable { mutableStateOf(CategorySection.Women) }
     var selectedCategory by rememberSaveable { mutableStateOf("") }
-
     AnimatedContent(
         modifier = modifier,
         targetState = currentShopContent,
         label = "AnimatedContent"
     ) { section ->
         when(section) {
-            ShopSection.Products -> ProductListingContent(
-                title = currentCategorySection.getSectionTitle(),
-                category = selectedCategory,
+            ShopSection.Products -> ProductListingScreen(
+                productSection = currentCategorySection,
+                productCategory = selectedCategory,
                 filterList= getCategorySectionFilters(currentCategorySection),
+                onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = {
                     navController.navigate(Screen.ProductDetail)
                 },

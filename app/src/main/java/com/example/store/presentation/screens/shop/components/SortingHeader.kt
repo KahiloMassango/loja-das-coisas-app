@@ -19,7 +19,7 @@ import com.example.store.R
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
-internal fun OrderByButton(
+fun SortingHeader(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -50,7 +50,7 @@ internal fun OrderByButton(
 @Composable
 private fun Preview() {
     StoreTheme {
-        OrderByButton {
+        SortingHeader {
 
         }
     }
