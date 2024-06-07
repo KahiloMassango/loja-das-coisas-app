@@ -10,13 +10,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.navigation.Screen
-import com.example.store.presentation.screens.shop.components.CategorySection
-import com.example.store.presentation.screens.shop.components.CategorySelectionScreen
-import com.example.store.presentation.screens.shop.components.ProductListingScreen
-import com.example.store.presentation.screens.shop.components.ShopSection
-import com.example.store.presentation.screens.shop.components.getCategorySectionFilters
+import com.example.store.presentation.component.ThemePreviews
+import com.example.store.navigation.Screen
+import com.example.store.presentation.screens.shop.model.CategorySection
+import com.example.store.presentation.screens.shop.component.CategorySelectionScreen
+import com.example.store.presentation.screens.shop.component.ProductListingScreen
+import com.example.store.presentation.screens.shop.model.ShopSection
+import com.example.store.presentation.screens.shop.model.getCategorySectionFilters
 import com.example.store.ui.theme.StoreTheme
 
 @Composable

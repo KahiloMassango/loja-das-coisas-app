@@ -21,12 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import com.example.store.presentation.common.CustomButton
-import com.example.store.presentation.common.StoreCenteredTopBar
-import com.example.store.presentation.screens.checkout.components.DeliveryMethodSelector
-import com.example.store.presentation.screens.checkout.components.ShippingAddressCard
+import com.example.store.presentation.component.CustomButton
+import com.example.store.presentation.component.StoreCenteredTopBar
+import com.example.store.presentation.screens.checkout.component.DeliveryMethodSelector
+import com.example.store.presentation.screens.checkout.component.ShippingAddressCard
 import com.example.store.ui.theme.StoreTheme
 
 @Composable

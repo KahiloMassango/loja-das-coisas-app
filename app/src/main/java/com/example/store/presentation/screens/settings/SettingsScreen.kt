@@ -32,11 +32,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.store.presentation.common.CustomTextField
-import com.example.store.presentation.common.StoreLargeTopBar
-import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.screens.settings.components.ChangePasswordContainer
-import com.example.store.presentation.screens.settings.components.NotificationPreferences
+import com.example.store.presentation.component.CustomTextField
+import com.example.store.presentation.component.StoreLargeTopBar
+import com.example.store.presentation.component.ThemePreviews
+import com.example.store.presentation.screens.settings.component.ChangePasswordContainer
+import com.example.store.presentation.screens.settings.component.NotificationPreferences
 import com.example.store.ui.theme.StoreTheme
 
 @Composable

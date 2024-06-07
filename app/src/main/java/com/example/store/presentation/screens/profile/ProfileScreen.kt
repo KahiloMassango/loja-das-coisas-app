@@ -29,10 +29,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.presentation.common.StoreLargeTopBar
-import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.navigation.Screen
-import com.example.store.presentation.screens.profile.components.ProfileOptions
+import com.example.store.presentation.component.StoreLargeTopBar
+import com.example.store.presentation.component.ThemePreviews
+import com.example.store.navigation.Screen
+import com.example.store.presentation.screens.profile.component.ProfileOptions
 import com.example.store.ui.theme.StoreTheme
 
 @Composable

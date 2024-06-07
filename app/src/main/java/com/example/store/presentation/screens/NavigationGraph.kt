@@ -8,11 +8,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.store.presentation.navigation.BottomNavigationBar
-import com.example.store.presentation.common.ThemePreviews
-import com.example.store.presentation.navigation.Screen
-import com.example.store.presentation.navigation.navGraphs.authNavGraph
-import com.example.store.presentation.navigation.navGraphs.topLevelGraph
+import com.example.store.navigation.BottomNavigationBar
+import com.example.store.presentation.component.ThemePreviews
+import com.example.store.navigation.Screen
+import com.example.store.navigation.navGraphs.authNavGraph
+import com.example.store.navigation.navGraphs.topLevelGraph
 import com.example.store.presentation.screens.product_detail.ProductDetailsScreen
 import com.example.store.presentation.screens.settings.SettingsScreen
 import com.example.store.ui.theme.StoreTheme
