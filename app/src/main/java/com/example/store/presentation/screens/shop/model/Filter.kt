@@ -26,10 +26,10 @@ private val kidsFilters = listOf(
     Filter("Blouses","Blusas")
 )
 
-val sectionFilters = mapOf(
+private val sectionFilters = mapOf(
     ShopSection.Women to womenFilters,
     ShopSection.Men to menFilters,
     ShopSection.Kids to kidsFilters
 )
 
-fun getCategorySectionFilters(section: ShopSection): List<Filter> = sectionFilters[section]!!
+fun getSectionFilters(section: ShopSection): List<Filter> = sectionFilters[section]!!
