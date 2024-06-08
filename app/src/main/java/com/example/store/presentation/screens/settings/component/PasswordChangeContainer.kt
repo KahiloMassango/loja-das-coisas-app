@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,26 +18,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.store.presentation.screens.autentication.component.CustomClickableText
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.CustomDragHandle
 import com.example.store.presentation.component.CustomTextField
+import com.example.store.presentation.screens.autentication.component.CustomClickableText
+import com.example.store.presentation.screens.settings.model.ChangePasswordUiState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ChangePasswordContainer(
+fun PasswordChangeContainer(
     modifier: Modifier = Modifier,
+    state: SheetState,
+    onSave: (oldPassword: String, newPassword: String) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    var oldPassword by remember { mutableStateOf("") }
-    var newPassword by remember { mutableStateOf("") }
-    var rePassword by remember { mutableStateOf("") }
+    var uiState by remember { mutableStateOf(ChangePasswordUiState()) }
 
     ModalBottomSheet(
+        sheetState = state,
         modifier = Modifier.navigationBarsPadding(),
-        containerColor = MaterialTheme.colorScheme.background,
-        contentColor = MaterialTheme.colorScheme.onBackground,
+        containerColor = MaterialTheme.colorScheme.onBackground,
+        contentColor = MaterialTheme.colorScheme.background,
         onDismissRequest = onDismissRequest,
         dragHandle = {
             CustomDragHandle("Alterar Password")
@@ -52,10 +55,9 @@ internal fun ChangePasswordContainer(
         ) {
             CustomTextField(
                 modifier = Modifier,
-                value = oldPassword,
+                value = uiState.oldPassword,
                 label = "Old Password",
-                enabled = true,
-                onValueChange = { oldPassword = it },
+                onValueChange = { uiState = uiState.copy(oldPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
             CustomClickableText(
@@ -67,24 +69,24 @@ internal fun ChangePasswordContainer(
             )
             CustomTextField(
                 modifier = Modifier,
-                value = newPassword,
+                value = uiState.newPassword,
                 label = "New Password",
-                enabled = true,
-                onValueChange = { newPassword = it },
+                onValueChange = { uiState = uiState.copy(newPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
             CustomTextField(
                 modifier = Modifier,
-                value = rePassword,
+                value = uiState.repeatPassword,
                 label = "Repeat Password",
-                enabled = true,
-                onValueChange = { rePassword = it },
+                onValueChange = { uiState = uiState.copy(repeatPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
             CustomButton(
                 modifier = Modifier.padding(bottom = 16.dp),
                 text = "SALVAR",
-                onClick = { /* TODO */ }
+                onClick = {
+                    onSave(uiState.oldPassword, uiState.newPassword)
+                }
             )
         }
     }

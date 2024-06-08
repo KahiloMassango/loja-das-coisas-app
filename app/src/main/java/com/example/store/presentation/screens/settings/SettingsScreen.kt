@@ -12,14 +12,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,10 +38,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.component.CustomTextField
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.screens.settings.component.ChangePasswordContainer
+import com.example.store.presentation.screens.settings.component.PasswordChangeContainer
 import com.example.store.presentation.screens.settings.component.NotificationPreferences
 import com.example.store.ui.theme.StoreTheme
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     navController: NavController,
@@ -47,9 +52,17 @@ fun SettingsScreen(
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
     var showPasswordChangeContainer by remember { mutableStateOf(false) }
+    val passwordChangeContainerState = rememberModalBottomSheetState()
+    val coroutineScope = rememberCoroutineScope()
 
     if (showPasswordChangeContainer) {
-        ChangePasswordContainer(
+        PasswordChangeContainer(
+            state = passwordChangeContainerState,
+            onSave = { _, _ ->
+                coroutineScope.launch {
+                    passwordChangeContainerState.hide()
+                }.invokeOnCompletion { showPasswordChangeContainer = false }
+            },
             onDismissRequest = { showPasswordChangeContainer = false }
         )
     }
@@ -63,7 +76,7 @@ fun SettingsScreen(
             )
         },
         topBar = {
-            StoreLargeTopBar(title = "Definições", canNavigateBack = true) {navController.navigateUp() }
+            StoreLargeTopBar(title = "Definições", canNavigateBack = true) { navController.navigateUp() }
         }
     ) { paddingValues ->
         Surface(
