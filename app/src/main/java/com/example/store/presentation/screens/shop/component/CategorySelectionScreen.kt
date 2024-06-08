@@ -15,15 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.StoreCenteredTopBar
-import com.example.store.presentation.screens.shop.model.CategorySection
+import com.example.store.presentation.screens.shop.model.ShopSection
 import com.example.store.presentation.screens.shop.model.kidsCategories
 import com.example.store.presentation.screens.shop.model.menCategories
 import com.example.store.presentation.screens.shop.model.womenCategories
 
 @Composable
 fun CategorySelectionScreen(
-    currentSection: CategorySection,
-    onSectionClick: (CategorySection) -> Unit,
+    currentSection: ShopSection,
+    onSectionClick: (ShopSection) -> Unit,
     onCategoryClick: (category: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -63,19 +63,19 @@ fun CategorySelectionScreen(
                         label = ""
                     ) { section ->
                         when (section) {
-                            CategorySection.Women -> CategoriesList(
+                            ShopSection.Women -> CategoriesList(
                                 categories = womenCategories,
                                 onCategoryClick = { category ->
                                     onCategoryClick(category)
                                 }
                             )
-                            CategorySection.Men -> CategoriesList(
+                            ShopSection.Men -> CategoriesList(
                                 categories = menCategories,
                                 onCategoryClick = { category ->
                                     onCategoryClick(category)
                                 }
                             )
-                            CategorySection.Kids -> CategoriesList(
+                            ShopSection.Kids -> CategoriesList(
                                 categories = kidsCategories,
                                 onCategoryClick = { category ->
                                     onCategoryClick(category)

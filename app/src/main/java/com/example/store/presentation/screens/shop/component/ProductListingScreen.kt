@@ -19,14 +19,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.StoreCenteredTopBar
-import com.example.store.presentation.screens.shop.model.CategorySection
+import com.example.store.presentation.screens.shop.model.ShopSection
 import com.example.store.presentation.screens.shop.model.Filter
 import com.example.store.presentation.screens.shop.model.getCategorySectionFilters
 import com.example.store.presentation.screens.shop.model.getSectionTitle
 
 @Composable
 fun ProductListingScreen(
-    productSection: CategorySection,
+    productSection: ShopSection,
     productCategory: String,
     filterList: List<Filter>,
     onFilterChange: (String) -> Unit,

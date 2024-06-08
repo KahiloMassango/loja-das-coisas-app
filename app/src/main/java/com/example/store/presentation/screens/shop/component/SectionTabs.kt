@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.presentation.screens.shop.model.CategorySection
-import com.example.store.presentation.screens.shop.model.storeSections
+import com.example.store.presentation.screens.shop.model.ShopSection
+import com.example.store.presentation.screens.shop.model.shopSections
 
 @Composable
 internal fun ShopSectionTabs(
-    selectedSection: CategorySection,
-    onTabClick: (CategorySection) -> Unit,
+    selectedSection: ShopSection,
+    onTabClick: (ShopSection) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -26,7 +26,7 @@ internal fun ShopSectionTabs(
         contentColor = MaterialTheme.colorScheme.onSurface,
         divider = {}
     ) {
-        storeSections.forEachIndexed { index, section ->
+        shopSections.forEachIndexed { index, section ->
             Tab(
                 selected = selectedSection.ordinal == index,
                 onClick = {

@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.navigation.Screen
-import com.example.store.presentation.screens.shop.model.CategorySection
+import com.example.store.presentation.screens.shop.model.ShopSection
 import com.example.store.presentation.screens.shop.component.CategorySelectionScreen
 import com.example.store.presentation.screens.shop.component.ProductListingScreen
 import com.example.store.presentation.screens.shop.model.ShopContent
@@ -21,9 +21,8 @@ import com.example.store.ui.theme.StoreTheme
 
 data class ShopScreenUiState(
     val content: ShopContent = ShopContent.Categories,
-    val categorySection: CategorySection = CategorySection.Women,
-    val selectedCategory: String = ""
-
+    val section: ShopSection = ShopSection.Women,
+    val category: String = ""
 )
 
 @Composable
@@ -40,9 +39,9 @@ fun ShopScreen(
     ) { section ->
         when(section) {
             ShopContent.Products -> ProductListingScreen(
-                productSection = uiState.categorySection,
-                productCategory = uiState.selectedCategory,
-                filterList= getCategorySectionFilters(uiState.categorySection),
+                productSection = uiState.section,
+                productCategory = uiState.category,
+                filterList = getCategorySectionFilters(uiState.section),
                 onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = {
                     navController.navigate(Screen.ProductDetail)
@@ -50,12 +49,12 @@ fun ShopScreen(
                 onNavigateUp = { uiState = uiState.copy(content = ShopContent.Categories)  }
             )
             ShopContent.Categories -> CategorySelectionScreen(
-                currentSection = uiState.categorySection,
-                onSectionClick = { uiState = uiState.copy(categorySection = it) },
+                currentSection = uiState.section,
+                onSectionClick = { uiState = uiState.copy(section = it) },
                 onCategoryClick = { category ->
-                    uiState = uiState.copy(selectedCategory = category)
+                    uiState = uiState.copy(category = category)
                     uiState = uiState.copy(content = ShopContent.Products)
-                    Log.d("ShopScreen", "${uiState.categorySection.name} -> $category")
+                    Log.d("ShopScreen", "${uiState.section.name} -> $category")
                 }
             )
         }
