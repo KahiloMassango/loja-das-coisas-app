@@ -13,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -20,29 +21,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.StoreCenteredTopBar
 import com.example.store.presentation.screens.shop.model.ShopSection
-import com.example.store.presentation.screens.shop.model.Filter
-import com.example.store.presentation.screens.shop.model.getCategorySectionFilters
+import com.example.store.presentation.screens.shop.model.getSectionFilters
 import com.example.store.presentation.screens.shop.model.getSectionTitle
 
 @Composable
 fun ProductListingScreen(
-    productSection: ShopSection,
-    productCategory: String,
-    filterList: List<Filter>,
+    modifier: Modifier = Modifier,
+    section: ShopSection,
+    category: String,
     onFilterChange: (String) -> Unit,
     onProductClick: () -> Unit,
     onNavigateUp: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
     var currentFilter by remember {
-        mutableStateOf(getCategorySectionFilters(productSection).first().name) }
-    var selectedOption by remember { mutableStateOf(0) }
+        mutableStateOf(getSectionFilters(section).first().name) }
+    var selectedOption by remember { mutableIntStateOf(0) }
     BackHandler { onNavigateUp() }
     Scaffold(
         modifier = modifier,
         topBar = {
             StoreCenteredTopBar(
-                title = productSection.getSectionTitle(),
+                title = section.getSectionTitle(),
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )
@@ -55,14 +54,17 @@ fun ProductListingScreen(
             Column(
                 Modifier.fillMaxSize()
             ) {
-                if (productCategory != "Shoes") {
+                if (category != "Shoes") {
                     FilterContainer(
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
-                        filters = filterList,
+                        filters = getSectionFilters(section),
                         selected = currentFilter,
-                        onSelectFilter = { currentFilter = it }
+                        onSelectFilter = {
+                            onFilterChange(it)
+                            currentFilter = it
+                        }
                     )
                 }
                 ProductGrid(

@@ -10,20 +10,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.store.presentation.component.ThemePreviews
 import com.example.store.navigation.Screen
-import com.example.store.presentation.screens.shop.model.ShopSection
+import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.shop.component.CategorySelectionScreen
 import com.example.store.presentation.screens.shop.component.ProductListingScreen
 import com.example.store.presentation.screens.shop.model.ShopContent
-import com.example.store.presentation.screens.shop.model.getCategorySectionFilters
+import com.example.store.presentation.screens.shop.model.ShopScreenUiState
 import com.example.store.ui.theme.StoreTheme
 
-data class ShopScreenUiState(
-    val content: ShopContent = ShopContent.Categories,
-    val section: ShopSection = ShopSection.Women,
-    val category: String = ""
-)
 
 @Composable
 fun ShopScreen(
@@ -39,9 +33,8 @@ fun ShopScreen(
     ) { section ->
         when(section) {
             ShopContent.Products -> ProductListingScreen(
-                productSection = uiState.section,
-                productCategory = uiState.category,
-                filterList = getCategorySectionFilters(uiState.section),
+                section = uiState.section,
+                category = uiState.category,
                 onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = {
                     navController.navigate(Screen.ProductDetail)
