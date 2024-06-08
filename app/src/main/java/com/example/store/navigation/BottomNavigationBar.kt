@@ -5,6 +5,9 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -22,9 +25,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.toRoute
 
 private val navBarRoutes = TOP_LEVEL_DESTINATIONS.map { it.route::class }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
     navController: NavController,
@@ -49,14 +54,15 @@ fun BottomNavigationBar(
     ){
         NavigationBar(
             modifier = modifier
-                .clip(RoundedCornerShape(topStart = 12.dp,topEnd = 12.dp))
+                .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
                 .background(MaterialTheme.colorScheme.secondaryContainer),
             containerColor = Color.Transparent,
             tonalElevation = 5.dp,
         ) {
             TOP_LEVEL_DESTINATIONS.forEach { destination ->
                 val isSelected = currentRoute?.hasRoute(destination.route::class) == true
-
+                val isCart = currentBackStack?.toRoute<Screen.Cart>() == destination.route
+                val cartItems = 9
                 NavigationBarItem(
                     selected = isSelected,
                     onClick = {
@@ -76,11 +82,28 @@ fun BottomNavigationBar(
                         )
                     },
                     icon = {
-                        Icon(
-                            imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
-                            contentDescription = null,
-                            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
-                        )
+                        if(isCart && cartItems != 0){
+                            BadgedBox(
+                                badge = {
+                                    Badge(
+                                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                                        containerColor = MaterialTheme.colorScheme.primary
+                                    ) { Text(text = "$cartItems") }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
+                                    contentDescription = null,
+                                    tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            }
+                        } else {
+                            Icon(
+                                imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
+                                contentDescription = null,
+                                tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        }
                     },
                     colors = NavigationBarItemDefaults.colors(
                         indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
