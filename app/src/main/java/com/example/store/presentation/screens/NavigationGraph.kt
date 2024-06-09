@@ -39,7 +39,7 @@ fun NavigationGraph(
             }
 
             composable<Screen.ProductDetail> {
-                ProductDetailsScreen(navController,)
+                ProductDetailsScreen(navController)
             }
 
         }
