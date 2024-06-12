@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.CustomTextField
+import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.ui.theme.StoreTheme
@@ -64,7 +64,7 @@ fun ForgotPasswordScreen(
 
                 )
                 Spacer(modifier = Modifier.height(18.dp))
-                CustomTextField(
+                StoreTextField(
                     modifier = Modifier,
                     value = email,
                     label = "Email",

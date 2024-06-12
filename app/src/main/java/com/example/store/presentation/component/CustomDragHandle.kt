@@ -33,11 +33,11 @@ fun CustomDragHandle(
         Box(
             modifier = Modifier
                 .background(
-                    MaterialTheme.colorScheme.inverseOnSurface,
+                    MaterialTheme.colorScheme.onBackground,
                     RoundedCornerShape(50)
                 )
-                .height(4.dp)
-                .width(32.dp)
+                .height(5.dp)
+                .width(42.dp)
         )
         Text(
             text = text,

@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.CustomDragHandle
 
@@ -32,10 +33,10 @@ internal fun SortingOptions(
 ) {
 
     ModalBottomSheet(
-        modifier = modifier.navigationBarsPadding(),
+        modifier = modifier,
         sheetState = state,
-        containerColor = MaterialTheme.colorScheme.onBackground,
-        contentColor = MaterialTheme.colorScheme.background,
+        containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
+        scrimColor = Color(0xFF000000).copy(0.3f),
         onDismissRequest = onDismissRequest,
         windowInsets = WindowInsets(0),
         dragHandle = {
@@ -43,7 +44,7 @@ internal fun SortingOptions(
         }
     ) {
         Column(
-            modifier = Modifier
+            modifier = Modifier.navigationBarsPadding()
                 .fillMaxWidth()
                 .padding(bottom = 4.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -69,7 +70,9 @@ fun OrderByOption(
 ) {
    Box(
        modifier = modifier
-           .background(if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground)
+           .background(if (selected) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.surface
+           )
            .fillMaxWidth()
            .clickable { onClick() },
    ) {
@@ -77,7 +80,8 @@ fun OrderByOption(
            modifier = Modifier.padding(16.dp),
            text = "Popular",
            style = MaterialTheme.typography.bodyLarge,
-           color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.background
+           color = if (selected) MaterialTheme.colorScheme.onPrimary
+            else MaterialTheme.colorScheme.onSurface
        )
    }
 }

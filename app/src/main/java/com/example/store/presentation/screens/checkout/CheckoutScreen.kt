@@ -28,35 +28,37 @@ import com.example.store.presentation.screens.checkout.component.DeliveryMethodS
 import com.example.store.presentation.screens.checkout.component.ShippingAddressCard
 import com.example.store.ui.theme.StoreTheme
 
+
 @Composable
 fun CheckoutScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         topBar = {
-            StoreCenteredTopBar(title = "Finalizar Compra", canNavigateBack = true, elevation = 5.dp )
+            StoreCenteredTopBar(title = "Finalizar Compra", canNavigateBack = true, elevation = 5.dp)
         },
-        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
+        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets),
     ) { paddingValues ->
         Surface(
-            modifier = modifier.padding(paddingValues)
+            modifier = modifier.padding(paddingValues),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(15.dp),
             ) {
                 CheckoutSection(
                     modifier = Modifier.padding(vertical = 16.dp),
                     text = "Endereço de entrega",
                 )
                 ShippingAddressCard(
-                    onChangeAddress = { /*TODO*/ }
+                    onChangeAddress = { /*TODO*/ },
                 )
                 Spacer(modifier = Modifier.height(32.dp))
 
                 CheckoutSection(
                     modifier = Modifier.padding(bottom = 16.dp),
-                    text = "Forma de Entrega"
+                    text = "Forma de Entrega",
                 )
 
                 DeliveryMethodSelector(Modifier.padding(start = 16.dp))
@@ -74,7 +76,7 @@ fun CheckoutScreen(modifier: Modifier = Modifier) {
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Finalizar Compra",
-                    onClick = { /*TODO*/ }
+                    onClick = { /*TODO*/ },
                 )
             }
         }
@@ -84,82 +86,78 @@ fun CheckoutScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun CheckoutSection(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         modifier = modifier,
         text = text,
         style = MaterialTheme.typography.bodyLarge,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
     )
 }
 
 @Composable
-fun CheckoutSummary(
-    modifier: Modifier = Modifier
-) {
+fun CheckoutSummary(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "Carrinho:",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.inverseOnSurface
+                color = MaterialTheme.colorScheme.inverseOnSurface,
             )
             Text(
                 text = "12000kz",
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "Entrega:",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.inverseOnSurface
+                color = MaterialTheme.colorScheme.inverseOnSurface,
             )
             Text(
                 text = "1450kz",
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "Total:",
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.inverseOnSurface
+                color = MaterialTheme.colorScheme.inverseOnSurface,
             )
             Text(
                 text = "13450kz",
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }
 }
-
-
 
 @PreviewLightDark
 @Composable

@@ -55,7 +55,7 @@ fun BottomNavigationBar(
         NavigationBar(
             modifier = modifier
                 .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-                .background(MaterialTheme.colorScheme.secondaryContainer),
+                .background(MaterialTheme.colorScheme.inverseSurface),
             containerColor = Color.Transparent,
             tonalElevation = 5.dp,
         ) {
@@ -94,14 +94,14 @@ fun BottomNavigationBar(
                                 Icon(
                                     imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
                                     contentDescription = null,
-                                    tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
+                                    tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface
                                 )
                             }
                         } else {
                             Icon(
                                 imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
                                 contentDescription = null,
-                                tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
+                                tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface
                             )
                         }
                     },

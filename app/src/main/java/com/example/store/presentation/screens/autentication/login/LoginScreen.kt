@@ -30,7 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.CustomTextField
+import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.SocialAuthButton
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.component.StoreLargeTopBar
@@ -63,11 +63,11 @@ fun LoginScreen(
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp,end = 16.dp,top = 64.dp,bottom = 16.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CustomTextField(
+                StoreTextField(
                     modifier = Modifier,
                     value = email,
                     label = "Email",
@@ -83,7 +83,7 @@ fun LoginScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                CustomTextField(
+                StoreTextField(
                     value = password,
                     label = "Password",
                     onValueChange = { password = it },

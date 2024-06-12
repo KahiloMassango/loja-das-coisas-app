@@ -3,49 +3,53 @@ package com.example.store.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // LIGHT
-val lightPrimary = Color(0xFFDB3022)
-val lightOnPrimary = Color(0xFFFFFFFF)
+val primaryLight = Color(0xFFDB3022)
+val onPrimaryLight = Color.White
+val primaryContainerLight = Color(0xFFDB3022)
+val onPrimaryContainerLight = Color.White
 
-val lightBackground = Color(0xFF222222)
-val lightOnBackground = Color(0xFFFFFFFF)
+val secondaryLight = Color(0xFF222222)
+val onSecondaryLight = Color.White
+val secondaryContainerLight = Color.White
+val onSecondaryContainerLight = Color(0xFF222222)
 
-val lightSecondary= Color(0xFFFFFFFF)
-val lightOnSecondary = Color(0xFF9B9B9B)
+val errorLight = Color(0xFFF01F0E)
 
-val lightSecondaryContainer = Color(0xFFFFFFFF)
-val lightOnSecondaryContainer = Color(0xFF222222)
+val backgroundLight = Color.White
+val onBackgroundLight = Color(0xFF2D2D2D)
 
-val lightSurface = Color(0xFFF9F9F9)
-val lightOnSurface = Color(0xFF222222)
-val lightInverseOnSurface = Color(0xFF9B9B9B)
+val surfaceLight = Color(0xFFF9F9F9)
+val onSurfaceLight = Color(0xFF222222)
+val onSurfaceVariantLight = Color(0xFF9B9B9B)
+val surfaceContainerLight = Color.White
+val onSurfaceContainerLight = Color(0xFF9B9B9B)
 
-val lightTertiary = Color(0xFFFFFFFF)
-val lightOnTertiary = Color(0xFF222222)
-
-val lightError = Color(0xFFF01F0E)
-
-val lightScrim = Color(0xFF2D2D2D)
+val outlineLight = Color(0xFF222222)
+val outlineVariantLight = Color(0xFF9B9B9B)
+val scrimLight = Color(0xFF2AA952)
 
 // DARK
-val darkPrimary = Color(0xFFEF3651)
-val darkOnPrimary = Color(0xFFF5F5F5)
+val primaryDark = Color(0xFFEF3651)
+val onPrimaryDark = Color(0xFFF5F5F5)
+val primaryContainerDark = Color(0xFFFF3E3E)
+val onPrimaryContainerDark = Color(0xFFF6F6F6)
 
-val darkBackground = Color(0xFFF6F6F6)
-val darkOnBackground = Color(0xFF2A2C36)
+val secondaryDark = Color(0xFFF6F6F6)
+val onSecondaryDark = Color(0xFF2A2C36)
+val secondaryContainerDark = Color(0xFF2A2C36)
+val onSecondaryContainerDark = Color(0xFFF6F6F6)
 
-val darkSecondary = Color(0xFFF6F6F6)
-val darkOnSecondary = Color(0xFF2A2C36)
+val errorDark = Color(0xFFFF2424)
 
-val darkSecondaryContainer = Color(0xFF2A2C36)
-val darkOnSecondaryContainer = Color(0xFFABB4BD)
+val backgroundDark = Color(0xFF2A2C36)
+val onBackgroundDark = Color(0xFFF5F5F5)
 
-val darkSurface = Color(0xFF1E1F28)
-val darkOnSurface = Color(0xFFF6F6F6)
-val darkInverseOnSurface = Color(0xFFABB4BD)
+val surfaceDark = Color(0xFF1E1F28)
+val onSurfaceDark = Color(0xFFF6F6F6)
+val onSurfaceVariantDark = Color(0xFFABB4BD)
+val surfaceContainerDark = Color(0xFF1E1F28)
+val onSurfaceContainerDark = Color(0xFFABB4BD)
 
-val darkNeutral = Color(0xFF2A2C36)
-val darkOnNeutral = Color(0xFFF6F6F6)
-
-val darkError = Color(0xFFFF2424)
-
-val darkScrim = Color(0xFFF5F5F5)
+val outlineDark = Color(0xFFF6F6F6)
+val outlineVariantDark = Color(0xFFABB4BD)
+val scrimDark = Color(0xFF55D85A)

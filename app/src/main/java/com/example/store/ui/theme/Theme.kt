@@ -12,42 +12,58 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 
 val LightColorScheme = lightColorScheme(
-    primary = lightPrimary,
-    secondary = lightSecondary,
-    tertiary = lightTertiary,
+    primary = primaryLight,
+    onPrimary = onPrimaryLight,
+    primaryContainer = primaryContainerLight,
+    onPrimaryContainer = onPrimaryContainerLight,
 
-    background = lightBackground,
-    surface = lightSurface,
-    onPrimary = lightOnPrimary,
-    onSecondary = lightOnSecondary,
-    secondaryContainer = lightSecondaryContainer,
-    onSecondaryContainer = lightOnSecondaryContainer,
-    onTertiary = lightOnTertiary,
-    onBackground = lightOnBackground,
-    onSurface = lightOnSurface,
-    inverseOnSurface = lightInverseOnSurface,
-    error = lightError,
-    scrim = lightScrim
+    background = backgroundLight,
+    onBackground = onBackgroundLight,
+
+    surface = surfaceLight,
+    onSurface = onSurfaceLight,
+    onSurfaceVariant = onSurfaceVariantLight,
+    inverseSurface = surfaceContainerLight,
+    inverseOnSurface = onSurfaceContainerLight,
+
+
+    secondaryContainer = secondaryContainerLight,
+    onSecondaryContainer = onSecondaryContainerLight,
+    secondary = secondaryLight,
+    onSecondary = onSecondaryLight,
+
+    error = errorLight,
+    scrim = scrimLight,
+
+    outline = outlineLight,
+    outlineVariant = outlineVariantLight,
 )
 
 val DarkColorScheme = darkColorScheme(
-    primary = darkPrimary,
-    secondary = darkSecondary,
-    tertiary = darkNeutral,
+    primary = primaryDark,
+    onPrimary = onPrimaryDark,
+    primaryContainer = primaryContainerDark,
+    onPrimaryContainer = onPrimaryContainerDark,
 
-    background = darkBackground,
-    surface = darkSurface,
-    onPrimary = darkOnPrimary,
-    onSecondary = darkOnSecondary,
-    onTertiary = darkOnNeutral,
-    onBackground = darkOnBackground,
-    onSurface = darkOnSurface,
-    inverseOnSurface = darkInverseOnSurface,
+    background = backgroundDark,
+    onBackground = onBackgroundDark,
 
-    secondaryContainer = darkSecondaryContainer,
-    onSecondaryContainer = darkOnSecondaryContainer,
-    error = darkError,
-    scrim = darkScrim,
+    surface = surfaceDark,
+    onSurface = onSurfaceDark,
+    onSurfaceVariant = onSurfaceVariantDark,
+    inverseSurface = surfaceContainerDark,
+    inverseOnSurface = onSurfaceContainerDark,
+
+    secondary = secondaryDark,
+    onSecondary = onSecondaryDark,
+    secondaryContainer = secondaryContainerDark,
+    onSecondaryContainer = onSecondaryContainerDark,
+
+    error = errorDark,
+    scrim = scrimDark,
+
+    outline = outlineDark,
+    outlineVariant = outlineVariantDark,
 )
 
 @Composable
@@ -62,7 +78,6 @@ fun StoreTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
 
         darkTheme -> DarkColorScheme
         else -> LightColorScheme

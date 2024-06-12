@@ -34,12 +34,12 @@ fun CustomSwitch(
     checked: Boolean,
     onCheckedChange: (state: Boolean) -> Unit
 ) {
-    val width = 33.dp
-    val height = 18.dp
+    val width = 34.dp
+    val height = 19.dp
     val swipeableState = rememberSwipeableState(
         initialValue = checked,
-        confirmStateChange = { isActive ->
-            if (isActive) {
+        confirmStateChange = { isChecked ->
+            if (isChecked) {
                 onCheckedChange(false)
             } else {
                 onCheckedChange(true)
@@ -58,7 +58,7 @@ fun CustomSwitch(
             .height(height)
             .width(width)
             .clip(RoundedCornerShape(70.dp))
-            .background(MaterialTheme.colorScheme.onSecondary),
+            .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(0.3f)),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -77,7 +77,7 @@ fun CustomSwitch(
                 .then(
                     if (!swipeableState.currentValue) {
                         Modifier.background(color = Color.White)
-                    } else Modifier.background(color = Color(0xFF55D85A))
+                    } else Modifier.background(color = MaterialTheme.colorScheme.scrim)
                 )
                 .clickable {
                     scope.launch {

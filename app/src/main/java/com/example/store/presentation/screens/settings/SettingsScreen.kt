@@ -35,12 +35,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.store.presentation.component.CustomTextField
+import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.settings.component.PasswordChangeContainer
 import com.example.store.presentation.screens.settings.component.NotificationPreferences
 import com.example.store.ui.theme.StoreTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,17 +56,7 @@ fun SettingsScreen(
     val passwordChangeContainerState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
 
-    if (showPasswordChangeContainer) {
-        PasswordChangeContainer(
-            state = passwordChangeContainerState,
-            onSave = { _, _ ->
-                coroutineScope.launch {
-                    passwordChangeContainerState.hide()
-                }.invokeOnCompletion { showPasswordChangeContainer = false }
-            },
-            onDismissRequest = { showPasswordChangeContainer = false }
-        )
-    }
+
 
     Scaffold(
         modifier = modifier.pointerInput(null){
@@ -82,6 +73,18 @@ fun SettingsScreen(
         Surface(
             modifier = Modifier.padding(paddingValues)
         ) {
+            if (showPasswordChangeContainer) {
+                PasswordChangeContainer(
+                    state = passwordChangeContainerState,
+                    onSave = { _, _ ->
+                        coroutineScope.launch {
+                            delay(200)
+                            passwordChangeContainerState.hide()
+                        }.invokeOnCompletion { showPasswordChangeContainer = false }
+                    },
+                    onDismissRequest = { showPasswordChangeContainer = false }
+                )
+            }
             Column(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 16.dp)
@@ -94,7 +97,7 @@ fun SettingsScreen(
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                CustomTextField(
+                StoreTextField(
                     modifier = Modifier,
                     value = name,
                     label = "Nome Completo",
@@ -132,7 +135,7 @@ fun SettingsScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                CustomTextField(
+                StoreTextField(
                     modifier = Modifier,
                     value = "Password12345",
                     label = "Password",

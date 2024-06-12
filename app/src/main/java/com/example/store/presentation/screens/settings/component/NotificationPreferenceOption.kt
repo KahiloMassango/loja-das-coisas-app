@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.store.presentation.component.CustomSwitch
 
 @Composable
-internal fun NotificationPreferenceOption(
+fun NotificationPreferenceOption(
     description: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,

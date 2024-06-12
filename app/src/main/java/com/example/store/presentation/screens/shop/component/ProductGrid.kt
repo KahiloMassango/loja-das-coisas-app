@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.ProductCard
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.ui.theme.StoreTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +48,7 @@ fun ProductGrid(
             onOptionClick = {
                 onOptionClick(it)
              coroutineScope.launch {
+                 delay(200)
                  bottomSheetState.hide()
              }   .invokeOnCompletion { isSortingOptionOpen = false }
             },

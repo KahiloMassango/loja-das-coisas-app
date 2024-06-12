@@ -16,11 +16,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.CustomDragHandle
-import com.example.store.presentation.component.CustomTextField
+import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.screens.autentication.component.CustomClickableText
 import com.example.store.presentation.screens.settings.model.ChangePasswordUiState
 
@@ -37,23 +38,23 @@ fun PasswordChangeContainer(
 
     ModalBottomSheet(
         sheetState = state,
-        modifier = Modifier.navigationBarsPadding(),
-        containerColor = MaterialTheme.colorScheme.onBackground,
-        contentColor = MaterialTheme.colorScheme.background,
+        modifier = modifier.navigationBarsPadding(),
+        containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
+        scrimColor = Color(0xFF000000).copy(0.3f),
+        contentColor = MaterialTheme.colorScheme.onSurface,
         onDismissRequest = onDismissRequest,
         dragHandle = {
             CustomDragHandle("Alterar Password")
         }
     ) {
         Column(
-            modifier = modifier
-
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CustomTextField(
+            StoreTextField(
                 modifier = Modifier,
                 value = uiState.oldPassword,
                 label = "Old Password",
@@ -67,14 +68,14 @@ fun PasswordChangeContainer(
                 supportText = "",
                 onClick = { /* TODO */ }
             )
-            CustomTextField(
+            StoreTextField(
                 modifier = Modifier,
                 value = uiState.newPassword,
                 label = "New Password",
                 onValueChange = { uiState = uiState.copy(newPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
-            CustomTextField(
+            StoreTextField(
                 modifier = Modifier,
                 value = uiState.repeatPassword,
                 label = "Repeat Password",
