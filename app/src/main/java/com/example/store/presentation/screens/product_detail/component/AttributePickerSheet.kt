@@ -24,7 +24,7 @@ import com.example.store.presentation.component.CustomDragHandle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AttributeSelector(
+fun AttributePickerSheet(
     state: SheetState,
     selectorDescription: String,
     selectedAttribute: String,
@@ -36,8 +36,9 @@ fun AttributeSelector(
     ModalBottomSheet(
         sheetState = state,
         modifier = modifier.navigationBarsPadding(),
-        containerColor = MaterialTheme.colorScheme.onBackground,
-        contentColor = Color.Transparent,
+        containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
+        scrimColor = Color(0xFF000000).copy(0.3f),
+        contentColor = MaterialTheme.colorScheme.onSurface,
         onDismissRequest = onDismissRequest,
         dragHandle = {
             CustomDragHandle(selectorDescription)
@@ -52,7 +53,7 @@ fun AttributeSelector(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             items(attributes) { attribute ->
-                AttributeItem(
+                AttributeSheetItem(
                     item = attribute,
                     selected = attribute == selectedAttribute,
                     onClick = {
@@ -66,7 +67,7 @@ fun AttributeSelector(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AttributeItem(
+private fun AttributeSheetItem(
     item: String,
     selected: Boolean,
     onClick: () -> Unit,

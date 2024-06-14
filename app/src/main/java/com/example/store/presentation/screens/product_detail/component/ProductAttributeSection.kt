@@ -31,13 +31,13 @@ fun ProductAttributeSection(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        AttributeSelector(
+        AttributePickerSheet(
             modifier = Modifier.weight(1f),
             attribute = "Tamanho",
             selectedAttribute = selectedSize,
             onClick = showSizeOptions
         )
-        AttributeSelector(
+        AttributePickerSheet(
             modifier = Modifier.weight(1f),
             attribute = "Cor",
             selectedAttribute = selectedColor,
@@ -48,7 +48,7 @@ fun ProductAttributeSection(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AttributeSelector(
+private fun AttributePickerSheet(
     attribute: String,
     selectedAttribute: String,
     onClick: () -> Unit,
@@ -58,10 +58,10 @@ private fun AttributeSelector(
     OutlinedCard(
         modifier = modifier ,
         onClick = onClick,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.inverseOnSurface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         colors = CardDefaults.outlinedCardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
-            contentColor = MaterialTheme.colorScheme.onTertiary
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         )
     ) {
         Row(

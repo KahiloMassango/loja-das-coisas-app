@@ -31,7 +31,7 @@ import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.FavoriteButton
 import com.example.store.presentation.component.StoreCenteredTopBar
 import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.screens.product_detail.component.AttributeSelector
+import com.example.store.presentation.screens.product_detail.component.AttributePickerSheet
 import com.example.store.presentation.screens.product_detail.component.ProductAttributeSection
 import com.example.store.presentation.screens.product_detail.component.ProductDetailsSection
 import com.example.store.presentation.screens.product_detail.component.ProductImageCarousel
@@ -62,7 +62,7 @@ fun ProductDetailsScreen(
     val isFavorite = false
 
     if(showSizeOptions) {
-        AttributeSelector(
+        AttributePickerSheet(
             state = sizeOptionsState,
             selectorDescription = "Selecionar tamanho",
             selectedAttribute =  selectedSize,
@@ -80,7 +80,7 @@ fun ProductDetailsScreen(
         )
     }
     if(showColorOptions) {
-        AttributeSelector(
+        AttributePickerSheet(
             state = colorOptionsState,
             selectorDescription = "Selecionar cor",
             selectedAttribute = selectedColor,
