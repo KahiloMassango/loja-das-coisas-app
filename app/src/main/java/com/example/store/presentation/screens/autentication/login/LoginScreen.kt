@@ -3,12 +3,16 @@ package com.example.store.presentation.screens.autentication.login
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -29,12 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.StoreTextField
-import com.example.store.presentation.component.SocialAuthButton
-import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.navigation.Screen
+import com.example.store.presentation.component.CustomButton
+import com.example.store.presentation.component.SocialAuthButton
+import com.example.store.presentation.component.StoreLargeTopBar
+import com.example.store.presentation.component.StoreTextField
+import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.autentication.component.CustomClickableText
 import com.example.store.ui.theme.StoreTheme
 
@@ -54,7 +58,8 @@ fun LoginScreen(
                 canNavigateBack = true,
                 onNavigateUp = navController::navigateUp
             )
-        }
+        },
+        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         Surface(
             modifier = Modifier
@@ -68,7 +73,7 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = email,
                     label = "Email",
                     onValueChange = { email = it },
@@ -84,6 +89,7 @@ fun LoginScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 StoreTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = password,
                     label = "Password",
                     onValueChange = { password = it },
@@ -98,10 +104,10 @@ fun LoginScreen(
                         }
                     )
                 )
+
                 Spacer(modifier = Modifier.height(14.dp))
                 CustomClickableText(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier,
                     text = "Esqueceu sua password?",
                     onClick = { navController.navigate(Screen.ForgotPassword) }
                 )
