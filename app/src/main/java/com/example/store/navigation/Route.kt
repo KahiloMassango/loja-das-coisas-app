@@ -1,12 +1,10 @@
 package com.example.store.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.ShoppingBag
@@ -44,37 +42,14 @@ sealed interface Screen {
 
 }
 
-data class TopLevelDestination (
+enum class AppDestinations (
     val title: String,
     val route: Screen,
     val unselectedIcon: ImageVector,
     val selectedIcon: ImageVector
-)
-
-
-val TOP_LEVEL_DESTINATIONS = listOf(
-    TopLevelDestination(
-        title = "Home",
-        route = Screen.Home,
-        unselectedIcon = Icons.Outlined.Home,
-        selectedIcon = Icons.Filled.Home
-    ),
-    TopLevelDestination(
-        title = "Loja",
-        route = Screen.Shop,
-        unselectedIcon = Icons.Outlined.ShoppingCart,
-        selectedIcon = Icons.Filled.ShoppingCart
-    ),
-    TopLevelDestination(
-        title = "Carrinho",
-        route = Screen.Cart,
-        unselectedIcon = Icons.Outlined.ShoppingBag,
-        selectedIcon = Icons.Filled.ShoppingBag
-    ),
-    TopLevelDestination(
-        title = "Perfil",
-        route = Screen.Profile,
-        unselectedIcon = Icons.Outlined.PersonOutline,
-        selectedIcon = Icons.Filled.Person
-    )
-)
+){
+    HOME("Home", Screen.Home, Icons.Outlined.Home, Icons.Filled.Home),
+    SHOP("Loja",Screen.Shop,Icons.Outlined.ShoppingCart,Icons.Filled.ShoppingCart),
+    CART("Carrinho", Screen.Cart, Icons.Outlined.ShoppingBag,Icons.Filled.ShoppingBag),
+    PROFILE("Perfil",Screen.Profile,Icons.Outlined.PersonOutline, Icons.Filled.Person)
+}

@@ -27,7 +27,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
 
-private val navBarRoutes = TOP_LEVEL_DESTINATIONS.map { it.route::class }
+private val navBarRoutes = AppDestinations.entries.map { it.route::class }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +59,7 @@ fun BottomNavigationBar(
             containerColor = Color.Transparent,
             tonalElevation = 5.dp,
         ) {
-            TOP_LEVEL_DESTINATIONS.forEach { destination ->
+            AppDestinations.entries.forEach { destination ->
                 val isSelected = currentRoute?.hasRoute(destination.route::class) == true
                 val isCart = currentBackStack?.toRoute<Screen.Cart>() == destination.route
                 val cartItems = 9
