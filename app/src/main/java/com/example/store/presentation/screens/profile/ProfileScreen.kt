@@ -1,5 +1,6 @@
 package com.example.store.presentation.screens.profile
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -31,14 +36,50 @@ import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
-import com.example.store.navigation.Screen
+import com.example.store.presentation.screens.my_orders.MyOrdersScreen
 import com.example.store.presentation.screens.profile.component.ProfileOptions
+import com.example.store.presentation.screens.profile.model.ProfileScreenContent
+import com.example.store.presentation.screens.settings.SettingsScreen
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun ProfileScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
+
+) {
+    var currentScreenContent by rememberSaveable { mutableStateOf(ProfileScreenContent.MainContent) }
+
+    AnimatedContent(
+        modifier = modifier,
+        targetState = currentScreenContent,
+        label = ""
+    ) { screen ->
+        when(screen) {
+            ProfileScreenContent.MainContent -> MainContent(
+                onMyOrdersClick = { currentScreenContent = ProfileScreenContent.MyOrders },
+                onMyReviewsClick = { currentScreenContent = ProfileScreenContent.MainContent  },
+                onSettingsClick = { currentScreenContent = ProfileScreenContent.Settings  }
+            )
+            ProfileScreenContent.MyOrders -> MyOrdersScreen(navController = navController) {
+                currentScreenContent = ProfileScreenContent.MainContent
+            }
+            ProfileScreenContent.Settings -> SettingsScreen(navController = navController) {
+                currentScreenContent = ProfileScreenContent.MainContent
+            }
+            ProfileScreenContent.MyReviews -> SettingsScreen(navController = navController) {
+                currentScreenContent = ProfileScreenContent.MainContent
+            }
+        }
+    }
+}
+
+@Composable
+private fun MainContent(
+    modifier: Modifier = Modifier,
+    onMyOrdersClick: () -> Unit,
+    onMyReviewsClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -46,27 +87,27 @@ fun ProfileScreen(
         },
         contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
-       Surface(
-           modifier = modifier.padding(paddingValues)
-       ) {
-           Column(
-               modifier = Modifier
-                   .fillMaxSize(),
-           ) {
-               Spacer(modifier = Modifier.height(16.dp))
-               ProfileHeader(
-                   modifier = Modifier.padding(horizontal = 16.dp),
-                   name = "Matilda Brown",
-                   email = "matildabrown@mail.com"
-               )
-               Spacer(modifier = Modifier.height(46.dp))
-               ProfileOptions(
-                   onMyOrdersClick = { /* TODO */ },
-                   onMyReviewsClick = { /* TODO */  },
-                   onSettingsClick = { navController.navigate(Screen.Settings) }
-               )
-           }
-       }
+        Surface(
+            modifier = modifier.padding(paddingValues)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+            ) {
+                Spacer(modifier = Modifier.height(16.dp))
+                ProfileHeader(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    name = "Matilda Brown",
+                    email = "matildabrown@mail.com"
+                )
+                Spacer(modifier = Modifier.height(46.dp))
+                ProfileOptions(
+                    onMyOrdersClick = onMyOrdersClick,
+                    onMyReviewsClick = onMyReviewsClick,
+                    onSettingsClick = onSettingsClick
+                )
+            }
+        }
     }
 }
 

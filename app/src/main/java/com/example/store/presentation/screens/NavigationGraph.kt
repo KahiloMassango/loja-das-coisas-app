@@ -34,10 +34,6 @@ fun NavigationGraph(
             authNavGraph(navController)
             topLevelGraph(navController)
 
-            composable<Screen.Settings> {
-                SettingsScreen(navController)
-            }
-
             composable<Screen.ProductDetail> {
                 ProductDetailsScreen(navController)
             }
