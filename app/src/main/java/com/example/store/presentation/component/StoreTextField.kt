@@ -1,14 +1,13 @@
 package com.example.store.presentation.component
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.example.store.ui.theme.StoreTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StoreTextField(
     modifier: Modifier = Modifier,
@@ -35,14 +34,11 @@ fun StoreTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
-    val textFieldBorderColor =
-        if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.background
+    val textFieldBorderColor = if (isError) MaterialTheme.colorScheme.error
+    else MaterialTheme.colorScheme.background
 
-    TextField(
-        modifier = modifier
-            .clip(MaterialTheme.shapes.medium)
-            .border(1.dp, textFieldBorderColor, MaterialTheme.shapes.medium)
-            .fillMaxWidth(),
+    OutlinedTextField(
+        modifier = modifier.clip(MaterialTheme.shapes.medium),
         value = value,
         onValueChange = { onValueChange(it) },
         shape = MaterialTheme.shapes.medium,
@@ -53,38 +49,40 @@ fun StoreTextField(
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,
-                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+                color = if (isError) MaterialTheme.colorScheme.error
+                    else MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
         isError = isError,
-
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.background,
-            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+        supportingText = {
+            if(isError) {
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Normal
+                )
+            }
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            focusedBorderColor = textFieldBorderColor,
+            unfocusedBorderColor = textFieldBorderColor,
             focusedTextColor = MaterialTheme.colorScheme.onBackground,
             unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
             errorTextColor = MaterialTheme.colorScheme.onBackground,
             errorContainerColor = MaterialTheme.colorScheme.background,
             disabledTextColor = MaterialTheme.colorScheme.inverseOnSurface,
             disabledLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
-            disabledContainerColor = MaterialTheme.colorScheme.background,
-            focusedIndicatorColor = MaterialTheme.colorScheme.background
+
         ),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation
     )
-    AnimatedVisibility(visible = isError) {
-        Text(
-            modifier = Modifier.padding(start = 14.dp, top = 4.dp),
-            text = errorMessage,
-            color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Normal
-        )
-    }
 
 }
+
 
 @ThemePreviews
 @Composable
