@@ -1,22 +1,17 @@
 package com.example.store.presentation.screens.settings
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -39,13 +34,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.StoreLargeTopBar
+import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.screens.settings.component.PasswordChangeContainer
 import com.example.store.presentation.screens.settings.component.NotificationPreferences
+import com.example.store.presentation.screens.settings.component.PasswordChangeContainer
 import com.example.store.ui.theme.StoreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -53,9 +47,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
-    onNavigateUp: () -> Unit
+    navController: NavController,
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
@@ -64,9 +57,6 @@ fun SettingsScreen(
     val coroutineScope = rememberCoroutineScope()
 
 
-    BackHandler {
-        onNavigateUp()
-    }
     Scaffold(
         modifier = modifier.pointerInput(null){
             detectTapGestures(
@@ -76,9 +66,8 @@ fun SettingsScreen(
             )
         },
         topBar = {
-            StoreLargeTopBar(title = "Definições", canNavigateBack = true) { onNavigateUp() }
+            StoreLargeTopBar(title = "Definições", canNavigateBack = true) { navController.navigateUp() }
         },
-        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         Surface(
             modifier = Modifier.padding(paddingValues)
@@ -174,7 +163,7 @@ fun SettingsScreen(
 private fun Preview() {
     StoreTheme {
         SettingsScreen(
-            rememberNavController()
-        ){}
+            navController = rememberNavController()
+        )
     }
 }

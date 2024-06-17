@@ -22,7 +22,7 @@ import com.example.store.presentation.component.ThemePreviews
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
-internal fun ProfileOptions(
+fun ProfileOptions(
     modifier: Modifier = Modifier,
     onMyOrdersClick: () -> Unit,
     onMyReviewsClick: () -> Unit,
@@ -30,8 +30,7 @@ internal fun ProfileOptions(
 
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(0.dp)
+        modifier = modifier
     ) {
         ProfileOption(
             modifier = Modifier,
@@ -40,7 +39,7 @@ internal fun ProfileOptions(
             onClick = onMyOrdersClick
         )
 
-        Divider(thickness = 0.8.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         ProfileOption(
             modifier = Modifier,
@@ -49,7 +48,7 @@ internal fun ProfileOptions(
             onClick =  onMyReviewsClick
         )
 
-        Divider(thickness = 0.8.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         ProfileOption(
             modifier = Modifier,

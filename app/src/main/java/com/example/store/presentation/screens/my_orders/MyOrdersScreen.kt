@@ -1,19 +1,15 @@
 package com.example.store.presentation.screens.my_orders
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,23 +32,18 @@ import com.example.store.ui.theme.StoreTheme
 fun MyOrdersScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    onNavigateUp: () -> Unit
 ) {
     var currentTab by rememberSaveable { mutableStateOf(OrderTabs.DELIVERED) }
 
-    BackHandler {
-        onNavigateUp()
-    }
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
             StoreLargeTopBar(
                 title = "Minhas Encomendas",
                 canNavigateBack = true,
-                onNavigateUp = onNavigateUp
+                onNavigateUp = navController::navigateUp
             )
         },
-        contentWindowInsets = ScaffoldDefaults.contentWindowInsets.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         Surface(
             modifier = Modifier.padding(paddingValues),
@@ -107,6 +98,6 @@ private fun OrdersContentList(
 @Composable
 private fun Preview() {
     StoreTheme {
-        MyOrdersScreen(navController = rememberNavController()){}
+        MyOrdersScreen(navController = rememberNavController())
     }
 }
