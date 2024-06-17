@@ -53,9 +53,21 @@ fun SettingsScreen(
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
     var showPasswordChangeContainer by remember { mutableStateOf(false) }
-    val passwordChangeContainerState = rememberModalBottomSheetState()
+    val passwordChangeContainerState = rememberModalBottomSheetState(true)
     val coroutineScope = rememberCoroutineScope()
 
+    if (showPasswordChangeContainer) {
+        PasswordChangeContainer(
+            state = passwordChangeContainerState,
+            onSave = { _, _ ->
+                coroutineScope.launch {
+                    delay(200)
+                    passwordChangeContainerState.hide()
+                }.invokeOnCompletion { showPasswordChangeContainer = false }
+            },
+            onDismissRequest = { showPasswordChangeContainer = false }
+        )
+    }
 
     Scaffold(
         modifier = modifier.pointerInput(null){
@@ -72,18 +84,6 @@ fun SettingsScreen(
         Surface(
             modifier = Modifier.padding(paddingValues)
         ) {
-            if (showPasswordChangeContainer) {
-                PasswordChangeContainer(
-                    state = passwordChangeContainerState,
-                    onSave = { _, _ ->
-                        coroutineScope.launch {
-                            delay(200)
-                            passwordChangeContainerState.hide()
-                        }.invokeOnCompletion { showPasswordChangeContainer = false }
-                    },
-                    onDismissRequest = { showPasswordChangeContainer = false }
-                )
-            }
             Column(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 16.dp)
@@ -97,7 +97,7 @@ fun SettingsScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = name,
                     label = "Nome Completo",
                     onValueChange = { name = it },
@@ -125,7 +125,7 @@ fun SettingsScreen(
                     )
                     Text(
                         modifier = Modifier.clickable {
-                            showPasswordChangeContainer = !showPasswordChangeContainer
+                            showPasswordChangeContainer = true
                         },
                         text = "Alterar",
                         style = MaterialTheme.typography.labelLarge,
@@ -135,7 +135,7 @@ fun SettingsScreen(
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = "Password12345",
                     label = "Password",
                     enabled = false,

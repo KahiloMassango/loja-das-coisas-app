@@ -38,7 +38,7 @@ fun PasswordChangeContainer(
 
     ModalBottomSheet(
         sheetState = state,
-        modifier = modifier.navigationBarsPadding(),
+        modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
         scrimColor = Color(0xFF000000).copy(0.3f),
         contentColor = MaterialTheme.colorScheme.onSurface,
@@ -55,7 +55,7 @@ fun PasswordChangeContainer(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             StoreTextField(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 value = uiState.oldPassword,
                 label = "Old Password",
                 onValueChange = { uiState = uiState.copy(oldPassword = it) },
@@ -69,14 +69,14 @@ fun PasswordChangeContainer(
                 onClick = { /* TODO */ }
             )
             StoreTextField(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 value = uiState.newPassword,
                 label = "New Password",
                 onValueChange = { uiState = uiState.copy(newPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
             StoreTextField(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 value = uiState.repeatPassword,
                 label = "Repeat Password",
                 onValueChange = { uiState = uiState.copy(repeatPassword = it) },
