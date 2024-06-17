@@ -3,7 +3,6 @@ package com.example.store.presentation.screens.settings.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -57,7 +56,7 @@ fun PasswordChangeContainer(
             StoreTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = uiState.oldPassword,
-                label = "Old Password",
+                placeholder = "Old Password",
                 onValueChange = { uiState = uiState.copy(oldPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
@@ -71,14 +70,14 @@ fun PasswordChangeContainer(
             StoreTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = uiState.newPassword,
-                label = "New Password",
+                placeholder = "New Password",
                 onValueChange = { uiState = uiState.copy(newPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )
             StoreTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = uiState.repeatPassword,
-                label = "Repeat Password",
+                placeholder = "Repeat Password",
                 onValueChange = { uiState = uiState.copy(repeatPassword = it) },
                 visualTransformation = PasswordVisualTransformation()
             )

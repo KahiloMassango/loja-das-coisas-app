@@ -1,7 +1,5 @@
 package com.example.store.presentation.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import com.example.store.ui.theme.StoreTheme
 
@@ -25,7 +22,7 @@ import com.example.store.ui.theme.StoreTheme
 fun StoreTextField(
     modifier: Modifier = Modifier,
     value: String,
-    label: String,
+    placeholder: String,
     isError: Boolean = false,
     enabled: Boolean = true,
     errorMessage: String = "",
@@ -45,25 +42,23 @@ fun StoreTextField(
         singleLine = true,
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyMedium,
-        label = {
+        placeholder = {
             Text(
-                text = label,
+                text = placeholder,
                 style = MaterialTheme.typography.bodySmall,
                 color = if (isError) MaterialTheme.colorScheme.error
-                    else MaterialTheme.colorScheme.onSurfaceVariant
+                else MaterialTheme.colorScheme.onSurfaceVariant
             )
         },
-        isError = isError,
         supportingText = {
-            if(isError) {
+            if (isError) {
                 Text(
                     text = errorMessage,
-                    color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Normal
-                )
+                    color = MaterialTheme.colorScheme.error)
             }
         },
+        isError = isError,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             containerColor = MaterialTheme.colorScheme.background,
             focusedBorderColor = textFieldBorderColor,
@@ -75,7 +70,7 @@ fun StoreTextField(
             disabledTextColor = MaterialTheme.colorScheme.inverseOnSurface,
             disabledLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
 
-        ),
+            ),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation
@@ -94,7 +89,7 @@ private fun Preview() {
         StoreTextField(
             value = value,
             onValueChange = { value = it },
-            label = "Password",
+            placeholder = "Password",
             isError = false,
             errorMessage = "Error Message"
 

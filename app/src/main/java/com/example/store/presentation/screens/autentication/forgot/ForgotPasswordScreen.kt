@@ -67,7 +67,7 @@ fun ForgotPasswordScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
-                    label = "Email",
+                    placeholder = "Email",
                     onValueChange = { email = it },
                     isError = false,
                     errorMessage = "Não é um endereço de e-mail válido. Deve ser seu@email.com",

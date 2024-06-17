@@ -75,7 +75,7 @@ fun LoginScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
-                    label = "Email",
+                    placeholder = "exemplo@gmail.com",
                     onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -91,7 +91,7 @@ fun LoginScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
-                    label = "Password",
+                    placeholder = "************",
                     onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(

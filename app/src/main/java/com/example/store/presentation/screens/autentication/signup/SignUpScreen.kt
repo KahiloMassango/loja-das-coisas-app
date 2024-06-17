@@ -69,7 +69,7 @@ fun SignUpScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = name,
-                    label = "Nome",
+                    placeholder = "Nome",
                     onValueChange = { name = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -85,7 +85,7 @@ fun SignUpScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = phoneNumber,
-                    label = "Telefone",
+                    placeholder = "Telefone",
                     onValueChange = { phoneNumber = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -101,7 +101,7 @@ fun SignUpScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
-                    label = "Email",
+                    placeholder = "Email",
                     onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -117,7 +117,7 @@ fun SignUpScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
-                    label = "Senha",
+                    placeholder = "Senha",
                     onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(

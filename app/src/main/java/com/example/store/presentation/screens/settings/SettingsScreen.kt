@@ -99,7 +99,7 @@ fun SettingsScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = name,
-                    label = "Nome Completo",
+                    placeholder = "Nome Completo",
                     onValueChange = { name = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
@@ -137,7 +137,7 @@ fun SettingsScreen(
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = "Password12345",
-                    label = "Password",
+                    placeholder = "Password",
                     enabled = false,
                     onValueChange = { name = it },
                     visualTransformation = PasswordVisualTransformation()
