@@ -65,7 +65,7 @@ fun ForgotPasswordScreen(
                 )
                 Spacer(modifier = Modifier.height(18.dp))
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = email,
                     label = "Email",
                     onValueChange = { email = it },

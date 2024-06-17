@@ -62,12 +62,12 @@ fun SignUpScreen(
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp,end = 16.dp,top = 64.dp,bottom = 16.dp)
+                    .padding(start = 16.dp,end = 16.dp, top = 44.dp,bottom = 20.dp)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = name,
                     label = "Nome",
                     onValueChange = { name = it },
@@ -81,9 +81,9 @@ fun SignUpScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = phoneNumber,
                     label = "Telefone",
                     onValueChange = { phoneNumber = it },
@@ -97,9 +97,9 @@ fun SignUpScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
                 StoreTextField(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     value = email,
                     label = "Email",
                     onValueChange = { email = it },
@@ -113,8 +113,9 @@ fun SignUpScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(14.dp))
                 StoreTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = password,
                     label = "Senha",
                     onValueChange = { password = it },
@@ -129,7 +130,7 @@ fun SignUpScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 CustomClickableText(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -154,7 +155,6 @@ fun SignUpScreen(
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
-
                     SocialAuthButton(
                         iconRes = R.drawable.google_icon,
                         onClick = { /* TODO */ }

@@ -107,7 +107,7 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(14.dp))
                 CustomClickableText(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     text = "Esqueceu sua password?",
                     onClick = { navController.navigate(Route.ForgotPassword) }
                 )
