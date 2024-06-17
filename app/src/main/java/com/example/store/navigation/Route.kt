@@ -13,43 +13,44 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface Screen {
+sealed interface Route {
 
     @Serializable
-    data object TopLevelGraph: Screen
+    data object TopLevelGraph: Route
     @Serializable
-    data object Home: Screen
+    data object Home: Route
     @Serializable
-    data object Profile: Screen
+    data object Profile: Route
     @Serializable
-    data object Cart: Screen
+    data object Cart: Route
     @Serializable
-    data object Shop: Screen
+    data object Shop: Route
     @Serializable
-    data object Settings: Screen
-    data object MyReviews: Screen
+    data object Settings: Route
     @Serializable
-    data object ProductDetail: Screen
+    data object MyOrders: Route
     @Serializable
-    data object AuthGraph: Screen
+    data object ProductDetail: Route
     @Serializable
-    data object Login: Screen
+    data object AuthGraph: Route
     @Serializable
-    data object SignUp: Screen
+    data object Login: Route
     @Serializable
-    data object ForgotPassword: Screen
+    data object SignUp: Route
+    @Serializable
+    data object ForgotPassword: Route
 
 
 }
 
 enum class AppDestinations (
     val title: String,
-    val route: Screen,
+    val route: Route,
     val unselectedIcon: ImageVector,
     val selectedIcon: ImageVector
 ){
-    HOME("Home", Screen.Home, Icons.Outlined.Home, Icons.Filled.Home),
-    SHOP("Loja",Screen.Shop,Icons.Outlined.ShoppingCart,Icons.Filled.ShoppingCart),
-    CART("Carrinho", Screen.Cart, Icons.Outlined.ShoppingBag,Icons.Filled.ShoppingBag),
-    PROFILE("Perfil",Screen.Profile,Icons.Outlined.PersonOutline, Icons.Filled.Person)
+    HOME("Home", Route.Home, Icons.Outlined.Home, Icons.Filled.Home),
+    SHOP("Loja",Route.Shop,Icons.Outlined.ShoppingCart,Icons.Filled.ShoppingCart),
+    CART("Carrinho", Route.Cart, Icons.Outlined.ShoppingBag,Icons.Filled.ShoppingBag),
+    PROFILE("Perfil",Route.Profile,Icons.Outlined.PersonOutline, Icons.Filled.Person)
 }

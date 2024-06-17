@@ -12,8 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import com.example.store.navigation.Screen
+import com.example.store.navigation.Route
 
 @Composable
 fun HomeScreen(
@@ -33,7 +32,7 @@ fun HomeScreen(
             Text(text = "Home")
             Button(
                 onClick = {
-                    navController.navigate(Screen.AuthGraph)
+                    navController.navigate(Route.AuthGraph)
                 }
             ) {
                 Text(text = "Auth Graph")

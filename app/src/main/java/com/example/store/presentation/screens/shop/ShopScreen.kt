@@ -10,11 +10,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.store.navigation.Screen
+import com.example.store.navigation.Route
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.shop.component.CategorySelectionScreen
 import com.example.store.presentation.screens.shop.component.ProductListingScreen
-import com.example.store.presentation.screens.shop.model.ShopContent
+import com.example.store.presentation.screens.shop.model.ShopScreenContent
 import com.example.store.presentation.screens.shop.model.ShopScreenUiState
 import com.example.store.ui.theme.StoreTheme
 
@@ -32,21 +32,21 @@ fun ShopScreen(
         label = "AnimatedContent"
     ) { section ->
         when(section) {
-            ShopContent.Products -> ProductListingScreen(
+            ShopScreenContent.Products -> ProductListingScreen(
                 section = uiState.section,
                 category = uiState.category,
                 onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = {
-                    navController.navigate(Screen.ProductDetail)
+                    navController.navigate(Route.ProductDetail)
                 },
-                onNavigateUp = { uiState = uiState.copy(content = ShopContent.Categories)  }
+                onNavigateUp = { uiState = uiState.copy(content = ShopScreenContent.Categories)  }
             )
-            ShopContent.Categories -> CategorySelectionScreen(
+            ShopScreenContent.Categories -> CategorySelectionScreen(
                 currentSection = uiState.section,
                 onSectionClick = { uiState = uiState.copy(section = it) },
                 onCategoryClick = { category ->
                     uiState = uiState.copy(category = category)
-                    uiState = uiState.copy(content = ShopContent.Products)
+                    uiState = uiState.copy(content = ShopScreenContent.Products)
                     Log.d("ShopScreen", "${uiState.section.name} -> $category")
                 }
             )

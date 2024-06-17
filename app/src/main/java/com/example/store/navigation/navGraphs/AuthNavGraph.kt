@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.store.navigation.Screen
+import com.example.store.navigation.Route
 import com.example.store.presentation.screens.autentication.forgot.ForgotPasswordScreen
 import com.example.store.presentation.screens.autentication.login.LoginScreen
 import com.example.store.presentation.screens.autentication.signup.SignUpScreen
@@ -13,16 +13,16 @@ import com.example.store.presentation.screens.autentication.signup.SignUpScreen
 fun NavGraphBuilder.authNavGraph(
     navController: NavController
 ) {
-     navigation<Screen.AuthGraph>(
-         startDestination = Screen.Login,
+     navigation<Route.AuthGraph>(
+         startDestination = Route.Login,
     ) {
-         composable<Screen.Login> {
+         composable<Route.Login> {
              LoginScreen(navController)
          }
-         composable<Screen.SignUp> {
+         composable<Route.SignUp> {
              SignUpScreen(navController)
          }
-         composable<Screen.ForgotPassword> {
+         composable<Route.ForgotPassword> {
              ForgotPasswordScreen(navController)
 
          }

@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.navigation.Screen
+import com.example.store.navigation.Route
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.SocialAuthButton
 import com.example.store.presentation.component.StoreLargeTopBar
@@ -109,7 +109,7 @@ fun LoginScreen(
                 CustomClickableText(
                     modifier = Modifier,
                     text = "Esqueceu sua password?",
-                    onClick = { navController.navigate(Screen.ForgotPassword) }
+                    onClick = { navController.navigate(Route.ForgotPassword) }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 CustomButton(
@@ -141,7 +141,7 @@ fun LoginScreen(
                     text = "Não tem uma conta?",
                     supportText = "Criar",
                     textArrangement = Arrangement.Center,
-                    onClick =  { navController.navigate(Screen.SignUp) }
+                    onClick =  { navController.navigate(Route.SignUp) }
                 )
             }
         }

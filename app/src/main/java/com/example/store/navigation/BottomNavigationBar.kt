@@ -61,7 +61,7 @@ fun BottomNavigationBar(
         ) {
             AppDestinations.entries.forEach { destination ->
                 val isSelected = currentRoute?.hasRoute(destination.route::class) == true
-                val isCart = currentBackStack?.toRoute<Screen.Cart>() == destination.route
+                val isCart = currentBackStack?.toRoute<Route.Cart>() == destination.route
                 val cartItems = 9
                 NavigationBarItem(
                     selected = isSelected,
