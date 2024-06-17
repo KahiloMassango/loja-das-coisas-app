@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -70,8 +71,14 @@ fun LoginScreen(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
                     .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Text(
+                    modifier = Modifier.padding(bottom = 4.dp),
+                    text = "Email",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Medium
+                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
@@ -87,7 +94,14 @@ fun LoginScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    modifier = Modifier.padding(bottom = 4.dp),
+                    text = "Password",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    //fontWeight = FontWeight.Medium
+                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,

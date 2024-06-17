@@ -64,12 +64,18 @@ fun SignUpScreen(
                 modifier = Modifier
                     .padding(start = 16.dp,end = 16.dp, top = 44.dp,bottom = 20.dp)
                     .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+               // horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Text(
+                    text = "Nome",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    //fontWeight = FontWeight.Medium
+                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = name,
-                    placeholder = "Nome",
+                    placeholder = "Nome Completo",
                     onValueChange = { name = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -82,6 +88,12 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
+                Text(
+                    text = "Telefone",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    //fontWeight = FontWeight.Medium
+                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = phoneNumber,
@@ -98,6 +110,12 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
+                Text(
+                    text = "Email",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    //fontWeight = FontWeight.Medium
+                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
@@ -114,6 +132,12 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
+                Text(
+                    text = "Password",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    //fontWeight = FontWeight.Medium
+                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
