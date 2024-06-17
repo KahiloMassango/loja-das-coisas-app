@@ -36,6 +36,7 @@ internal fun CategoryCard(
     Card(
         modifier = modifier,
         onClick = { onCategoryClick(category.title) },
+        elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
