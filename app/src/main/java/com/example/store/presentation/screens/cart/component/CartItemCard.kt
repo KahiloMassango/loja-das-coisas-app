@@ -36,7 +36,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.store.R
@@ -111,10 +110,10 @@ fun CartItemCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
-                    QuantityController(
+                    ItemQuantity(
                         quantity = quantity,
-                        onDown = { if(quantity > 1) quantity-- },
-                        onUp = { quantity++ }
+                        onDecrease = { if(quantity > 1) quantity-- },
+                        onIncrease = { quantity++ }
                     )
                     Text(
                         text = "2500kz",
@@ -129,11 +128,11 @@ fun CartItemCard(
 }
 
 @Composable
-private fun QuantityController(
+private fun ItemQuantity(
     modifier: Modifier = Modifier,
     quantity: Int,
-    onDown: () -> Unit,
-    onUp: () -> Unit
+    onDecrease: () -> Unit,
+    onIncrease: () -> Unit
 ) {
     Row(
         modifier = modifier.width(130.dp),
@@ -144,7 +143,7 @@ private fun QuantityController(
             modifier = Modifier,
             shape = CircleShape,
             shadowElevation = 4.dp,
-            onClick = onDown,
+            onClick = onDecrease,
             color = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         ) {
@@ -165,7 +164,7 @@ private fun QuantityController(
             modifier = Modifier,
             shape = CircleShape,
             shadowElevation = 4.dp,
-            onClick = onUp,
+            onClick = onIncrease,
             color = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         ) {
