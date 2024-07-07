@@ -20,7 +20,7 @@ fun NavGraphBuilder.topLevelGraph(
             HomeScreen(navController = navController)
         }
         composable<Route.Cart> {
-            CartScreen()
+            CartScreen(navController = navController)
         }
         composable<Route.Profile> {
             ProfileScreen(navController = navController)

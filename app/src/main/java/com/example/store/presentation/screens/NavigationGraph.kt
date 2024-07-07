@@ -9,10 +9,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.store.navigation.BottomNavigationBar
-import com.example.store.presentation.component.ThemePreviews
 import com.example.store.navigation.Route
 import com.example.store.navigation.navGraphs.authNavGraph
 import com.example.store.navigation.navGraphs.topLevelGraph
+import com.example.store.presentation.component.ThemePreviews
+import com.example.store.presentation.screens.checkout.CheckoutScreen
 import com.example.store.presentation.screens.my_orders.MyOrdersScreen
 import com.example.store.presentation.screens.product_detail.ProductDetailsScreen
 import com.example.store.presentation.screens.settings.SettingsScreen
@@ -43,6 +44,9 @@ fun NavigationGraph(
             }
             composable<Route.Settings> {
                 SettingsScreen(navController = navController)
+            }
+            composable<Route.Checkout> {
+                CheckoutScreen(navController = navController)
             }
         }
         BottomNavigationBar(navController)

@@ -39,6 +39,8 @@ sealed interface Route {
     data object SignUp: Route
     @Serializable
     data object ForgotPassword: Route
+    @Serializable
+    data object Checkout: Route
 
 
 }
