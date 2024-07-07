@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.StoreCenteredTopBar
+import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.screens.checkout.component.DeliveryMethodSelector
 import com.example.store.presentation.screens.checkout.component.ShippingAddressCard
 import com.example.store.ui.theme.StoreTheme
@@ -34,11 +35,11 @@ fun CheckoutScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            StoreCenteredTopBar(
+            StoreLargeTopBar(
                 title = "Finalizar Compra",
                 canNavigateBack = true,
                 onNavigateUp = navController::navigateUp,
-                elevation = 5.dp
+                //elevation = 5.dp
             )
         },
     ) { paddingValues ->
