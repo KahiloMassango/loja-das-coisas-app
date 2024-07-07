@@ -59,8 +59,7 @@ fun LoginScreen(
                 canNavigateBack = true,
                 onNavigateUp = navController::navigateUp
             )
-        },
-        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
+        }
     ) { paddingValues ->
         Surface(
             modifier = Modifier
