@@ -3,16 +3,12 @@ package com.example.store.presentation.screens.autentication.login
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -26,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -62,26 +57,19 @@ fun LoginScreen(
         }
     ) { paddingValues ->
         Surface(
-            modifier = Modifier
-                .padding(paddingValues)
-
+            modifier = Modifier.padding(paddingValues)
         ){
             Column(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
                     .fillMaxSize(),
             ) {
-                Text(
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    text = "Email",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontWeight = FontWeight.Medium
-                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
-                    placeholder = "exemplo@gmail.com",
+                    placeholder = "Email",
+                    isError = false,
+                    errorMessage = "Not a valid email. Should be your@email.com.",
                     onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -93,18 +81,11 @@ fun LoginScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    text = "Password",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    //fontWeight = FontWeight.Medium
-                )
+                Spacer(modifier = Modifier.height(20.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
-                    placeholder = "************",
+                    placeholder = "Password",
                     onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(

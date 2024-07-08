@@ -70,7 +70,7 @@ fun SettingsScreen(
     }
 
     Scaffold(
-        modifier = modifier.pointerInput(null){
+        modifier = modifier.pointerInput(null) {
             detectTapGestures(
                 onTap = {
                     focusManager.clearFocus()
@@ -78,7 +78,10 @@ fun SettingsScreen(
             )
         },
         topBar = {
-            StoreLargeTopBar(title = "Definições", canNavigateBack = true) { navController.navigateUp() }
+            StoreLargeTopBar(
+                title = "Definições",
+                canNavigateBack = true
+            ) { navController.navigateUp() }
         },
     ) { paddingValues ->
         Surface(
@@ -112,11 +115,11 @@ fun SettingsScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(45.dp))
-                Row (
+                Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Text(
                         text = "Password",
                         style = MaterialTheme.typography.titleMedium,
@@ -130,8 +133,8 @@ fun SettingsScreen(
                         text = "Alterar",
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.inverseOnSurface,
-                        
-                    )
+
+                        )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 StoreTextField(
@@ -155,7 +158,6 @@ fun SettingsScreen(
         }
     }
 }
-
 
 
 @ThemePreviews

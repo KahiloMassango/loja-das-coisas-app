@@ -66,12 +66,6 @@ fun SignUpScreen(
                     .fillMaxSize(),
                // horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Nome",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    //fontWeight = FontWeight.Medium
-                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = name,
@@ -88,12 +82,6 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-                Text(
-                    text = "Telefone",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    //fontWeight = FontWeight.Medium
-                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = phoneNumber,
@@ -110,12 +98,6 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-                Text(
-                    text = "Email",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    //fontWeight = FontWeight.Medium
-                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
@@ -132,16 +114,10 @@ fun SignUpScreen(
                     )
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-                Text(
-                    text = "Password",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    //fontWeight = FontWeight.Medium
-                )
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
-                    placeholder = "Senha",
+                    placeholder = "Password",
                     onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
