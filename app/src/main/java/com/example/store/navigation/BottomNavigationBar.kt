@@ -49,8 +49,8 @@ fun BottomNavigationBar(
 
     AnimatedVisibility(
         visible = showBottomBar,
-        enter = slideInVertically(initialOffsetY = { it/2 }),
-        exit = slideOutVertically(targetOffsetY = { it/2 }),
+        enter = slideInVertically(initialOffsetY = { -it }),
+        exit = slideOutVertically(targetOffsetY = { -it }),
     ){
         NavigationBar(
             modifier = modifier
