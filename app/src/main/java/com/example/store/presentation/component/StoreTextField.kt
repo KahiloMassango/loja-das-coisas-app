@@ -89,8 +89,11 @@ fun StoreTextField(
                         ) {
                             if (value.isEmpty()) {
                                 Text(
+                                    modifier = Modifier.padding(bottom = 3.dp),
                                     text = placeholder,
-                                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.inverseOnSurface)
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = if (isError) MaterialTheme.colorScheme.error
+                                    else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                             innerTextField()
