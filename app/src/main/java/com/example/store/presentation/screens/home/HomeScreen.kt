@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
@@ -17,6 +18,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.store.navigation.Route
 import com.example.store.presentation.screens.home.component.HomeBanner
 import com.example.store.presentation.screens.home.component.Section
 import com.example.store.ui.theme.StoreTheme
@@ -32,6 +34,7 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -39,7 +42,9 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            HomeContent(Modifier)
+            HomeContent(
+                onProductClick = { navController.navigate(Route.ProductDetail) }
+            )
 
             Spacer(modifier = Modifier.height(18.dp))
 
@@ -52,7 +57,10 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeContent(modifier: Modifier = Modifier) {
+fun HomeContent(
+    modifier: Modifier = Modifier,
+    onProductClick: () -> Unit
+) {
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp),
@@ -62,14 +70,14 @@ fun HomeContent(modifier: Modifier = Modifier) {
             title = "Sale",
             description = "Super summer sale",
             items = 15,
-            onItemClick = {},
+            onItemClick = { onProductClick() },
             onViewAllClick = {}
         )
         Section(
             title = "New",
             description = "You’ve never seen it before!",
             items = 15,
-            onItemClick = {},
+            onItemClick = { onProductClick() },
             onViewAllClick = {}
         )
 
