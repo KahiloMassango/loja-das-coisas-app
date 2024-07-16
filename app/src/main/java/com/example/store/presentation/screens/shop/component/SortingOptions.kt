@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -21,14 +24,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.CustomDragHandle
 
+enum class SortOption(val title: String, val description: String) {
+    Popular("popular", "Mais vendidos"),
+    Novo("newest", "Mais recentes"),
+    PriceAsc("priceLow", "Preço: menor para maior"),
+    PriceDesc("priceHigh", "Preço: maior para menor")
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SortingOptions(
+fun SortOptionContainer(
     state: SheetState,
-    selectedOption: Int,
+    selectedOption: String,
     onDismissRequest: () -> Unit,
-    onOptionClick: (Int) -> Unit,
+    onOptionClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -38,50 +47,54 @@ internal fun SortingOptions(
         containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
         scrimColor = Color(0xFF000000).copy(0.3f),
         onDismissRequest = onDismissRequest,
-        windowInsets = WindowInsets(0),
+        windowInsets = WindowInsets.navigationBars,
         dragHandle = {
             CustomDragHandle("Ordenar por")
         }
     ) {
         Column(
-            modifier = Modifier.navigationBarsPadding()
+            modifier = Modifier
+                .navigationBarsPadding()
                 .fillMaxWidth()
                 .padding(bottom = 4.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            repeat(5) {
+            SortOption.entries.forEach { option ->
                 OrderByOption(
-                    selected = it == selectedOption,
-                    onClick = {
-                        onOptionClick(it)
-                    }
+                    selected = option.title == selectedOption,
+                    option = option,
+                    onClick = { onOptionClick(option.title) }
                 )
             }
         }
     }
 }
 
+
 @Composable
 fun OrderByOption(
-    selected: Boolean,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    selected: Boolean,
+    option: SortOption,
+    onClick: () -> Unit,
+
 ) {
-   Box(
-       modifier = modifier
-           .background(if (selected) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.surface
-           )
-           .fillMaxWidth()
-           .clickable { onClick() },
-   ) {
-       Text(
-           modifier = Modifier.padding(16.dp),
-           text = "Popular",
-           style = MaterialTheme.typography.bodyLarge,
-           color = if (selected) MaterialTheme.colorScheme.onPrimary
+    Box(
+        modifier = modifier
+            .background(
+                if (selected) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.surface
+            )
+            .fillMaxWidth()
+            .clickable { onClick() },
+    ) {
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = option.description,
+            style = MaterialTheme.typography.bodyMedium,
+            color = if (selected) MaterialTheme.colorScheme.onPrimary
             else MaterialTheme.colorScheme.onSurface
-       )
-   }
+        )
+    }
 }

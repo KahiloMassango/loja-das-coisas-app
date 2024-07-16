@@ -35,7 +35,7 @@ fun ProductListingScreen(
 ) {
     var currentFilter by remember {
         mutableStateOf(getSectionFilters(section).first().name) }
-    var selectedOption by remember { mutableIntStateOf(0) }
+    var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
     BackHandler { onNavigateUp() }
     Scaffold(
         modifier = modifier,
@@ -52,13 +52,13 @@ fun ProductListingScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             Column(
-                Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize()
             ) {
                 if (category != "Shoes") {
                     FilterContainer(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
                         filters = getSectionFilters(section),
                         selected = currentFilter,
                         onSelectFilter = {
@@ -70,7 +70,7 @@ fun ProductListingScreen(
                 ProductGrid(
                     modifier = Modifier,
                     selectedOption = selectedOption,
-                    onOptionClick = { selectedOption = it },
+                    onSort = { selectedOption = it },
                     onProductClick = { onProductClick() }
                 )
             }

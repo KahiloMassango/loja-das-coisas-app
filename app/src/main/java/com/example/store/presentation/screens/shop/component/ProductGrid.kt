@@ -18,8 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.example.store.presentation.component.ProductCard
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.ui.theme.StoreTheme
@@ -32,29 +32,27 @@ fun ProductGrid(
     modifier: Modifier = Modifier,
     products: List<Any> = emptyList(),
     onProductClick: () -> Unit,
-    selectedOption: Int = 0,
-    onOptionClick: (Int) -> Unit
+    selectedOption: String = SortOption.Popular.title,
+    onSort: (String) -> Unit
 
 ) {
     var isSortingOptionOpen by remember { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
 
-
-    if (isSortingOptionOpen){
-        SortingOptions(
+    if (isSortingOptionOpen) {
+        SortOptionContainer(
             state = bottomSheetState,
             selectedOption = selectedOption,
             onOptionClick = {
-                onOptionClick(it)
-             coroutineScope.launch {
-                 delay(200)
-                 bottomSheetState.hide()
-             }   .invokeOnCompletion { isSortingOptionOpen = false }
+                onSort(it)
+                coroutineScope.launch {
+                    delay(200)
+                    bottomSheetState.hide()
+                    //delay(100)
+                }.invokeOnCompletion { isSortingOptionOpen = false }
             },
-            onDismissRequest = {
-                isSortingOptionOpen = false
-            }
+            onDismissRequest = { isSortingOptionOpen = false }
         )
     }
     Surface(
@@ -66,7 +64,7 @@ fun ProductGrid(
 
         ) {
             Surface(
-                modifier = Modifier,
+                modifier = Modifier.zIndex(1f),
                 shadowElevation = 9.dp,
             ) {
                 Row(
@@ -74,21 +72,20 @@ fun ProductGrid(
                         .fillMaxWidth(),
                 ) {
                     SortingHeader(
-                        modifier = Modifier.padding(start = 16.dp, bottom = 4.dp),
+                        modifier = Modifier.padding(start = 16.dp, bottom = 5.dp),
                         onClick = { isSortingOptionOpen = true }
                     )
                 }
             }
             LazyVerticalGrid(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
                 horizontalArrangement = Arrangement.spacedBy(18.dp)
             ) {
                 repeat(15) {
                     item {
                         ProductCard(
-                            modifier = Modifier,
+                            modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
                             onClick = { onProductClick() }
                         )
                     }
@@ -104,7 +101,7 @@ private fun Preview() {
     StoreTheme {
         ProductGrid(
             onProductClick = {},
-            onOptionClick = {}
+            onSort = {}
         )
     }
 }
