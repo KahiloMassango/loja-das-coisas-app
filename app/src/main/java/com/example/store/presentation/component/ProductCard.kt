@@ -56,10 +56,10 @@ fun ProductCard(
             ) {
                 Image(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
                         .fillMaxWidth()
-                        .height(184.dp),
-                    painter = painterResource(id = R.drawable.images),
+                        .height(184.dp)
+                        .clip(RoundedCornerShape(12.dp)),
+                    painter = painterResource(id = R.drawable.detail_image_ex2),
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -153,7 +153,7 @@ fun StarRating(
             val color =
                 if (i <= rating) Color(0xFFFFBA49) else MaterialTheme.colorScheme.onSurfaceVariant
             Icon(
-                modifier = Modifier.size(16.dp),
+                modifier = Modifier.size(14.dp),
                 imageVector = drawableRes,
                 contentDescription = null,
                 tint = color

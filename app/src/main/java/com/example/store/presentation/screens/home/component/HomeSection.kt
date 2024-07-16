@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.presentation.component.ProductCard
-import com.example.store.presentation.component.ProductCard1
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
@@ -61,13 +61,13 @@ fun Section(
             modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            item { ProductCard {} }
-            item { ProductCard {} }
-            item { ProductCard {} }
-            item { ProductCard {} }
-            item { ProductCard {} }
-            item { ProductCard {} }
-            item { ProductCard {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {} }
 
         }
     }
