@@ -1,6 +1,7 @@
 package com.example.store.presentation.screens.shop.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -64,16 +65,15 @@ fun ProductGrid(
 
         ) {
             Surface(
-                modifier = Modifier.zIndex(1f),
-                shadowElevation = 9.dp,
+                modifier = modifier
+                    .zIndex(1f)
+                    .fillMaxWidth(),
+                shadowElevation = 5.dp,
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                ) {
+                Box {
                     SortingHeader(
-                        modifier = Modifier.padding(start = 16.dp, bottom = 5.dp),
-                        onClick = { isSortingOptionOpen = true }
+                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
+                        onSortClick = { isSortingOptionOpen = true }
                     )
                 }
             }

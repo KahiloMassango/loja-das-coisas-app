@@ -2,7 +2,6 @@ package com.example.store.presentation.screens.shop.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,28 +20,24 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun SortingHeader(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onSortClick: () -> Unit
 ) {
-    Box(
-        modifier = modifier.clickable { onClick() },
+    Row(
+        modifier = modifier.clickable { onSortClick() },
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier.padding(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier = Modifier.size(16.dp),
-                painter = painterResource(id = R.drawable.filter_icon),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = "Ordenar por",
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
+        Icon(
+            modifier = Modifier.size(14.dp),
+            painter = painterResource(id = R.drawable.sort_icon),
+            contentDescription = "Sort",
+            tint = MaterialTheme.colorScheme.onSurface
+        )
+        Text(
+            text = "Ordenar por",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
     }
 }
 
