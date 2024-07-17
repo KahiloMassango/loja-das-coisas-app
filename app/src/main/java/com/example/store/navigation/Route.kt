@@ -1,10 +1,12 @@
 package com.example.store.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.ShoppingBag
@@ -12,7 +14,7 @@ import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
-@Serializable
+
 sealed interface Route {
 
     @Serializable
@@ -41,6 +43,8 @@ sealed interface Route {
     data object ForgotPassword: Route
     @Serializable
     data object Checkout: Route
+    @Serializable
+    data object Favorite: Route
 
 
 }
@@ -54,5 +58,6 @@ enum class AppDestinations (
     HOME("Home", Route.Home, Icons.Outlined.Home, Icons.Filled.Home),
     SHOP("Loja",Route.Shop,Icons.Outlined.ShoppingCart,Icons.Filled.ShoppingCart),
     CART("Carrinho", Route.Cart, Icons.Outlined.ShoppingBag,Icons.Filled.ShoppingBag),
+    Favorite("Favoritos", Route.Favorite, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
     PROFILE("Perfil",Route.Profile,Icons.Outlined.PersonOutline, Icons.Filled.Person)
 }

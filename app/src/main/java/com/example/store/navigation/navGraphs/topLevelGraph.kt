@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.store.navigation.Route
 import com.example.store.presentation.screens.cart.CartScreen
+import com.example.store.presentation.screens.favorite.FavoriteScreen
 import com.example.store.presentation.screens.home.HomeScreen
 import com.example.store.presentation.screens.profile.ProfileScreen
 import com.example.store.presentation.screens.shop.ShopScreen
@@ -28,5 +29,6 @@ fun NavGraphBuilder.topLevelGraph(
         composable<Route.Shop> {
             ShopScreen(navController = navController)
         }
+        composable<Route.Favorite> { FavoriteScreen(navController = navController) }
     }
 }

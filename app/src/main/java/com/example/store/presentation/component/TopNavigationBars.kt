@@ -67,7 +67,6 @@ fun StoreLargeTopBar(
     onNavigateUp: () -> Unit = {}
 ) {
     MediumTopAppBar(
-        modifier = modifier,
         title = {
             Text(
                 text = title,
@@ -75,6 +74,7 @@ fun StoreLargeTopBar(
                 fontWeight = FontWeight.Bold
             )
         },
+        modifier = modifier,
         navigationIcon = {
             if(canNavigateBack){
                 IconButton(onClick = onNavigateUp) {
