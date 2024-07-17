@@ -12,52 +12,22 @@ import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
-import kotlinx.serialization.Serializable
+import com.example.store.presentation.screens.cart.navigation.CartRoute
+import com.example.store.presentation.screens.checkout.navigation.FavoriteRoute
+import com.example.store.presentation.screens.product_detail.navigation.HomeRoute
+import com.example.store.presentation.screens.profile.navigation.ProfileRoute
+import com.example.store.presentation.screens.shop.navigation.ShopRoute
 
-
-sealed interface Route {
-
-    @Serializable
-    data object TopLevelGraph: Route
-    @Serializable
-    data object Home: Route
-    @Serializable
-    data object Profile: Route
-    @Serializable
-    data object Cart: Route
-    @Serializable
-    data object Shop: Route
-    @Serializable
-    data object Settings: Route
-    @Serializable
-    data object MyOrders: Route
-    @Serializable
-    data object ProductDetail: Route
-    @Serializable
-    data object AuthGraph: Route
-    @Serializable
-    data object Login: Route
-    @Serializable
-    data object SignUp: Route
-    @Serializable
-    data object ForgotPassword: Route
-    @Serializable
-    data object Checkout: Route
-    @Serializable
-    data object Favorite: Route
-
-
-}
 
 enum class AppDestinations (
     val title: String,
-    val route: Route,
+    val route: Any,
     val unselectedIcon: ImageVector,
     val selectedIcon: ImageVector
 ){
-    HOME("Home", Route.Home, Icons.Outlined.Home, Icons.Filled.Home),
-    SHOP("Loja",Route.Shop,Icons.Outlined.ShoppingCart,Icons.Filled.ShoppingCart),
-    CART("Carrinho", Route.Cart, Icons.Outlined.ShoppingBag,Icons.Filled.ShoppingBag),
-    Favorite("Favoritos", Route.Favorite, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
-    PROFILE("Perfil",Route.Profile,Icons.Outlined.PersonOutline, Icons.Filled.Person)
+    HOME("Home", HomeRoute, Icons.Outlined.Home, Icons.Filled.Home),
+    SHOP("Loja", ShopRoute,Icons.Outlined.ShoppingCart,Icons.Filled.ShoppingCart),
+    CART("Carrinho", CartRoute, Icons.Outlined.ShoppingBag,Icons.Filled.ShoppingBag),
+    Favorite("Favoritos", FavoriteRoute, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
+    PROFILE("Perfil", ProfileRoute,Icons.Outlined.PersonOutline, Icons.Filled.Person)
 }

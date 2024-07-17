@@ -6,17 +6,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.store.navigation.BottomNavigationBar
-import com.example.store.navigation.Route
-import com.example.store.navigation.navGraphs.authNavGraph
+import com.example.store.navigation.navGraphs.AuthenticationRoute
+import com.example.store.navigation.navGraphs.TopLevelRoute
+import com.example.store.navigation.navGraphs.authentication
 import com.example.store.navigation.navGraphs.topLevelGraph
 import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.screens.checkout.CheckoutScreen
-import com.example.store.presentation.screens.my_orders.MyOrdersScreen
-import com.example.store.presentation.screens.product_detail.ProductDetailsScreen
-import com.example.store.presentation.screens.settings.SettingsScreen
+import com.example.store.presentation.screens.product_detail.navigation.checkoutScreen
+import com.example.store.presentation.screens.product_detail.navigation.myOrdersScreen
+import com.example.store.presentation.screens.product_detail.navigation.productDetailScreen
+import com.example.store.presentation.screens.settings.navigation.settingsScreen
 import com.example.store.ui.theme.StoreTheme
 
 
@@ -31,23 +31,19 @@ fun NavigationGraph(
         NavHost(
             modifier = Modifier.weight(1f),
             navController = navController,
-            startDestination = Route.TopLevelGraph
+            startDestination = AuthenticationRoute
         ) {
-            authNavGraph(navController)
+            authentication(navController)
+
             topLevelGraph(navController)
 
-            composable<Route.ProductDetail> {
-                ProductDetailsScreen(navController)
-            }
-            composable<Route.MyOrders> {
-                MyOrdersScreen(navController = navController)
-            }
-            composable<Route.Settings> {
-                SettingsScreen(navController = navController)
-            }
-            composable<Route.Checkout> {
-                CheckoutScreen(navController = navController)
-            }
+            productDetailScreen(navController::navigateUp)
+
+            myOrdersScreen(navController::navigateUp)
+
+            settingsScreen(navController::navigateUp)
+
+            checkoutScreen(onNavigateUp = navController::navigateUp)
         }
         BottomNavigationBar(navController)
     }

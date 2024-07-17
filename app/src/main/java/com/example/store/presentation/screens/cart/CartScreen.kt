@@ -20,11 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.store.navigation.Route
 import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.StoreCenteredTopBar
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.cart.component.CartItemCard
@@ -33,7 +29,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun CartScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    onCheckout: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -86,7 +82,7 @@ fun CartScreen(
                     CustomButton(
                         text = "Pagar",
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { navController.navigate(Route.Checkout) }
+                        onClick = onCheckout
                     )
                 }
             }
@@ -99,6 +95,6 @@ fun CartScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        CartScreen(navController=rememberNavController())
+        CartScreen(){}
     }
 }

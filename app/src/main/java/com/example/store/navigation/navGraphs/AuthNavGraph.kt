@@ -2,29 +2,36 @@ package com.example.store.navigation.navGraphs
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.store.navigation.Route
-import com.example.store.presentation.screens.autentication.forgot.ForgotPasswordScreen
-import com.example.store.presentation.screens.autentication.login.LoginScreen
-import com.example.store.presentation.screens.autentication.signup.SignUpScreen
+import com.example.store.presentation.screens.autentication.forgot.navigation.forgotPasswordScreen
+import com.example.store.presentation.screens.autentication.forgot.navigation.navigateToForgotPassword
+import com.example.store.presentation.screens.autentication.login.navigation.LoginRoute
+import com.example.store.presentation.screens.autentication.login.navigation.loginScreen
+import com.example.store.presentation.screens.autentication.signup.navigation.navigateToSignUp
+import com.example.store.presentation.screens.autentication.signup.navigation.signUpScreen
+import kotlinx.serialization.Serializable
 
+@Serializable
+data object AuthenticationRoute
 
-fun NavGraphBuilder.authNavGraph(
+fun NavGraphBuilder.authentication(
     navController: NavController
 ) {
-     navigation<Route.AuthGraph>(
-         startDestination = Route.Login,
+    navigation<AuthenticationRoute>(
+        startDestination = LoginRoute,
     ) {
-         composable<Route.Login> {
-             LoginScreen(navController)
-         }
-         composable<Route.SignUp> {
-             SignUpScreen(navController)
-         }
-         composable<Route.ForgotPassword> {
-             ForgotPasswordScreen(navController)
 
-         }
+        loginScreen(
+            onSignUp = { navController.navigateToSignUp() },
+            onForgotPassword = { navController.navigateToForgotPassword() },
+            onNavigateUp = navController::navigateUp
+        )
+
+        signUpScreen(
+            onNavigateLogin = navController::navigateUp,
+            onNavigateUp = { navController.navigateUp() }
+        )
+
+        forgotPasswordScreen(onNavigateUp = navController::navigateUp)
     }
 }

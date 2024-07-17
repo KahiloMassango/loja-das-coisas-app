@@ -13,20 +13,16 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.store.navigation.Route
 import com.example.store.presentation.screens.home.component.HomeBanner
 import com.example.store.presentation.screens.home.component.Section
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onProductDetail: (Int) -> Unit
 ) {
     Surface(
         modifier = modifier,
@@ -43,7 +39,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(18.dp))
 
             HomeContent(
-                onProductClick = { navController.navigate(Route.ProductDetail) }
+                onProductClick = { onProductDetail(1) }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -90,6 +86,6 @@ fun HomeContent(
 @Composable
 private fun Preview() {
     StoreTheme {
-        HomeScreen(navController = rememberNavController())
+        HomeScreen(){}
     }
 }

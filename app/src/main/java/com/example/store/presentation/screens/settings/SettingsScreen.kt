@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
@@ -81,7 +81,7 @@ fun SettingsScreen(
             StoreLargeTopBar(
                 title = "Definições",
                 canNavigateBack = true
-            ) { navController.navigateUp() }
+            ) { onNavigateUp() }
         },
     ) { paddingValues ->
         Surface(
@@ -164,8 +164,6 @@ fun SettingsScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        SettingsScreen(
-            navController = rememberNavController()
-        )
+        SettingsScreen() {}
     }
 }

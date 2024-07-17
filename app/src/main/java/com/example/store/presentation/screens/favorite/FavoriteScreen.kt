@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FavoriteScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    onProductDetail: (Int) -> Unit,
 ) {
     var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
     var isSortingOptionOpen by remember { mutableStateOf(false) }
@@ -116,6 +116,6 @@ fun FavoriteScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        FavoriteScreen(navController = rememberNavController())
+        FavoriteScreen(){}
     }
 }

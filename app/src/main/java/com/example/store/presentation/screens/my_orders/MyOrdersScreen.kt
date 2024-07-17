@@ -20,8 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.screens.my_orders.component.MyOrdersTabs
 import com.example.store.presentation.screens.my_orders.component.OrderItemCard
@@ -31,7 +29,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun MyOrdersScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
+    onNavigateUp: () -> Unit,
 ) {
     var currentTab by rememberSaveable { mutableStateOf(OrderTabs.DELIVERED) }
 
@@ -41,7 +39,7 @@ fun MyOrdersScreen(
             StoreLargeTopBar(
                 title = "Minhas Encomendas",
                 canNavigateBack = true,
-                onNavigateUp = navController::navigateUp
+                onNavigateUp = onNavigateUp
             )
         },
     ) { paddingValues ->
@@ -98,6 +96,6 @@ private fun OrdersContentList(
 @Composable
 private fun Preview() {
     StoreTheme {
-        MyOrdersScreen(navController = rememberNavController())
+        MyOrdersScreen(){}
     }
 }

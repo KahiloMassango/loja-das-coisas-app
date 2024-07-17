@@ -22,18 +22,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.StoreLargeTopBar
+import com.example.store.presentation.component.StoreTextField
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun ForgotPasswordScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
@@ -44,7 +42,7 @@ fun ForgotPasswordScreen(
             StoreLargeTopBar(
                 title = "Recuperar senha",
                 canNavigateBack = true,
-                onNavigateUp = navController::navigateUp
+                onNavigateUp = onNavigateUp
             )
         }
     ) { paddingValues ->
@@ -96,6 +94,6 @@ fun ForgotPasswordScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ForgotPasswordScreen(rememberNavController())
+        ForgotPasswordScreen(){}
     }
 }

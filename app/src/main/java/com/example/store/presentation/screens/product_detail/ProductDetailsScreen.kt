@@ -24,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.presentation.component.CustomButton
@@ -44,8 +43,8 @@ val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onNavigateUp: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -103,7 +102,7 @@ fun ProductDetailsScreen(
             StoreCenteredTopBar(
                 title = "M&H",
                 canNavigateBack = true,
-                onNavigateUp = navController::navigateUp
+                onNavigateUp = onNavigateUp
                 )
         },
     ) { paddingValues ->
@@ -161,6 +160,6 @@ fun ProductDetailsScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductDetailsScreen(rememberNavController())
+        ProductDetailsScreen() {}
     }
 }

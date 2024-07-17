@@ -39,8 +39,9 @@ import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun SignUpScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onNavigateLogin: () -> Unit,
+    onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
@@ -53,7 +54,7 @@ fun SignUpScreen(
             StoreLargeTopBar(
                 title = "Criar conta",
                 canNavigateBack = true,
-                onNavigateUp = navController::navigateUp
+                onNavigateUp = onNavigateUp
             )
         }
     ) { paddingValues ->
@@ -136,7 +137,7 @@ fun SignUpScreen(
                         .fillMaxWidth(),
                     text = "Já tem uma conta?",
                     supportText = "Entrar",
-                    onClick = { navController.navigateUp() }
+                    onClick = { onNavigateLogin() }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomButton(
@@ -169,6 +170,9 @@ fun SignUpScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        SignUpScreen(rememberNavController())
+        SignUpScreen(
+            onNavigateLogin = {},
+            onNavigateUp = {}
+        )
     }
 }

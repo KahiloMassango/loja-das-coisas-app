@@ -30,7 +30,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun CheckoutScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    onNavigateUp: () -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -38,7 +38,7 @@ fun CheckoutScreen(
             StoreLargeTopBar(
                 title = "Finalizar Compra",
                 canNavigateBack = true,
-                onNavigateUp = navController::navigateUp,
+                onNavigateUp = onNavigateUp
                 //elevation = 5.dp
             )
         },

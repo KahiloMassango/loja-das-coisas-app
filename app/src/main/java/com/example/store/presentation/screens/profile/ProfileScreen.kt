@@ -26,10 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.navigation.Route
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.profile.component.ProfileOptions
@@ -38,13 +35,15 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    onMyOrdersClick: () -> Unit,
+    onMyReviewsClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     ProfileContent(
         modifier = modifier,
-        onMyOrdersClick = { navController.navigate(Route.MyOrders)},
-        onMyReviewsClick = { /* TODO */},
-        onSettingsClick = { navController.navigate(Route.Settings) }
+        onMyOrdersClick = onMyOrdersClick,
+        onMyReviewsClick = onMyReviewsClick,
+        onSettingsClick = onSettingsClick
     )
 }
 
@@ -128,6 +127,6 @@ private fun ProfileHeader(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProfileScreen(navController = rememberNavController())
+
     }
 }

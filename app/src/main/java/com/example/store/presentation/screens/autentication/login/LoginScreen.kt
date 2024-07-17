@@ -26,10 +26,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.navigation.Route
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.SocialAuthButton
 import com.example.store.presentation.component.StoreLargeTopBar
@@ -40,8 +37,10 @@ import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun LoginScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onSignUp: () -> Unit,
+    onForgotPassword: () -> Unit,
+    onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
@@ -52,7 +51,7 @@ fun LoginScreen(
             StoreLargeTopBar(
                 title = "Login",
                 canNavigateBack = true,
-                onNavigateUp = navController::navigateUp
+                onNavigateUp = onNavigateUp
             )
         }
     ) { paddingValues ->
@@ -103,7 +102,7 @@ fun LoginScreen(
                 CustomClickableText(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Esqueceu sua password?",
-                    onClick = { navController.navigate(Route.ForgotPassword) }
+                    onClick = { onForgotPassword() }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 CustomButton(
@@ -135,7 +134,7 @@ fun LoginScreen(
                     text = "Não tem uma conta?",
                     supportText = "Criar",
                     textArrangement = Arrangement.Center,
-                    onClick =  { navController.navigate(Route.SignUp) }
+                    onClick =  { onSignUp() }
                 )
             }
         }
@@ -146,6 +145,6 @@ fun LoginScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        LoginScreen(rememberNavController())
+        LoginScreen(Modifier, {}, {}, {})
     }
 }

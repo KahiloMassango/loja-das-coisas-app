@@ -8,9 +8,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.store.navigation.Route
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.shop.component.CategorySelectionScreen
 import com.example.store.presentation.screens.shop.component.ProductListingScreen
@@ -21,8 +18,8 @@ import com.example.store.ui.theme.StoreTheme
 
 @Composable
 fun ShopScreen(
-    navController: NavController,
     modifier: Modifier = Modifier,
+    onNavigateUp: () -> Unit,
 ) {
     var uiState by remember { mutableStateOf(ShopScreenUiState()) }
 
@@ -37,7 +34,7 @@ fun ShopScreen(
                 category = uiState.category,
                 onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = {
-                    navController.navigate(Route.ProductDetail)
+                    onNavigateUp()
                 },
                 onNavigateUp = { uiState = uiState.copy(content = ShopScreenContent.Categories)  }
             )
@@ -59,8 +56,6 @@ fun ShopScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ShopScreen(
-            rememberNavController()
-        )
+        ShopScreen() {}
     }
 }

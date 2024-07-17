@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -20,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -28,6 +26,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
+import com.example.store.presentation.screens.cart.navigation.CartRoute
 
 private val navBarRoutes = AppDestinations.entries.map { it.route::class }
 
@@ -66,7 +65,7 @@ fun BottomNavigationBar(
             ) {
                 AppDestinations.entries.forEach { destination ->
                     val isSelected = currentRoute?.hasRoute(destination.route::class) ?: false
-                    val isCart = currentBackStack?.toRoute<Route.Cart>() == destination.route
+                    val isCart = currentBackStack?.toRoute<CartRoute>() == destination.route
                     val cartItems = 9
                     NavigationBarItem(
                         selected = isSelected,

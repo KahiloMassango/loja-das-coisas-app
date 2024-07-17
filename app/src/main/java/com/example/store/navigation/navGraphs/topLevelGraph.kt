@@ -2,33 +2,41 @@ package com.example.store.navigation.navGraphs
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.store.navigation.Route
-import com.example.store.presentation.screens.cart.CartScreen
-import com.example.store.presentation.screens.favorite.FavoriteScreen
-import com.example.store.presentation.screens.home.HomeScreen
-import com.example.store.presentation.screens.profile.ProfileScreen
-import com.example.store.presentation.screens.shop.ShopScreen
+import com.example.store.presentation.screens.product_detail.navigation.HomeRoute
+import com.example.store.presentation.screens.cart.navigation.cartScreen
+import com.example.store.presentation.screens.checkout.navigation.favoriteScreen
+import com.example.store.presentation.screens.product_detail.navigation.homeScreen
+import com.example.store.presentation.screens.product_detail.navigation.navigateToCheckout
+import com.example.store.presentation.screens.product_detail.navigation.navigateToMyOrders
+import com.example.store.presentation.screens.product_detail.navigation.navigateToProductDetail
+import com.example.store.presentation.screens.settings.navigation.navigateToSettings
+import com.example.store.presentation.screens.profile.navigation.profileScreen
+import com.example.store.presentation.screens.shop.navigation.shopScreen
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object TopLevelRoute
 
 fun NavGraphBuilder.topLevelGraph(
     navController: NavController
 ) {
-    navigation<Route.TopLevelGraph>(
-        startDestination = Route.Home,
+    navigation<TopLevelRoute>(
+        startDestination = HomeRoute,
     ) {
-        composable<Route.Home> {
-            HomeScreen(navController = navController)
-        }
-        composable<Route.Cart> {
-            CartScreen(navController = navController)
-        }
-        composable<Route.Profile> {
-            ProfileScreen(navController = navController)
-        }
-        composable<Route.Shop> {
-            ShopScreen(navController = navController)
-        }
-        composable<Route.Favorite> { FavoriteScreen(navController = navController) }
+        homeScreen(onProductDetail = { navController.navigateToProductDetail(it) })
+
+        cartScreen(onCheckout = { navController.navigateToCheckout() })
+
+        profileScreen(
+            onMyOrdersClick = { navController.navigateToMyOrders() },
+            onMyReviewsClick = { /* TODO */ },
+            onSettingsClick = { navController.navigateToSettings() }
+        )
+
+        shopScreen(onNavigateUp = navController::navigateUp)
+
+        favoriteScreen(onProductDetail = { navController.navigateToProductDetail(it) })
+
     }
 }
