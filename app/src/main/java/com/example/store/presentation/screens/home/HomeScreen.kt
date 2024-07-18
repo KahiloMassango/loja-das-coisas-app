@@ -22,7 +22,8 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onProductDetail: (Int) -> Unit
+    onProductClick: (Int) -> Unit,
+    onSeeAll: (String) -> Unit
 ) {
     Surface(
         modifier = modifier,
@@ -39,7 +40,8 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(18.dp))
 
             HomeContent(
-                onProductClick = { onProductDetail(1) }
+                onProductClick = { onProductClick(1) },
+                onSeeAll = { onSeeAll(it) }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -55,7 +57,8 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     modifier: Modifier = Modifier,
-    onProductClick: () -> Unit
+    onProductClick: () -> Unit,
+    onSeeAll: (String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -67,14 +70,14 @@ fun HomeContent(
             description = "Super summer sale",
             items = 15,
             onItemClick = { onProductClick() },
-            onViewAllClick = {}
+            onSeeAll = { onSeeAll(it) }
         )
         Section(
             title = "New",
             description = "You’ve never seen it before!",
             items = 15,
             onItemClick = { onProductClick() },
-            onViewAllClick = {}
+            onSeeAll = { onSeeAll(it) }
         )
 
     }
@@ -86,6 +89,6 @@ fun HomeContent(
 @Composable
 private fun Preview() {
     StoreTheme {
-        HomeScreen(){}
+        HomeScreen(onProductClick = {}, onSeeAll = {})
     }
 }
