@@ -8,14 +8,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.store.navigation.BottomNavigationBar
-import com.example.store.navigation.navGraphs.AuthenticationRoute
 import com.example.store.navigation.navGraphs.TopLevelRoute
 import com.example.store.navigation.navGraphs.authentication
 import com.example.store.navigation.navGraphs.topLevelGraph
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.product_detail.navigation.checkoutScreen
 import com.example.store.presentation.screens.product_detail.navigation.myOrdersScreen
+import com.example.store.presentation.screens.product_detail.navigation.navigateToProductDetail
 import com.example.store.presentation.screens.product_detail.navigation.productDetailScreen
+import com.example.store.presentation.screens.product_listing.navigation.productListingScreen
 import com.example.store.presentation.screens.settings.navigation.settingsScreen
 import com.example.store.ui.theme.StoreTheme
 
@@ -36,6 +37,11 @@ fun NavigationGraph(
             authentication(navController)
 
             topLevelGraph(navController)
+
+            productListingScreen(
+                onProductClick = { navController.navigateToProductDetail(it) },
+                onNavigateUp = navController::navigateUp
+            )
 
             productDetailScreen(navController::navigateUp)
 

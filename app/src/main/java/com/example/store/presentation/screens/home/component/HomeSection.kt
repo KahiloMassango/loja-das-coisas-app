@@ -27,7 +27,7 @@ fun Section(
     description: String,
     items: Int,
     onItemClick: (Int) -> Unit,
-    onViewAllClick: () -> Unit
+    onSeeAll: (String) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -44,7 +44,7 @@ fun Section(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                modifier = Modifier.clickable { onViewAllClick() },
+                modifier = Modifier.clickable { onSeeAll(title) },
                 text = "Ver tudo",
                 style = MaterialTheme.typography.labelSmall,
                 fontWeight = FontWeight.Medium,
@@ -61,12 +61,12 @@ fun Section(
             modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            item { ProductCard(Modifier.width(150.dp)) {} }
-            item { ProductCard(Modifier.width(150.dp)) {} }
-            item { ProductCard(Modifier.width(150.dp)) {} }
-            item { ProductCard(Modifier.width(150.dp)) {} }
-            item { ProductCard(Modifier.width(150.dp)) {} }
-            item { ProductCard(Modifier.width(150.dp)) {} }
+            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
+            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
+            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
+            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
+            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
+            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
             item { ProductCard(Modifier.width(150.dp)) {} }
 
         }

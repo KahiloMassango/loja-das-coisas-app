@@ -1,10 +1,9 @@
-package com.example.store.presentation.screens.product_detail.navigation
+package com.example.store.presentation.screens.home.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.store.presentation.screens.home.HomeScreen
-import com.example.store.presentation.screens.shop.navigation.ShopRoute
 import kotlinx.serialization.Serializable
 
 
@@ -13,8 +12,14 @@ data object HomeRoute
 
 fun NavController.navigateToHome() = navigate(HomeRoute)
 
-fun NavGraphBuilder.homeScreen(onProductDetail: (Int) -> Unit) {
+fun NavGraphBuilder.homeScreen(
+    onProductClick: (Int) -> Unit,
+    onSeeAll: (String) -> Unit
+) {
     composable<HomeRoute> {
-        HomeScreen(onProductDetail = { onProductDetail(it) } )
+        HomeScreen(
+            onProductClick = { onProductClick(it) },
+            onSeeAll = { onSeeAll(it) }
+        )
     }
 }
