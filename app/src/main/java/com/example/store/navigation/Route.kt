@@ -14,7 +14,7 @@ import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.store.presentation.screens.cart.navigation.CartRoute
 import com.example.store.presentation.screens.checkout.navigation.FavoriteRoute
-import com.example.store.presentation.screens.product_detail.navigation.HomeRoute
+import com.example.store.presentation.screens.home.navigation.HomeRoute
 import com.example.store.presentation.screens.profile.navigation.ProfileRoute
 import com.example.store.presentation.screens.shop.navigation.ShopRoute
 
