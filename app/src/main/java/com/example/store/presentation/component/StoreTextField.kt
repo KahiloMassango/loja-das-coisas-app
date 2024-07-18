@@ -1,31 +1,25 @@
 package com.example.store.presentation.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -49,67 +43,43 @@ fun StoreTextField(
     else Color.Transparent
 
     Column(
-        modifier = modifier
-
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(3.dp),
     ) {
-        Surface(
-            modifier = modifier.height(60.dp),
-            shadowElevation = if (isError) 0.dp else elevation,
-            shape = MaterialTheme.shapes.small,
-            color = MaterialTheme.colorScheme.background,
-            border = BorderStroke(1.dp, textFieldBorderColor)
-        ) {
-            Column(
-                modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.Center
-            ) {
-                AnimatedVisibility(
-                    visible = value.isNotEmpty(),
-                    enter = slideInVertically(initialOffsetY = { it }),
-                    exit = slideOutVertically(targetOffsetY = { it })
-                ) {
-                    Text(
-                        modifier = Modifier.padding(bottom = 3.dp),
-                        text = placeholder,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = if (isError) MaterialTheme.colorScheme.error
-                        else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                BasicTextField(
-                    value = value,
-                    onValueChange = { onValueChange(it) },
-                    enabled = enabled,
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.medium),
-                    decorationBox = { innerTextField ->
-                        Box(
-                            modifier = Modifier.background(MaterialTheme.colorScheme.background)
-                        ) {
-                            if (value.isEmpty()) {
-                                Text(
-                                    modifier = Modifier.padding(bottom = 3.dp),
-                                    text = placeholder,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = if (isError) MaterialTheme.colorScheme.error
-                                    else MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                            innerTextField()
-                        }
-                    },
-                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                    keyboardOptions = keyboardOptions,
-                    keyboardActions = keyboardActions,
-                    visualTransformation = visualTransformation
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(elevation, MaterialTheme.shapes.small)
+                .border(1.dp, textFieldBorderColor, MaterialTheme.shapes.small),
+            value = value,
+            textStyle = MaterialTheme.typography.bodyMedium,
+            enabled = enabled,
+            onValueChange = { onValueChange(it) },
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            visualTransformation = visualTransformation,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                focusedIndicatorColor = Color.Unspecified,
+                unfocusedIndicatorColor = Color.Unspecified,
+                disabledIndicatorColor = Color.Unspecified,
+                //disabledContainerColor = Color.Transparent,
+            ),
+            label = {
+                Text(
+                    text = placeholder,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (isError) MaterialTheme.colorScheme.error else
+                        MaterialTheme.colorScheme.onSurfaceVariant
                 )
-
             }
-        }
+        )
         if (isError) {
             Text(
-                modifier = Modifier.padding(top = 2.dp, start = 8.dp),
+                modifier = Modifier.padding(start = 12.dp),
                 text = errorMessage,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.error
