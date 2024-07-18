@@ -3,7 +3,6 @@ package com.example.store.presentation.screens.shop.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -56,39 +55,34 @@ fun ProductGrid(
             onDismissRequest = { isSortingOptionOpen = false }
         )
     }
-    Surface(
-        modifier = modifier
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
 
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Surface(
+            modifier = modifier
+                .zIndex(1f)
+                .fillMaxWidth(),
+            shadowElevation = 5.dp,
         ) {
-            Surface(
-                modifier = modifier
-                    .zIndex(1f)
-                    .fillMaxWidth(),
-                shadowElevation = 5.dp,
-            ) {
-                Box {
-                    SortingHeader(
-                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
-                        onSortClick = { isSortingOptionOpen = true }
-                    )
-                }
+            Box {
+                SortingHeader(
+                    modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
+                    onSortClick = { isSortingOptionOpen = true }
+                )
             }
-            LazyVerticalGrid(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(18.dp)
-            ) {
-                repeat(15) {
-                    item {
-                        ProductCard(
-                            modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
-                            onClick = { onProductClick() }
-                        )
-                    }
+        }
+        LazyVerticalGrid(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(18.dp)
+        ) {
+            repeat(15) {
+                item {
+                    ProductCard(
+                        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
+                        onClick = { onProductClick() }
+                    )
                 }
             }
         }
