@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
@@ -100,6 +101,7 @@ fun ProductDetailsScreen(
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
+                modifier = Modifier.shadow(3.dp),
                 title = "M&H",
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
