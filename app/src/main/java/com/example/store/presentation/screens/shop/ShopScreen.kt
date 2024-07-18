@@ -19,7 +19,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun ShopScreen(
     modifier: Modifier = Modifier,
-    onNavigateUp: () -> Unit,
+    onProductClick: (Int) -> Unit,
 ) {
     var uiState by remember { mutableStateOf(ShopScreenUiState()) }
 
@@ -34,7 +34,7 @@ fun ShopScreen(
                 category = uiState.category,
                 onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = {
-                    onNavigateUp()
+                    onProductClick(0)
                 },
                 onNavigateUp = { uiState = uiState.copy(content = ShopScreenContent.Categories)  }
             )

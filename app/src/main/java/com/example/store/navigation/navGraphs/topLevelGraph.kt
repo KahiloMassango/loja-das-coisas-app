@@ -34,7 +34,7 @@ fun NavGraphBuilder.topLevelGraph(
             onSettingsClick = { navController.navigateToSettings() }
         )
 
-        shopScreen(onNavigateUp = navController::navigateUp)
+        shopScreen(onProductClick = { navController.navigateToProductDetail(it) })
 
         favoriteScreen(onProductDetail = { navController.navigateToProductDetail(it) })
 

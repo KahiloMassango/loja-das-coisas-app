@@ -12,8 +12,8 @@ data object ShopRoute
 
 fun NavController.navigateToShop() = navigate(ShopRoute)
 
-fun NavGraphBuilder.shopScreen(onNavigateUp: () -> Unit) {
+fun NavGraphBuilder.shopScreen(onProductClick: (Int) -> Unit) {
     composable<ShopRoute> {
-        ShopScreen(onNavigateUp = onNavigateUp)
+        ShopScreen(onProductClick = { onProductClick(it) })
     }
 }
