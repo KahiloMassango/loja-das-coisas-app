@@ -22,8 +22,8 @@ internal fun ShopSectionTabs(
     TabRow(
         modifier = modifier,
         selectedTabIndex = selectedSection.ordinal,
-        containerColor = MaterialTheme.colorScheme.surface,
-        contentColor = MaterialTheme.colorScheme.onSurface,
+        containerColor = MaterialTheme.colorScheme.inverseOnSurface.copy(0.1f),
+        contentColor = MaterialTheme.colorScheme.onBackground,
         divider = {}
     ) {
         shopSections.forEachIndexed { index, section ->
