@@ -13,7 +13,9 @@ import com.example.store.navigation.navGraphs.authentication
 import com.example.store.navigation.navGraphs.topLevelGraph
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.product_detail.navigation.checkoutScreen
-import com.example.store.presentation.screens.product_detail.navigation.myOrdersScreen
+import com.example.store.presentation.screens.my_orders.navigation.myOrdersScreen
+import com.example.store.presentation.screens.order_detail.navigation.navigateToOrderDetail
+import com.example.store.presentation.screens.order_detail.navigation.orderDetailScreen
 import com.example.store.presentation.screens.product_detail.navigation.navigateToProductDetail
 import com.example.store.presentation.screens.product_detail.navigation.productDetailScreen
 import com.example.store.presentation.screens.product_listing.navigation.productListingScreen
@@ -45,7 +47,12 @@ fun NavigationGraph(
 
             productDetailScreen(navController::navigateUp)
 
-            myOrdersScreen(navController::navigateUp)
+            myOrdersScreen(
+                onDetailClick = { navController.navigateToOrderDetail(0) },
+                navController::navigateUp
+            )
+
+            orderDetailScreen(navController::navigateUp)
 
             settingsScreen(navController::navigateUp)
 

@@ -29,6 +29,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun MyOrdersScreen(
     modifier: Modifier = Modifier,
+    onDetailClick: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     var currentTab by rememberSaveable { mutableStateOf(OrderTabs.DELIVERED) }
@@ -62,9 +63,9 @@ fun MyOrdersScreen(
                     targetState = currentTab, label = "AnimatedContent"
                 ) { tab ->
                     when(tab) {
-                        OrderTabs.DELIVERED -> OrdersContentList{}
-                        OrderTabs.PROCESSING -> OrdersContentList{}
-                        OrderTabs.CANCELED -> OrdersContentList{}
+                        OrderTabs.DELIVERED -> OrdersContentList(onDetailClick = onDetailClick)
+                        OrderTabs.PROCESSING -> OrdersContentList(onDetailClick = onDetailClick)
+                        OrderTabs.CANCELED -> OrdersContentList(onDetailClick = onDetailClick)
                     }
                 }
             }
@@ -96,6 +97,9 @@ private fun OrdersContentList(
 @Composable
 private fun Preview() {
     StoreTheme {
-        MyOrdersScreen(){}
+        MyOrdersScreen(
+            onDetailClick = {},
+            onNavigateUp = {}
+        )
     }
 }
