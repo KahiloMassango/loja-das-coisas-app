@@ -31,7 +31,8 @@ fun CategorySelectionScreen(
         topBar = {
             StoreCenteredTopBar(
                 title = "Categorias",
-                canNavigateBack = false
+                canNavigateBack = false,
+                elevation = 3.dp
             )
         },
         contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
