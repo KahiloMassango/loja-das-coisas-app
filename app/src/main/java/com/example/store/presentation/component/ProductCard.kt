@@ -142,30 +142,35 @@ fun StarRating(
     modifier: Modifier = Modifier,
     totalRatings: Int,
     rating: Int
-
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        for (i in 1..5) {
-            val drawableRes = if (i <= rating) Icons.Filled.Star else Icons.Outlined.StarOutline
-            val color =
-                if (i <= rating) Color(0xFFFFBA49) else MaterialTheme.colorScheme.onSurfaceVariant
+
+        for (starIndex in 1..5) {
+            val isFilled = starIndex <= rating
+            val starIcon = if (isFilled) R.drawable.filled_star else R.drawable.outlined_star
+            val starColor =
+                if (isFilled) Color(0xFFFFBA49) else MaterialTheme.colorScheme.onSurfaceVariant
+
             Icon(
-                modifier = Modifier.size(14.dp),
-                imageVector = drawableRes,
-                contentDescription = null,
-                tint = color
+                modifier = Modifier
+                    .padding(end = 3.dp)
+                    .size(14.dp),
+                painter = painterResource(id = starIcon),
+                contentDescription = "Star $starIndex",
+                tint = starColor
             )
         }
         Text(
             text = "($totalRatings)",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.inverseOnSurface
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.inverseOnSurface,
         )
     }
 }
+
 
 @ThemePreviews
 @Composable
