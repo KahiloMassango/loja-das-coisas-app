@@ -1,5 +1,6 @@
 package com.example.store.presentation.screens.product_detail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,11 +9,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.FavoriteButton
@@ -41,10 +48,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsScreen(
     modifier: Modifier = Modifier,
+    onReviewsClick: (String) -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -54,18 +63,19 @@ fun ProductDetailsScreen(
     var showSizeOptions by remember { mutableStateOf(false) }
     var selectedSize by rememberSaveable { mutableStateOf(availableSizes[0]) }
 
-    val availableColors = listOf("Azul", "Vermelho", "Verde", "Amarelo","Laranja", "Roxo", "Rosa", "Cinza", "Preto")
+    val availableColors =
+        listOf("Azul", "Vermelho", "Verde", "Amarelo", "Laranja", "Roxo", "Rosa", "Cinza", "Preto")
     val colorOptionsState = rememberModalBottomSheetState()
     var showColorOptions by remember { mutableStateOf(false) }
     var selectedColor by rememberSaveable { mutableStateOf(availableColors[0]) }
 
     val isFavorite = false
 
-    if(showSizeOptions) {
+    if (showSizeOptions) {
         AttributePickerSheet(
             state = sizeOptionsState,
             selectorDescription = "Selecionar tamanho",
-            selectedAttribute =  selectedSize,
+            selectedAttribute = selectedSize,
             attributes = availableSizes,
             onDismissRequest = { showSizeOptions = false },
             onSelectAttribute = { size ->
@@ -79,7 +89,7 @@ fun ProductDetailsScreen(
             }
         )
     }
-    if(showColorOptions) {
+    if (showColorOptions) {
         AttributePickerSheet(
             state = colorOptionsState,
             selectorDescription = "Selecionar cor",
@@ -105,7 +115,7 @@ fun ProductDetailsScreen(
                 title = "M&H",
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
-                )
+            )
         },
     ) { paddingValues ->
         Surface(
@@ -115,7 +125,7 @@ fun ProductDetailsScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
+                    .verticalScroll(rememberScrollState(2000)),
             ) {
                 ProductImageCarousel(images = images)
                 Column(
@@ -150,8 +160,32 @@ fun ProductDetailsScreen(
                         onClick = { /* TODO: Add to cart */ }
                     )
                     Spacer(modifier = Modifier.height(22.dp))
-                    RelatedProductsSection()
+
                 }
+                Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onReviewsClick("") }
+                        .padding(16.dp)
+                    ,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Comentários & Avaliações",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Icon(
+                        imageVector = Icons.Default.ArrowForwardIos,
+                        contentDescription = null,
+                        modifier = Modifier.size(12.dp)
+                    )
+                }
+                Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                RelatedProductsSection(
+                    modifier = Modifier.padding(16.dp),
+                )
             }
         }
     }
@@ -162,6 +196,9 @@ fun ProductDetailsScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductDetailsScreen() {}
+        ProductDetailsScreen(
+            onReviewsClick = {},
+            onNavigateUp = {}
+        )
     }
 }

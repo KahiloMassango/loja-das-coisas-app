@@ -12,9 +12,13 @@ data class ProductDetailRoute(val productId: Int)
 
 fun NavController.navigateToProductDetail(productId: Int) = navigate(ProductDetailRoute(productId))
 
-fun NavGraphBuilder.productDetailScreen(onNavigateUp: () -> Unit,) {
+fun NavGraphBuilder.productDetailScreen(
+    onReviewsClick: (String) -> Unit,
+    onNavigateUp: () -> Unit
+    ) {
     composable<ProductDetailRoute> {
         ProductDetailsScreen(
+            onReviewsClick = { onReviewsClick("it") },
             onNavigateUp = onNavigateUp
         )
     }
