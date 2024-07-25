@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.presentation.component.StoreCenteredTopBar
 import com.example.store.presentation.screens.order_detail.components.DetailOrderProductCard
 import com.example.store.presentation.screens.order_detail.components.OrderInfo
@@ -22,6 +23,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun OrderDetailScreen(
     modifier: Modifier = Modifier,
+    viewModel: OrderDetailViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit
 ) {
     val scrollState = rememberScrollState() // Hoist scroll state

@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.store.presentation.screens.ProductListing
+import com.example.store.presentation.screens.product_listing.ProductListing
 import kotlinx.serialization.Serializable
 
 
@@ -14,7 +14,7 @@ data class ProductListingRoute(val title: String)
 fun NavController.navigateToProductListing(title: String) = navigate(ProductListingRoute(title))
 
 fun NavGraphBuilder.productListingScreen(
-    onProductClick: (Int) -> Unit,
+    onProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {
     composable<ProductListingRoute> { backStackEntry ->

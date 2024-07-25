@@ -16,10 +16,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.store.core.model.Rating
 import com.example.store.presentation.component.StarRating
 
 @Composable
-internal fun ReviewCard(modifier: Modifier = Modifier) {
+internal fun ReviewCard(
+    modifier: Modifier = Modifier,
+    rating: Rating
+) {
     Card(
         modifier = modifier,
         elevation = CardDefaults.elevatedCardElevation(5.dp),
@@ -34,7 +38,7 @@ internal fun ReviewCard(modifier: Modifier = Modifier) {
                 .padding(14.dp)
         ) {
             Text(
-                text = "Helena da Silva",
+                text = rating.userId,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold
@@ -48,7 +52,7 @@ internal fun ReviewCard(modifier: Modifier = Modifier) {
             ) {
                 StarRating(totalRatings = 5, rating = 4)
                 Text(
-                    text = "5 Junho, 2024",
+                    text = rating.ratingDate,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colorScheme.inverseOnSurface
@@ -56,8 +60,7 @@ internal fun ReviewCard(modifier: Modifier = Modifier) {
             }
             Text(
                 modifier = Modifier.padding(top = 14.dp),
-                text = "O vestido é ótimo! Muito elegante e confortável. Encaixou perfeitamente! Tenho 1,77m e 130 libras." +
-                        " Tenho um peito 34B. Este vestido seria muito longo para quem é mais baixo, mas poderia ter bainha",
+                text = rating.comment!!,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Left,
                 lineHeight = 22.sp

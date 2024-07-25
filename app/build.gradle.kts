@@ -4,6 +4,7 @@ plugins {
     id("kotlinx-serialization")
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -77,6 +78,11 @@ dependencies {
     // Coil
     implementation(libs.coil)
     implementation(libs.androidx.compose.material)
+
+    //hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

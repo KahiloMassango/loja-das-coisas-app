@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.R
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.component.ThemePreviews
@@ -35,6 +36,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel = hiltViewModel(),
     onMyOrdersClick: () -> Unit,
     onMyReviewsClick: () -> Unit,
     onSettingsClick: () -> Unit

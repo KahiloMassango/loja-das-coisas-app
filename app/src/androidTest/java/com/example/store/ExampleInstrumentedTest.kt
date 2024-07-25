@@ -1,12 +1,15 @@
 package com.example.store
 
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import com.example.store.presentation.component.StoreTextField
+import com.example.store.presentation.screens.autentication.forgot.ForgotPasswordScreen
+import com.example.store.ui.theme.StoreTheme
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -15,10 +18,23 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+    @get:Rule
+    val composeRule = createComposeRule()
+
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.store", appContext.packageName)
+    fun Assert_ForgotPasswordScreen_has_description_text() {
+        composeRule.setContent {
+            StoreTheme {
+                ForgotPasswordScreen {}
+            }
+        }
+
+        composeRule.onNodeWithText("Recuperar senha").assertIsDisplayed()
+
+
+        composeRule.onNodeWithText("Email").assertIsDisplayed()
+
+        composeRule.onNodeWithText("ENVIAR").assertIsDisplayed()
+
     }
 }

@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.store.core.model.Product
 import com.example.store.presentation.component.StoreCenteredTopBar
 import com.example.store.presentation.screens.shop.model.ShopSection
 import com.example.store.presentation.screens.shop.model.getSectionFilters
@@ -29,8 +30,10 @@ fun ProductListingScreen(
     modifier: Modifier = Modifier,
     section: ShopSection,
     category: String,
+    products: List<Product>,
     onFilterChange: (String) -> Unit,
-    onProductClick: () -> Unit,
+    onProductClick: (String) -> Unit,
+    onFavoriteClick: (String) -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     var currentFilter by remember {
@@ -71,7 +74,9 @@ fun ProductListingScreen(
                     modifier = Modifier,
                     selectedOption = selectedOption,
                     onSort = { selectedOption = it },
-                    onProductClick = { onProductClick() }
+                    onProductClick = { onProductClick(it) },
+                    products = products,
+                    onFavoriteClick = { onFavoriteClick(it) }
                 )
             }
         }

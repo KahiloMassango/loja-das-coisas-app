@@ -49,7 +49,8 @@ fun NavigationGraph(
 
             productDetailScreen(
                 onReviewsClick = { navController.navigateToReviews(it) },
-                onNavigateUp = navController::navigateUp
+                onNavigateUp = navController::navigateUp,
+                onSuggestedProductsClick = { navController.navigateToProductDetail(it) }
             )
 
             myOrdersScreen(

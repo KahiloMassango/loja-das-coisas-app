@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.screens.my_orders.component.MyOrdersTabs
 import com.example.store.presentation.screens.my_orders.component.OrderItemCard
@@ -29,6 +30,7 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun MyOrdersScreen(
     modifier: Modifier = Modifier,
+    viewModel: MyOrdersViewModel = hiltViewModel(),
     onDetailClick: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {

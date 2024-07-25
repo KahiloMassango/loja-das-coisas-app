@@ -12,7 +12,7 @@ data object FavoriteRoute
 
 fun NavController.navigateToFavorite() = navigate(FavoriteRoute)
 
-fun NavGraphBuilder.favoriteScreen(onProductDetail: (Int) -> Unit) {
+fun NavGraphBuilder.favoriteScreen(onProductDetail: (String) -> Unit) {
     composable<FavoriteRoute> {
         FavoriteScreen(onProductDetail = { onProductDetail(it) })
     }

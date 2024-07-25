@@ -27,8 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.screens.shop.component.SortOption
 import com.example.store.presentation.screens.shop.component.SortOptionContainer
@@ -41,7 +39,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FavoriteScreen(
     modifier: Modifier = Modifier,
-    onProductDetail: (Int) -> Unit,
+    onProductDetail: (String) -> Unit,
 ) {
     var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
     var isSortingOptionOpen by remember { mutableStateOf(false) }

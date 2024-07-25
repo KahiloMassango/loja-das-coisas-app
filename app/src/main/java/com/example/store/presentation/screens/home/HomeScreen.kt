@@ -15,6 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.common.LoadingScreen
+import com.example.store.core.data.mock.productList
 import com.example.store.presentation.screens.home.component.HomeBanner
 import com.example.store.presentation.screens.home.component.Section
 import com.example.store.ui.theme.StoreTheme
@@ -22,7 +26,27 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onProductClick: (Int) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
+    onProductClick: (String) -> Unit,
+    onSeeAll: (String) -> Unit
+) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+    when(uiState) {
+        is HomeUiState.Error -> LoadingScreen()
+        HomeUiState.Loading -> LoadingScreen()
+        is HomeUiState.Success -> HomeContent(
+            modifier = modifier,
+            onProductClick = onProductClick,
+            onSeeAll = onSeeAll
+        )
+    }
+
+}
+
+@Composable
+private fun HomeContent(
+    modifier: Modifier = Modifier,
+    onProductClick: (String) -> Unit,
     onSeeAll: (String) -> Unit
 ) {
     Surface(
@@ -36,50 +60,36 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HomeBanner()
-
             Spacer(modifier = Modifier.height(18.dp))
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(22.dp)
+            ) {
+                Section(
+                    title = "Sale",
+                    description = "Super summer sale",
+                    products = productList,
+                    onProductClick = { onProductClick(it) },
+                    onSeeAll = { onSeeAll(it) },
+                    onFavoriteClick = { /* TODO */ }
+                )
 
-            HomeContent(
-                onProductClick = { onProductClick(1) },
-                onSeeAll = { onSeeAll(it) }
-            )
+                Section(
+                    title = "New",
+                    description = "You’ve never seen it before!",
+                    products = productList,
+                    onProductClick = { onProductClick(it) },
+                    onSeeAll = { onSeeAll(it) },
+                    onFavoriteClick = { /* TODO */ }
+                )
+            }
 
-            Spacer(modifier = Modifier.height(18.dp))
 
             /*Text(text = "Home")
             Button(onClick = { navController.navigate(Route.AuthGraph) }) {
                 Text(text = "Auth Graph")
             }*/
         }
-    }
-}
-
-@Composable
-fun HomeContent(
-    modifier: Modifier = Modifier,
-    onProductClick: () -> Unit,
-    onSeeAll: (String) -> Unit
-) {
-    Column(
-        modifier = modifier
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(44.dp)
-    ) {
-        Section(
-            title = "Sale",
-            description = "Super summer sale",
-            items = 15,
-            onItemClick = { onProductClick() },
-            onSeeAll = { onSeeAll(it) }
-        )
-        Section(
-            title = "New",
-            description = "You’ve never seen it before!",
-            items = 15,
-            onItemClick = { onProductClick() },
-            onSeeAll = { onSeeAll(it) }
-        )
-
     }
 }
 

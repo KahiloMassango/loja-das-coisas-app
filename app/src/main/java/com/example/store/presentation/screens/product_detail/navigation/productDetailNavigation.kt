@@ -8,18 +8,20 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class ProductDetailRoute(val productId: Int)
+data class ProductDetailRoute(val productId: String)
 
-fun NavController.navigateToProductDetail(productId: Int) = navigate(ProductDetailRoute(productId))
+fun NavController.navigateToProductDetail(productId: String) = navigate(ProductDetailRoute(productId))
 
 fun NavGraphBuilder.productDetailScreen(
     onReviewsClick: (String) -> Unit,
+    onSuggestedProductsClick: (String) -> Unit,
     onNavigateUp: () -> Unit
     ) {
     composable<ProductDetailRoute> {
         ProductDetailsScreen(
-            onReviewsClick = { onReviewsClick("it") },
-            onNavigateUp = onNavigateUp
+            onReviewsClick = { onReviewsClick(it) },
+            onNavigateUp = onNavigateUp,
+            onSuggestedProductsClick = { onSuggestedProductsClick(it) }
         )
     }
 }

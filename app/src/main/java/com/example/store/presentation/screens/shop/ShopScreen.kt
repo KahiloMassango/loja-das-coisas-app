@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.store.core.data.ProductRepositoryImpl
 import com.example.store.presentation.component.ThemePreviews
 import com.example.store.presentation.screens.shop.component.CategorySelectionScreen
 import com.example.store.presentation.screens.shop.component.ProductListingScreen
@@ -19,9 +20,10 @@ import com.example.store.ui.theme.StoreTheme
 @Composable
 fun ShopScreen(
     modifier: Modifier = Modifier,
-    onProductClick: (Int) -> Unit,
+    onProductClick: (String) -> Unit,
 ) {
     var uiState by remember { mutableStateOf(ShopScreenUiState()) }
+    val repo = ProductRepositoryImpl()
 
     AnimatedContent(
         modifier = modifier,
@@ -32,10 +34,10 @@ fun ShopScreen(
             ShopScreenContent.Products -> ProductListingScreen(
                 section = uiState.section,
                 category = uiState.category,
+                products = repo.getProducts(uiState.section.name, uiState.category.lowercase()),
                 onFilterChange = { /*TODO: Implement filter change */ },
-                onProductClick = {
-                    onProductClick(0)
-                },
+                onProductClick = { onProductClick(it) },
+                onFavoriteClick = { /* TODO */ },
                 onNavigateUp = { uiState = uiState.copy(content = ShopScreenContent.Categories)  }
             )
             ShopScreenContent.Categories -> CategorySelectionScreen(

@@ -16,11 +16,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.store.R
+import com.example.store.core.model.Product
 import com.example.store.presentation.component.StarRating
 
 @Composable
 fun ProductDetailsSection(
     modifier: Modifier = Modifier,
+    productName: String,
+    storeName: String,
+    price: String,
+    totalRating: Int,
+    averageRating: Int,
+    description: String
 ) {
     Column(
         modifier = modifier
@@ -31,13 +38,13 @@ fun ProductDetailsSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "H&M",
+                text = storeName,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "2.850kz",
+                text = price,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -45,18 +52,18 @@ fun ProductDetailsSection(
         }
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
-            text = "Short black dress",
+            text = productName,
             color = MaterialTheme.colorScheme.inverseOnSurface,
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.Light
         )
         StarRating(
-            totalRatings = 23, rating = 3
+            totalRatings = totalRating, rating = averageRating
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.product_description_text),
+            text = description,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Normal

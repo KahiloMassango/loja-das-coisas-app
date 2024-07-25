@@ -13,7 +13,7 @@ data object HomeRoute
 fun NavController.navigateToHome() = navigate(HomeRoute)
 
 fun NavGraphBuilder.homeScreen(
-    onProductClick: (Int) -> Unit,
+    onProductClick: (String) -> Unit,
     onSeeAll: (String) -> Unit
 ) {
     composable<HomeRoute> {

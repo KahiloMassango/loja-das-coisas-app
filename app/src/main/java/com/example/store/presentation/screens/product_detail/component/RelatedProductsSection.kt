@@ -5,18 +5,23 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.store.core.data.mock.p1
+import com.example.store.core.model.Product
 import com.example.store.presentation.component.ProductCard
 
 @Composable
 fun RelatedProductsSection(
     modifier: Modifier = Modifier,
-    products: List<String> =emptyList()
+    onProductClick: (String) -> Unit,
+    onFavoriteClick: (String) -> Unit,
+    products: List<Product>
     ) {
     Column(
         modifier = modifier,
@@ -32,13 +37,13 @@ fun RelatedProductsSection(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            repeat(15) {
-                item {
-                    ProductCard(
-                        modifier = Modifier.width(160.dp),
-                        onClick = { /* TODO: Handle product click */ }
-                    )
-                }
+            items(products) { product ->
+                ProductCard(
+                    modifier = Modifier.width(160.dp),
+                    onClick = { onProductClick(it) },
+                    onFavoriteClick = { onFavoriteClick(it) },
+                    product = product
+                )
             }
         }
     }

@@ -27,13 +27,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.R
+import com.example.store.common.LoadingScreen
+import com.example.store.core.data.mock.productList
+import com.example.store.core.model.Product
 import com.example.store.presentation.component.CustomButton
 import com.example.store.presentation.component.FavoriteButton
 import com.example.store.presentation.component.StoreCenteredTopBar
@@ -49,37 +53,67 @@ import kotlinx.coroutines.launch
 
 val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsScreen(
     modifier: Modifier = Modifier,
+    viewModel: ProductDetailViewModel = hiltViewModel(),
     onReviewsClick: (String) -> Unit,
+    onSuggestedProductsClick: (String) -> Unit,
     onNavigateUp: () -> Unit,
+) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+
+
+    when (uiState) {
+        is ProductDetailState.Loading -> LoadingScreen(modifier)
+        is ProductDetailState.Error -> LoadingScreen()
+        is ProductDetailState.Success -> ProductDetailContent(
+            modifier = modifier,
+            product = uiState.product,
+            size = uiState.size,
+            color = uiState.color,
+            onSizeChange = { viewModel.updateSize(it) },
+            onColorChange = { viewModel.updateColor(it) },
+            onNavigateUp = onNavigateUp,
+            onReviewsClick = { onReviewsClick(it) },
+            onSuggestedProductsClick = { onSuggestedProductsClick(it) },
+            onAddToCart = viewModel::addCart
+        )
+    }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ProductDetailContent(
+    modifier: Modifier = Modifier,
+    product: Product,
+    size: String,
+    color: String,
+    onSizeChange: (String) -> Unit,
+    onColorChange: (String) -> Unit,
+    onNavigateUp: () -> Unit,
+    onReviewsClick: (String) -> Unit,
+    onAddToCart: () -> Unit,
+    onSuggestedProductsClick: (String) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    val availableSizes = listOf("S", "M", "L", "XL", "XS")
     val sizeOptionsState = rememberModalBottomSheetState()
     var showSizeOptions by remember { mutableStateOf(false) }
-    var selectedSize by rememberSaveable { mutableStateOf(availableSizes[0]) }
 
-    val availableColors =
-        listOf("Azul", "Vermelho", "Verde", "Amarelo", "Laranja", "Roxo", "Rosa", "Cinza", "Preto")
     val colorOptionsState = rememberModalBottomSheetState()
     var showColorOptions by remember { mutableStateOf(false) }
-    var selectedColor by rememberSaveable { mutableStateOf(availableColors[0]) }
-
-    val isFavorite = false
 
     if (showSizeOptions) {
         AttributePickerSheet(
             state = sizeOptionsState,
             selectorDescription = "Selecionar tamanho",
-            selectedAttribute = selectedSize,
-            attributes = availableSizes,
+            selectedAttribute = size,
+            attributes = product.availableSizes,
             onDismissRequest = { showSizeOptions = false },
-            onSelectAttribute = { size ->
-                selectedSize = size
+            onSelectAttribute = {
+                onSizeChange(it)
                 coroutineScope.launch {
                     delay(350)
                     sizeOptionsState.hide()
@@ -93,11 +127,11 @@ fun ProductDetailsScreen(
         AttributePickerSheet(
             state = colorOptionsState,
             selectorDescription = "Selecionar cor",
-            selectedAttribute = selectedColor,
-            attributes = availableColors,
+            selectedAttribute = color,
+            attributes = product.availableColors,
             onDismissRequest = { showColorOptions = false },
-            onSelectAttribute = { color ->
-                selectedColor = color
+            onSelectAttribute = {
+                onColorChange(it)
                 coroutineScope.launch {
                     delay(350)
                     colorOptionsState.hide()
@@ -112,7 +146,7 @@ fun ProductDetailsScreen(
         topBar = {
             StoreCenteredTopBar(
                 modifier = Modifier.shadow(3.dp),
-                title = "M&H",
+                title = product.name,
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )
@@ -140,24 +174,31 @@ fun ProductDetailsScreen(
                     ) {
                         ProductAttributeSection(
                             modifier = Modifier.weight(1f),
-                            selectedSize = selectedSize,
-                            selectedColor = selectedColor,
+                            selectedSize = size,
+                            selectedColor = color,
                             showSizeOptions = { showSizeOptions = true },
                             showColorOptions = { showColorOptions = true }
                         )
                         FavoriteButton(
                             modifier = Modifier,
-                            isFavorite = isFavorite,
+                            isFavorite = false,
                             onClick = { /*TODO*/ }
                         )
                     }
                     Spacer(modifier = Modifier.height(22.dp))
-                    ProductDetailsSection()
+                    ProductDetailsSection(
+                        productName = product.name,
+                        storeName = product.storeName,
+                        averageRating = product.averageRating,
+                        totalRating = product.totalRating,
+                        price = "${product.price}Kz",
+                        description = product.description
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                     CustomButton(
                         modifier = Modifier.fillMaxWidth(),
                         text = "ADICIONAR AO CARRINHO",
-                        onClick = { /* TODO: Add to cart */ }
+                        onClick = onAddToCart
                     )
                     Spacer(modifier = Modifier.height(22.dp))
 
@@ -166,9 +207,8 @@ fun ProductDetailsScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onReviewsClick("") }
-                        .padding(16.dp)
-                    ,
+                        .clickable { onReviewsClick(product.id) }
+                        .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -185,6 +225,9 @@ fun ProductDetailsScreen(
                 Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 RelatedProductsSection(
                     modifier = Modifier.padding(16.dp),
+                    onProductClick = { onSuggestedProductsClick(it) },
+                    onFavoriteClick = { /* TODO */ },
+                    products = productList
                 )
             }
         }
@@ -198,7 +241,8 @@ private fun Preview() {
     StoreTheme {
         ProductDetailsScreen(
             onReviewsClick = {},
-            onNavigateUp = {}
+            onNavigateUp = {},
+            onSuggestedProductsClick = {}
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.example.store.presentation.screens.home.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,14 +10,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.store.R
+import com.example.store.core.model.Product
 import com.example.store.presentation.component.ProductCard
 import com.example.store.ui.theme.StoreTheme
 
@@ -25,8 +33,9 @@ fun Section(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
-    items: Int,
-    onItemClick: (Int) -> Unit,
+    products: List<Product>,
+    onProductClick: (String) -> Unit,
+    onFavoriteClick: (String) -> Unit,
     onSeeAll: (String) -> Unit
 ) {
     Column(
@@ -61,14 +70,13 @@ fun Section(
             modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
-            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
-            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
-            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
-            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
-            item { ProductCard(Modifier.width(150.dp)) {onItemClick(0)} }
-            item { ProductCard(Modifier.width(150.dp)) {} }
-
+            items(products, key = { it.id }) { product ->
+                ProductCard(
+                    product = product,
+                    onClick = { onProductClick(it) },
+                    onFavoriteClick = { onFavoriteClick(it) }
+                )
+            }
         }
     }
 }
@@ -77,8 +85,13 @@ fun Section(
 @Composable
 private fun Preview() {
     StoreTheme {
-        Section(title = "Sale", description = "Super summer sale", items = 15, onItemClick ={} ) {
-
-        }
+        Section(
+            title = "Sale",
+            description = "Super summer sale",
+            onProductClick = {},
+            onFavoriteClick = {},
+            onSeeAll = {},
+            products = emptyList()
+        )
     }
 }
