@@ -78,7 +78,7 @@ fun RatingChart(
                     }
                 }
                 Text(
-                    modifier = Modifier.weight(0.2f),
+                    modifier = Modifier.weight(0.3f),
                     text = rating.toString(),
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.End
