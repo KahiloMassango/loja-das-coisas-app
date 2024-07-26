@@ -1,13 +1,11 @@
 package com.example.store.feature.favorite
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
@@ -26,12 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
+import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.shop.component.SortingHeader
 import com.example.store.presentation.component.StoreLargeTopBar
 import com.example.store.presentation.screens.shop.component.SortOption
 import com.example.store.presentation.screens.shop.component.SortOptionContainer
-import com.example.store.feature.shop.component.SortingHeader
-import com.example.store.core.ui.theme.StoreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -75,19 +72,9 @@ fun FavoriteScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                Surface(
-                    modifier = modifier
-                        .zIndex(1f)
-                        .fillMaxWidth(),
-                    shadowElevation = 5.dp,
-                ) {
-                    Box {
-                        SortingHeader(
-                            modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
-                            onSortClick = { isSortingOptionOpen = true }
-                        )
-                    }
-                }
+                SortingHeader(
+                    onSortClick = { isSortingOptionOpen = true }
+                )
 
                 LazyColumn(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp),
@@ -114,6 +101,6 @@ fun FavoriteScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        FavoriteScreen(){}
+        FavoriteScreen() {}
     }
 }
