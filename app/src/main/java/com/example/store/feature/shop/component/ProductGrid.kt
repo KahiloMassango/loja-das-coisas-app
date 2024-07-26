@@ -1,17 +1,13 @@
 package com.example.store.feature.shop.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,9 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
+import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.presentation.component.ProductCard
 import com.example.store.presentation.component.ThemePreviews
-import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.presentation.screens.shop.component.SortOption
 import com.example.store.presentation.screens.shop.component.SortOptionContainer
 import kotlinx.coroutines.delay
@@ -66,20 +62,11 @@ fun ProductGrid(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Surface(
-            modifier = modifier
-                .zIndex(1f)
-                .fillMaxWidth(),
-            shadowElevation = 3.dp,
-        ) {
-            Box {
-                SortingHeader(
-                    modifier = Modifier
-                        .padding(start = 16.dp, bottom = 8.dp),
-                    onSortClick = { isSortingOptionOpen = true }
-                )
-            }
-        }
+        SortingHeader(
+            modifier = Modifier
+                .zIndex(1f),
+            onSortClick = { isSortingOptionOpen = true }
+        )
         LazyVerticalGrid(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
