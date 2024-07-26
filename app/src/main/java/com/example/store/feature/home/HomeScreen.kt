@@ -62,8 +62,8 @@ private fun HomeContent(
             HomeBanner()
             Spacer(modifier = Modifier.height(18.dp))
             Column(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(22.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, ),
+                verticalArrangement = Arrangement.spacedBy(26.dp)
             ) {
                 Section(
                     title = "Sale",
@@ -83,6 +83,7 @@ private fun HomeContent(
                     onFavoriteClick = { /* TODO */ }
                 )
             }
+            Spacer(modifier = Modifier.height(18.dp))
 
 
             /*Text(text = "Home")
