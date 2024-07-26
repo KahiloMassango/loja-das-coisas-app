@@ -3,7 +3,7 @@ package com.example.store.feature.home.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.store.presentation.screens.home.HomeScreen
+import com.example.store.feature.home.HomeScreen
 import kotlinx.serialization.Serializable
 
 

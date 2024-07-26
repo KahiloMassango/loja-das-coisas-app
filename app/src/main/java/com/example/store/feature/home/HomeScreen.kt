@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.home
+package com.example.store.feature.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,11 +17,11 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.data.mock.productList
+import com.example.store.core.ui.LoadingScreen
+import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.presentation.screens.home.component.HomeBanner
 import com.example.store.presentation.screens.home.component.Section
-import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
 fun HomeScreen(
@@ -33,7 +33,7 @@ fun HomeScreen(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     when(uiState) {
         is HomeUiState.Error -> LoadingScreen()
-        HomeUiState.Loading -> LoadingScreen()
+        is HomeUiState.Loading -> LoadingScreen()
         is HomeUiState.Success -> HomeContent(
             modifier = modifier,
             onProductClick = onProductClick,

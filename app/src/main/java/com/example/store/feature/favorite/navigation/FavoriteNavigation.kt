@@ -1,11 +1,9 @@
-package com.example.store.presentation.screens.product_detail.navigation
+package com.example.store.feature.favorite.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.store.presentation.screens.checkout.CheckoutScreen
-import com.example.store.feature.favorite.FavoriteScreen
-import com.example.store.presentation.screens.home.HomeScreen
 import kotlinx.serialization.Serializable
 
 

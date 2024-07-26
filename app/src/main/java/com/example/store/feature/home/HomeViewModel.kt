@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.home
+package com.example.store.feature.home
 
 import androidx.lifecycle.ViewModel
 import com.example.store.core.data.mock.productList
@@ -19,9 +19,9 @@ class HomeViewModel @Inject constructor(
 
 }
 
-sealed class HomeUiState {
-    data object Loading: HomeUiState()
-    data class Success(val products: List<Product>): HomeUiState()
-    data class Error(val message: String): HomeUiState()
+sealed interface HomeUiState {
+    data object Loading: HomeUiState
+    data class Success(val products: List<Product>): HomeUiState
+    data class Error(val message: String): HomeUiState
 
 }

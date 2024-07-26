@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.product_listing.navigation
+package com.example.store.feature.product_listing.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
