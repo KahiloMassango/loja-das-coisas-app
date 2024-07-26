@@ -5,8 +5,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.store.presentation.component.StoreTextField
-import com.example.store.presentation.screens.autentication.forgot.ForgotPasswordScreen
-import com.example.store.ui.theme.StoreTheme
+import com.example.store.feature.autentication.forgot.ForgotPasswordScreen
+import com.example.store.core.ui.theme.StoreTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

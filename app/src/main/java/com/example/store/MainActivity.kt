@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.store.presentation.component.Test
-import com.example.store.presentation.screens.NavigationGraph
-import com.example.store.ui.theme.StoreTheme
+import com.example.store.navigation.NavigationGraph
+import com.example.store.core.ui.theme.StoreTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
