@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.product_detail.component
+package com.example.store.feature.product_detail.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

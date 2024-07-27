@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.order_detail
+package com.example.store.feature.order_detail
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

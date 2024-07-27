@@ -1,9 +1,9 @@
-package com.example.store.presentation.screens.order_detail.navigation
+package com.example.store.feature.order_detail.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.store.presentation.screens.order_detail.OrderDetailScreen
+import com.example.store.feature.order_detail.OrderDetailScreen
 import kotlinx.serialization.Serializable
 
 

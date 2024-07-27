@@ -1,5 +1,4 @@
-package com.example.store.presentation.screens.product_detail.component
-
+package com.example.store.feature.product_detail.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth

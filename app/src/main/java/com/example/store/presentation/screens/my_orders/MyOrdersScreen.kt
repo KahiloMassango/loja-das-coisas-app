@@ -26,6 +26,7 @@ import com.example.store.presentation.screens.my_orders.component.MyOrdersTabs
 import com.example.store.presentation.screens.my_orders.component.OrderItemCard
 import com.example.store.presentation.screens.my_orders.model.OrderTabs
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.my_orders.MyOrdersViewModel
 
 @Composable
 fun MyOrdersScreen(

@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.order_detail.components
+package com.example.store.feature.order_detail.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
