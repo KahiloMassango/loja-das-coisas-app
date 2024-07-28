@@ -19,12 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Product
-import com.example.store.presentation.component.StoreCenteredTopBar
-import com.example.store.presentation.screens.shop.component.FilterContainer
-import com.example.store.presentation.screens.shop.component.SortOption
-import com.example.store.presentation.screens.shop.model.ShopSection
-import com.example.store.presentation.screens.shop.model.getSectionFilters
-import com.example.store.presentation.screens.shop.model.getSectionTitle
+import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.feature.shop.model.ShopSection
+import com.example.store.feature.shop.model.getSectionFilters
+import com.example.store.feature.shop.model.getSectionTitle
 
 @Composable
 fun ProductListingScreen(
@@ -37,8 +35,7 @@ fun ProductListingScreen(
     onFavoriteClick: (String) -> Unit,
     onNavigateUp: () -> Unit,
 ) {
-    var currentFilter by remember {
-        mutableStateOf(getSectionFilters(section).first().name) }
+    var currentFilter by remember { mutableStateOf(getSectionFilters(section).first().name) }
     var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
     BackHandler { onNavigateUp() }
     Scaffold(

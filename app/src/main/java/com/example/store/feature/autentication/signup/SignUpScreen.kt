@@ -26,14 +26,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.store.R
-import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.StoreTextField
-import com.example.store.presentation.component.SocialAuthButton
-import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.component.StoreLargeTopBar
+import com.example.store.core.ui.component.CustomButton
+import com.example.store.core.ui.component.StoreTextField
+import com.example.store.core.ui.component.SocialAuthButton
+import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.feature.autentication.component.CustomClickableText
 import com.example.store.core.ui.theme.StoreTheme
 

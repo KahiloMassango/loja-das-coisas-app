@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.example.store.R
-import com.example.store.presentation.component.StarRating
+import com.example.store.core.ui.component.StarRating
 import com.example.store.core.ui.theme.StoreTheme
 
 

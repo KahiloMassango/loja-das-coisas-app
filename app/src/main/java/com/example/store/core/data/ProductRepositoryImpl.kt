@@ -1,7 +1,5 @@
 package com.example.store.core.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.store.core.data.mock.productList
 import com.example.store.core.data.mock.ratingInfosList
 import com.example.store.core.data.mock.ratingsList

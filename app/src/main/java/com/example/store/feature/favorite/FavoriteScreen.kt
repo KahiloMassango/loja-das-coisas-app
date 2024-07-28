@@ -26,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.shop.component.SortingHeader
-import com.example.store.presentation.component.StoreLargeTopBar
-import com.example.store.presentation.screens.shop.component.SortOption
-import com.example.store.presentation.screens.shop.component.SortOptionContainer
+import com.example.store.core.ui.component.StoreLargeTopBar
+import com.example.store.feature.shop.component.SortOption
+import com.example.store.feature.shop.component.SortOptionContainer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

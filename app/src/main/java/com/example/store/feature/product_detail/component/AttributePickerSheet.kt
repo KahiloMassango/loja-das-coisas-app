@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.store.presentation.component.CustomDragHandle
+import com.example.store.core.ui.component.CustomDragHandle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

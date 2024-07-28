@@ -13,10 +13,10 @@ import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.store.feature.cart.navigation.CartRoute
-import com.example.store.presentation.screens.checkout.navigation.FavoriteRoute
+import com.example.store.feature.checkout.navigation.FavoriteRoute
 import com.example.store.feature.home.navigation.HomeRoute
-import com.example.store.presentation.screens.profile.navigation.ProfileRoute
-import com.example.store.presentation.screens.shop.navigation.ShopRoute
+import com.example.store.feature.profile.navigation.ProfileRoute
+import com.example.store.feature.shop.navigation.ShopRoute
 
 
 enum class TopLevelDestination (

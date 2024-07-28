@@ -15,22 +15,22 @@ import com.example.store.feature.home.navigation.HomeRoute
 import com.example.store.feature.home.navigation.homeScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
 import com.example.store.feature.product_listing.navigation.productListingScreen
-import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.screens.checkout.navigation.favoriteScreen
-import com.example.store.presentation.screens.my_orders.navigation.myOrdersScreen
-import com.example.store.presentation.screens.my_orders.navigation.navigateToMyOrders
+import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.feature.checkout.navigation.favoriteScreen
+import com.example.store.feature.my_orders.navigation.myOrdersScreen
+import com.example.store.feature.my_orders.navigation.navigateToMyOrders
 import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
 import com.example.store.feature.order_detail.navigation.orderDetailScreen
 import com.example.store.feature.favorite.navigation.checkoutScreen
 import com.example.store.feature.favorite.navigation.navigateToCheckout
 import com.example.store.feature.product_detail.navigation.navigateToProductDetail
 import com.example.store.feature.product_detail.navigation.productDetailScreen
-import com.example.store.presentation.screens.profile.navigation.profileScreen
-import com.example.store.presentation.screens.reviews.navigation.navigateToReviews
-import com.example.store.presentation.screens.reviews.navigation.reviewsScreen
-import com.example.store.presentation.screens.settings.navigation.navigateToSettings
-import com.example.store.presentation.screens.settings.navigation.settingsScreen
-import com.example.store.presentation.screens.shop.navigation.shopScreen
+import com.example.store.feature.profile.navigation.profileScreen
+import com.example.store.feature.reviews.navigation.navigateToReviews
+import com.example.store.feature.reviews.navigation.reviewsScreen
+import com.example.store.feature.settings.navigation.navigateToSettings
+import com.example.store.feature.settings.navigation.settingsScreen
+import com.example.store.feature.shop.navigation.shopScreen
 
 
 @Composable

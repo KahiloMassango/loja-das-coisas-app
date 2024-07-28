@@ -8,9 +8,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.store.presentation.component.StoreCenteredTopBar
-import com.example.store.presentation.component.ThemePreviews
-import com.example.store.presentation.screens.product_listing.ProductListingViewModel
+import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.feature.shop.component.ProductGrid
 import com.example.store.core.ui.theme.StoreTheme
 

@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.store.presentation.component.StoreCenteredTopBar
+import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.feature.order_detail.components.DetailOrderProductCard
-import com.example.store.presentation.screens.order_detail.components.OrderInfo
-import com.example.store.presentation.screens.order_detail.components.OrderResume
+import com.example.store.feature.order_detail.components.OrderInfo
+import com.example.store.feature.order_detail.components.OrderResume
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable

@@ -12,9 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.core.data.mock.p1
 import com.example.store.core.model.Product
-import com.example.store.presentation.component.ProductCard
+import com.example.store.core.ui.component.ProductCard
 
 @Composable
 fun RelatedProductsSection(

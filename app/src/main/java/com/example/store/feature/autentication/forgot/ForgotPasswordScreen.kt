@@ -22,10 +22,10 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.StoreLargeTopBar
-import com.example.store.presentation.component.StoreTextField
-import com.example.store.presentation.component.ThemePreviews
+import com.example.store.core.ui.component.CustomButton
+import com.example.store.core.ui.component.StoreLargeTopBar
+import com.example.store.core.ui.component.StoreTextField
+import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable

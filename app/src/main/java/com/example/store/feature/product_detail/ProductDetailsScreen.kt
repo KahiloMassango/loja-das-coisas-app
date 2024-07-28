@@ -38,16 +38,16 @@ import com.example.store.R
 import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
 import com.example.store.core.ui.LoadingScreen
+import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.product_detail.component.AttributePickerSheet
 import com.example.store.feature.product_detail.component.ProductAttributeSection
 import com.example.store.feature.product_detail.component.ProductDetailsSection
 import com.example.store.feature.product_detail.component.ProductImageCarousel
 import com.example.store.feature.product_detail.component.RelatedProductsSection
-import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.FavoriteButton
-import com.example.store.presentation.component.StoreCenteredTopBar
-import com.example.store.presentation.component.ThemePreviews
+import com.example.store.core.ui.component.FavoriteButton
+import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.component.ThemePreviews
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

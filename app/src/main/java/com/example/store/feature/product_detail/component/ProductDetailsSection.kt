@@ -12,12 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.R
-import com.example.store.core.model.Product
-import com.example.store.presentation.component.StarRating
+import com.example.store.core.ui.component.StarRating
 
 @Composable
 fun ProductDetailsSection(

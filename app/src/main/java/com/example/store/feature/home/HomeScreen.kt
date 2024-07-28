@@ -20,7 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.data.mock.productList
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.presentation.screens.home.component.HomeBanner
+import com.example.store.feature.home.component.HomeBanner
 import com.example.store.presentation.screens.home.component.Section
 
 @Composable

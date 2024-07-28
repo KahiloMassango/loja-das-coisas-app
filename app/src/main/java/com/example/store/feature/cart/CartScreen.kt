@@ -20,9 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.store.presentation.component.CustomButton
-import com.example.store.presentation.component.StoreLargeTopBar
-import com.example.store.presentation.component.ThemePreviews
+import com.example.store.core.ui.component.CustomButton
+import com.example.store.core.ui.component.StoreLargeTopBar
+import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.feature.cart.component.CartItemCard
 import com.example.store.core.ui.theme.StoreTheme
 
