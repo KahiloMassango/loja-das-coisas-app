@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.feature.cart.component.CartItemCard
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.cart.component.CartItemCard
 
 @Composable
 fun CartScreen(
@@ -49,10 +49,11 @@ fun CartScreen(
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                     items(16) {
                         CartItemCard(
-                            modifier = Modifier.padding(bottom = 20.dp),
+                            modifier = Modifier,
                             onDelete = { /* TODO: Implement delete */ }
                         )
                     }
@@ -75,7 +76,7 @@ fun CartScreen(
                             text = "2500kz",
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodyMedium,
-                            fontSize = 18.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                     }

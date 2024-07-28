@@ -118,7 +118,7 @@ fun CartItemCard(
                     Text(
                         text = "2500kz",
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
@@ -135,7 +135,7 @@ private fun ItemQuantity(
     onIncrease: () -> Unit
 ) {
     Row(
-        modifier = modifier.width(130.dp),
+        modifier = modifier.width(115.dp),
         verticalAlignment = Alignment.CenterVertically,
         //horizontalArrangement = Arrangement.spacedBy(6.dp)
     ){
@@ -148,14 +148,14 @@ private fun ItemQuantity(
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         ) {
             Icon(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.size(26.dp).padding(3.dp),
                 imageVector = Icons.Default.Remove,
                 contentDescription = null,
             )
         }
         Text(
             text = "$quantity",
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
@@ -169,7 +169,7 @@ private fun ItemQuantity(
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         ) {
             Icon(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.size(26.dp).padding(3.dp),
                 imageVector = Icons.Default.Add,
                 contentDescription = null,
             )
