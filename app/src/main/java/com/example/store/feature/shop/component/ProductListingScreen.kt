@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -33,6 +37,7 @@ fun ProductListingScreen(
     onFilterChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
     onFavoriteClick: (String) -> Unit,
+    onSearch: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     var currentFilter by remember { mutableStateOf(getSectionFilters(section).first().name) }
@@ -44,7 +49,15 @@ fun ProductListingScreen(
             StoreCenteredTopBar(
                 title = section.getSectionTitle(),
                 canNavigateBack = true,
-                onNavigateUp = onNavigateUp
+                onNavigateUp = onNavigateUp,
+                action = {
+                    IconButton(onClick = onSearch) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                        )
+                    }
+                }
             )
         },
         contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)

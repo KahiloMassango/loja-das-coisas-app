@@ -28,6 +28,8 @@ import com.example.store.feature.product_detail.navigation.productDetailScreen
 import com.example.store.feature.profile.navigation.profileScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
+import com.example.store.feature.search.navigation.navigateToSearch
+import com.example.store.feature.search.navigation.searchScreen
 import com.example.store.feature.settings.navigation.navigateToSettings
 import com.example.store.feature.settings.navigation.settingsScreen
 import com.example.store.feature.shop.navigation.shopScreen
@@ -61,7 +63,15 @@ fun NavigationGraph(
                 onSettingsClick = { navController.navigateToSettings() }
             )
 
-            shopScreen(onProductClick = { navController.navigateToProductDetail(it) })
+            shopScreen(
+                onSearch = { navController.navigateToSearch() },
+                onProductClick = { navController.navigateToProductDetail(it) }
+            )
+
+            searchScreen(
+                onNavigateUp = navController::navigateUp,
+                onProductClick = { navController.navigateToProductDetail(it) }
+            )
 
             favoriteScreen(onProductDetail = { navController.navigateToProductDetail(it) })
 

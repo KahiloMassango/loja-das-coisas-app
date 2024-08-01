@@ -10,10 +10,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.data.mock.productList
-import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.shop.component.ProductListingScreen
 import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.shop.component.CategorySelectionScreen
+import com.example.store.feature.shop.component.ProductListingScreen
 import com.example.store.feature.shop.model.ShopScreenContent
 import com.example.store.feature.shop.model.ShopSection
 
@@ -23,6 +23,7 @@ fun ShopScreen(
     modifier: Modifier = Modifier,
     viewModel: ShopViewModel = hiltViewModel(),
     onProductClick: (String) -> Unit,
+    onSearch: () -> Unit,
 ) {
     var currentContent by rememberSaveable { mutableStateOf(ShopScreenContent.Categories) }
     var currentSection by rememberSaveable { mutableStateOf(ShopSection.Women) }
@@ -39,6 +40,7 @@ fun ShopScreen(
                 section = currentSection,
                 category = currentCategory,
                 products = productList,
+                onSearch = onSearch,
                 onFilterChange = { /*TODO: Implement filter change */ },
                 onProductClick = { onProductClick(it) },
                 onFavoriteClick = { /* TODO */ },
@@ -48,6 +50,7 @@ fun ShopScreen(
             )
             ShopScreenContent.Categories -> CategorySelectionScreen(
                 currentSection = currentSection,
+                onSearch = onSearch,
                 onSectionClick = { section -> currentSection = section },
                 onCategoryClick = { category ->
                     currentCategory = category
@@ -64,6 +67,8 @@ fun ShopScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ShopScreen() {}
+        ShopScreen(
+            onProductClick = {},
+        ) {}
     }
 }

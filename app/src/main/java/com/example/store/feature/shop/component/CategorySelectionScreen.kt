@@ -8,16 +8,17 @@ import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreCenteredTopBar
-import com.example.store.feature.shop.component.AdvertisementCard
-import com.example.store.feature.shop.component.CategoriesList
-import com.example.store.feature.shop.component.ShopSectionTabs
 import com.example.store.feature.shop.model.ShopSection
 import com.example.store.feature.shop.model.kidsCategories
 import com.example.store.feature.shop.model.menCategories
@@ -28,6 +29,7 @@ fun CategorySelectionScreen(
     currentSection: ShopSection,
     onSectionClick: (ShopSection) -> Unit,
     onCategoryClick: (category: String) -> Unit,
+    onSearch: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -35,7 +37,15 @@ fun CategorySelectionScreen(
             StoreCenteredTopBar(
                 title = "Categorias",
                 canNavigateBack = false,
-                elevation = 3.dp
+                elevation = 3.dp,
+                action = {
+                    IconButton(onClick = onSearch) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                        )
+                    }
+                }
             )
         },
         contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
