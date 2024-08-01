@@ -41,7 +41,6 @@ fun ProductCard(
     modifier: Modifier = Modifier,
     product: Product,
     onClick: (productId: String) -> Unit,
-    onFavoriteClick: (productId: String) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -160,7 +159,6 @@ private fun Preview() {
         ProductCard(
             onClick = {},
             product = p1,
-            onFavoriteClick = {}
         )
     }
 }
