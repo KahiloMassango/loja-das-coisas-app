@@ -27,7 +27,8 @@ fun StoreCenteredTopBar(
     title: String,
     canNavigateBack: Boolean = true,
     elevation: Dp = 0.dp,
-    onNavigateUp: () -> Unit = {}
+    onNavigateUp: () -> Unit = {},
+    action:  @Composable () -> Unit = {}
 ) {
     Surface(
         modifier = modifier,
@@ -56,6 +57,7 @@ fun StoreCenteredTopBar(
                 navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
                 actionIconContentColor = MaterialTheme.colorScheme.onSurface
             ),
+            actions = { action() }
         )
     }
 }
@@ -66,7 +68,8 @@ fun StoreLargeTopBar(
     modifier: Modifier = Modifier,
     title: String,
     canNavigateBack: Boolean = true,
-    onNavigateUp: () -> Unit = {}
+    onNavigateUp: () -> Unit = {},
+    action:  @Composable () -> Unit = {}
 ) {
     MediumTopAppBar(
         title = {
@@ -77,6 +80,7 @@ fun StoreLargeTopBar(
             )
         },
         modifier = modifier,
+        actions = { action() },
         navigationIcon = {
             if(canNavigateBack){
                 IconButton(onClick = onNavigateUp) {
