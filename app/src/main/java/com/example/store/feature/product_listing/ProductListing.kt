@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.feature.shop.component.ProductGrid
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.shop.component.ProductGrid
 
 @Composable
 fun ProductListing(
@@ -41,7 +41,6 @@ fun ProductListing(
                 ProductGrid(
                     onProductClick = { onProductClick(it) },
                     onSort = {},
-                    onFavoriteClick = {},
                     products = emptyList()
                 )
             }

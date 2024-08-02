@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
-import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.component.ProductCard
 import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.core.ui.theme.StoreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -32,7 +32,6 @@ fun ProductGrid(
     modifier: Modifier = Modifier,
     products: List<Product>,
     onProductClick: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit,
     selectedOption: String = SortOption.Popular.title,
     onSort: (String) -> Unit
 
@@ -58,7 +57,7 @@ fun ProductGrid(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         SortingHeader(
             modifier = Modifier
@@ -92,7 +91,6 @@ private fun Preview() {
             onSort = {},
             products = productList,
             selectedOption = SortOption.Popular.title,
-            onFavoriteClick = {}
         )
 
     }
