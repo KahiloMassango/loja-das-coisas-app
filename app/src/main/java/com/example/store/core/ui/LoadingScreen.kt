@@ -20,3 +20,4 @@ fun LoadingScreen(
         CircularProgressIndicator()
     }
 }
+
