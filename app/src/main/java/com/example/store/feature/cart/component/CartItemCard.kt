@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -46,7 +47,7 @@ import com.example.store.core.ui.theme.defaultFont
 @Composable
 fun CartItemCard(
     modifier: Modifier = Modifier,
-    onDelete: () -> Unit
+    onRemove: () -> Unit
 ) {
     var quantity by remember { mutableIntStateOf(1) }
 
@@ -99,8 +100,8 @@ fun CartItemCard(
                     Icon(
                         modifier = Modifier
                             .size(20.dp)
-                            .clickable { onDelete() },
-                        imageVector = Icons.Outlined.Delete,
+                            .clickable { onRemove() },
+                        imageVector = Icons.Outlined.Close,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary
                     )
