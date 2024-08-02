@@ -1,4 +1,4 @@
-package com.example.store.presentation.screens.home.component
+package com.example.store.feature.home.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,8 +28,7 @@ fun Section(
     description: String,
     products: List<Product>,
     onProductClick: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit,
-    onSeeAll: (String) -> Unit
+    onSeeMore: (String) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -46,8 +45,8 @@ fun Section(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                modifier = Modifier.clickable { onSeeAll(title) },
-                text = "Ver tudo",
+                modifier = Modifier.clickable { onSeeMore(title) },
+                text = "Ver mais",
                 style = MaterialTheme.typography.labelSmall,
                 fontWeight = FontWeight.Medium,
             )
@@ -81,8 +80,7 @@ private fun Preview() {
             title = "Sale",
             description = "Super summer sale",
             onProductClick = {},
-            onFavoriteClick = {},
-            onSeeAll = {},
+            onSeeMore = {},
             products = emptyList()
         )
     }
