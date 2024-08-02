@@ -54,7 +54,7 @@ fun CartScreen(
                     items(16) {
                         CartItemCard(
                             modifier = Modifier,
-                            onDelete = { /* TODO: Implement delete */ }
+                            onRemove = { /* TODO: Implement delete */ }
                         )
                     }
                 }
