@@ -67,7 +67,6 @@ fun Section(
                 ProductCard(
                     product = product,
                     onClick = { onProductClick(it) },
-                    onFavoriteClick = { onFavoriteClick(it) }
                 )
             }
         }

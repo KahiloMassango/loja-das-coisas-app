@@ -40,7 +40,6 @@ fun RelatedProductsSection(
                 ProductCard(
                     modifier = Modifier.width(160.dp),
                     onClick = { onProductClick(it) },
-                    onFavoriteClick = { onFavoriteClick(it) },
                     product = product
                 )
             }

@@ -77,7 +77,6 @@ fun ProductGrid(
                     modifier = Modifier,
                     product = product,
                     onClick = { onProductClick(it) },
-                    onFavoriteClick = { onFavoriteClick(it) }
                 )
             }
         }
