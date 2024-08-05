@@ -16,38 +16,35 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Product
 import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.feature.shop.model.Filter
 import com.example.store.feature.shop.model.ShopSection
-import com.example.store.feature.shop.model.getSectionFilters
-import com.example.store.feature.shop.model.getSectionTitle
 
 @Composable
-fun ProductListingScreen(
+fun ShopListingScreen(
     modifier: Modifier = Modifier,
+    currentFilter: String,
+    orderBy: String,
     section: ShopSection,
     category: String,
     products: List<Product>,
+    filters: List<Filter>,
     onFilterChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit,
+    onOrderBy: (String) -> Unit,
     onSearch: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
-    var currentFilter by remember { mutableStateOf(getSectionFilters(section).first().name) }
-    var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
+
     BackHandler { onNavigateUp() }
     Scaffold(
         modifier = modifier,
         topBar = {
             StoreCenteredTopBar(
-                title = section.getSectionTitle(),
+                title = section.description,
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp,
                 action = {
@@ -73,21 +70,19 @@ fun ProductListingScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
-                        filters = getSectionFilters(section),
+                        filters = filters,
                         selected = currentFilter,
                         onSelectFilter = {
                             onFilterChange(it)
-                            currentFilter = it
                         }
                     )
                 }
                 ProductGrid(
                     modifier = Modifier,
-                    selectedOption = selectedOption,
-                    onSort = { selectedOption = it },
+                    selectedOption = orderBy,
+                    onSort = { onOrderBy(it) },
                     onProductClick = { onProductClick(it) },
                     products = products,
-                    onFavoriteClick = { onFavoriteClick(it) }
                 )
             }
         }
