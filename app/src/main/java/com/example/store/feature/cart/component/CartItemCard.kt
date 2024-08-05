@@ -1,7 +1,6 @@
 package com.example.store.feature.cart.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,10 +15,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,6 +28,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -43,11 +43,14 @@ import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.theme.defaultFont
+import com.example.store.feature.shop.model.CartProduct
+import com.example.store.feature.shop.model.cartProduct
 
 @Composable
 fun CartItemCard(
     modifier: Modifier = Modifier,
-    onRemove: () -> Unit
+    product: CartProduct,
+    onRemove: (String) -> Unit
 ) {
     var quantity by remember { mutableIntStateOf(1) }
 
@@ -90,34 +93,36 @@ fun CartItemCard(
                         )
                         Row(
                             modifier = Modifier,
-                            verticalAlignment = Alignment.CenterVertically,
+                            verticalAlignment = CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
-                        ){
-                            AttributeText(attribute = "Cor", value = "Preto")
-                            AttributeText(attribute = "Tamanho", value = "XL")
+                        ) {
+                            Attribute(attribute = "Cor", value = product.color)
+                            Attribute(attribute = "Tamanho", value = product.size)
                         }
                     }
-                    Icon(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .clickable { onRemove() },
-                        imageVector = Icons.Outlined.Close,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                    IconButton(
+                        modifier = Modifier.size(22.dp),
+                        onClick = { onRemove(product.id) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Close,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.outlineVariant
+                        )
+                    }
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
-                ){
+                ) {
                     ItemQuantity(
                         quantity = quantity,
-                        onDecrease = { if(quantity > 1) quantity-- },
-                        onIncrease = { quantity++ }
+                        onDecrease = { if (quantity > 1) quantity -- },
+                        onIncrease = { quantity ++ }
                     )
                     Text(
-                        text = "2500kz",
+                        text = "${product.price}kz",
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold
@@ -137,9 +142,9 @@ private fun ItemQuantity(
 ) {
     Row(
         modifier = modifier.width(115.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        //horizontalArrangement = Arrangement.spacedBy(6.dp)
-    ){
+        verticalAlignment = CenterVertically,
+    ) {
+
         Surface(
             modifier = Modifier,
             shape = CircleShape,
@@ -149,7 +154,7 @@ private fun ItemQuantity(
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         ) {
             Icon(
-                modifier = Modifier.size(26.dp).padding(3.dp),
+                modifier = Modifier.size(26.dp),
                 imageVector = Icons.Default.Remove,
                 contentDescription = null,
             )
@@ -160,6 +165,7 @@ private fun ItemQuantity(
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f)
+
         )
         Surface(
             modifier = Modifier,
@@ -170,7 +176,7 @@ private fun ItemQuantity(
             contentColor = MaterialTheme.colorScheme.inverseOnSurface
         ) {
             Icon(
-                modifier = Modifier.size(26.dp).padding(3.dp),
+                modifier = Modifier.size(26.dp),
                 imageVector = Icons.Default.Add,
                 contentDescription = null,
             )
@@ -179,7 +185,7 @@ private fun ItemQuantity(
 }
 
 @Composable
-private fun AttributeText(
+private fun Attribute(
     modifier: Modifier = Modifier,
     attribute: String,
     value: String
@@ -192,7 +198,7 @@ private fun AttributeText(
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Normal
             )
-        ){ append("${attribute }:") }
+        ) { append("${attribute}:") }
         append(" ")
         withStyle(
             SpanStyle(
@@ -201,7 +207,7 @@ private fun AttributeText(
                 fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold
             )
-        ){ append(value) }
+        ) { append(value) }
     }
 
     Text(modifier = modifier, text = stringBuilder)
@@ -211,6 +217,9 @@ private fun AttributeText(
 @Composable
 private fun Preview() {
     StoreTheme {
-        CartItemCard(){}
+        CartItemCard(
+            product = cartProduct,
+            onRemove = {}
+        )
     }
 }
