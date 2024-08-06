@@ -24,11 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.shop.component.SortingHeader
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.store.core.model.favoriteProduct
 import com.example.store.core.ui.component.StoreLargeTopBar
+import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.favorite.component.FavoriteProductCard
 import com.example.store.feature.shop.component.SortOption
 import com.example.store.feature.shop.component.SortOptionContainer
+import com.example.store.feature.shop.component.SortingHeader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -36,7 +39,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun FavoriteScreen(
     modifier: Modifier = Modifier,
-    onProductDetail: (String) -> Unit,
+    viewModel: FavoriteViewModel = hiltViewModel(),
+    onProductClick: (String) -> Unit,
 ) {
     var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
     var isSortingOptionOpen by remember { mutableStateOf(false) }
@@ -82,15 +86,16 @@ fun FavoriteScreen(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(22.dp)
                 ) {
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
-                    item { FavoriteProductCard() }
+                    repeat(10){
+                        item {
+                            FavoriteProductCard(
+                                modifier = Modifier,
+                                product = favoriteProduct,
+                                onProductClick = { onProductClick(it) },
+                                onRemoveFavorite = { /* TODO */ }
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -101,6 +106,6 @@ fun FavoriteScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        FavoriteScreen() {}
+        FavoriteScreen {}
     }
 }
