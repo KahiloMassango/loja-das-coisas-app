@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.store.R
-import com.example.store.feature.favorite.AttributeCustomText
+import com.example.store.core.ui.component.AttributeDescription
 
 @Composable
 fun DetailOrderProductCard(modifier: Modifier = Modifier) {
@@ -57,14 +57,14 @@ fun DetailOrderProductCard(modifier: Modifier = Modifier) {
                     fontWeight = FontWeight.Light
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-                    AttributeCustomText(attibute = "Color", value = "Gray")
-                    AttributeCustomText(attibute = "Size", value = "L")
+                    AttributeDescription(attribute = "Color", value = "Gray")
+                    AttributeDescription(attribute = "Size", value = "L")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    AttributeCustomText(attibute = "Qtd", value = "2")
+                    AttributeDescription(attribute = "Qtd", value = "2")
                     Text(
                         text = "4.500kz",
                         color = MaterialTheme.colorScheme.onSurface,
