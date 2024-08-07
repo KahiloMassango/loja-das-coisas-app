@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -15,7 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.CustomButton
@@ -34,6 +39,7 @@ fun PasswordChangeContainer(
     onDismissRequest: () -> Unit
 ) {
     var uiState by remember { mutableStateOf(ChangePasswordUiState()) }
+    val focusManager = LocalFocusManager.current
 
     ModalBottomSheet(
         sheetState = state,
@@ -58,7 +64,9 @@ fun PasswordChangeContainer(
                 value = uiState.oldPassword,
                 placeholder = "Old Password",
                 onValueChange = { uiState = uiState.copy(oldPassword = it) },
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
             )
             CustomClickableText(
                 modifier = Modifier
@@ -72,14 +80,18 @@ fun PasswordChangeContainer(
                 value = uiState.newPassword,
                 placeholder = "New Password",
                 onValueChange = { uiState = uiState.copy(newPassword = it) },
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) })
             )
             StoreTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = uiState.repeatPassword,
                 placeholder = "Repeat Password",
                 onValueChange = { uiState = uiState.copy(repeatPassword = it) },
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
             )
             CustomButton(
                 modifier = Modifier.padding(bottom = 16.dp),
