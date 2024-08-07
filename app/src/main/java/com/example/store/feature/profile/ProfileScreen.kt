@@ -41,21 +41,6 @@ fun ProfileScreen(
     onMyReviewsClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
-    ProfileContent(
-        modifier = modifier,
-        onMyOrdersClick = onMyOrdersClick,
-        onMyReviewsClick = onMyReviewsClick,
-        onSettingsClick = onSettingsClick
-    )
-}
-
-@Composable
-private fun ProfileContent(
-    modifier: Modifier = Modifier,
-    onMyOrdersClick: () -> Unit,
-    onMyReviewsClick: () -> Unit,
-    onSettingsClick: () -> Unit
-) {
     Scaffold(
         topBar = {
             StoreLargeTopBar(title = "Meu perfil", canNavigateBack = false )
@@ -86,6 +71,7 @@ private fun ProfileContent(
         }
     }
 }
+
 
 @Composable
 private fun ProfileHeader(
