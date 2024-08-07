@@ -1,7 +1,6 @@
 package com.example.store.feature.settings
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,7 +25,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -36,9 +34,9 @@ import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.settings.component.NotificationPreferences
 import com.example.store.feature.settings.component.PasswordChangeContainer
-import com.example.store.core.ui.theme.StoreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -50,31 +48,14 @@ fun SettingsScreen(
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
-    var showPasswordChangeContainer by remember { mutableStateOf(false) }
-    val passwordChangeContainerState = rememberModalBottomSheetState(true)
+    var showPasswordChangeDialog by remember { mutableStateOf(false) }
+    val passwordChangeDialogState = rememberModalBottomSheetState(true)
     val coroutineScope = rememberCoroutineScope()
 
-    if (showPasswordChangeContainer) {
-        PasswordChangeContainer(
-            state = passwordChangeContainerState,
-            onSave = { _, _ ->
-                coroutineScope.launch {
-                    delay(200)
-                    passwordChangeContainerState.hide()
-                }.invokeOnCompletion { showPasswordChangeContainer = false }
-            },
-            onDismissRequest = { showPasswordChangeContainer = false }
-        )
-    }
+
 
     Scaffold(
-        modifier = modifier.pointerInput(null) {
-            detectTapGestures(
-                onTap = {
-                    focusManager.clearFocus()
-                }
-            )
-        },
+        modifier = modifier,
         topBar = {
             StoreLargeTopBar(
                 title = "Definições",
@@ -82,12 +63,26 @@ fun SettingsScreen(
             ) { onNavigateUp() }
         },
     ) { paddingValues ->
+        if (showPasswordChangeDialog) {
+            PasswordChangeContainer(
+                state = passwordChangeDialogState,
+                onSave = { _, _ ->
+                    coroutineScope.launch {
+                        delay(200)
+                        passwordChangeDialogState.hide()
+                    }.invokeOnCompletion { showPasswordChangeDialog = false }
+                },
+                onDismissRequest = { showPasswordChangeDialog = false }
+            )
+        }
         Surface(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+
         ) {
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 18.dp, bottom = 16.dp)
+                    .padding(16.dp)
                     .fillMaxSize(),
             ) {
                 Text(
@@ -126,7 +121,7 @@ fun SettingsScreen(
                     )
                     Text(
                         modifier = Modifier.clickable {
-                            showPasswordChangeContainer = true
+                            showPasswordChangeDialog = true
                         },
                         text = "Alterar",
                         style = MaterialTheme.typography.labelLarge,
