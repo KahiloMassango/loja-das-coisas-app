@@ -21,7 +21,7 @@ fun NavGraphBuilder.productDetailScreen(
         ProductDetailsScreen(
             onReviewsClick = { onReviewsClick(it) },
             onNavigateUp = onNavigateUp,
-            onSuggestedProductsClick = { onSuggestedProductsClick(it) }
+            onSuggestedProductClick = { onSuggestedProductsClick(it) }
         )
     }
 }
