@@ -71,6 +71,11 @@ dependencies {
     // M3 icons
     implementation(libs.material3.icons)
 
+    //Room database
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
     // Navigation
     implementation(libs.compose.navigation)
     implementation(libs.compose.navigation.ui)

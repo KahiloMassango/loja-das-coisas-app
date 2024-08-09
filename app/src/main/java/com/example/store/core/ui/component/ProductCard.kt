@@ -99,20 +99,17 @@ fun FavoriteButton(
     Surface(
         modifier = modifier,
         onClick = onClick,
+        enabled = !isFavorite,
         shape = CircleShape,
         shadowElevation = 5.dp,
-        color = if (isFavorite) MaterialTheme.colorScheme.primary
-        else MaterialTheme.colorScheme.surface,
-        contentColor = if (isFavorite) MaterialTheme.colorScheme.onPrimary
+        color =  MaterialTheme.colorScheme.surface,
+        contentColor = if (isFavorite) MaterialTheme.colorScheme.primary
         else MaterialTheme.colorScheme.inverseOnSurface
     ) {
         Icon(
-            modifier = Modifier
-                .size(34.dp)
-                .padding(4.dp),
+            modifier = Modifier.padding(8.dp),
             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
             contentDescription = null,
-            //tint = MaterialTheme.colorScheme.inverseSurface
         )
     }
 }

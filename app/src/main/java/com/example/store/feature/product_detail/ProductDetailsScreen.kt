@@ -1,5 +1,6 @@
 package com.example.store.feature.product_detail
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,23 +32,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.R
 import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
+import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.CustomButton
+import com.example.store.core.ui.component.FavoriteButton
+import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.product_detail.component.AttributePickerSheet
 import com.example.store.feature.product_detail.component.ProductAttributeSection
 import com.example.store.feature.product_detail.component.ProductDetailsSection
 import com.example.store.feature.product_detail.component.ProductImageCarousel
 import com.example.store.feature.product_detail.component.RelatedProductsSection
-import com.example.store.core.ui.component.FavoriteButton
-import com.example.store.core.ui.component.StoreCenteredTopBar
-import com.example.store.core.ui.component.ThemePreviews
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -58,26 +61,30 @@ fun ProductDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: ProductDetailViewModel = hiltViewModel(),
     onReviewsClick: (String) -> Unit,
-    onSuggestedProductsClick: (String) -> Unit,
+    onSuggestedProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+    val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
+
 
 
     when (uiState) {
         is ProductDetailState.Loading -> LoadingScreen(modifier)
-        is ProductDetailState.Error -> LoadingScreen()
+        is ProductDetailState.Error -> ErrorScreen(onTryAgain = viewModel::refresh)
         is ProductDetailState.Success -> ProductDetailContent(
             modifier = modifier,
             product = uiState.product,
-            size = uiState.size,
-            color = uiState.color,
+            size = viewModel.productSize,
+            color = viewModel.productColor,
+            isFavorite = isFavorite,
             onSizeChange = { viewModel.updateSize(it) },
             onColorChange = { viewModel.updateColor(it) },
             onNavigateUp = onNavigateUp,
             onReviewsClick = { onReviewsClick(it) },
-            onSuggestedProductsClick = { onSuggestedProductsClick(it) },
-            onAddToCart = viewModel::addCart
+            onSuggestedProductsClick = { onSuggestedProductClick(it) },
+            onAddToCart = viewModel::addCart,
+            onAddFavorite = viewModel::addFavorite
         )
     }
 
@@ -90,13 +97,16 @@ private fun ProductDetailContent(
     product: Product,
     size: String,
     color: String,
+    isFavorite: Boolean,
     onSizeChange: (String) -> Unit,
     onColorChange: (String) -> Unit,
-    onNavigateUp: () -> Unit,
+    onAddFavorite: () -> Unit,
     onReviewsClick: (String) -> Unit,
     onAddToCart: () -> Unit,
     onSuggestedProductsClick: (String) -> Unit,
+    onNavigateUp: () -> Unit,
 ) {
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     val sizeOptionsState = rememberModalBottomSheetState()
@@ -159,7 +169,7 @@ private fun ProductDetailContent(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState(2000)),
+                    .verticalScroll(rememberScrollState()),
             ) {
                 ProductImageCarousel(images = images)
                 Column(
@@ -181,8 +191,15 @@ private fun ProductDetailContent(
                         )
                         FavoriteButton(
                             modifier = Modifier,
-                            isFavorite = false,
-                            onClick = { /*TODO*/ }
+                            isFavorite = isFavorite,
+                            onClick = {
+                                onAddFavorite()
+                                Toast.makeText(
+                                    context,
+                                    "Produto adicionado aos favoritos",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         )
                     }
                     Spacer(modifier = Modifier.height(22.dp))
@@ -242,7 +259,7 @@ private fun Preview() {
         ProductDetailsScreen(
             onReviewsClick = {},
             onNavigateUp = {},
-            onSuggestedProductsClick = {}
+            onSuggestedProductClick = {}
         )
     }
 }

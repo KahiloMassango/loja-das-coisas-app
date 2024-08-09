@@ -1,4 +1,4 @@
-package com.example.store.core.data.repository.repository
+package com.example.store.core.data.repository
 
 import com.example.store.core.model.Product
 import com.example.store.core.model.Rating

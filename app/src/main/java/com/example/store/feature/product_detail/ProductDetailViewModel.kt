@@ -1,61 +1,97 @@
 package com.example.store.feature.product_detail
 
+import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.ProductRepositoryImpl
+import com.example.store.core.data.model.asEntity
+import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
+    private val favoriteRepository: FavoriteRepository,
     savedStateHandle: SavedStateHandle,
-): ViewModel() {
+) : ViewModel() {
     private val productRepository = ProductRepositoryImpl()
     private val productId: String = checkNotNull(savedStateHandle["productId"])
-    private val _uiState = MutableStateFlow<ProductDetailState>(ProductDetailState.Loading)
-    val uiState: StateFlow<ProductDetailState> = _uiState
 
-    init {
-        viewModelScope.launch {
-            try {
-                val product = productRepository.getProductById(productId)
-                _uiState.value = ProductDetailState.Success(
-                    product,
-                    product.availableSizes[0],
-                    product.availableColors[0]
-                )
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _uiState.value = ProductDetailState.Error(e.message ?: "Unknown error")
-            }
+    var productSize by mutableStateOf("")
+        private set
+
+    var productColor by mutableStateOf("")
+        private set
+
+    var uiState: StateFlow<ProductDetailState> = flow {
+        emit(ProductDetailState.Loading)
+        try {
+            val product = productRepository.getProductById(productId)
+            productSize = product.availableSizes[0]
+            productColor = product.availableColors[0]
+            emit(ProductDetailState.Success(product))
+        } catch (e: Exception) {
+            Log.e("ProductDetailViewModel", "Error fetching product", e)
+            emit(ProductDetailState.Error)
         }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = ProductDetailState.Loading
+    )
+
+
+    val isFavorite: StateFlow<Boolean> = favoriteRepository.checkProductIsFavorite(productId)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
+
+
+
+    fun refresh() {
+       viewModelScope.launch {
+           uiState.collect()
+       }
     }
 
     fun updateSize(size: String) {
-        _uiState.value = (uiState.value as ProductDetailState.Success).copy(size = size)
+        productSize = size
     }
 
-    fun updateColor(color: String){
-        _uiState.value = (uiState.value as ProductDetailState.Success).copy(color = color)
+    fun updateColor(color: String) {
+        productColor = color
     }
 
     fun addFavorite() {
-        /* TODO */
+        viewModelScope.launch {
+            val state = uiState.value as ProductDetailState.Success
+            val product = state.product.asEntity(productColor, productSize)
+            favoriteRepository.insertFavoriteProduct(product)
+        }
     }
 
-    fun addCart()  {
+    fun addCart() {
         /* TODO */
     }
-
 }
 
+
 sealed class ProductDetailState {
-    object Loading : ProductDetailState()
-    data class Error(val message: String) : ProductDetailState()
-    data class Success(val product: Product, val size: String, val color: String) : ProductDetailState()
+    data object Loading : ProductDetailState()
+    data object Error : ProductDetailState()
+    data class Success(val product: Product) : ProductDetailState()
 }
