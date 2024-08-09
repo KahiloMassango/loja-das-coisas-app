@@ -3,7 +3,7 @@ package com.example.store.core.data
 import com.example.store.core.data.mock.productList
 import com.example.store.core.data.mock.ratingInfosList
 import com.example.store.core.data.mock.ratingsList
-import com.example.store.core.data.repository.repository.ProductRepository
+import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.model.Product
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
@@ -25,7 +25,7 @@ class ProductRepositoryImpl: ProductRepository {
     }
 
     override fun getProductById(id: String): Product {
-        return products.find { it.id == id }!!
+        return products.find { it.id == id } !!
     }
 
     override fun getProductsByCategory(category: String): List<Product> {
@@ -37,7 +37,7 @@ class ProductRepositoryImpl: ProductRepository {
     }
 
     override fun getProductRatingInfo(productId: String): RatingInfo {
-        return ratingInfos.find { it.productId == productId }!!
+        return ratingInfos.find { it.productId == productId } !!
     }
 
     override fun getProductRatings(productId: String): List<Rating> {
