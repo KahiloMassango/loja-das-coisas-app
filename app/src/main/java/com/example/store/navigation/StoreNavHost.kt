@@ -3,7 +3,10 @@ package com.example.store.navigation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -38,8 +41,11 @@ import com.example.store.feature.shop.navigation.shopScreen
 @Composable
 fun NavigationGraph(
     modifier: Modifier = Modifier,
+    viewModel: AppViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController()
 ) {
+    val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
+
     Column(
         modifier = modifier.fillMaxSize()
     ){
@@ -99,7 +105,7 @@ fun NavigationGraph(
 
             reviewsScreen(onNavigateUp = navController::navigateUp)
         }
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, cartItemsCount = cartItemsCount)
     }
 }
 

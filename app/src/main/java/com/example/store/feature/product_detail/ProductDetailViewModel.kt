@@ -8,7 +8,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.ProductRepositoryImpl
-import com.example.store.core.data.model.asEntity
+import com.example.store.core.data.model.asCartProductEntity
+import com.example.store.core.data.model.asFavoriteProductEntity
+import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
+    private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val productRepository = ProductRepositoryImpl()
@@ -79,13 +82,16 @@ class ProductDetailViewModel @Inject constructor(
     fun addFavorite() {
         viewModelScope.launch {
             val state = uiState.value as ProductDetailState.Success
-            val product = state.product.asEntity(productColor, productSize)
+            val product = state.product.asFavoriteProductEntity(productColor, productSize)
             favoriteRepository.insertFavoriteProduct(product)
         }
     }
 
     fun addCart() {
-        /* TODO */
+        viewModelScope.launch(Dispatchers.IO) {
+            val product = (uiState.value as ProductDetailState.Success).product
+            cartRepository.addCartProduct(product.asCartProductEntity(productColor, productSize))
+        }
     }
 }
 

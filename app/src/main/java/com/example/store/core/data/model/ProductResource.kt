@@ -1,10 +1,11 @@
 package com.example.store.core.data.model
 
-import androidx.compose.ui.graphics.Color
+import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.FavoriteProductEntity
+import com.example.store.core.model.CartProduct
 import com.example.store.core.model.Product
 
-fun Product.asEntity(
+fun Product.asFavoriteProductEntity(
     color: String,
     size: String
 ): FavoriteProductEntity = FavoriteProductEntity(
@@ -18,4 +19,17 @@ fun Product.asEntity(
     avgRating = averageRating,
     totalRatings = totalRating
 
+)
+
+fun Product.asCartProductEntity(
+    color: String,
+    size: String
+): CartProductEntity = CartProductEntity(
+    uuid = id,
+    name = name,
+    price = price,
+    imageUrl = images[0],
+    color = color,
+    size = size,
+    quantity = 1
 )

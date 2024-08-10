@@ -1,7 +1,8 @@
 package com.example.store.core.database.di
 
 import com.example.store.core.database.StoreDatabase
-import com.example.store.core.database.dao.FavoriteProductsDao
+import com.example.store.core.database.dao.CartDao
+import com.example.store.core.database.dao.FavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,9 +13,13 @@ import dagger.hilt.components.SingletonComponent
 internal object DaosModule {
 
     @Provides
-    fun providesFavoriteProductsDao(
+    fun providesFavoritesDao(
         database: StoreDatabase,
-    ): FavoriteProductsDao = database.favoriteProductsDao()
+    ): FavoritesDao = database.favoritesDao()
 
+    @Provides
+    fun providesCartDao(
+        database: StoreDatabase
+    ): CartDao  = database.cartDao()
 
 }

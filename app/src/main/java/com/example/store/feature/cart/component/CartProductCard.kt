@@ -23,10 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -40,19 +36,20 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.store.R
+import com.example.store.core.model.CartProduct
+import com.example.store.core.model.cartProduct
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.theme.defaultFont
-import com.example.store.feature.shop.model.CartProduct
-import com.example.store.feature.shop.model.cartProduct
 
 @Composable
-fun CartItemCard(
+fun CartProductCard(
     modifier: Modifier = Modifier,
     product: CartProduct,
-    onRemove: (String) -> Unit
+    onIncreaseQty: () -> Unit,
+    onDecreaseQty: () -> Unit,
+    onRemove: (Int) -> Unit
 ) {
-    var quantity by remember { mutableIntStateOf(1) }
 
     Card(
         modifier = modifier.height(104.dp),
@@ -86,7 +83,7 @@ fun CartItemCard(
                 ) {
                     Column {
                         Text(
-                            text = "T-Shirt Sailing",
+                            text = product.name,
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.SemiBold
@@ -116,10 +113,10 @@ fun CartItemCard(
                     verticalAlignment = CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    ItemQuantity(
-                        quantity = quantity,
-                        onDecrease = { if (quantity > 1) quantity -- },
-                        onIncrease = { quantity ++ }
+                    QuantitySelector(
+                        quantity = product.quantity,
+                        onDecrease = { if (product.quantity > 1) onDecreaseQty() },
+                        onIncrease = onIncreaseQty
                     )
                     Text(
                         text = "${product.price}kz",
@@ -134,7 +131,7 @@ fun CartItemCard(
 }
 
 @Composable
-private fun ItemQuantity(
+private fun QuantitySelector(
     modifier: Modifier = Modifier,
     quantity: Int,
     onDecrease: () -> Unit,
@@ -160,7 +157,7 @@ private fun ItemQuantity(
             )
         }
         Text(
-            text = "$quantity",
+            text = quantity.toString(),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
@@ -217,9 +214,11 @@ private fun Attribute(
 @Composable
 private fun Preview() {
     StoreTheme {
-        CartItemCard(
+        CartProductCard(
             product = cartProduct,
-            onRemove = {}
+            onRemove = {},
+            onIncreaseQty = {},
+            onDecreaseQty = {}
         )
     }
 }

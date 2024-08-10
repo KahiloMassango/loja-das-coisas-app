@@ -18,7 +18,6 @@ class FavoriteViewModel @Inject constructor(
 ): ViewModel() {
 
     val uiState = favoriteRepository.getFavoriteProductsStream()
-        .map { productEntities -> productEntities.map { it.asExternalModel() } }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),

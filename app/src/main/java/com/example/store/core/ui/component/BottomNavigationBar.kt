@@ -35,6 +35,7 @@ private val navBarRoutes = TopLevelDestination.entries.map { it.route::class }
 @Composable
 fun BottomNavigationBar(
     navController: NavController,
+    cartItemsCount: Int,
     modifier: Modifier = Modifier,
 ) {
 
@@ -67,7 +68,6 @@ fun BottomNavigationBar(
                 TopLevelDestination.entries.forEach { destination ->
                     val isSelected = currentRoute?.hasRoute(destination.route::class) ?: false
                     val isCart = currentBackStack?.toRoute<CartRoute>() == destination.route
-                    val cartItems = 9
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {
@@ -87,13 +87,13 @@ fun BottomNavigationBar(
                          )
                      },
                         icon = {
-                            if (isCart && cartItems != 0) {
+                            if (isCart && cartItemsCount != 0) {
                                 BadgedBox(
                                     badge = {
                                         Badge(
                                             contentColor = MaterialTheme.colorScheme.onPrimary,
                                             containerColor = MaterialTheme.colorScheme.primary
-                                        ) { Text(text = "$cartItems") }
+                                        ) { Text(text = "$cartItemsCount") }
                                     }
                                 ) {
                                     Icon(

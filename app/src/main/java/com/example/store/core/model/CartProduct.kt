@@ -1,7 +1,8 @@
-package com.example.store.feature.shop.model
+package com.example.store.core.model
 
 data class CartProduct(
-    val id: String,
+    val id: Int,
+    val uuid: String,
     val name: String,
     val price: Double,
     val imageUrl: String,
@@ -11,7 +12,8 @@ data class CartProduct(
 )
 
 val cartProduct = CartProduct(
-    id = "ggggg",
+    id = 11,
+    uuid = "olk",
     name = "T-Shirt Sailing",
     price = 2500.0,
     imageUrl = "",
@@ -19,3 +21,4 @@ val cartProduct = CartProduct(
     size = "XL",
     quantity = 1
 )
+

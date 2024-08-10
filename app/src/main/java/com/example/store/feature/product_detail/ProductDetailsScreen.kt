@@ -215,7 +215,14 @@ private fun ProductDetailContent(
                     CustomButton(
                         modifier = Modifier.fillMaxWidth(),
                         text = "ADICIONAR AO CARRINHO",
-                        onClick = onAddToCart
+                        onClick = {
+                            onAddToCart()
+                            Toast.makeText(
+                                context,
+                                "Adicionado ao carrinho",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     )
                     Spacer(modifier = Modifier.height(22.dp))
 

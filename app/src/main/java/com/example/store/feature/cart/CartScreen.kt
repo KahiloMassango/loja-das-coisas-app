@@ -1,5 +1,6 @@
 package com.example.store.feature.cart
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,25 +21,34 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.R
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.cart.component.CartItemCard
-import com.example.store.feature.shop.model.cartProduct
+import com.example.store.feature.cart.component.CartProductCard
 
 @Composable
 fun CartScreen(
     modifier: Modifier = Modifier,
+    viewModel: CartViewModel = hiltViewModel(),
     onCheckout: () -> Unit,
 ) {
+    val products by viewModel.uiState.collectAsStateWithLifecycle()
+    val cartTotal by viewModel.cartTotal.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             StoreLargeTopBar(
@@ -49,7 +60,8 @@ fun CartScreen(
                         lineTo(0f, Float.MAX_VALUE)
                     })
                     .shadow(8.dp),
-                title = "Meu Cesto", canNavigateBack = false)
+                title = "Meu Cesto", canNavigateBack = false
+            )
         },
         contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
@@ -62,49 +74,84 @@ fun CartScreen(
                     .fillMaxSize(),
 
                 ) {
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(22.dp)
+                if (products.isEmpty()) {
+                    EmptyCartScreen()
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(22.dp)
                     ) {
-                    items(16) {
-                        CartItemCard(
-                            modifier = Modifier,
-                            product = cartProduct,
-                            onRemove = { /* TODO: Implement delete */ }
+                        items(products) { product ->
+                            CartProductCard(
+                                modifier = Modifier,
+                                product = product,
+                                onRemove = { viewModel.removeProductFromCart(it) },
+                                onIncreaseQty = {
+                                    viewModel.updateQuantity(
+                                        product.id,
+                                        product.quantity + 1
+                                    )
+                                },
+                                onDecreaseQty = {
+                                    viewModel.updateQuantity(
+                                        product.id,
+                                        product.quantity - 1
+                                    )
+                                }
+                            )
+                        }
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .padding(bottom = 10.dp, top = 14.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Montante total:",
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.inverseOnSurface,
+                            )
+                            Text(
+                                text = "%.2f".format(cartTotal),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                        CustomButton(
+                            text = "Pagar",
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = onCheckout
                         )
                     }
-                }
-                Column(
-                    modifier = Modifier
-                        .padding(bottom = 10.dp, top = 14.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = "Montante total:",
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.inverseOnSurface,
-                        )
-                        Text(
-                            text = "2500kz",
-                            color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
-                    CustomButton(
-                        text = "Pagar",
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = onCheckout
-                    )
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun EmptyCartScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.empty_cart),
+            contentDescription = null
+        )
+        Text(
+            text = "Carrinho vazio!",
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
@@ -113,6 +160,6 @@ fun CartScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        CartScreen{}
+        CartScreen {}
     }
 }

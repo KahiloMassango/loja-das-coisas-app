@@ -8,7 +8,7 @@ import com.example.store.core.database.model.FavoriteProductEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface FavoriteProductsDao {
+interface FavoritesDao {
 
     @Query("SELECT * FROM favorite_products")
     fun getFavoriteProducts(): Flow<List<FavoriteProductEntity>>
