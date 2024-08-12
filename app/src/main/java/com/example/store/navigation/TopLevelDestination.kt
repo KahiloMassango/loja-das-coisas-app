@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingBag
+import androidx.compose.material.icons.filled.ShoppingBasket
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -30,7 +31,7 @@ enum class TopLevelDestination (
 ){
     HOME("Home", HomeRoute, Icons.Outlined.Home, Icons.Filled.Home),
     SHOP("Loja", ShopRoute,Icons.Outlined.Storefront,Icons.Filled.Storefront),
-    CART("Cesto", CartRoute, Icons.Outlined.ShoppingBasket,Icons.Filled.ShoppingBag),
+    CART("Cesto", CartRoute, Icons.Outlined.ShoppingBasket,Icons.Filled.ShoppingBasket),
     Favorite("Favoritos", FavoriteRoute, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
     PROFILE("Perfil", ProfileRoute,Icons.Outlined.PersonOutline, Icons.Filled.Person)
 }
