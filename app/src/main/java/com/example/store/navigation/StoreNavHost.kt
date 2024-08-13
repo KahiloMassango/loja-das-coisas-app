@@ -105,7 +105,7 @@ fun NavigationGraph(
 
             reviewsScreen(onNavigateUp = navController::navigateUp)
         }
-        BottomNavigationBar(navController, cartItemsCount = cartItemsCount)
+        BottomNavigationBar(navController = navController, cartItemsCount = cartItemsCount)
     }
 }
 
