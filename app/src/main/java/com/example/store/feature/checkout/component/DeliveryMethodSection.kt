@@ -17,29 +17,46 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+
+
 @Composable
-fun DeliveryMethodSelector(
+internal fun DeliveryMethodSection(
     modifier: Modifier = Modifier,
-    deliveryPrice: Int = 500,
+    selectedMethod: DeliveryMethod,
+    pickUpDeliveryPrice: Int,
+    onSelectDeliveryMethod: (DeliveryMethod, String) -> Unit
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth() ,
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        DeliveryMethodCard(
-            title = "Entrega",
-            description = "$deliveryPrice kz",
-            selected = true,
-            onClick = { /*TODO*/ }
+        Text(
+            modifier = modifier,
+            text = "Método de entrega",
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.Bold,
         )
-        DeliveryMethodCard(
-            title = "Levantar",
-            description = "Grátis",
-            selected = false,
-            onClick = { /*TODO*/ }
-        )
+        Row(
+            modifier = modifier.fillMaxWidth() ,
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            DeliveryMethodCard(
+                title = "Entrega",
+                description = "$pickUpDeliveryPrice kz",
+                selected = selectedMethod == DeliveryMethod.DELIVERY,
+                onClick = { onSelectDeliveryMethod(DeliveryMethod.DELIVERY, "${pickUpDeliveryPrice}Kz") }
+            )
+            DeliveryMethodCard(
+                title = "Levantar",
+                description = "Grátis",
+                selected = selectedMethod == DeliveryMethod.PICKUP,
+                onClick = { onSelectDeliveryMethod(DeliveryMethod.PICKUP, "Grátis") }
+            )
+        }
     }
 }
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

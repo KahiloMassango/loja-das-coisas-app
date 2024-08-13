@@ -1,8 +1,6 @@
 package com.example.store.feature.checkout
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,23 +11,31 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
-import com.example.store.feature.checkout.component.DeliveryMethodSelector
-import com.example.store.feature.checkout.component.ShippingAddressCard
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.checkout.component.AddressSection
+import com.example.store.feature.checkout.component.CheckoutSummary
+import com.example.store.feature.checkout.component.DeliveryMethod
+import com.example.store.feature.checkout.component.DeliveryMethodSection
 
 
 @Composable
-fun CheckoutScreen(
+internal fun CheckoutScreen(
     modifier: Modifier = Modifier,
     onNavigateUp: () -> Unit,
 ) {
+    var selectedDeliveryMethod by rememberSaveable { mutableStateOf(DeliveryMethod.DELIVERY) }
+    var deliveryPrice by rememberSaveable { mutableStateOf("2.700") }
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -46,25 +52,23 @@ fun CheckoutScreen(
         ) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(15.dp),
+                Modifier
+                    .fillMaxSize()
+                    .padding(15.dp),
             ) {
-                CheckoutSection(
-                    modifier = Modifier.padding(vertical = 16.dp),
-                    text = "Endereço de entrega",
-                )
-                ShippingAddressCard(
+                AddressSection(
                     onChangeAddress = { /*TODO*/ },
                 )
                 Spacer(modifier = Modifier.height(32.dp))
 
-                CheckoutSection(
-                    modifier = Modifier.padding(bottom = 16.dp),
-                    text = "Forma de Entrega",
+                DeliveryMethodSection(
+                    pickUpDeliveryPrice = 12000,
+                    selectedMethod = selectedDeliveryMethod,
+                    onSelectDeliveryMethod = { method, price ->
+                        selectedDeliveryMethod = method
+                        deliveryPrice = price
+                    }
                 )
-
-                DeliveryMethodSelector(Modifier.padding(start = 16.dp))
 
                 Spacer(modifier = Modifier.height(32.dp))
 
@@ -72,7 +76,11 @@ fun CheckoutScreen(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                CheckoutSummary()
+                CheckoutSummary(
+                    cartTotal = 12000,
+                    deliveryPrice = deliveryPrice,
+                    totalSummary = 13450,
+                )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -85,6 +93,10 @@ fun CheckoutScreen(
         }
     }
 }
+
+
+
+
 
 @Composable
 private fun CheckoutSection(
@@ -99,73 +111,13 @@ private fun CheckoutSection(
     )
 }
 
-@Composable
-private fun CheckoutSummary(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "Carrinho:",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.inverseOnSurface,
-            )
-            Text(
-                text = "12000kz",
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "Entrega:",
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.inverseOnSurface,
-            )
-            Text(
-                text = "1450kz",
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "Total:",
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.inverseOnSurface,
-            )
-            Text(
-                text = "13450kz",
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-    }
-}
 
 @PreviewLightDark
 @Composable
 private fun Preview() {
     StoreTheme {
-       // CheckoutScreen()
+        CheckoutScreen(
+            onNavigateUp = {},
+        )
     }
 }
