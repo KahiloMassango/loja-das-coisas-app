@@ -25,7 +25,6 @@ fun CustomClickableText(
     modifier: Modifier = Modifier,
     text: String,
     supportText: String? = null,
-    textArrangement: Arrangement.Horizontal = Arrangement.End,
     onClick: () -> Unit
 ) {
     val annotatedString = buildAnnotatedString {
@@ -46,7 +45,7 @@ fun CustomClickableText(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = textArrangement
+        horizontalArrangement = Arrangement.Center
     ) {
         BasicText(
             text = annotatedString,
