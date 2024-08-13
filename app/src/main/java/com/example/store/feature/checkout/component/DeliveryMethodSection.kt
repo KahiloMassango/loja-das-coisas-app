@@ -15,8 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-
+import com.example.store.core.ui.theme.StoreTheme
 
 
 @Composable
@@ -41,13 +42,13 @@ internal fun DeliveryMethodSection(
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             DeliveryMethodCard(
-                title = "Entrega",
-                description = "$pickUpDeliveryPrice kz",
+                price = "Entrega",
+                description = "${pickUpDeliveryPrice}kz",
                 selected = selectedMethod == DeliveryMethod.DELIVERY,
                 onClick = { onSelectDeliveryMethod(DeliveryMethod.DELIVERY, "${pickUpDeliveryPrice}Kz") }
             )
             DeliveryMethodCard(
-                title = "Levantar",
+                price = "Levantar",
                 description = "Grátis",
                 selected = selectedMethod == DeliveryMethod.PICKUP,
                 onClick = { onSelectDeliveryMethod(DeliveryMethod.PICKUP, "Grátis") }
@@ -62,8 +63,8 @@ internal fun DeliveryMethodSection(
 @Composable
 private fun DeliveryMethodCard(
     modifier: Modifier = Modifier,
-    title: String,
     description: String,
+    price: String,
     selected: Boolean,
     onClick: () -> Unit
 ) {
@@ -71,27 +72,52 @@ private fun DeliveryMethodCard(
         modifier = modifier,
         onClick = onClick,
         colors = CardDefaults.outlinedCardColors(
-            containerColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-            contentColor = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+            containerColor = if (selected) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.surface,
+            contentColor = if (selected) MaterialTheme.colorScheme.onPrimary
+                else MaterialTheme.colorScheme.onSurface
         ),
         border = BorderStroke(1.dp, if (selected) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.inverseSurface
+            else MaterialTheme.colorScheme.outline
         )
     ) {
         Column(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             Text(
-                text = title,
+                text = price,
                 style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Normal,
+               // fontWeight = FontWeight.Normal,
             )
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.labelMedium,
+               // fontWeight = FontWeight.SemiBold,
             )
         }
     }
 }
+
+@PreviewLightDark
+@Composable
+private fun Preview() {
+    StoreTheme {
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp)){
+            DeliveryMethodCard(
+                price = "Entrega",
+                description = "Grátis",
+                selected = true,
+                onClick = {}
+            )
+            DeliveryMethodCard(
+                price = "Levantar",
+                description = "1.200Kz",
+                selected = false,
+                onClick = {}
+            )
+        }
+    }
+}
+

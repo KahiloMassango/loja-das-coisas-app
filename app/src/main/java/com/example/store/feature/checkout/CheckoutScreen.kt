@@ -57,9 +57,12 @@ internal fun CheckoutScreen(
                     .padding(15.dp),
             ) {
                 AddressSection(
-                    onChangeAddress = { /*TODO*/ },
+                    username = "Jane Doe",
+                    address = "3 Newbridge Court Chino Hills, CA 91709, United States",
+                    onChangeAddress = { /*TODO*/ }
                 )
-                Spacer(modifier = Modifier.height(32.dp))
+
+                Spacer(modifier = Modifier.height(42.dp))
 
                 DeliveryMethodSection(
                     pickUpDeliveryPrice = 12000,
@@ -70,7 +73,7 @@ internal fun CheckoutScreen(
                     }
                 )
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(42.dp))
 
                 CheckoutSection(text = "Forma de pagamento")
 

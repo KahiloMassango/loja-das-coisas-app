@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun AddressSection(
     modifier: Modifier = Modifier,
+    username: String,
+    address: String,
     onChangeAddress: () -> Unit
 ) {
 
@@ -26,6 +28,8 @@ internal fun AddressSection(
             fontWeight = FontWeight.Bold,
         )
         ShippingAddressCard(
+            username = username,
+            address = address,
             onChangeAddress = onChangeAddress,
         )
     }
