@@ -3,7 +3,7 @@ package com.example.store.core.ui.component
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -19,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -34,9 +36,9 @@ private val navBarRoutes = TopLevelDestination.entries.map { it.route::class }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationBar(
+    modifier: Modifier = Modifier,
     navController: NavController,
     cartItemsCount: Int,
-    modifier: Modifier = Modifier,
 ) {
 
     val currentBackStack by navController.currentBackStackEntryAsState()
@@ -56,14 +58,12 @@ fun BottomNavigationBar(
         exit = slideOutVertically(targetOffsetY = { it }),
     ){
         Surface(
-            shadowElevation = 20.dp
+            modifier = Modifier
+                .shadow(24.dp, shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp) )
         ) {
             NavigationBar(
-                modifier = modifier
-                    .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-                    .background(MaterialTheme.colorScheme.inverseSurface),
+                modifier = modifier.clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
                 containerColor = MaterialTheme.colorScheme.background,
-               // tonalElevation = 5.dp,
             ) {
                 TopLevelDestination.entries.forEach { destination ->
                     val isSelected = currentRoute?.hasRoute(destination.route::class) ?: false
@@ -87,33 +87,21 @@ fun BottomNavigationBar(
                          )
                      },
                         icon = {
-                            if (isCart && cartItemsCount != 0) {
-                                BadgedBox(
-                                    badge = {
-                                        Badge(
-                                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                                            containerColor = MaterialTheme.colorScheme.primary
-                                        ) { Text(text = "$cartItemsCount") }
-                                    }
-                                ) {
-                                    Icon(
-                                        imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
-                                        contentDescription = null,
-                                        tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface
-                                    )
-                                }
+                            if (isCart && cartItemsCount > 0) {
+                                CartIconWithBadge(
+                                    cartItemsCount = cartItemsCount,
+                                    icon = if (isSelected) destination.selectedIcon else destination.unselectedIcon,)
                             } else {
                                 Icon(
                                     imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
                                     contentDescription = null,
-                                    tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface
                                 )
                             }
                         },
                         colors = NavigationBarItemDefaults.colors(
                             indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
                             selectedIconColor = MaterialTheme.colorScheme.primary,
-                            unselectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            unselectedIconColor = MaterialTheme.colorScheme.inverseOnSurface,
                             selectedTextColor = MaterialTheme.colorScheme.primary,
                             unselectedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                         )
@@ -124,5 +112,28 @@ fun BottomNavigationBar(
     }
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CartIconWithBadge(
+    modifier: Modifier = Modifier,
+    cartItemsCount: Int,
+    icon: ImageVector
+) {
+    BadgedBox(
+        modifier = modifier,
+        badge = {
+            Badge(
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary
+            ) { Text(text = "$cartItemsCount") }
+        }
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+        )
+    }
+}
 
 
