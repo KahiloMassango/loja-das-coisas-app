@@ -1,6 +1,8 @@
 package com.example.store.feature.autentication.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,10 +16,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -26,25 +24,29 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.R
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.SocialAuthButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.feature.autentication.component.CustomClickableText
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.autentication.component.CustomClickableText
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    viewModel: LoginViewModel = hiltViewModel() ,
     onSignUp: () -> Unit,
     onForgotPassword: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+
+
+
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -60,16 +62,16 @@ fun LoginScreen(
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 64.dp, bottom = 16.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 54.dp, bottom = 16.dp)
                     .fillMaxSize(),
             ) {
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = email,
+                    value = viewModel.email,
                     placeholder = "Email",
                     isError = false,
                     errorMessage = "Not a valid email. Should be your@email.com.",
-                    onValueChange = { email = it },
+                    onValueChange = { viewModel.updateEmail(it) },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Email
@@ -83,9 +85,9 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = password,
+                    value = viewModel.password,
                     placeholder = "Password",
-                    onValueChange = { password = it },
+                    onValueChange = { viewModel.updatePassword(it) },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
@@ -98,23 +100,28 @@ fun LoginScreen(
                     )
                 )
 
-                Spacer(modifier = Modifier.height(14.dp))
-                CustomClickableText(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Esqueceu sua password?",
-                    onClick = { onForgotPassword() }
-                )
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(26.dp))
+                Box(modifier = Modifier.fillMaxWidth()){
+                    Text(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .clickable { onForgotPassword() },
+                        text = "Esqueceu a password?",
+                        style = MaterialTheme.typography.labelMedium,
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(26.dp))
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "ENTRAR",
                     onClick = { /* TODO */ }
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.height(30.dp))
                 Column (
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
                 ){
                     Text(
                         text = "Ou faça login com ",
@@ -127,13 +134,12 @@ fun LoginScreen(
                         onClick = { /* TODO */ }
                     )
                 }
-                Spacer(modifier = Modifier.height(46.dp))
+                Spacer(modifier = Modifier.height(26.dp))
                 CustomClickableText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Não tem uma conta?",
                     supportText = "Criar",
-                    textArrangement = Arrangement.Center,
                     onClick =  { onSignUp() }
                 )
             }
@@ -145,6 +151,6 @@ fun LoginScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        LoginScreen(Modifier, {}, {}, {})
+        //LoginScreen(Modifier, {}, {}, {})
     }
 }
