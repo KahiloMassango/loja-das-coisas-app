@@ -70,7 +70,7 @@ fun LoginScreen(
                     value = viewModel.email,
                     placeholder = "Email",
                     isError = false,
-                    errorMessage = "Not a valid email. Should be your@email.com.",
+                    supportingText = "Not a valid email. Should be your@email.com.",
                     onValueChange = { viewModel.updateEmail(it) },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,

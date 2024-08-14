@@ -1,6 +1,5 @@
 package com.example.store.core.ui.component
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,29 +32,31 @@ fun StoreTextField(
     singleLine: Boolean = true,
     isError: Boolean = false,
     enabled: Boolean = true,
-    errorMessage: String = "",
+    supportingText: String? = null,
     onValueChange: (String) -> Unit,
+    trailingIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
-    val textFieldBorderColor = if (isError) MaterialTheme.colorScheme.error
-    else Color.Transparent
 
     Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(3.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         TextField(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
-                .shadow(elevation, MaterialTheme.shapes.small)
-                .border(1.dp, textFieldBorderColor, MaterialTheme.shapes.small),
+                .shadow(
+                    elevation,
+                    MaterialTheme.shapes.small
+                ),//.border(1.dp, textFieldBorderColor, MaterialTheme.shapes.small),
             value = value,
             textStyle = MaterialTheme.typography.bodyMedium,
+            isError = isError,
             singleLine = singleLine,
             enabled = enabled,
             onValueChange = { onValueChange(it) },
+            trailingIcon = trailingIcon,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
@@ -67,23 +68,26 @@ fun StoreTextField(
                 focusedIndicatorColor = Color.Unspecified,
                 unfocusedIndicatorColor = Color.Unspecified,
                 disabledIndicatorColor = Color.Unspecified,
+                errorSupportingTextColor = MaterialTheme.colorScheme.error,
+                errorIndicatorColor = Color.Unspecified,
+                errorContainerColor = MaterialTheme.colorScheme.background
                 //disabledContainerColor = Color.Transparent,
             ),
             label = {
                 Text(
                     text = placeholder,
                     style = MaterialTheme.typography.bodySmall,
-                    color = if (isError) MaterialTheme.colorScheme.error else
-                        MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         )
-        if (isError) {
+        if (supportingText != null) {
             Text(
                 modifier = Modifier.padding(start = 12.dp),
-                text = errorMessage,
+                text = supportingText,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.error
+                color = if (isError) MaterialTheme.colorScheme.error
+                else MaterialTheme.colorScheme.inverseOnSurface
             )
         }
     }
@@ -102,7 +106,7 @@ private fun Preview() {
             onValueChange = { value = it },
             placeholder = "Password",
             isError = false,
-            errorMessage = "Error Message"
+            supportingText = "Error Message"
         )
     }
 }

@@ -68,7 +68,7 @@ fun ForgotPasswordScreen(
                     placeholder = "Email",
                     onValueChange = { email = it },
                     isError = false,
-                    errorMessage = "Não é um endereço de e-mail válido. Deve ser seu@email.com",
+                    supportingText = "Não é um endereço de e-mail válido. Deve ser seu@email.com",
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
                         keyboardType = KeyboardType.Email
