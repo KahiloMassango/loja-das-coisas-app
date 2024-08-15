@@ -25,7 +25,9 @@ fun CustomClickableText(
     modifier: Modifier = Modifier,
     text: String,
     supportText: String? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.Center
 ) {
     val annotatedString = buildAnnotatedString {
         withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurface)
@@ -44,8 +46,8 @@ fun CustomClickableText(
 
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        verticalAlignment = verticalAlignment,
+        horizontalArrangement = horizontalArrangement
     ) {
         BasicText(
             text = annotatedString,
@@ -54,14 +56,6 @@ fun CustomClickableText(
                 .padding(end = 4.dp),
             style = MaterialTheme.typography.labelMedium,
         )
-        if(supportText == null) {
-            Icon(
-                modifier = Modifier.size(16.dp),
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
-        }
     }
 }
 
