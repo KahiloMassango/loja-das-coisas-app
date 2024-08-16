@@ -31,7 +31,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,8 +40,8 @@ import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
-import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.AddFavoriteButton
+import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
@@ -155,7 +154,7 @@ private fun ProductDetailContent(
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
-                modifier = Modifier.shadow(3.dp),
+                modifier = Modifier,
                 title = product.name,
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
