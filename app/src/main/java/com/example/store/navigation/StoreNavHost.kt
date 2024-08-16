@@ -53,7 +53,7 @@ fun NavigationGraph(
         NavHost(
             modifier = Modifier.weight(1f),
             navController = navController,
-            startDestination = AuthenticationRoute
+            startDestination = HomeRoute
         ) {
             authentication(navController)
 
