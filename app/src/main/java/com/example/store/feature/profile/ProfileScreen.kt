@@ -55,7 +55,7 @@ fun ProfileScreen(
                     .fillMaxSize(),
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
-                ProfileHeader(
+                ProfileUserCard(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     name = "Matilda Brown",
                     email = "matildabrown@mail.com"
@@ -74,7 +74,7 @@ fun ProfileScreen(
 
 
 @Composable
-private fun ProfileHeader(
+private fun ProfileUserCard(
     modifier: Modifier = Modifier,
     name: String,
     email: String
