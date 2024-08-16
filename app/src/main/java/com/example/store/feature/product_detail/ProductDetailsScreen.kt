@@ -42,7 +42,7 @@ import com.example.store.core.model.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.CustomButton
-import com.example.store.core.ui.component.FavoriteButton
+import com.example.store.core.ui.component.AddFavoriteButton
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
@@ -189,7 +189,7 @@ private fun ProductDetailContent(
                             showSizeOptions = { showSizeOptions = true },
                             showColorOptions = { showColorOptions = true }
                         )
-                        FavoriteButton(
+                        AddFavoriteButton(
                             modifier = Modifier,
                             isFavorite = isFavorite,
                             onClick = {

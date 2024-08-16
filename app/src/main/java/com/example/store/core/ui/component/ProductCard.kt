@@ -91,7 +91,7 @@ fun ProductCard(
 }
 
 @Composable
-fun FavoriteButton(
+fun AddFavoriteButton(
     isFavorite: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -102,7 +102,8 @@ fun FavoriteButton(
         enabled = !isFavorite,
         shape = CircleShape,
         shadowElevation = 5.dp,
-        color =  MaterialTheme.colorScheme.surface,
+        color =  if(isFavorite) MaterialTheme.colorScheme.secondaryContainer
+            else MaterialTheme.colorScheme.inverseSurface,
         contentColor = if (isFavorite) MaterialTheme.colorScheme.primary
         else MaterialTheme.colorScheme.inverseOnSurface
     ) {
