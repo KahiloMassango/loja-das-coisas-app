@@ -12,8 +12,14 @@ data object CartRoute
 
 fun NavController.navigateToCart() = navigate(CartRoute)
 
-fun NavGraphBuilder.cartScreen(onCheckout: () -> Unit) {
+fun NavGraphBuilder.cartScreen(
+    onProductClick: (String) -> Unit,
+    onCheckout: () -> Unit
+) {
     composable<CartRoute> {
-        CartScreen(onCheckout = onCheckout)
+        CartScreen(
+            onProductClick = onProductClick,
+            onCheckout = onCheckout
+        )
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,16 +43,19 @@ import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.theme.defaultFont
 
+@ExperimentalMaterial3Api
 @Composable
 fun CartProductCard(
     modifier: Modifier = Modifier,
     product: CartProduct,
+    onClick: (String) -> Unit,
     onIncreaseQty: () -> Unit,
     onDecreaseQty: () -> Unit,
     onRemove: (Int) -> Unit
 ) {
 
     Card(
+        onClick = { onClick(product.uuid) },
         modifier = modifier.height(104.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
@@ -210,12 +214,14 @@ private fun Attribute(
     Text(modifier = modifier, text = stringBuilder)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
         CartProductCard(
             product = cartProduct,
+            onClick = { },
             onRemove = {},
             onIncreaseQty = {},
             onDecreaseQty = {}

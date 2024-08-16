@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -42,10 +43,12 @@ import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.cart.component.CartProductCard
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreen(
     modifier: Modifier = Modifier,
     viewModel: CartViewModel = hiltViewModel(),
+    onProductClick: (String) -> Unit,
     onCheckout: () -> Unit,
 ) {
     val products by viewModel.uiState.collectAsStateWithLifecycle()
@@ -88,6 +91,7 @@ fun CartScreen(
                             CartProductCard(
                                 modifier = Modifier,
                                 product = product,
+                                onClick = { onProductClick(it) },
                                 onRemove = { viewModel.removeProductFromCart(it) },
                                 onIncreaseQty = {
                                     viewModel.updateQuantity(
@@ -170,6 +174,9 @@ private fun EmptyCartScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun Preview() {
     StoreTheme {
-        CartScreen {}
+        CartScreen(
+            onProductClick = {},
+            onCheckout = {}
+        )
     }
 }

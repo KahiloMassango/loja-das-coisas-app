@@ -62,7 +62,10 @@ fun NavigationGraph(
                 onSeeAll = { navController.navigateToProductListing(it) }
             )
 
-            cartScreen(onCheckout = { navController.navigateToCheckout() })
+            cartScreen(
+                onProductClick = { navController.navigateToProductDetail(it) },
+                onCheckout = { navController.navigateToCheckout() }
+            )
 
             profileScreen(
                 onMyOrdersClick = { navController.navigateToMyOrders() },
