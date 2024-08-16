@@ -48,9 +48,9 @@ fun SettingsScreen(
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
-    var showPasswordChangeDialog by remember { mutableStateOf(false) }
-    val passwordChangeDialogState = rememberModalBottomSheetState(true)
+    val passwordSheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
+    var showPasswordSheet by remember { mutableStateOf(false) }
 
 
 
@@ -59,22 +59,12 @@ fun SettingsScreen(
         topBar = {
             StoreLargeTopBar(
                 title = "Definições",
-                canNavigateBack = true
-            ) { onNavigateUp() }
+                canNavigateBack = true,
+                onNavigateUp = onNavigateUp
+            )
         },
     ) { paddingValues ->
-        if (showPasswordChangeDialog) {
-            PasswordChangeContainer(
-                state = passwordChangeDialogState,
-                onSave = { _, _ ->
-                    coroutineScope.launch {
-                        delay(200)
-                        passwordChangeDialogState.hide()
-                    }.invokeOnCompletion { showPasswordChangeDialog = false }
-                },
-                onDismissRequest = { showPasswordChangeDialog = false }
-            )
-        }
+
         Surface(
             modifier = Modifier
                 .padding(paddingValues)
@@ -121,7 +111,7 @@ fun SettingsScreen(
                     )
                     Text(
                         modifier = Modifier.clickable {
-                            showPasswordChangeDialog = true
+                            showPasswordSheet = true
                         },
                         text = "Alterar",
                         style = MaterialTheme.typography.labelLarge,
@@ -148,6 +138,18 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(26.dp))
                 NotificationPreferences()
             }
+        }
+        if (showPasswordSheet) {
+            PasswordChangeContainer(
+                state = passwordSheetState,
+                onSave = { _, _ ->
+                    coroutineScope.launch {
+                        delay(200)
+                        passwordSheetState.hide()
+                    }.invokeOnCompletion { showPasswordSheet = false }
+                },
+                onDismissRequest = { showPasswordSheet = false }
+            )
         }
     }
 }
