@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Divider
@@ -96,6 +97,7 @@ private fun ProfileOption(
                 )
             }
             Icon(
+                modifier = Modifier.size(18.dp),
                 imageVector = Icons.Default.ArrowForwardIos,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.inverseOnSurface
