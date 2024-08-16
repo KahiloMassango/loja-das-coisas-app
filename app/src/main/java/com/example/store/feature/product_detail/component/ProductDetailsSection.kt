@@ -35,7 +35,7 @@ fun ProductDetailsSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = storeName,
+                text = productName,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -49,9 +49,9 @@ fun ProductDetailsSection(
         }
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
-            text = productName,
+            text = storeName,
             color = MaterialTheme.colorScheme.inverseOnSurface,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.Light
         )
         StarRating(
