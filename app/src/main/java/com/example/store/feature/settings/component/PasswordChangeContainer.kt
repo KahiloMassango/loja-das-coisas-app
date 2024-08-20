@@ -69,9 +69,9 @@ fun PasswordChangeContainer(
                 keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
             )
             CustomClickableText(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                text = "Esqueceu sua password?",
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                text = "Esqueceu sua senha?",
                 supportText = "",
                 onClick = { /* TODO */ }
             )
