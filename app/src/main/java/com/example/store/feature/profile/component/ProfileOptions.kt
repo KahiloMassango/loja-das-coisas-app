@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.os.persistableBundleOf
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 
@@ -27,7 +28,8 @@ fun ProfileOptions(
     modifier: Modifier = Modifier,
     onMyOrdersClick: () -> Unit,
     onMyReviewsClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    onPolicePrivacyClick: () -> Unit
 
 ) {
     Column(
@@ -56,6 +58,13 @@ fun ProfileOptions(
             option = "Definições",
             description = "Notification, senha, etc",
             onClick = onSettingsClick
+        )
+        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        ProfileOption(
+            modifier = Modifier,
+            option = "Política de privacidade",
+            description = "Saiba como seus dados são usados.",
+            onClick = onPolicePrivacyClick
         )
     }
 }
@@ -114,7 +123,8 @@ private fun Preview() {
         ProfileOptions(
             onMyOrdersClick = {},
             onMyReviewsClick = {},
-            onSettingsClick = {}
+            onSettingsClick = {},
+            onPolicePrivacyClick = {}
         )
     }
 }

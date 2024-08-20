@@ -1,0 +1,90 @@
+package com.example.store.feature.police_privacy
+
+import android.util.Base64
+import android.webkit.WebView
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.text.parseAsHtml
+import com.example.store.core.ui.component.StoreCenteredTopBar
+
+@Preview
+@Composable
+fun PolicePrivacyScreen(
+    modifier: Modifier = Modifier,
+    onNavigationUp: () -> Unit = {}
+) {
+    Scaffold(
+        topBar = {
+            StoreCenteredTopBar(
+                title = "Política de Privacidade",
+                elevation = 4.dp,
+                canNavigateBack = true,
+                onNavigateUp = onNavigationUp
+            )
+        }
+
+    ) { paddingValues ->
+        Surface(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Polítia de Cancelamento",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 18.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Lorem Ipsum is simply dummy text of the printing and " +
+                            "typesetting industry. Lorem Ipsum has been the industry's " +
+                            "standard dummy text ever since the 1500s, when an unknown printer " +
+                            "took a galley of type and scrambled it to make a type specimen book. " +
+                            "It has survived not only five centuries, but also the leap into " +
+                            "electronic typesetting, remaining essentially unchanged.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Justify
+                    //fontSize = 18.sp,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = "Termos e Condições",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 18.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Lorem Ipsum is simply dummy text of the printing and " +
+                            "typesetting industry. Lorem Ipsum has been the industry's " +
+                            "standard dummy text ever since the 1500s, when an unknown printer " +
+                            "took a galley of type and scrambled it to make a type specimen book. " +
+                            "It has survived not only five centuries, but also the leap into " +
+                            "electronic typesetting, remaining essentially unchanged.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Justify
+                    //fontSize = 18.sp,
+                )
+
+            }
+        }
+    }
+}

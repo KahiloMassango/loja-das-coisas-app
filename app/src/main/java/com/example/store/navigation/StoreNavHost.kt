@@ -25,6 +25,9 @@ import com.example.store.feature.my_orders.navigation.myOrdersScreen
 import com.example.store.feature.my_orders.navigation.navigateToMyOrders
 import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
 import com.example.store.feature.order_detail.navigation.orderDetailScreen
+import com.example.store.feature.police_privacy.PolicePrivacyScreen
+import com.example.store.feature.police_privacy.navigation.navigateToPolicePrivacy
+import com.example.store.feature.police_privacy.navigation.policePrivacyScreen
 import com.example.store.feature.product_detail.navigation.navigateToProductDetail
 import com.example.store.feature.product_detail.navigation.productDetailScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
@@ -70,7 +73,8 @@ fun NavigationGraph(
             profileScreen(
                 onMyOrdersClick = { navController.navigateToMyOrders() },
                 onMyReviewsClick = { /* TODO */ },
-                onSettingsClick = { navController.navigateToSettings() }
+                onSettingsClick = { navController.navigateToSettings() },
+                onPolicePrivacyClick = { navController.navigateToPolicePrivacy() }
             )
 
             shopScreen(
@@ -88,6 +92,10 @@ fun NavigationGraph(
             productListingScreen(
                 onProductClick = { navController.navigateToProductDetail(it) },
                 onNavigateUp = navController::navigateUp
+            )
+
+            policePrivacyScreen(
+                onNavigationUp = navController::navigateUp
             )
 
             productDetailScreen(

@@ -39,7 +39,8 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
     onMyOrdersClick: () -> Unit,
     onMyReviewsClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    onPolicePrivacyClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -65,7 +66,8 @@ fun ProfileScreen(
                     modifier = Modifier.weight(1f),
                     onMyOrdersClick = onMyOrdersClick,
                     onMyReviewsClick = onMyReviewsClick,
-                    onSettingsClick = onSettingsClick
+                    onSettingsClick = onSettingsClick,
+                    onPolicePrivacyClick = onPolicePrivacyClick
                 )
             }
         }

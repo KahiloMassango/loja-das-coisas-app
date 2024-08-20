@@ -16,13 +16,15 @@ fun NavController.navigateToProfile() = navigate(ProfileRoute)
 fun NavGraphBuilder.profileScreen(
     onMyOrdersClick: () -> Unit,
     onMyReviewsClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    onPolicePrivacyClick: () -> Unit
 ) {
     composable<ProfileRoute> {
         ProfileScreen(
             onMyOrdersClick = onMyOrdersClick,
             onMyReviewsClick = onMyReviewsClick,
-            onSettingsClick = onSettingsClick
+            onSettingsClick = onSettingsClick,
+            onPolicePrivacyClick = onPolicePrivacyClick
         )
     }
 }
