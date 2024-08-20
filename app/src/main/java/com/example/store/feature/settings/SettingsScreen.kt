@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.component.ThemePreviews
@@ -137,6 +138,12 @@ fun SettingsScreen(
                 )
                 Spacer(modifier = Modifier.height(26.dp))
                 NotificationPreferences()
+                Spacer(modifier = Modifier.weight(1f))
+                CustomButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Sair",
+                    onClick = { /* TODO */ }
+                    )
             }
         }
         if (showPasswordSheet) {
