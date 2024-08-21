@@ -103,13 +103,12 @@ private fun ProfileUserCard(
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp
             )
             Text(
                 text = email,
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
-                fontWeight = FontWeight.SemiBold
+               // fontWeight = FontWeight.SemiBold
             )
         }
     }
