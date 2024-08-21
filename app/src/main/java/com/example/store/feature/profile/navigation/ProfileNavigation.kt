@@ -17,6 +17,7 @@ fun NavGraphBuilder.profileScreen(
     onMyOrdersClick: () -> Unit,
     onMyReviewsClick: () -> Unit,
     onSettingsClick: () -> Unit,
+    onHelpCenterClick: () -> Unit,
     onPolicePrivacyClick: () -> Unit
 ) {
     composable<ProfileRoute> {
@@ -24,6 +25,7 @@ fun NavGraphBuilder.profileScreen(
             onMyOrdersClick = onMyOrdersClick,
             onMyReviewsClick = onMyReviewsClick,
             onSettingsClick = onSettingsClick,
+            onHelpCenterClick = onHelpCenterClick,
             onPolicePrivacyClick = onPolicePrivacyClick
         )
     }

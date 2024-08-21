@@ -19,6 +19,8 @@ import com.example.store.feature.cart.navigation.cartScreen
 import com.example.store.feature.checkout.navigation.favoriteScreen
 import com.example.store.feature.favorite.navigation.checkoutScreen
 import com.example.store.feature.favorite.navigation.navigateToCheckout
+import com.example.store.feature.help_center.navigation.helpCenterScreen
+import com.example.store.feature.help_center.navigation.navigateToHelpCenter
 import com.example.store.feature.home.navigation.HomeRoute
 import com.example.store.feature.home.navigation.homeScreen
 import com.example.store.feature.my_orders.navigation.myOrdersScreen
@@ -74,7 +76,12 @@ fun NavigationGraph(
                 onMyOrdersClick = { navController.navigateToMyOrders() },
                 onMyReviewsClick = { /* TODO */ },
                 onSettingsClick = { navController.navigateToSettings() },
+                onHelpCenterClick = { navController.navigateToHelpCenter() },
                 onPolicePrivacyClick = { navController.navigateToPolicePrivacy() }
+            )
+
+            helpCenterScreen(
+                onNavigationUp = navController::navigateUp
             )
 
             shopScreen(

@@ -18,7 +18,6 @@ internal fun ShopSectionTabs(
     onTabClick: (ShopSection) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     TabRow(
         modifier = modifier,
         selectedTabIndex = selectedSection.ordinal,
