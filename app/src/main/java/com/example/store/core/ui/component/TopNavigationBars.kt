@@ -40,7 +40,7 @@ fun StoreCenteredTopBar(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                 )
             },
@@ -75,8 +75,9 @@ fun StoreLargeTopBar(
         title = {
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
             )
         },
         modifier = modifier,
