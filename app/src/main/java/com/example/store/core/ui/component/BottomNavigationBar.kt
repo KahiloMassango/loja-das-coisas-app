@@ -3,6 +3,7 @@ package com.example.store.core.ui.component
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
@@ -23,6 +24,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -79,13 +81,14 @@ fun BottomNavigationBar(
                                 restoreState = true
                             }
                         },
-                        label = {
+                        label = null/*{
                          Text(
                              text = destination.title,
                              style = MaterialTheme.typography.labelSmall,
+                             fontSize = 10.sp,
                              fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
                          )
-                     },
+                     }*/,
                         icon = {
                             if (isCart && cartItemsCount > 0) {
                                 CartIconWithBadge(
