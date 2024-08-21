@@ -32,6 +32,6 @@ enum class TopLevelDestination (
     HOME("Home", HomeRoute, Icons.Outlined.Home, Icons.Filled.Home),
     SHOP("Loja", ShopRoute,Icons.Outlined.Storefront,Icons.Filled.Storefront),
     CART("Cesto", CartRoute, Icons.Outlined.ShoppingBasket,Icons.Filled.ShoppingBasket),
-    Favorite("Favoritos", FavoriteRoute, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
+    Favorite("Favorito", FavoriteRoute, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
     PROFILE("Perfil", ProfileRoute,Icons.Outlined.PersonOutline, Icons.Filled.Person)
 }
