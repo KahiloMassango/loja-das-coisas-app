@@ -35,12 +35,12 @@ fun OrderInfo(
         ) {
             Text(
                 text = "Pedido №$orderNumber",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold,
             )
             Text(
                 text = date,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.inverseOnSurface
             )
@@ -52,12 +52,12 @@ fun OrderInfo(
         ) {
             Text(
                 text = "$itemsQty itens",
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold,
             )
             Text(
                 text = status,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.scrim
             )

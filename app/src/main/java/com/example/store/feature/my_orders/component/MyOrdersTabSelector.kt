@@ -71,9 +71,9 @@ private fun MyOrdersTabItem(
             .clickable { onClick() }
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier.padding(8.dp),
             text = text,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
             color = textColor
         )
     }

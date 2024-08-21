@@ -45,12 +45,12 @@ fun OrderItemCard(
             ) {
                 Text(
                     text = "Pedido №1947034",
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Text(
                     text = "05-12-2019",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colorScheme.inverseOnSurface
                 )
@@ -67,14 +67,14 @@ fun OrderItemCard(
                 ) {
                     Text(
                         text = "Itens:",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.inverseOnSurface
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "3",
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
@@ -85,14 +85,14 @@ fun OrderItemCard(
                 ) {
                     Text(
                         text = "Montante total:",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.inverseOnSurface
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "1.580kz",
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
@@ -108,7 +108,7 @@ fun OrderItemCard(
                 )
                 Text(
                     text = "Entregue",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.scrim,
                 )

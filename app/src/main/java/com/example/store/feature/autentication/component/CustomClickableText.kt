@@ -54,7 +54,7 @@ fun CustomClickableText(
             modifier = Modifier
                 .clickable(onClick = onClick)
                 .padding(end = 4.dp),
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
         )
     }
 }

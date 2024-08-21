@@ -29,7 +29,7 @@ fun CustomButton(
         Text(
             modifier = Modifier,
             text = text,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodySmall
         )
     }
 }
@@ -51,7 +51,7 @@ fun CustomOutlinedButton(
         Text(
             modifier = Modifier,
             text = text,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodySmall
         )
     }
 }

@@ -76,7 +76,7 @@ fun StoreTextField(
             label = {
                 Text(
                     text = placeholder,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

@@ -49,7 +49,7 @@ fun SettingsScreen(
 ) {
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
-    val passwordSheetState = rememberModalBottomSheetState()
+    val passwordSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val coroutineScope = rememberCoroutineScope()
     var showPasswordSheet by remember { mutableStateOf(false) }
 
@@ -78,7 +78,7 @@ fun SettingsScreen(
             ) {
                 Text(
                     text = "Informações Pessoais",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -106,7 +106,7 @@ fun SettingsScreen(
                 ) {
                     Text(
                         text = "Password",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -115,7 +115,7 @@ fun SettingsScreen(
                             showPasswordSheet = true
                         },
                         text = "Alterar",
-                        style = MaterialTheme.typography.labelLarge,
+                        style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.inverseOnSurface,
 
                         )
@@ -132,7 +132,7 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(45.dp))
                 Text(
                     text = "Notificações",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold
                 )

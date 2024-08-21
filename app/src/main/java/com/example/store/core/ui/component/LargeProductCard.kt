@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
@@ -29,7 +30,7 @@ fun LargeProductCard(
     onClick: (productId: String) -> Unit,
 ) {
     Card(
-    modifier = modifier,
+    modifier = modifier.height(104.dp),
     elevation = CardDefaults.elevatedCardElevation(5.dp),
     colors = CardDefaults.cardColors(
     containerColor = MaterialTheme.colorScheme.background,
@@ -53,16 +54,16 @@ fun LargeProductCard(
                     .padding(10.dp)
             ) {
                 Text(
-                    text = product.storeName,
-                    color = MaterialTheme.colorScheme.inverseOnSurface,
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.Light
-                )
-                Text(
                     text = product.name,
                     color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = product.storeName,
+                    color = MaterialTheme.colorScheme.inverseOnSurface,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Normal
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)

@@ -69,7 +69,7 @@ fun CartProductCard(
             Image(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(104.dp),
+                    .width(100.dp),
                 painter = painterResource(id = R.drawable.ic_person),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
@@ -85,17 +85,20 @@ fun CartProductCard(
                     verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Column {
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
                         Text(
                             text = product.name,
                             color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodySmall,
                             fontWeight = FontWeight.SemiBold
                         )
-                        Row(
+                        Column(
                             modifier = Modifier,
-                            verticalAlignment = CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            verticalArrangement = Arrangement.spacedBy(0.dp),
+                            //horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Attribute(attribute = "Cor", value = product.color)
                             Attribute(attribute = "Tamanho", value = product.size)
@@ -125,7 +128,7 @@ fun CartProductCard(
                     Text(
                         text = "${product.price}kz",
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
@@ -196,7 +199,6 @@ private fun Attribute(
             SpanStyle(
                 color = MaterialTheme.colorScheme.inverseOnSurface,
                 fontFamily = defaultFont,
-                fontSize = 11.sp,
                 fontWeight = FontWeight.Normal
             )
         ) { append("${attribute}:") }
@@ -205,13 +207,17 @@ private fun Attribute(
             SpanStyle(
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 fontFamily = defaultFont,
-                fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold
             )
         ) { append(value) }
     }
 
-    Text(modifier = modifier, text = stringBuilder)
+    Text(
+        modifier = modifier,
+        text = stringBuilder,
+        style = MaterialTheme.typography.labelSmall,
+        fontSize = 10.sp
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

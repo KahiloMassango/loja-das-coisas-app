@@ -72,7 +72,7 @@ fun ProductCard(
                 text = product.storeName,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
                 style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.Normal
             )
             Text(
                 text = product.name,
@@ -83,7 +83,7 @@ fun ProductCard(
             Text(
                 text = "${product.price}kz",
                 color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.labelSmall,
                 fontWeight = FontWeight.SemiBold
             )
         }
@@ -143,7 +143,7 @@ fun StarRating(
         }
         Text(
             text = "($totalRatings)",
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.inverseOnSurface,
         )
     }

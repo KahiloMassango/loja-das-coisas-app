@@ -41,9 +41,8 @@ fun CustomDragHandle(
         )
         Text(
             text = text,
-            fontFamily = FontFamily(Font(R.font.metropolis_semi_bold)),
+            style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         )
     }

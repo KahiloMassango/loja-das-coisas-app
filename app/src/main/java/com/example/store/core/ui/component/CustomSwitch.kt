@@ -34,8 +34,8 @@ fun CustomSwitch(
     checked: Boolean,
     onCheckedChange: (state: Boolean) -> Unit
 ) {
-    val width = 34.dp
-    val height = 19.dp
+    val width = 30.dp
+    val height = 17.dp
     val swipeableState = rememberSwipeableState(
         initialValue = checked,
         confirmStateChange = { isChecked ->

@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,11 +47,11 @@ fun PolicePrivacyScreen(
             ) {
                 Text(
                     text = "Polítia de Cancelamento",
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 18.sp
+                    //fontSize = 18.sp
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = "Lorem Ipsum is simply dummy text of the printing and " +
                             "typesetting industry. Lorem Ipsum has been the industry's " +
@@ -58,19 +59,19 @@ fun PolicePrivacyScreen(
                             "took a galley of type and scrambled it to make a type specimen book. " +
                             "It has survived not only five centuries, but also the leap into " +
                             "electronic typesetting, remaining essentially unchanged.",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Justify
                     //fontSize = 18.sp,
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(34.dp))
                 Text(
                     text = "Termos e Condições",
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 18.sp
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = "Lorem Ipsum is simply dummy text of the printing and " +
                             "typesetting industry. Lorem Ipsum has been the industry's " +
@@ -78,7 +79,8 @@ fun PolicePrivacyScreen(
                             "took a galley of type and scrambled it to make a type specimen book. " +
                             "It has survived not only five centuries, but also the leap into " +
                             "electronic typesetting, remaining essentially unchanged.",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Justify
                     //fontSize = 18.sp,

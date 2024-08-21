@@ -40,7 +40,7 @@ fun Section(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold
             )
@@ -53,7 +53,7 @@ fun Section(
         }
         Text(
             text = description,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.inverseOnSurface,
             fontWeight = FontWeight.Medium
         )

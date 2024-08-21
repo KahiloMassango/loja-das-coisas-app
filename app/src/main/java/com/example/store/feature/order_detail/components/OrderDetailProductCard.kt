@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
@@ -23,7 +24,8 @@ import com.example.store.core.ui.component.AttributeDescription
 @Composable
 fun DetailOrderProductCard(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .height(104.dp),
         elevation = CardDefaults.elevatedCardElevation(5.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background,
@@ -47,13 +49,13 @@ fun DetailOrderProductCard(modifier: Modifier = Modifier) {
                 Text(
                     text = "T-Shirt SPANISH",
                     color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
                     text = "Mango",
                     color = MaterialTheme.colorScheme.inverseOnSurface,
-                    style = MaterialTheme.typography.labelMedium,
+                    style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Light
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -68,7 +70,7 @@ fun DetailOrderProductCard(modifier: Modifier = Modifier) {
                     Text(
                         text = "4.500kz",
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.SemiBold
                     )
                 }

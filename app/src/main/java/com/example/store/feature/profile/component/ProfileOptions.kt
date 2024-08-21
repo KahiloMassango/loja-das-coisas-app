@@ -108,7 +108,7 @@ private fun ProfileOption(
                 )
                 Text(
                     text = description,
-                    style = MaterialTheme.typography.labelMedium,
+                    style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.inverseOnSurface,
                     fontWeight = FontWeight.Normal
                 )
