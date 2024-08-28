@@ -14,27 +14,18 @@ import com.example.store.feature.settings.component.NotificationPreferenceOption
 
 @Composable
 fun NotificationPreferences(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    notificationPreference: Boolean,
+    onNotificationPreferenceChange: (Boolean) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        var bb by remember { mutableStateOf(false) }
-        NotificationPreferenceOption(
-            description = "Promoções",
-            checked = false,
-            onCheckedChange = { }
-        )
-        NotificationPreferenceOption(
-            description = "Novos produtos",
-            checked = true,
-            onCheckedChange = { }
-        )
         NotificationPreferenceOption(
             description = "Geral",
-            checked = bb,
-            onCheckedChange = { bb = it }
+            checked = notificationPreference,
+            onCheckedChange = { onNotificationPreferenceChange(it) }
         )
     }
 }

@@ -31,6 +31,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
@@ -45,8 +47,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
+    viewModel: SettingsViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
 ) {
+    val notificationPreference by viewModel.notificationPreference.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
     var name by remember { mutableStateOf("") }
     val passwordSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -137,7 +141,10 @@ fun SettingsScreen(
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(modifier = Modifier.height(26.dp))
-                NotificationPreferences()
+                NotificationPreferences(
+                    notificationPreference = notificationPreference,
+                    onNotificationPreferenceChange = { viewModel.updateNotificationPreference(it) }
+                )
                 Spacer(modifier = Modifier.weight(1f))
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlinx-serialization")
+    id("com.google.gms.google-services")
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt.android)
@@ -46,7 +47,6 @@ android {
     composeCompiler {
         enableStrongSkippingMode = true
     }
-
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -60,10 +60,20 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.firebase.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Preferences DataStore
+    implementation(libs.androidx.datastore.preference)
+
+    // analytics
+    implementation(libs.firebase.analytics)
+
+    // firebase cloud messaging
+    implementation(libs.firebase.cloud.messaging)
 
     // Serialization
     implementation(libs.kotlinx.serialization)
@@ -82,7 +92,6 @@ dependencies {
 
     // Coil
     implementation(libs.coil)
-    implementation(libs.androidx.compose.material)
 
     //hilt
     implementation(libs.hilt.android)
