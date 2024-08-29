@@ -31,7 +31,7 @@ fun ProductImageCarousel(
         HorizontalPager(
             modifier = modifier
                 .fillMaxWidth()
-                .height(420.dp),
+                .height(410.dp),
             pageSize = PageSize.Fixed(300.dp),
             state = pagerState,
             pageSpacing = 16.dp
