@@ -3,6 +3,7 @@ package com.example.store.feature.product_detail
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,13 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -40,18 +36,14 @@ import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
-import com.example.store.core.ui.component.AddFavoriteButton
-import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.product_detail.component.AttributePickerSheet
-import com.example.store.feature.product_detail.component.ProductAttributeSection
-import com.example.store.feature.product_detail.component.ProductDetailsSection
+import com.example.store.feature.product_detail.component.BottomSheet
+import com.example.store.feature.product_detail.component.ProductDetails
 import com.example.store.feature.product_detail.component.ProductImageCarousel
 import com.example.store.feature.product_detail.component.RelatedProductsSection
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.store.feature.product_detail.component.SizeSelector
 
 val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
 
@@ -65,7 +57,6 @@ fun ProductDetailsScreen(
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
-
 
 
     when (uiState) {
@@ -106,50 +97,6 @@ private fun ProductDetailContent(
     onNavigateUp: () -> Unit,
 ) {
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-
-    val sizeOptionsState = rememberModalBottomSheetState()
-    var showSizeOptions by remember { mutableStateOf(false) }
-
-    val colorOptionsState = rememberModalBottomSheetState()
-    var showColorOptions by remember { mutableStateOf(false) }
-
-    if (showSizeOptions) {
-        AttributePickerSheet(
-            state = sizeOptionsState,
-            selectorDescription = "Selecionar tamanho",
-            selectedAttribute = size,
-            attributes = product.availableSizes,
-            onDismissRequest = { showSizeOptions = false },
-            onSelectAttribute = {
-                onSizeChange(it)
-                coroutineScope.launch {
-                    delay(350)
-                    sizeOptionsState.hide()
-                }.invokeOnCompletion {
-                    showSizeOptions = false
-                }
-            }
-        )
-    }
-    if (showColorOptions) {
-        AttributePickerSheet(
-            state = colorOptionsState,
-            selectorDescription = "Selecionar cor",
-            selectedAttribute = color,
-            attributes = product.availableColors,
-            onDismissRequest = { showColorOptions = false },
-            onSelectAttribute = {
-                onColorChange(it)
-                coroutineScope.launch {
-                    delay(350)
-                    colorOptionsState.hide()
-                }.invokeOnCompletion {
-                    showColorOptions = false
-                }
-            }
-        )
-    }
 
     Scaffold(
         topBar = {
@@ -165,92 +112,68 @@ private fun ProductDetailContent(
             modifier = modifier
                 .padding(paddingValues)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-            ) {
-                ProductImageCarousel(images = images)
+            Box(modifier = Modifier.fillMaxSize()) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(12.dp),
+                        .padding(bottom = 0.dp)
+                        .verticalScroll(rememberScrollState())
+                        ,
                 ) {
+                    ProductImageCarousel(images = images)
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                    ) {
+                        ProductDetails(
+                            product = product
+                        )
+                        Divider(Modifier.padding(vertical = 16.dp))
+                        SizeSelector(
+                            modifier = Modifier.fillMaxWidth(),
+                            selectedSize = size,
+                            availableSizes = product.availableSizes,
+                            onChangeSize = { onSizeChange(it) }
+                        )
+                        Spacer(modifier = Modifier.height(18.dp))
+                    }
+                    Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onReviewsClick(product.id) }
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ProductAttributeSection(
-                            modifier = Modifier.weight(1f),
-                            selectedSize = size,
-                            selectedColor = color,
-                            showSizeOptions = { showSizeOptions = true },
-                            showColorOptions = { showColorOptions = true }
+                        Text(
+                            text = "Comentários & Avaliações",
+                            style = MaterialTheme.typography.bodyMedium
                         )
-                        AddFavoriteButton(
-                            modifier = Modifier,
-                            isFavorite = isFavorite,
-                            onClick = {
-                                onAddFavorite()
-                                Toast.makeText(
-                                    context,
-                                    "Produto adicionado aos favoritos",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                        Icon(
+                            imageVector = Icons.Default.ArrowForwardIos,
+                            contentDescription = null,
+                            modifier = Modifier.size(12.dp)
                         )
                     }
-                    Spacer(modifier = Modifier.height(22.dp))
-                    ProductDetailsSection(
-                        productName = product.name,
-                        storeName = product.storeName,
-                        averageRating = product.averageRating,
-                        totalRating = product.totalRating,
-                        price = "${product.price}Kz",
-                        description = product.description
+                    Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    RelatedProductsSection(
+                        modifier = Modifier.padding(16.dp),
+                        onProductClick = { onSuggestedProductsClick(it) },
+                        onFavoriteClick = { /* TODO */ },
+                        products = productList
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    CustomButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "ADICIONAR AO CARRINHO",
-                        onClick = {
-                            onAddToCart()
-                            Toast.makeText(
-                                context,
-                                "Adicionado ao carrinho",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(22.dp))
-
+                    Spacer(modifier = Modifier.height(100.dp))
                 }
-                Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onReviewsClick(product.id) }
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Comentários & Avaliações",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Icon(
-                        imageVector = Icons.Default.ArrowForwardIos,
-                        contentDescription = null,
-                        modifier = Modifier.size(12.dp)
-                    )
-                }
-                Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                RelatedProductsSection(
-                    modifier = Modifier.padding(16.dp),
-                    onProductClick = { onSuggestedProductsClick(it) },
-                    onFavoriteClick = { /* TODO */ },
-                    products = productList
+                BottomSheet(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    productPrice = product.price,
+                    onAddToCart = {
+                        onAddToCart()
+                        Toast.makeText(context, "Adicionado ao carrinho", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 )
             }
         }
@@ -258,14 +181,25 @@ private fun ProductDetailContent(
 }
 
 
+
+
+
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductDetailsScreen(
+        ProductDetailContent(
+            product = productList[0],
+            size = "M",
+            color = "Azul",
+            isFavorite = false,
+            onSizeChange = {},
+            onColorChange = {},
+            onAddFavorite = {},
             onReviewsClick = {},
-            onNavigateUp = {},
-            onSuggestedProductClick = {}
+            onAddToCart = {},
+            onSuggestedProductsClick = {},
+            onNavigateUp = {}
         )
     }
 }
