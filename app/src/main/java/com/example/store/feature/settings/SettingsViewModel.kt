@@ -3,7 +3,7 @@ package com.example.store.feature.settings
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.datastore.di.UserPreferencesRepository
+import com.example.store.core.datastore.PreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val userPreferencesRepository: UserPreferencesRepository
+    private val userPreferencesRepository: PreferencesRepository
 ) : ViewModel() {
 
     val notificationPreference = userPreferencesRepository.getNotificationPreference()

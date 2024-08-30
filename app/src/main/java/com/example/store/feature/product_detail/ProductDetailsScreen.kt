@@ -58,7 +58,6 @@ fun ProductDetailsScreen(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
 
-
     when (uiState) {
         is ProductDetailState.Loading -> LoadingScreen(modifier)
         is ProductDetailState.Error -> ErrorScreen(onTryAgain = viewModel::refresh)

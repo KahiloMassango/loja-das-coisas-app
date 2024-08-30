@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.store.core.datastore.DefaultPreferencesRepository
+import com.example.store.core.datastore.PreferencesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,7 @@ object DataStoreModule {
     @Singleton
     fun providesPreferenceRepository(
         @ApplicationContext context: Context
-    ): UserPreferencesRepository {
+    ): PreferencesRepository {
         return DefaultPreferencesRepository(dataStore = context.userDataStore)
     }
 

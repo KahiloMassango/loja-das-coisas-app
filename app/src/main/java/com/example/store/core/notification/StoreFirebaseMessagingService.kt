@@ -3,7 +3,6 @@ package com.example.store.core.notification
 import android.content.pm.PackageManager
 import android.util.Log
 import com.example.store.core.datastore.DefaultPreferencesRepository
-import com.example.store.core.datastore.di.UserPreferencesRepository
 import com.example.store.core.datastore.di.userDataStore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
