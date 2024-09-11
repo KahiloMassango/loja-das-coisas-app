@@ -4,16 +4,17 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.store.feature.checkout.CheckoutScreen
+import com.example.store.feature.favorite.FavoriteScreen
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data object CheckoutRoute
+data object FavoriteRoute
 
-fun NavController.navigateToCheckout() = navigate(CheckoutRoute)
+fun NavController.navigateToFavorite() = navigate(FavoriteRoute)
 
-fun NavGraphBuilder.checkoutScreen(onNavigateUp: () -> Unit) {
-    composable<CheckoutRoute> {
-        CheckoutScreen(onNavigateUp = onNavigateUp)
+fun NavGraphBuilder.favoriteScreen(onProductDetail: (String) -> Unit) {
+    composable<FavoriteRoute> {
+        FavoriteScreen(onProductClick = { onProductDetail(it) })
     }
 }

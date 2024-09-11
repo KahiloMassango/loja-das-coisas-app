@@ -20,8 +20,7 @@ class StoreFirebaseMessagingService(
 ): FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
-        super.onNewToken(token) // Call super first to ensure proper token handling by FirebaseLog.d("NewToken", "Refreshed token: $token") // Improved log tag for clarity
-        // TODO: Send the new token to your application server for future message targeting.
+        super.onNewToken(token)
     }
 
 }

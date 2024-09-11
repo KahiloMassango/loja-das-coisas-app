@@ -36,9 +36,10 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun StoreSearchBar(
+fun StoreSearchTextField(
     modifier: Modifier = Modifier,
     query: String,
+    placeholder: String,
     onQueryChange: (String) -> Unit,
     onClearQuery: () -> Unit,
     onSearch: () -> Unit,
@@ -64,7 +65,7 @@ fun StoreSearchBar(
         visualTransformation = VisualTransformation.None,
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Search,
-            keyboardType = KeyboardType.Password
+            keyboardType = KeyboardType.Text
         ),
         keyboardActions = KeyboardActions(
             onSearch = { onSearch() }
@@ -84,7 +85,7 @@ fun StoreSearchBar(
                 )
                 Box(Modifier.weight(1f)) {
                     if (query.isEmpty()) Text(
-                        text = "Pesquise por roupas, calçados, acessórios, etc.",
+                        text = placeholder,
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.inverseOnSurface,
                         maxLines = 1,

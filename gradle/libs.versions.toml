@@ -13,13 +13,16 @@ kotlinSerialization = "1.6.3"
 composeNavigation = "2.8.0-beta01"
 material3 = "1.2.1"
 coilCompose = "2.6.0"
+playServicesLocation = "21.3.0"
 room = "2.6.1"
 composeMaterial = "1.3.1"
+retrofit = "2.11.0"
 ksp = "2.0.0-1.0.21"
 hiltAndroid  = "2.50"
 hiltNavigationCompose = "1.2.0"
 googleServices = "4.4.2"
 preferenceDatastore = "1.1.1"
+googleMaps = "6.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,8 +54,10 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-cloud-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 androidx-datastore-preference = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "preferenceDatastore" }
-
-
+google-maps = { group = "com.google.maps.android", name = "maps-compose", version.ref = "googleMaps" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

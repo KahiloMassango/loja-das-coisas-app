@@ -45,7 +45,9 @@ internal fun FilterContainer(
                 ),
                 border = FilterChipDefaults.filterChipBorder(
                     borderColor = MaterialTheme.colorScheme.background,
-                    selectedBorderColor = MaterialTheme.colorScheme.primary
+                    selectedBorderColor = MaterialTheme.colorScheme.primary,
+                    selected = selected == filter.name,
+                    enabled = true
                 )
             )
         }

@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -25,13 +26,14 @@ android {
         }
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+                "proguard-rules.pro")
+
         }
     }
     compileOptions {
@@ -43,6 +45,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeCompiler {
         enableStrongSkippingMode = true
@@ -66,6 +69,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+
     // Preferences DataStore
     implementation(libs.androidx.datastore.preference)
 
@@ -85,6 +92,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    // google maps
+    implementation(libs.google.maps)
+    implementation(libs.play.services.location)
 
     // Navigation
     implementation(libs.compose.navigation)

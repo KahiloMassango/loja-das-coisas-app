@@ -13,12 +13,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.store.core.ui.component.BottomNavigationBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.autentication.navigation.AuthenticationRoute
 import com.example.store.feature.autentication.navigation.authentication
 import com.example.store.feature.cart.navigation.cartScreen
-import com.example.store.feature.checkout.navigation.favoriteScreen
-import com.example.store.feature.favorite.navigation.checkoutScreen
-import com.example.store.feature.favorite.navigation.navigateToCheckout
+import com.example.store.feature.checkout.navigation.checkoutScreen
+import com.example.store.feature.checkout.navigation.navigateToCheckout
+import com.example.store.feature.checkout.navigation.navigateToPickerLocation
+import com.example.store.feature.checkout.navigation.selectDeliveryLocationScreen
+import com.example.store.feature.favorite.navigation.favoriteScreen
 import com.example.store.feature.help_center.navigation.helpCenterScreen
 import com.example.store.feature.help_center.navigation.navigateToHelpCenter
 import com.example.store.feature.home.navigation.HomeRoute
@@ -27,7 +28,6 @@ import com.example.store.feature.my_orders.navigation.myOrdersScreen
 import com.example.store.feature.my_orders.navigation.navigateToMyOrders
 import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
 import com.example.store.feature.order_detail.navigation.orderDetailScreen
-import com.example.store.feature.police_privacy.PolicePrivacyScreen
 import com.example.store.feature.police_privacy.navigation.navigateToPolicePrivacy
 import com.example.store.feature.police_privacy.navigation.policePrivacyScreen
 import com.example.store.feature.product_detail.navigation.navigateToProductDetail
@@ -120,7 +120,12 @@ fun NavigationGraph(
 
             settingsScreen(navController::navigateUp)
 
-            checkoutScreen(onNavigateUp = navController::navigateUp)
+            checkoutScreen(
+                onNavigateUp = navController::navigateUp,
+                onChangeAddress = { navController.navigateToPickerLocation() }
+            )
+
+            selectDeliveryLocationScreen(onNavigateUp = navController::navigateUp)
 
             reviewsScreen(onNavigateUp = navController::navigateUp)
         }

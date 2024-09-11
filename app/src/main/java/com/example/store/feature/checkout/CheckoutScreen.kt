@@ -32,6 +32,7 @@ import com.example.store.feature.checkout.component.DeliveryMethodSection
 internal fun CheckoutScreen(
     modifier: Modifier = Modifier,
     onNavigateUp: () -> Unit,
+    onChangeAddress: () -> Unit ,
 ) {
     var selectedDeliveryMethod by rememberSaveable { mutableStateOf(DeliveryMethod.DELIVERY) }
     var deliveryPrice by rememberSaveable { mutableStateOf("2.700") }
@@ -59,7 +60,7 @@ internal fun CheckoutScreen(
                 AddressSection(
                     username = "Jane Doe",
                     address = "3 Newbridge Court Chino Hills, CA 91709, United States",
-                    onChangeAddress = { /*TODO*/ }
+                    onChangeAddress = onChangeAddress
                 )
 
                 Spacer(modifier = Modifier.height(42.dp))
@@ -121,6 +122,7 @@ private fun Preview() {
     StoreTheme {
         CheckoutScreen(
             onNavigateUp = {},
+            onChangeAddress = {},
         )
     }
 }

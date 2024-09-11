@@ -38,7 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.ui.component.LargeProductCard
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.search.components.StoreSearchBar
+import com.example.store.feature.search.components.StoreSearchTextField
 
 @Composable
 fun SearchScreen(
@@ -86,11 +86,12 @@ fun SearchScreen(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
-                StoreSearchBar(
+                StoreSearchTextField(
                     modifier = Modifier
                         .weight(1f)
                         .focusRequester(searchFieldFocusRequester),
                     query = searchText,
+                    placeholder = "Pesquise por roupas, calçados, acessórios, etc.",
                     onQueryChange = { viewModel.updateSearchQuery(it) },
                     onSearch = {
                         keyboardManager?.hide()
