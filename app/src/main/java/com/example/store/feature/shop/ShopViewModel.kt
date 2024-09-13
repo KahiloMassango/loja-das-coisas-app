@@ -1,7 +1,7 @@
 package com.example.store.feature.shop
 
 import androidx.lifecycle.ViewModel
-import com.example.store.core.data.ProductRepositoryImpl
+import com.example.store.core.data.repository.ProductRepositoryImpl
 import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel

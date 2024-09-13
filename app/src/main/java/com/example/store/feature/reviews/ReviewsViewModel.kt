@@ -3,7 +3,7 @@ package com.example.store.feature.reviews
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.data.ProductRepositoryImpl
+import com.example.store.core.data.repository.ProductRepositoryImpl
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel

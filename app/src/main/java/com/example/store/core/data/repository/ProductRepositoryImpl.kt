@@ -1,9 +1,8 @@
-package com.example.store.core.data
+package com.example.store.core.data.repository
 
 import com.example.store.core.data.mock.productList
 import com.example.store.core.data.mock.ratingInfosList
 import com.example.store.core.data.mock.ratingsList
-import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.model.Product
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
