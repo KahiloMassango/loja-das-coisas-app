@@ -2,6 +2,7 @@ package com.example.store.core.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,17 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,12 +30,12 @@ import com.example.store.core.data.mock.p1
 import com.example.store.core.model.Product
 import com.example.store.core.ui.theme.StoreTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductCard(
     modifier: Modifier = Modifier,
     product: Product,
-    onClick: (productId: String) -> Unit,
+    onClick: (String) -> Unit,
+    onFavoriteClick: (String) -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -54,15 +49,24 @@ fun ProductCard(
         Column(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(184.dp)
-                    .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
-                painter = painterResource(id = R.drawable.men_clothes),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
+            Box {
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(184.dp)
+                        .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
+                    painter = painterResource(id = R.drawable.men_clothes),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop
+                )
+                FavoriteButton(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(top = 8.dp, end = 8.dp),
+                    isFavorite = false,
+                    onClick = { onFavoriteClick(product.id) }
+                )
+            }
             StarRating(
                 modifier = Modifier.padding(vertical = 3.dp),
                 totalRatings = product.totalRating,
@@ -80,40 +84,22 @@ fun ProductCard(
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold
             )
-            Text(
-                text = "${product.price}kz",
-                color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.SemiBold
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "${product.price}kz",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
         }
     }
 }
 
-@Composable
-fun AddFavoriteButton(
-    isFavorite: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        modifier = modifier,
-        onClick = onClick,
-        enabled = !isFavorite,
-        shape = CircleShape,
-        shadowElevation = 5.dp,
-        color =  if(isFavorite) MaterialTheme.colorScheme.secondaryContainer
-            else MaterialTheme.colorScheme.inverseSurface,
-        contentColor = if (isFavorite) MaterialTheme.colorScheme.primary
-        else MaterialTheme.colorScheme.inverseOnSurface
-    ) {
-        Icon(
-            modifier = Modifier.padding(8.dp),
-            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-            contentDescription = null,
-        )
-    }
-}
 
 @Composable
 fun StarRating(

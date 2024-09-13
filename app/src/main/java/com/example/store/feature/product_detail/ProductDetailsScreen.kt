@@ -39,7 +39,7 @@ import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.product_detail.component.BottomSheet
+import com.example.store.feature.product_detail.component.CartAndFavoriteBottomSheet
 import com.example.store.feature.product_detail.component.ProductDetails
 import com.example.store.feature.product_detail.component.ProductImageCarousel
 import com.example.store.feature.product_detail.component.RelatedProductsSection
@@ -165,9 +165,11 @@ private fun ProductDetailContent(
                     )
                     Spacer(modifier = Modifier.height(100.dp))
                 }
-                BottomSheet(
+                CartAndFavoriteBottomSheet(
                     modifier = Modifier.align(Alignment.BottomCenter),
                     productPrice = product.price,
+                    isFavorite = isFavorite,
+                    onAddFavorite = onAddFavorite,
                     onAddToCart = {
                         onAddToCart()
                         Toast.makeText(context, "Adicionado ao carrinho", Toast.LENGTH_SHORT)
