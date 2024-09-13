@@ -3,7 +3,7 @@ package com.example.store.core.data.di
 import android.location.Geocoder
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.CartRepositoryImpl
-import com.example.store.core.data.repository.DefaultLocationRepository
+import com.example.store.core.data.repository.LocationRepositoryImpl
 import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.data.repository.FavoriteRepositoryImpl
 import com.example.store.core.data.repository.LocationRepository
@@ -36,7 +36,7 @@ internal object DataModule {
         geocodeService: Geocoder,
         locationService: FusedLocationProviderClient
     ): LocationRepository =
-        DefaultLocationRepository(locationApiService, geocodeService, locationService)
+        LocationRepositoryImpl(locationApiService, geocodeService, locationService)
 
 
 }

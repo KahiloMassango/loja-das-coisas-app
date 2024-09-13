@@ -3,7 +3,6 @@ package com.example.store.core.data.repository
 import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.store.core.location.GeocodeApiService
 import com.example.store.core.location.model.asExternalModel
 import com.example.store.core.model.Location
@@ -14,7 +13,7 @@ import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class DefaultLocationRepository(
+class LocationRepositoryImpl(
     private val locationApisService: GeocodeApiService,
     private val geocodeService: Geocoder,
     private val locationService: FusedLocationProviderClient
