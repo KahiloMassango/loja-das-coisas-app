@@ -103,6 +103,7 @@ dependencies {
 
     // Coil
     implementation(libs.coil)
+    implementation(libs.lottie.compose)
 
     //hilt
     implementation(libs.hilt.android)

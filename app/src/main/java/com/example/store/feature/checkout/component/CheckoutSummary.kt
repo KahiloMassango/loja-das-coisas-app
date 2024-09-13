@@ -15,16 +15,16 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun CheckoutSummary(
     modifier: Modifier = Modifier,
-    cartTotal: Int,
-    deliveryPrice: String,
-    totalSummary: Int,
+    cartTotal: Double,
+    deliveryPrice: Double,
+    totalSummary: Double,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         SummaryItem(description = "Carrinho", value = "${cartTotal}Kz")
-        SummaryItem(description = "Entrega", value = deliveryPrice)
+        SummaryItem(description = "Entrega", value = deliveryPrice.toString())
         SummaryItem(description = "Total", value = "${totalSummary}Kz")
 
     }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -17,15 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.store.core.model.DeliveryMethod
 import com.example.store.core.ui.theme.StoreTheme
 
 
 @Composable
 internal fun DeliveryMethodSection(
     modifier: Modifier = Modifier,
-    selectedMethod: DeliveryMethod,
-    pickUpDeliveryPrice: Int,
-    onSelectDeliveryMethod: (DeliveryMethod, String) -> Unit
+    deliveryMethod: DeliveryMethod,
+    deliveryPrice: Double,
+    onSelectDeliveryMethod: (DeliveryMethod) -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -42,16 +42,16 @@ internal fun DeliveryMethodSection(
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             DeliveryMethodCard(
-                price = "Entrega",
-                description = "${pickUpDeliveryPrice}kz",
-                selected = selectedMethod == DeliveryMethod.DELIVERY,
-                onClick = { onSelectDeliveryMethod(DeliveryMethod.DELIVERY, "${pickUpDeliveryPrice}Kz") }
+                type = "Entrega",
+                description = "${deliveryPrice}kz",
+                selected = deliveryMethod == DeliveryMethod.DELIVERY,
+                onClick = { onSelectDeliveryMethod(DeliveryMethod.DELIVERY) }
             )
             DeliveryMethodCard(
-                price = "Levantar",
+                type = "Levantar",
                 description = "Grátis",
-                selected = selectedMethod == DeliveryMethod.PICKUP,
-                onClick = { onSelectDeliveryMethod(DeliveryMethod.PICKUP, "Grátis") }
+                selected = deliveryMethod == DeliveryMethod.PICKUP,
+                onClick = { onSelectDeliveryMethod(DeliveryMethod.PICKUP)}
             )
         }
     }
@@ -59,12 +59,11 @@ internal fun DeliveryMethodSection(
 
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DeliveryMethodCard(
     modifier: Modifier = Modifier,
     description: String,
-    price: String,
+    type: String,
     selected: Boolean,
     onClick: () -> Unit
 ) {
@@ -87,7 +86,7 @@ private fun DeliveryMethodCard(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             Text(
-                text = price,
+                text = type,
                 style = MaterialTheme.typography.bodyLarge,
                // fontWeight = FontWeight.Normal,
             )
@@ -106,13 +105,13 @@ private fun Preview() {
     StoreTheme {
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)){
             DeliveryMethodCard(
-                price = "Entrega",
+                type = "Entrega",
                 description = "Grátis",
                 selected = true,
                 onClick = {}
             )
             DeliveryMethodCard(
-                price = "Levantar",
+                type = "Levantar",
                 description = "1.200Kz",
                 selected = false,
                 onClick = {}

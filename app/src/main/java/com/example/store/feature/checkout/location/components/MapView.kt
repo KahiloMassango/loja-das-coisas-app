@@ -6,18 +6,18 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GpsFixed
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.LocationCoordinates
@@ -31,8 +31,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun MapView(
-    modifier: Modifier,
-    currentLocation: LocationCoordinates,
+    modifier: Modifier = Modifier,
+    locationCoordinates: LocationCoordinates,
     onLocationChange: (LocationCoordinates) -> Unit,
     onMoveToUserLocation: () -> Unit
 ) {
@@ -40,16 +40,16 @@ fun MapView(
     val context = LocalContext.current
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
-            LatLng(currentLocation.latitude, currentLocation.longitude),
-            16.2f
+            LatLng(locationCoordinates.latitude, locationCoordinates.longitude),
+            17.5f
         )
     }
 
     // Launch when user press current location button
-    LaunchedEffect(currentLocation) {
+    LaunchedEffect(locationCoordinates) {
         cameraPositionState.move(
             CameraUpdateFactory.newLatLng(
-                LatLng(currentLocation.latitude, currentLocation.longitude)
+                LatLng(locationCoordinates.latitude, locationCoordinates.longitude)
             )
         )
     }
@@ -68,30 +68,26 @@ fun MapView(
     }
 
 
-    Box(
-        modifier = modifier
-            .padding(16.dp)
-            .clip(RoundedCornerShape(5))
-    ) {
+    Box(modifier = modifier) {
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             properties = MapProperties(
-                isMyLocationEnabled = true,
+                isMyLocationEnabled = false,
             ),
             uiSettings = MapUiSettings(
                 zoomControlsEnabled = false,
                 myLocationButtonEnabled = false
-            ),
+            )
         )
 
-        Button(
+        IconButton(
             modifier = Modifier
+                .padding(bottom = 30.dp, end = 16.dp)
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 30.dp, end = 16.dp),
-            shape = RoundedCornerShape(50),
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondaryContainer),
-            elevation = ButtonDefaults.elevatedButtonElevation(4.dp),
+
+                .shadow(10.dp, CircleShape),
+            colors = IconButtonDefaults.iconButtonColors(MaterialTheme.colorScheme.secondaryContainer),
             onClick = {
                 if (context.isGpsEnabled()) {
                     onMoveToUserLocation()

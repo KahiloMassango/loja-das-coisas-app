@@ -1,15 +1,18 @@
-package com.example.store.feature.checkout.location.components
+package com.example.store.feature.checkout.location
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,28 +24,33 @@ import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Location
 import com.example.store.core.model.LocationCoordinates
 import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.feature.checkout.location.components.LocationInfo
+import com.example.store.feature.checkout.location.components.LocationSearchSheet
+import com.example.store.feature.checkout.location.components.MapView
 
 @Composable
-fun SelectDeliveryLocationContent(
+fun SelectDeliveryLocation(
     modifier: Modifier = Modifier,
     locationName: String,
-    currentLocation: LocationCoordinates,
+    locationCoordinates: LocationCoordinates,
     query: String,
-    onQueryChange: (String) -> Unit,
     searchResult: List<Location>,
+    onQueryChange: (String) -> Unit,
     onMoveToUserLocation: () -> Unit,
     onLocationChange: (LocationCoordinates) -> Unit,
     onConfirmLocation: () -> Unit,
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
 ) {
+    BackHandler {
+        onNavigateUp()
+    }
     var isSearching by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
                 title = "Selecionar localização",
-                canNavigateBack = true,
-                onNavigateUp = onNavigateUp,
+                canNavigateBack = false,
                 action = {
                     IconButton(onClick = { isSearching = true }) {
                         Icon(
@@ -62,14 +70,22 @@ fun SelectDeliveryLocationContent(
             verticalArrangement = Arrangement.spacedBy(0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MapView(
-                modifier = modifier.weight(1f),
-                currentLocation = currentLocation,
-                onLocationChange = { coordinates ->
-                    onLocationChange(coordinates)
-                },
-                onMoveToUserLocation = onMoveToUserLocation,
-            )
+            Surface(
+                modifier = modifier
+                    .padding(16.dp)
+                    .weight(1f),
+                shadowElevation = 5.dp,
+                shape = RoundedCornerShape(5)
+            ){
+                MapView(
+                    modifier = modifier,
+                    locationCoordinates = locationCoordinates,
+                    onLocationChange = { coordinates ->
+                        onLocationChange(coordinates)
+                    },
+                    onMoveToUserLocation = onMoveToUserLocation,
+                )
+            }
 
             LocationInfo(
                 locationName = locationName,
@@ -95,4 +111,7 @@ fun SelectDeliveryLocationContent(
         }
 
     }
+
 }
+
+

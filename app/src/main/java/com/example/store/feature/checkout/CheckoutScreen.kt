@@ -1,42 +1,132 @@
 package com.example.store.feature.checkout
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.core.model.DeliveryMethod
+import com.example.store.core.model.Location
+import com.example.store.core.model.LocationCoordinates
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.checkout.component.AddressSection
+import com.example.store.feature.checkout.component.CheckoutSectionText
 import com.example.store.feature.checkout.component.CheckoutSummary
-import com.example.store.feature.checkout.component.DeliveryMethod
 import com.example.store.feature.checkout.component.DeliveryMethodSection
+import com.example.store.feature.checkout.location.RequestLocationPermissionScreen
+import com.example.store.feature.checkout.location.SelectDeliveryLocation
 
 
 @Composable
 internal fun CheckoutScreen(
     modifier: Modifier = Modifier,
+    viewModel: CheckoutViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onChangeAddress: () -> Unit ,
 ) {
-    var selectedDeliveryMethod by rememberSaveable { mutableStateOf(DeliveryMethod.DELIVERY) }
-    var deliveryPrice by rememberSaveable { mutableStateOf("2.700") }
+    val context = LocalContext.current
+    val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
+    var isPermissionGranted by remember {
+        mutableStateOf(
+            context.checkSelfPermission(locationPermission)
+                    == PackageManager.PERMISSION_GRANTED
+        )
+    }
 
+    val requestPermission = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        isPermissionGranted = isGranted
+    }
+
+    LaunchedEffect(isPermissionGranted) {
+        if (isPermissionGranted) {
+            viewModel.setUserCurrentLocation()
+        }
+    }
+
+    var isChangingLocation by rememberSaveable { mutableStateOf(false) }
+
+    val selectedDeliveryMethod = viewModel.deliveryMethod.collectAsStateWithLifecycle().value
+    val deliveryPrice = viewModel.deliveryPrice
+    val cartTotal = viewModel.cartTotal.collectAsStateWithLifecycle().value
+    val orderTotal = viewModel.orderTotal.collectAsStateWithLifecycle().value
+    val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle().value
+    val searchResults = viewModel.searchResults.collectAsStateWithLifecycle().value
+    val userLocation by viewModel.deliveryLocation
+
+    if (isChangingLocation) {
+        SelectDeliveryLocation(
+            modifier = Modifier,
+            locationName = userLocation.name,
+            locationCoordinates = userLocation.coordinates,
+            onMoveToUserLocation = { viewModel.setUserCurrentLocation() },
+            onLocationChange = {
+                viewModel.updateLocation(it)
+            },
+            query = searchQuery,
+            onQueryChange = { viewModel.updateSearchQuery(it) },
+            searchResult = searchResults,
+            onConfirmLocation = { isChangingLocation = false },
+            onNavigateUp = { isChangingLocation = false }
+        )
+    } else {
+        if (isPermissionGranted) {
+            CheckoutContent(
+                modifier = modifier,
+                onNavigateUp = onNavigateUp,
+                userLocation = userLocation,
+                onChangeAddress = { isChangingLocation = true },
+                deliveryPrice = deliveryPrice,
+                deliveryMethod = selectedDeliveryMethod,
+                onDeliveryMethodChange = { viewModel.setDeliveryMethod(it) },
+                cartTotal = cartTotal,
+                orderTotal = orderTotal
+            )
+        } else {
+            RequestLocationPermissionScreen(
+                onGrant = { requestPermission.launch(locationPermission) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun CheckoutContent(
+    modifier: Modifier = Modifier,
+    onNavigateUp: () -> Unit,
+    userLocation: Location,
+    onChangeAddress: () -> Unit,
+    deliveryPrice: Double,
+    deliveryMethod: DeliveryMethod,
+    onDeliveryMethodChange: (DeliveryMethod) -> Unit,
+    cartTotal: Double,
+    orderTotal: Double
+) {
+    val sectionSpacing = 42.dp
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -49,41 +139,40 @@ internal fun CheckoutScreen(
         },
     ) { paddingValues ->
         Surface(
-            modifier = modifier.padding(paddingValues),
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(paddingValues),
         ) {
             Column(
-                modifier =
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(15.dp),
             ) {
                 AddressSection(
                     username = "Jane Doe",
-                    address = "3 Newbridge Court Chino Hills, CA 91709, United States",
+                    address = userLocation.name,
                     onChangeAddress = onChangeAddress
                 )
 
-                Spacer(modifier = Modifier.height(42.dp))
+                Spacer(modifier = Modifier.height(sectionSpacing))
 
                 DeliveryMethodSection(
-                    pickUpDeliveryPrice = 12000,
-                    selectedMethod = selectedDeliveryMethod,
-                    onSelectDeliveryMethod = { method, price ->
-                        selectedDeliveryMethod = method
-                        deliveryPrice = price
-                    }
+                    deliveryPrice = deliveryPrice,
+                    deliveryMethod = deliveryMethod,
+                    onSelectDeliveryMethod = onDeliveryMethodChange
                 )
 
-                Spacer(modifier = Modifier.height(42.dp))
+                Spacer(modifier = Modifier.height(sectionSpacing))
 
-                CheckoutSection(text = "Forma de pagamento")
+                CheckoutSectionText(text = "Forma de pagamento")
 
                 Spacer(modifier = Modifier.weight(1f))
 
                 CheckoutSummary(
-                    cartTotal = 12000,
-                    deliveryPrice = deliveryPrice,
-                    totalSummary = 13450,
+                    cartTotal = cartTotal,
+                    deliveryPrice = if (deliveryMethod == DeliveryMethod.DELIVERY) deliveryPrice else 0.0,
+                    totalSummary = orderTotal,
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -99,30 +188,19 @@ internal fun CheckoutScreen(
 }
 
 
-
-
-
-@Composable
-private fun CheckoutSection(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        modifier = modifier,
-        text = text,
-        style = MaterialTheme.typography.bodyLarge,
-        fontWeight = FontWeight.Bold,
-    )
-}
-
-
 @PreviewLightDark
 @Composable
 private fun Preview() {
     StoreTheme {
-        CheckoutScreen(
-            onNavigateUp = {},
-            onChangeAddress = {},
+        CheckoutContent(
+            onNavigateUp = { },
+            userLocation = Location("Luanda, Angola", LocationCoordinates(0.0, 0.0)),
+            onChangeAddress = { },
+            deliveryPrice = 1200.00,
+            deliveryMethod = DeliveryMethod.DELIVERY,
+            onDeliveryMethodChange = { },
+            cartTotal = 4500.00,
+            orderTotal = 6745.00
         )
     }
 }
