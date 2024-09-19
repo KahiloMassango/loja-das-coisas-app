@@ -1,6 +1,5 @@
-package com.example.store.feature.checkout.location
+package com.example.store.feature.select_delivery_location
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,15 +20,46 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.Location
 import com.example.store.core.model.LocationCoordinates
 import com.example.store.core.ui.component.StoreCenteredTopBar
-import com.example.store.feature.checkout.location.components.LocationInfo
-import com.example.store.feature.checkout.location.components.LocationSearchSheet
-import com.example.store.feature.checkout.location.components.MapView
+import com.example.store.feature.select_delivery_location.components.LocationInfo
+import com.example.store.feature.select_delivery_location.components.LocationSearchSheet
+import com.example.store.feature.select_delivery_location.components.MapView
 
 @Composable
-fun SelectDeliveryLocation(
+fun SelectDeliveryLocationScreen(
+    modifier: Modifier = Modifier,
+    viewModel: SelectDeliveryLocationViewModel = hiltViewModel(),
+    onNavigateUp: () -> Unit
+) {
+
+    val uiState by viewModel.selectDeliveryLocationUiState.collectAsStateWithLifecycle()
+    val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
+
+    SelectDeliveryLocationContent(
+        modifier = modifier,
+        locationName = uiState.locationName,
+        locationCoordinates = uiState.locationCoordinates,
+        query = uiState.searchQuery,
+        searchResult = searchResults,
+        onQueryChange = { viewModel.updateSearchQuery(it) },
+        onMoveToUserLocation = viewModel::getUserCurrentLocation,
+        onLocationChange = { viewModel.updateLocation(it) },
+        onNavigateUp = onNavigateUp,
+        onConfirmLocation = {
+            viewModel.confirmDeliveryLocation()
+            onNavigateUp()
+        }
+    )
+
+
+}
+
+@Composable
+private fun SelectDeliveryLocationContent(
     modifier: Modifier = Modifier,
     locationName: String,
     locationCoordinates: LocationCoordinates,
@@ -39,18 +69,16 @@ fun SelectDeliveryLocation(
     onMoveToUserLocation: () -> Unit,
     onLocationChange: (LocationCoordinates) -> Unit,
     onConfirmLocation: () -> Unit,
-    onNavigateUp: () -> Unit,
+    onNavigateUp: () -> Unit
 ) {
-    BackHandler {
-        onNavigateUp()
-    }
     var isSearching by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
                 title = "Selecionar localização",
-                canNavigateBack = false,
+                canNavigateBack = true,
+                onNavigateUp = onNavigateUp,
                 action = {
                     IconButton(onClick = { isSearching = true }) {
                         Icon(
@@ -111,7 +139,6 @@ fun SelectDeliveryLocation(
         }
 
     }
-
 }
 
 

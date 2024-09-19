@@ -15,11 +15,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -37,14 +35,14 @@ import com.example.store.feature.checkout.component.AddressSection
 import com.example.store.feature.checkout.component.CheckoutSectionText
 import com.example.store.feature.checkout.component.CheckoutSummary
 import com.example.store.feature.checkout.component.DeliveryMethodSection
-import com.example.store.feature.checkout.location.RequestLocationPermissionScreen
-import com.example.store.feature.checkout.location.SelectDeliveryLocation
+import com.example.store.feature.checkout.component.RequestLocationPermissionScreen
 
 
 @Composable
 internal fun CheckoutScreen(
     modifier: Modifier = Modifier,
     viewModel: CheckoutViewModel = hiltViewModel(),
+    onChangeDeliveryLocation: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -60,58 +58,35 @@ internal fun CheckoutScreen(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         isPermissionGranted = isGranted
-    }
-
-    LaunchedEffect(isPermissionGranted) {
-        if (isPermissionGranted) {
-            viewModel.setUserCurrentLocation()
+        if(isGranted) {
+            viewModel.setUserLocation()
         }
     }
 
-    var isChangingLocation by rememberSaveable { mutableStateOf(false) }
+    val order by viewModel.order.collectAsStateWithLifecycle()
+    val userLocation  = Location(
+        order.deliveryLocationName,
+        LocationCoordinates(order.latitude, order.longitude)
+    )
 
-    val selectedDeliveryMethod = viewModel.deliveryMethod.collectAsStateWithLifecycle().value
-    val deliveryPrice = viewModel.deliveryPrice
-    val cartTotal = viewModel.cartTotal.collectAsStateWithLifecycle().value
-    val orderTotal = viewModel.orderTotal.collectAsStateWithLifecycle().value
-    val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle().value
-    val searchResults = viewModel.searchResults.collectAsStateWithLifecycle().value
-    val userLocation by viewModel.deliveryLocation
-
-    if (isChangingLocation) {
-        SelectDeliveryLocation(
-            modifier = Modifier,
-            locationName = userLocation.name,
-            locationCoordinates = userLocation.coordinates,
-            onMoveToUserLocation = { viewModel.setUserCurrentLocation() },
-            onLocationChange = {
-                viewModel.updateLocation(it)
-            },
-            query = searchQuery,
-            onQueryChange = { viewModel.updateSearchQuery(it) },
-            searchResult = searchResults,
-            onConfirmLocation = { isChangingLocation = false },
-            onNavigateUp = { isChangingLocation = false }
+    if (isPermissionGranted) {
+        CheckoutContent(
+            modifier = modifier,
+            userLocation = userLocation,
+            deliveryPrice = order.deliveryFee,
+            cartTotal = order.cartTotal,
+            orderTotal = order.orderTotal,
+            deliveryMethod = order.deliveryMethod,
+            onNavigateUp = onNavigateUp,
+            onDeliveryMethodChange = { viewModel.setDeliveryMethod(it) },
+            onChangeAddress = { onChangeDeliveryLocation() }
         )
     } else {
-        if (isPermissionGranted) {
-            CheckoutContent(
-                modifier = modifier,
-                onNavigateUp = onNavigateUp,
-                userLocation = userLocation,
-                onChangeAddress = { isChangingLocation = true },
-                deliveryPrice = deliveryPrice,
-                deliveryMethod = selectedDeliveryMethod,
-                onDeliveryMethodChange = { viewModel.setDeliveryMethod(it) },
-                cartTotal = cartTotal,
-                orderTotal = orderTotal
-            )
-        } else {
-            RequestLocationPermissionScreen(
-                onGrant = { requestPermission.launch(locationPermission) },
-            )
-        }
+        RequestLocationPermissionScreen(
+            onGrant = { requestPermission.launch(locationPermission) },
+        )
     }
+
 }
 
 @Composable

@@ -3,6 +3,7 @@ package com.example.store.core.database.di
 import com.example.store.core.database.StoreDatabase
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
+import com.example.store.core.database.dao.OrderDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,5 +22,10 @@ internal object DaosModule {
     fun providesCartDao(
         database: StoreDatabase
     ): CartDao  = database.cartDao()
+
+    @Provides
+    fun providesOrderDao(
+        database: StoreDatabase
+    ): OrderDao  = database.orderDao()
 
 }

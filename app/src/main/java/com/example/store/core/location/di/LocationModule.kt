@@ -2,6 +2,7 @@ package com.example.store.core.location.di
 
 import android.content.Context
 import android.location.Geocoder
+import com.example.store.core.location.DistanceMatrixApiService
 import com.example.store.core.location.GeocodeApiService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -36,5 +37,15 @@ object LocationModule {
             .baseUrl("https://nominatim.openstreetmap.org/")
             .build()
             .create(GeocodeApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesDistanceMatrixApiService(): DistanceMatrixApiService {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://api.distancematrix.ai//")
+            .build()
+            .create(DistanceMatrixApiService::class.java)
     }
 }

@@ -15,6 +15,8 @@ import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.autentication.navigation.authentication
 import com.example.store.feature.cart.navigation.cartScreen
+import com.example.store.feature.select_delivery_location.navigation.navigateToSelectDeliveryLocationScreen
+import com.example.store.feature.select_delivery_location.navigation.selectDeliveryLocationScreen
 import com.example.store.feature.checkout.navigation.checkoutScreen
 import com.example.store.feature.checkout.navigation.navigateToCheckout
 import com.example.store.feature.favorite.navigation.favoriteScreen
@@ -118,9 +120,12 @@ fun NavigationGraph(
 
             settingsScreen(navController::navigateUp)
 
-            checkoutScreen(onNavigateUp = navController::navigateUp,)
+            checkoutScreen(
+                onNavigateUp = navController::navigateUp,
+                onChangeDeliveryLocation = { navController.navigateToSelectDeliveryLocationScreen() }
+            )
 
-            //selectDeliveryLocationScreen(onNavigateUp = navController::navigateUp)
+            selectDeliveryLocationScreen(onNavigateUp = navController::navigateUp)
 
             reviewsScreen(onNavigateUp = navController::navigateUp)
         }

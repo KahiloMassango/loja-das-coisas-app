@@ -1,4 +1,4 @@
-package com.example.store.feature.checkout.location.components
+package com.example.store.feature.select_delivery_location.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

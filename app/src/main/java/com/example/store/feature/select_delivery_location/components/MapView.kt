@@ -1,4 +1,4 @@
-package com.example.store.feature.checkout.location.components
+package com.example.store.feature.select_delivery_location.components
 
 import android.content.Context
 import android.location.LocationManager

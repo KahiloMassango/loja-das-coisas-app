@@ -19,13 +19,15 @@ internal fun CheckoutSummary(
     deliveryPrice: Double,
     totalSummary: Double,
 ) {
+    val formatedCartTotal = "%.2f".format(cartTotal)
+    val formatedTotalSummary = "%.2f".format(totalSummary)
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        SummaryItem(description = "Carrinho", value = "${cartTotal}Kz")
+        SummaryItem(description = "Carrinho", value = "${formatedCartTotal}Kz")
         SummaryItem(description = "Entrega", value = deliveryPrice.toString())
-        SummaryItem(description = "Total", value = "${totalSummary}Kz")
+        SummaryItem(description = "Total", value = "${formatedTotalSummary}Kz")
 
     }
 }

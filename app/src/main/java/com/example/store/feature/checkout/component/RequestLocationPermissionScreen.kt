@@ -1,4 +1,4 @@
-package com.example.store.feature.checkout.location
+package com.example.store.feature.checkout.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -70,7 +71,9 @@ fun RequestLocationPermissionScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            Button(onClick = onGrant) {
+            Button(onClick = {
+                onGrant()
+            }) {
                 Text(text = "Permitir Acesso à Localização")
             }
         }
