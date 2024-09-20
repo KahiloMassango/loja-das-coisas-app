@@ -29,13 +29,11 @@ class CheckoutViewModel @Inject constructor(
             Order()
         )
 
-    init {
-        viewModelScope.launch {
-            order.collect { currentOrder ->
-                calculateDeliveryPrice(
-                    LocationCoordinates(currentOrder.latitude, currentOrder.longitude)
-                )
-            }
+    fun deliveryPrice() {
+        viewModelScope.launch(Dispatchers.IO) {
+            calculateDeliveryPrice(
+                LocationCoordinates(order.value.latitude, order.value.longitude)
+            )
         }
     }
 
