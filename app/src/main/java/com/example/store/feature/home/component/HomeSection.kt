@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Product
 import com.example.store.core.ui.component.ProductCard
+import com.example.store.core.ui.component.ProductCard1
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
