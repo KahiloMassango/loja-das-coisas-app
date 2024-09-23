@@ -12,62 +12,30 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.core.model.FavoriteProduct
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.favorite.component.EmptyFavoriteScreen
 import com.example.store.feature.favorite.component.FavoriteProductCard
-import com.example.store.feature.shop.component.OrderOptionsBottomSheet
-import com.example.store.feature.shop.component.SortingHeader
-import com.example.store.feature.shop.model.OrderCriteria
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.store.feature.favorite.component.FavoriteSortingButton
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteScreen(
     modifier: Modifier = Modifier,
     viewModel: FavoriteViewModel = hiltViewModel(),
     onProductClick: (String) -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    var selectedOption by remember { mutableStateOf(OrderCriteria.Popular.title) }
-    var isSortingOptionOpen by remember { mutableStateOf(false) }
-    val bottomSheetState = rememberModalBottomSheetState()
-    val coroutineScope = rememberCoroutineScope()
-
-    if (isSortingOptionOpen) {
-        OrderOptionsBottomSheet(
-            state = bottomSheetState,
-            currentOrderOption = selectedOption,
-            onChangeOrderOption = {
-                selectedOption = it
-                coroutineScope.launch {
-                    delay(200)
-                    bottomSheetState.hide()
-                    //delay(100)
-                }.invokeOnCompletion { isSortingOptionOpen = false }
-            },
-            onDismissRequest = { isSortingOptionOpen = false }
-        )
-    }
+    val products by viewModel.products.collectAsStateWithLifecycle()
+    val sortType by viewModel.sortType.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier,
@@ -82,27 +50,18 @@ fun FavoriteScreen(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                SortingHeader(
-                    modifier = Modifier.zIndex(1f),
-                    onSortClick = { isSortingOptionOpen = true }
+                FavoriteSortingButton(
+                    sortType = sortType,
+                    onSortClick = { viewModel.setSorting(it) }
                 )
-                if(uiState.isEmpty()){
+                if(products.isEmpty()){
                     EmptyFavoriteScreen()
-                }
-
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(22.dp)
-                ) {
-                    items(uiState) { product ->
-                        FavoriteProductCard(
-                            modifier = Modifier,
-                            product = product,
-                            onProductClick = { id ->  onProductClick(id) },
-                            onRemoveFavorite = { id -> viewModel.removeFavoriteProduct(id) }
-                        )
-                    }
+                } else {
+                    FavoriteContent(
+                        favoriteProducts = products,
+                        onProductClick = { onProductClick(it) },
+                        onRemoveFavorite = { viewModel.removeFavoriteProduct(it) }
+                    )
                 }
             }
         }
@@ -110,18 +69,31 @@ fun FavoriteScreen(
 }
 
 @Composable
-private fun EmptyFavoriteScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun FavoriteContent(
+    modifier: Modifier = Modifier,
+    favoriteProducts: List<FavoriteProduct>,
+    onProductClick: (String) -> Unit,
+    onRemoveFavorite: (String) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(22.dp)
     ) {
-        Text(
-            text = "Sem productos Favoritos",
-            style = MaterialTheme.typography.bodyMedium
-        )
+        items(favoriteProducts) { product ->
+            FavoriteProductCard(
+                modifier = Modifier,
+                product = product,
+                onProductClick = { id -> onProductClick(id) },
+                onRemoveFavorite = { id -> onRemoveFavorite(id)}
+            )
+        }
     }
 }
+
+
+
+
 
 @Preview
 @Composable
