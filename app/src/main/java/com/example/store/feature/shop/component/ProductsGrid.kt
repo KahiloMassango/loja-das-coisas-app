@@ -23,17 +23,18 @@ import com.example.store.core.model.Product
 import com.example.store.core.ui.component.ProductCard
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.shop.model.OrderCriteria
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductGrid(
+fun ProductsGrid(
     modifier: Modifier = Modifier,
     products: List<Product>,
     onProductClick: (String) -> Unit,
-    selectedOption: String = SortOption.Popular.title,
-    onSort: (String) -> Unit
+    selectedOption: String,
+    onChangeOrderOption: (String) -> Unit
 
 ) {
     var isSortingOptionOpen by remember { mutableStateOf(false) }
@@ -41,11 +42,11 @@ fun ProductGrid(
     val coroutineScope = rememberCoroutineScope()
 
     if (isSortingOptionOpen) {
-        SortOptionContainer(
+        OrderOptionsBottomSheet(
             state = bottomSheetState,
-            selectedOption = selectedOption,
-            onOptionClick = {
-                onSort(it)
+            currentOrderOption = selectedOption,
+            onChangeOrderOption = {
+                onChangeOrderOption(it)
                 coroutineScope.launch {
                     delay(200)
                     bottomSheetState.hide()
@@ -86,11 +87,11 @@ fun ProductGrid(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductGrid(
+        ProductsGrid(
             onProductClick = {},
-            onSort = {},
+            onChangeOrderOption = {},
             products = productList,
-            selectedOption = SortOption.Popular.title,
+            selectedOption = OrderCriteria.Popular.title,
         )
 
     }

@@ -15,8 +15,7 @@ import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.autentication.navigation.authentication
 import com.example.store.feature.cart.navigation.cartScreen
-import com.example.store.feature.select_delivery_location.navigation.navigateToSelectDeliveryLocationScreen
-import com.example.store.feature.select_delivery_location.navigation.selectDeliveryLocationScreen
+import com.example.store.feature.category.navigation.categoryScreen
 import com.example.store.feature.checkout.navigation.checkoutScreen
 import com.example.store.feature.checkout.navigation.navigateToCheckout
 import com.example.store.feature.favorite.navigation.favoriteScreen
@@ -39,8 +38,11 @@ import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
 import com.example.store.feature.search.navigation.navigateToSearch
 import com.example.store.feature.search.navigation.searchScreen
+import com.example.store.feature.select_delivery_location.navigation.navigateToSelectDeliveryLocationScreen
+import com.example.store.feature.select_delivery_location.navigation.selectDeliveryLocationScreen
 import com.example.store.feature.settings.navigation.navigateToSettings
 import com.example.store.feature.settings.navigation.settingsScreen
+import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
 
 
@@ -54,7 +56,7 @@ fun NavigationGraph(
 
     Column(
         modifier = modifier.fillMaxSize()
-    ){
+    ) {
         NavHost(
             modifier = Modifier.weight(1f),
             navController = navController,
@@ -86,7 +88,16 @@ fun NavigationGraph(
 
             shopScreen(
                 onSearch = { navController.navigateToSearch() },
-                onProductClick = { navController.navigateToProductDetail(it) }
+                onProductClick = { navController.navigateToProductDetail(it) },
+                onNavigateUp = navController::navigateUp
+            )
+
+            categoryScreen(
+                onSearch = { navController.navigateToSearch() },
+                onSelectCategory = { section, category ->
+                    navController.navigateToShop(section, category)
+                }
+
             )
 
             searchScreen(

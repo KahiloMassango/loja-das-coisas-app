@@ -30,13 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.store.core.model.favoriteProduct
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.favorite.component.FavoriteProductCard
-import com.example.store.feature.shop.component.SortOption
-import com.example.store.feature.shop.component.SortOptionContainer
+import com.example.store.feature.shop.component.OrderOptionsBottomSheet
 import com.example.store.feature.shop.component.SortingHeader
+import com.example.store.feature.shop.model.OrderCriteria
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -49,16 +48,16 @@ fun FavoriteScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    var selectedOption by remember { mutableStateOf(SortOption.Popular.title) }
+    var selectedOption by remember { mutableStateOf(OrderCriteria.Popular.title) }
     var isSortingOptionOpen by remember { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
 
     if (isSortingOptionOpen) {
-        SortOptionContainer(
+        OrderOptionsBottomSheet(
             state = bottomSheetState,
-            selectedOption = selectedOption,
-            onOptionClick = {
+            currentOrderOption = selectedOption,
+            onChangeOrderOption = {
                 selectedOption = it
                 coroutineScope.launch {
                     delay(200)

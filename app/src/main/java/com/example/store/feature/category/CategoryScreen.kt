@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.feature.category
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
@@ -16,22 +16,29 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreCenteredTopBar
-import com.example.store.feature.shop.model.ShopSection
-import com.example.store.feature.shop.model.kidsCategories
-import com.example.store.feature.shop.model.menCategories
-import com.example.store.feature.shop.model.womenCategories
+import com.example.store.feature.category.component.CategoriesList
+import com.example.store.feature.category.component.SectionSelectorTab
+import com.example.store.feature.category.model.Section
+import com.example.store.feature.category.model.kidsCategories
+import com.example.store.feature.category.model.menCategories
+import com.example.store.feature.category.model.womenCategories
+import com.example.store.feature.shop.component.AdvertisementCard
 
 @Composable
-fun CategorySelectionScreen(
-    currentSection: ShopSection,
-    onSectionClick: (ShopSection) -> Unit,
-    onCategoryClick: (category: String) -> Unit,
-    onSearch: () -> Unit,
-    modifier: Modifier = Modifier
+fun CategoryScreen(
+    modifier: Modifier = Modifier,
+    onSelectCategory: (section: String, category: String) -> Unit,
+    onSearch: () -> Unit
 ) {
+    var currentSection by rememberSaveable { mutableStateOf(Section.Women) }
+
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
@@ -57,9 +64,9 @@ fun CategorySelectionScreen(
             Column(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                ShopSectionTabs(
+                SectionSelectorTab(
                     selectedSection = currentSection,
-                    onTabClick = { onSectionClick(it) }
+                    onSectionClick = { currentSection = it }
                 )
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -77,22 +84,22 @@ fun CategorySelectionScreen(
                         label = ""
                     ) { section ->
                         when (section) {
-                            ShopSection.Women -> CategoriesList(
+                            Section.Women -> CategoriesList(
                                 categories = womenCategories,
                                 onCategoryClick = { category ->
-                                    onCategoryClick(category)
+                                    onSelectCategory(currentSection.name, category)
                                 }
                             )
-                            ShopSection.Men -> CategoriesList(
+                            Section.Men -> CategoriesList(
                                 categories = menCategories,
                                 onCategoryClick = { category ->
-                                    onCategoryClick(category)
+                                    onSelectCategory(currentSection.name, category)
                                 }
                             )
-                            ShopSection.Kids -> CategoriesList(
+                            Section.Kids -> CategoriesList(
                                 categories = kidsCategories,
                                 onCategoryClick = { category ->
-                                    onCategoryClick(category)
+                                    onSelectCategory(currentSection.name, category)
                                 }
                             )
                         }

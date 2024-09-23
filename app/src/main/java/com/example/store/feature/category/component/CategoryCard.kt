@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.feature.category.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.feature.shop.model.Category
 import com.example.store.core.ui.theme.StoreTheme
-
+import com.example.store.feature.category.model.Category
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +34,7 @@ internal fun CategoryCard(
 ) {
     Card(
         modifier = modifier,
-        onClick = { onCategoryClick(category.title) },
+        onClick = { onCategoryClick(category.name) },
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(

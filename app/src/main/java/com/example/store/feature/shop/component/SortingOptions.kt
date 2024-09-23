@@ -5,9 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,31 +19,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.CustomDragHandle
+import com.example.store.feature.shop.model.OrderCriteria
 
-enum class SortOption(val title: String, val description: String) {
-    Popular("popular", "Mais vendidos"),
-    Novo("newest", "Mais recentes"),
-    PriceAsc("priceLow", "Preço: menor para maior"),
-    PriceDesc("priceHigh", "Preço: maior para menor")
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SortOptionContainer(
+fun OrderOptionsBottomSheet(
     state: SheetState,
-    selectedOption: String,
+    currentOrderOption: String,
     onDismissRequest: () -> Unit,
-    onOptionClick: (String) -> Unit,
+    onChangeOrderOption: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     ModalBottomSheet(
         modifier = modifier,
         sheetState = state,
         containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
         scrimColor = Color(0xFF000000).copy(0.3f),
         onDismissRequest = onDismissRequest,
-        windowInsets = WindowInsets.navigationBars,
         dragHandle = {
             CustomDragHandle("Ordenar por")
         }
@@ -58,11 +49,11 @@ fun SortOptionContainer(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SortOption.entries.forEach { option ->
-                OrderByOption(
-                    selected = option.title == selectedOption,
+            OrderCriteria.entries.forEach { option ->
+                OrderOptionItem(
+                    selected = option.title == currentOrderOption,
                     option = option,
-                    onClick = { onOptionClick(option.title) }
+                    onClick = { onChangeOrderOption(option.title) }
                 )
             }
         }
@@ -71,12 +62,11 @@ fun SortOptionContainer(
 
 
 @Composable
-fun OrderByOption(
+private fun OrderOptionItem(
     modifier: Modifier = Modifier,
     selected: Boolean,
-    option: SortOption,
+    option: OrderCriteria,
     onClick: () -> Unit,
-
     ) {
     Box(
         modifier = modifier

@@ -1,101 +1,117 @@
 package com.example.store.feature.shop
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.core.model.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
-import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.shop.component.CategorySelectionScreen
-import com.example.store.feature.shop.component.ShopListingScreen
-import com.example.store.feature.shop.component.SortOption
-import com.example.store.feature.shop.model.ShopScreenContent
-import com.example.store.feature.shop.model.ShopSection
-import com.example.store.feature.shop.model.kidsFilters
-import com.example.store.feature.shop.model.menFilters
-import com.example.store.feature.shop.model.womenFilters
+import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.feature.shop.component.FilterContainer
+import com.example.store.feature.shop.component.ProductsGrid
+import com.example.store.feature.shop.model.Filter
 
 
 @Composable
 fun ShopScreen(
-    modifier: Modifier = Modifier,
     viewModel: ShopViewModel = hiltViewModel(),
+    section: String,
     onProductClick: (String) -> Unit,
     onSearch: () -> Unit,
+    onNavigateUp: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
-    var currentContent by rememberSaveable { mutableStateOf(ShopScreenContent.Categories) }
-    var currentSection by rememberSaveable { mutableStateOf(ShopSection.Women) }
-    var currentCategory by rememberSaveable { mutableStateOf("") }
-    var orderBy by rememberSaveable { mutableStateOf(SortOption.Popular.title) }
-    val filters = when(currentSection){
-        ShopSection.Men -> menFilters
-        ShopSection.Women -> womenFilters
-        ShopSection.Kids -> kidsFilters
+    val filters = viewModel.filters
+
+    when (uiState) {
+        is ShopUiState.Loading -> LoadingScreen()
+        is ShopUiState.Error -> ErrorScreen(onTryAgain = {
+
+        })
+        is ShopUiState.Success -> ShopContent(
+            section = section,
+            currentFilter = uiState.filter,
+            orderBy = uiState.orderBy,
+            products = uiState.products,
+            filters = filters,
+            onFilterChange = { viewModel.updateFilter(it) },
+            onSearch = onSearch,
+            onNavigateUp = onNavigateUp,
+            onProductClick = { onProductClick(it) },
+            onChangeOrderOption = { viewModel.updateOrderOption(it) },
+        )
     }
-    var filter by rememberSaveable { mutableStateOf(filters[0].name) }
+}
 
-
-    AnimatedContent(
+@Composable
+fun ShopContent(
+    modifier: Modifier = Modifier,
+    section: String,
+    currentFilter: String,
+    orderBy: String,
+    products: List<Product>,
+    filters: List<Filter>,
+    onFilterChange: (String) -> Unit,
+    onProductClick: (String) -> Unit,
+    onChangeOrderOption: (String) -> Unit,
+    onSearch: () -> Unit,
+    onNavigateUp: () -> Unit,
+) {
+    Scaffold(
         modifier = modifier,
-        targetState = currentContent,
-        label = "AnimatedContent"
-    ) { content ->
-        when(content) {
-            ShopScreenContent.Categories -> CategorySelectionScreen(
-                currentSection = currentSection,
-                onSearch = onSearch,
-                onSectionClick = { section -> currentSection = section },
-                onCategoryClick = { category ->
-                    currentCategory = category
-                    viewModel.getProducts(currentSection.name, currentCategory, filter, orderBy)
-                    currentContent = ShopScreenContent.Products
+        topBar = {
+            StoreCenteredTopBar(
+                title = section,
+                canNavigateBack = true,
+                onNavigateUp = onNavigateUp,
+                action = {
+                    IconButton(onClick = onSearch) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                        )
+                    }
                 }
             )
-
-            ShopScreenContent.Products -> when(uiState) {
-                is ShopUiState.Loading -> LoadingScreen()
-                is ShopUiState.Error -> ErrorScreen(onTryAgain = {
-                    viewModel.getProducts(currentSection.name, currentCategory, filter, orderBy) }
-                )
-                is ShopUiState.Success -> ShopListingScreen(
-                    section = currentSection,
-                    category = currentCategory,
-                    currentFilter = filter,
-                    orderBy = orderBy,
-                    products = uiState.products,
+        },
+    ) { paddingValues ->
+        Surface(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                FilterContainer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                     filters = filters,
-                    onFilterChange = { filter = it },
-                    onProductClick = { onProductClick(it) },
-                    onOrderBy = { orderBy = it },
-                    onSearch = onSearch,
-                    onNavigateUp = {
-                        currentContent = ShopScreenContent.Categories
+                    currentFilter = currentFilter,
+                    onSelectFilter = {
+                        onFilterChange(it)
                     }
                 )
+                ProductsGrid(
+                    modifier = Modifier,
+                    selectedOption = orderBy,
+                    onChangeOrderOption = { onChangeOrderOption(it) },
+                    onProductClick = { onProductClick(it) },
+                    products = products,
+                )
             }
-
         }
     }
 }
 
-
-@ThemePreviews
-@Composable
-private fun Preview() {
-    StoreTheme {
-        ShopScreen(
-            onProductClick = {},
-        ) {}
-    }
-}

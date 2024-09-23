@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.feature.category.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -9,13 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.feature.shop.model.ShopSection
-import com.example.store.feature.shop.model.shopSections
+import com.example.store.feature.category.model.Section
 
 @Composable
-internal fun ShopSectionTabs(
-    selectedSection: ShopSection,
-    onTabClick: (ShopSection) -> Unit,
+internal fun SectionSelectorTab(
+    selectedSection: Section,
+    onSectionClick: (Section) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TabRow(
@@ -25,16 +24,16 @@ internal fun ShopSectionTabs(
         contentColor = MaterialTheme.colorScheme.onBackground,
         divider = {}
     ) {
-        shopSections.forEachIndexed { index, section ->
+        Section.entries.forEachIndexed { index, section ->
             Tab(
                 selected = selectedSection.ordinal == index,
                 onClick = {
-                    onTabClick(section.first)
+                    onSectionClick(section)
                 }
             ) {
                 Text(
                     modifier = Modifier.padding(vertical = 14.dp),
-                    text = section.second,
+                    text = section.description,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = if(selectedSection.ordinal == index) FontWeight.SemiBold else FontWeight.Normal
                 )
