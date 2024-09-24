@@ -12,6 +12,7 @@ import com.example.store.core.model.resource.calculateOrderTotal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,15 +30,6 @@ class CheckoutViewModel @Inject constructor(
             Order()
         )
 
-    init {
-        viewModelScope.launch {
-            order.collect { currentOrder ->
-                calculateDeliveryPrice(
-                    LocationCoordinates(currentOrder.latitude, currentOrder.longitude)
-                )
-            }
-        }
-    }
 
     private val deliveryPricePerKM = 150.0
 
@@ -59,20 +51,21 @@ class CheckoutViewModel @Inject constructor(
         }
     }
 
-    private fun calculateDeliveryPrice(destination: LocationCoordinates) {
-        viewModelScope.launch {
+    fun calculateDeliveryPrice() {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
+                val order = orderRepository.getOrder()
                 val distance = locationRepository.getLocationDistance(
                     origin = LocationCoordinates(- 8.893632, 13.188212),
-                    destination = destination
+                    destination = LocationCoordinates(order.latitude, order.longitude)
                 ) ?: 0.0
                 val deliveryPrice = distance * deliveryPricePerKM
                 orderRepository.updateDeliveryFee(deliveryPrice)
                 orderRepository.updateOrderTotal(
                     calculateOrderTotal(
                         deliveryPrice,
-                        order.value.cartTotal,
-                        order.value.deliveryMethod
+                        order.cartTotal,
+                        order.deliveryMethod
                     )
                 )
             } catch (e: Exception) {
@@ -94,7 +87,7 @@ class CheckoutViewModel @Inject constructor(
                         userLocation.latitude,
                         userLocation.longitude
                     )
-                    calculateDeliveryPrice(userLocation)
+                    calculateDeliveryPrice()
                 }
             } catch (e: Exception) {
                 Log.e("CheckoutViewModel", "Error getting user location: ${e.message}", e)
