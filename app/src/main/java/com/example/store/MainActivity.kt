@@ -26,9 +26,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +37,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
-                    LaunchedEffect(key1 = null) {
-                        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-                           Log.d("token", "Refreshed token: ${it.result}")
-                       }
-                    }
                     NavigationGraph()
                 }
             }
         }
-        requestNotificationPermission()
-        NotificationHelper().createChannel(this)
-
     }
 
 
