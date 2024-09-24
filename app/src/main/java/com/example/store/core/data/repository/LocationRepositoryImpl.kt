@@ -12,7 +12,6 @@ import com.example.store.core.model.LocationCoordinates
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.tasks.await
-import okhttp3.internal.wait
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -26,30 +25,38 @@ class LocationRepositoryImpl(
     @SuppressLint("MissingPermission")
     override suspend fun getCurrentLocation(): LocationCoordinates? {
         val location = locationService.getCurrentLocation(
-            Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
+            Priority.PRIORITY_BALANCED_POWER_ACCURACY, null
+        )
             .await()
 
-        if(location == null) {
+        if (location == null) {
             return null
         }
         return LocationCoordinates(location.latitude, location.longitude)
 
     }
 
+    @Suppress("DEPRECATION")
     override suspend fun getLocationName(latitude: Double, longitude: Double): String {
-        return when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
-                suspendCoroutine { continuation ->
-                    geocodeService.getFromLocation(latitude, longitude, 1) { result ->
-                        continuation.resume(result.firstOrNull()?.getAddressLine(0) ?: "")
+        return try {
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
+                    suspendCoroutine { continuation ->
+                        geocodeService.getFromLocation(latitude, longitude, 1) { result ->
+                            continuation.resume(result.firstOrNull()?.getAddressLine(0) ?: "")
+                        }
                     }
                 }
-            }
-            else -> {
-                geocodeService.getFromLocation(latitude, longitude, 1)
-                    ?.firstOrNull()?.getAddressLine(0) ?: ""
+
+                else -> {
+                    geocodeService.getFromLocation(latitude, longitude, 1)
+                        ?.firstOrNull()?.getAddressLine(0) ?: ""
+                }
             }
 
+        } catch (e: Exception) {
+            Log.d("LocationRepository", "getLocationName: $e")
+            " "
         }
     }
 
@@ -67,7 +74,8 @@ class LocationRepositoryImpl(
         try {
             val distance = distanceMatrixService.getDistanceMatrix(storeLocation, userLocation)
             Log.d("repository", "getLocationDistance: $distance")
-            return distance.rows[0].elements[0].distance?.text?.trim()?.removeSuffix("km")?.toDouble()
+            return distance.rows[0].elements[0].distance?.text?.trim()?.removeSuffix("km")
+                ?.toDouble()
         } catch (e: Exception) {
             Log.d("repository", "getLocationDistance: ${e.message}")
             return 0.0
