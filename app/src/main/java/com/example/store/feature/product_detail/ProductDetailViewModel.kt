@@ -1,4 +1,4 @@
-package com.example.store.feature.product_detail
+ package com.example.store.feature.product_detail
 
 import android.util.Log
 import androidx.compose.runtime.getValue

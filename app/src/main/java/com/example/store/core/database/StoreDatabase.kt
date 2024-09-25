@@ -14,6 +14,7 @@ import com.example.store.core.database.model.OrderEntity
 import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.model.Order
 import com.example.store.core.model.asEntity
+import java.util.concurrent.Executors
 
 @Database(
     version = 1,
@@ -41,9 +42,8 @@ abstract class StoreDatabase: RoomDatabase() {
                     .addCallback(object: Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            ioThread {
-                                getDatabase(context).orderDao().addOrder(Order().asEntity())
-                                Log.d("prepolutadb", "onCreate: Created")
+                            Executors.newSingleThreadExecutor().execute {
+                                instance?.orderDao()?.addOrder(Order().asEntity())
                             }
                         }
                     })

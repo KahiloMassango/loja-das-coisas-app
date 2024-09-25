@@ -80,7 +80,7 @@ dependencies {
     implementation(libs.firebase.analytics)
 
     // firebase cloud messaging
-    implementation(libs.firebase.cloud.messaging)
+   // implementation(libs.firebase.cloud.messaging)
 
     // Serialization
     implementation(libs.kotlinx.serialization)

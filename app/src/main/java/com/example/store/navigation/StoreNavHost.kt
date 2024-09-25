@@ -47,7 +47,7 @@ import com.example.store.feature.shop.navigation.shopScreen
 
 
 @Composable
-fun NavigationGraph(
+fun  NavigationGraph(
     modifier: Modifier = Modifier,
     viewModel: AppViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController()

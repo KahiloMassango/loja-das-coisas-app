@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.data.repository.OrderRepository
 import com.example.store.core.model.LocationCoordinates
+import com.example.store.core.model.Order
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,16 +33,15 @@ class SelectDeliveryLocationViewModel @Inject constructor(
     private val _selectDeliveryLocationUiState = MutableStateFlow(SelectDeliveryLocationState())
     val selectDeliveryLocationUiState = _selectDeliveryLocationUiState.asStateFlow()
 
+    val order = orderRepository.getOrderStream()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = Order()
+        )
+
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val order = orderRepository.getOrder()
-            _selectDeliveryLocationUiState.update { currentState ->
-                currentState.copy(
-                    locationName = order.deliveryLocationName,
-                    locationCoordinates = LocationCoordinates(order.latitude, order.longitude)
-                )
-            }
-        }
+        loadInitialData()
     }
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
@@ -74,14 +74,19 @@ class SelectDeliveryLocationViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val location = locationRepository.getCurrentLocation()
             if (location != null) {
-                updateLocation(
-                    LocationCoordinates(location.latitude, location.longitude)
-                )
+                _selectDeliveryLocationUiState.update { currentState ->
+                    currentState.copy(
+                        deliveryLocation = LocationCoordinates(location.latitude, location.longitude),
+                        locationName = locationRepository.getLocationName(
+                            location.latitude, location.longitude
+                        )
+                    )
+                }
             }
         }
     }
 
-    fun updateLocation(coordinates: LocationCoordinates) {
+    fun updateLocationName(coordinates: LocationCoordinates) {
         viewModelScope.launch(Dispatchers.IO) {
             val locationName = locationRepository.getLocationName(
                 coordinates.latitude, coordinates.longitude
@@ -89,27 +94,38 @@ class SelectDeliveryLocationViewModel @Inject constructor(
             _selectDeliveryLocationUiState.update { currentState ->
                 currentState.copy(
                     locationName = locationName,
-                    locationCoordinates = coordinates
                 )
             }
         }
     }
 
-    fun confirmDeliveryLocation() {
+    fun confirmDeliveryLocation(coordinates: LocationCoordinates) {
         viewModelScope.launch(Dispatchers.IO) {
             orderRepository.changeDeliveryLocation(
                 selectDeliveryLocationUiState.value.locationName,
-                selectDeliveryLocationUiState.value.locationCoordinates.latitude,
-                selectDeliveryLocationUiState.value.locationCoordinates.longitude
-            ) }
+                coordinates.latitude,
+                coordinates.longitude
+            )
+        }
     }
 
+    private fun loadInitialData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val order = orderRepository.getOrder()
+            _selectDeliveryLocationUiState.update { currentState ->
+                currentState.copy(
+                    locationName = order.deliveryLocationName,
+                    deliveryLocation = LocationCoordinates(order.latitude, order.longitude),
+                )
+            }
+        }
+    }
 
 }
 
 
 data class SelectDeliveryLocationState(
     val locationName: String = "",
-    val locationCoordinates: LocationCoordinates = LocationCoordinates(0.0, 0.0),
+    val deliveryLocation: LocationCoordinates = LocationCoordinates(0.0, 0.0),
     val searchQuery: String = "",
 )
