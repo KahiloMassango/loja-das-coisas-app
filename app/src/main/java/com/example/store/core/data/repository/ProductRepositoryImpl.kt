@@ -15,8 +15,8 @@ class ProductRepositoryImpl: ProductRepository {
     private val ratings = ratingsList
     private val ratingInfos = ratingInfosList
 
-    override fun getAllProducts(): Flow<List<Product>> {
-        return flowOf(products)
+    override fun getAllProducts(): List<Product> {
+        return products
     }
 
     override fun getProducts(gender: String, category: String): List<Product> {

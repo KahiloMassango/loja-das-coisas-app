@@ -9,11 +9,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.ProductRepositoryImpl
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -21,20 +22,18 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
 
 ): ViewModel() {
-    val productRepository = ProductRepositoryImpl()
+    private val productRepository = ProductRepositoryImpl()
 
-    private val productsFlow = productRepository.getAllProducts()
     var searchQuery by mutableStateOf("")
         private set
 
 
-    @OptIn(FlowPreview::class)
-    val searchResults: StateFlow<List<Product>> =
-        snapshotFlow { searchQuery }
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val searchResults: StateFlow<List<Product>> = snapshotFlow { searchQuery }
             .debounce(200)
-            .combine(productRepository.getAllProducts()) { searchQuery, products ->
+            .mapLatest {
                 when{
-                    searchQuery.isNotEmpty() -> products.filter { product ->
+                    searchQuery.isNotEmpty() -> productRepository.getAllProducts().filter { product ->
                         product.name.contains(searchQuery, ignoreCase = true) or
                                 product.description.contains(searchQuery, ignoreCase = true)
                     }
