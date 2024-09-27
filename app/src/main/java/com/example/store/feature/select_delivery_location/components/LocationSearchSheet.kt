@@ -3,10 +3,17 @@ package com.example.store.feature.select_delivery_location.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -56,14 +63,15 @@ fun LocationSearchSheet(
 
     ModalBottomSheet(
         modifier = modifier,
-        sheetState = rememberModalBottomSheetState(true),
+        sheetState = rememberModalBottomSheetState(false),
         containerColor = MaterialTheme.colorScheme.surface.copy(0.99f),
         scrimColor = Color(0xFF000000).copy(0.3f),
         contentColor = MaterialTheme.colorScheme.onSurface,
         onDismissRequest = onDismissRequest,
+        windowInsets = WindowInsets.ime.union(WindowInsets.navigationBars)
     ) {
         Column(
-            modifier = Modifier,
+            modifier = Modifier
         ) {
             StoreSearchTextField(
                 modifier = Modifier
@@ -81,7 +89,11 @@ fun LocationSearchSheet(
                 onClearQuery = { onQueryChange("") },
                 onSearch = { keyboardManager?.hide() }
             )
-            LazyColumn {
+            Spacer(modifier = Modifier.height(10.dp))
+            LazyColumn(
+                modifier = Modifier,
+                contentPadding = PaddingValues(bottom = 16.dp)
+            ) {
                 item {
                     UseCurrentLocationButton(
                         onClick = onUseUserCurrentLocation
@@ -96,7 +108,6 @@ fun LocationSearchSheet(
                     )
                 }
             }
-
         }
     }
 }

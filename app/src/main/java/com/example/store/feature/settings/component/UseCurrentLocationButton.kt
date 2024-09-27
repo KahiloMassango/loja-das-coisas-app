@@ -34,7 +34,7 @@ fun UseCurrentLocationButton(
         modifier = modifier
             .clickable { onClick() }
     ) {
-        HorizontalDivider()
+      //  HorizontalDivider()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -65,7 +65,7 @@ fun UseCurrentLocationButton(
 
                 }
                 Text(
-                    text = "Usar minha localização atual",
+                    text = "Usar localização atual",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium
                 )
@@ -79,5 +79,6 @@ fun UseCurrentLocationButton(
                 tint = MaterialTheme.colorScheme.inverseOnSurface
             )
         }
+        HorizontalDivider()
     }
 }

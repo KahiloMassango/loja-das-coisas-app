@@ -1,11 +1,11 @@
 package com.example.store.feature.select_delivery_location
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,7 +41,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.rememberCameraPositionState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -98,9 +97,9 @@ private fun SelectDeliveryLocationContent(
     // Or when the order delivery location is loaded from database
     LaunchedEffect(deliveryLocation) {
         cameraPositionState.position = CameraPosition.fromLatLngZoom(
-                LatLng(deliveryLocation.latitude, deliveryLocation.longitude),
+            LatLng(deliveryLocation.latitude, deliveryLocation.longitude),
             17.5f
-            )
+        )
 
     }
 
@@ -120,6 +119,7 @@ private fun SelectDeliveryLocationContent(
     }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             StoreCenteredTopBar(
                 title = "Selecionar localização",
@@ -145,7 +145,7 @@ private fun SelectDeliveryLocationContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Surface(
-                modifier = modifier
+                modifier = Modifier
                     .padding(16.dp)
                     .weight(1f),
                 shadowElevation = 5.dp,
@@ -184,8 +184,10 @@ private fun SelectDeliveryLocationContent(
             )
 
         }
+
         if (isSearching) {
             LocationSearchSheet(
+                modifier = Modifier.navigationBarsPadding(),
                 query = query,
                 onQueryChange = { onQueryChange(it) },
                 searchResult = searchResult,
