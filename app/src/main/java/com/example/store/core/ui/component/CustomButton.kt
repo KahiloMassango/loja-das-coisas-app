@@ -16,11 +16,13 @@ import com.example.store.core.ui.theme.StoreTheme
 fun CustomButton(
     modifier: Modifier = Modifier,
     text: String,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     Button(
         modifier = modifier,
         onClick = onClick,
+        enabled =  enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
@@ -38,11 +40,13 @@ fun CustomButton(
 fun CustomOutlinedButton(
     modifier: Modifier = Modifier,
     text: String,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     OutlinedButton(
         modifier = modifier,
         onClick = onClick,
+        enabled = enabled,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer
