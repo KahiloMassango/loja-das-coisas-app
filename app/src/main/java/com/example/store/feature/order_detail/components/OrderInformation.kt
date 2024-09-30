@@ -12,10 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.feature.order_detail.components.OrderDescription
 
 @Composable
-fun OrderInfo(
+fun OrderInformation(
     modifier: Modifier = Modifier,
     orderNumber: String,
     date: String,
@@ -65,7 +64,7 @@ fun OrderInfo(
     }
 }
 @Composable
-fun OrderResume(modifier: Modifier = Modifier) {
+fun OrderSummary(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
