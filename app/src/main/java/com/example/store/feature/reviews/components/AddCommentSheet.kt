@@ -4,10 +4,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -59,11 +64,12 @@ fun AddCommentSheet(
         onDismissRequest = onDismissRequest,
         dragHandle = {
             CustomDragHandle("Qual é a sua avaliação")
-        }
+        },
+        windowInsets = WindowInsets.ime.union(WindowInsets.navigationBars)
     ){
         Column(
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                .padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -91,7 +97,7 @@ fun AddCommentSheet(
             Text(
                 text = "Por favor, compartilhe sua opinião\n" +
                         "sobre o produto",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center
             )
@@ -164,7 +170,7 @@ private fun Preview() {
             comment = "",
             onCommentChange = {},
             onRateChange = {},
-            state = SheetState(skipPartiallyExpanded = true),
+            state = SheetState(skipPartiallyExpanded = true, density = LocalDensity.current),
             onDismissRequest = {},
             onSend = {}
         )

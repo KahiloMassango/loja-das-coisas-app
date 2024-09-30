@@ -27,18 +27,17 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
+import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.reviews.components.AddCommentFab
 import com.example.store.feature.reviews.components.AddCommentSheet
 import com.example.store.feature.reviews.components.RatingStats
 import com.example.store.feature.reviews.components.ReviewCard
-import com.example.store.core.ui.theme.StoreTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
 
 
 @Composable
@@ -49,7 +48,7 @@ fun ReviewsScreen(
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
 
-    when(uiState) {
+    when (uiState) {
         is ReviewsUiState.Loading -> LoadingScreen(modifier)
         is ReviewsUiState.Error -> LoadingScreen(modifier)
         is ReviewsUiState.Success -> ReviewsContent(
@@ -61,11 +60,7 @@ fun ReviewsScreen(
                 viewModel.addReview(rate, comment)
             }
         )
-
     }
-
-
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,6 +73,7 @@ private fun ReviewsContent(
     onNavigateUp: () -> Unit
 ) {
 
+
     var rate by rememberSaveable { mutableIntStateOf(0) }
     var comment by rememberSaveable { mutableStateOf("") }
     var isCommentSheetOpen by rememberSaveable { mutableStateOf(false) }
@@ -86,9 +82,9 @@ private fun ReviewsContent(
 
     Scaffold(
         modifier = modifier,
-        floatingActionButton ={
+        floatingActionButton = {
             AddCommentFab(
-                modifier = Modifier.shadow(5.dp, RoundedCornerShape(50)),
+                modifier = Modifier.shadow(2.dp, RoundedCornerShape(50)),
                 onClick = { isCommentSheetOpen = true }
             )
         },
@@ -101,24 +97,6 @@ private fun ReviewsContent(
         }
     ) { paddingValues ->
 
-        if (isCommentSheetOpen){
-            AddCommentSheet(
-                modifier = Modifier,
-                state = sheetState,
-                rate = rate,
-                comment = comment,
-                onRateChange = { rate = it },
-                onCommentChange = { comment = it },
-                onDismissRequest =  { isCommentSheetOpen = false },
-                onSend = {
-                    onAddReview(rate, comment)
-                    coroutineScope.launch {
-                        delay(200)
-                        sheetState.hide()
-                    }.invokeOnCompletion { isCommentSheetOpen = false }
-                }
-            )
-        }
         Surface(
             modifier = Modifier.padding(paddingValues)
         ) {
@@ -154,10 +132,26 @@ private fun ReviewsContent(
                 }
             }
         }
+        if (isCommentSheetOpen) {
+            AddCommentSheet(
+                modifier = Modifier,
+                state = sheetState,
+                rate = rate,
+                comment = comment,
+                onRateChange = { rate = it },
+                onCommentChange = { comment = it },
+                onDismissRequest = { isCommentSheetOpen = false },
+                onSend = {
+                    onAddReview(rate, comment)
+                    coroutineScope.launch {
+                        delay(200)
+                        sheetState.hide()
+                    }.invokeOnCompletion { isCommentSheetOpen = false }
+                }
+            )
+        }
     }
 }
-
-
 
 
 @PreviewLightDark
