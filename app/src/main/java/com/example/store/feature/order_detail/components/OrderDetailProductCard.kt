@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.R
 import com.example.store.core.ui.component.AttributeDescription
+import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
-fun DetailOrderProductCard(modifier: Modifier = Modifier) {
+fun OrderProductCard(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .height(104.dp),
@@ -44,13 +46,13 @@ fun DetailOrderProductCard(modifier: Modifier = Modifier) {
             )
             Column(
                 modifier = Modifier.padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Text(
                     text = "T-Shirt SPANISH",
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.Medium
                 )
                 Text(
                     text = "Mango",
@@ -59,8 +61,8 @@ fun DetailOrderProductCard(modifier: Modifier = Modifier) {
                     fontWeight = FontWeight.Light
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-                    AttributeDescription(attribute = "Color", value = "Gray")
-                    AttributeDescription(attribute = "Size", value = "L")
+                    AttributeDescription(attribute = "Cor", value = "Verde")
+                    AttributeDescription(attribute = "Tamanho", value = "L")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -76,5 +78,13 @@ fun DetailOrderProductCard(modifier: Modifier = Modifier) {
                 }
             }
         }
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun Preview() {
+    StoreTheme {
+        OrderProductCard()
     }
 }
