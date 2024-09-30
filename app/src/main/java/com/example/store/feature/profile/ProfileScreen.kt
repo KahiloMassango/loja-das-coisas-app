@@ -1,4 +1,4 @@
-package com.example.store.feature.profile
+ package com.example.store.feature.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -25,15 +25,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.R
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.feature.profile.component.ProfileOptions
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.profile.component.ProfileOptions
 
-@Composable
+ @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = hiltViewModel(),

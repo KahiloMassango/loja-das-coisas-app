@@ -38,8 +38,8 @@ import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.settings.component.ChangePasswordSheet
 import com.example.store.feature.settings.component.NotificationPreferences
-import com.example.store.feature.settings.component.PasswordChangeContainer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -154,7 +154,7 @@ fun SettingsScreen(
             }
         }
         if (showPasswordSheet) {
-            PasswordChangeContainer(
+            ChangePasswordSheet(
                 state = passwordSheetState,
                 onSave = { _, _ ->
                     coroutineScope.launch {
@@ -173,6 +173,6 @@ fun SettingsScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        SettingsScreen() {}
+        SettingsScreen {}
     }
 }
