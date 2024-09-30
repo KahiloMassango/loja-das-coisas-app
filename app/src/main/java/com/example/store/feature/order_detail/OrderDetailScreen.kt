@@ -2,9 +2,7 @@ package com.example.store.feature.order_detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
@@ -16,9 +14,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.order_detail.components.DetailOrderProductCard
-import com.example.store.feature.order_detail.components.OrderInfo
-import com.example.store.feature.order_detail.components.OrderResume
+import com.example.store.feature.order_detail.components.OrderInformation
+import com.example.store.feature.order_detail.components.OrderProductCard
+import com.example.store.feature.order_detail.components.OrderSummary
 
 @Composable
 fun OrderDetailScreen(
@@ -47,7 +45,7 @@ fun OrderDetailScreen(
                 verticalArrangement = Arrangement.spacedBy(18.dp)
             ) {
                 item {
-                    OrderInfo(
+                    OrderInformation(
                         orderNumber = "1947034",
                         date = "05-12-2019",
                         itemsQty = 3,
@@ -57,10 +55,10 @@ fun OrderDetailScreen(
 
 
                 items(7) {
-                    DetailOrderProductCard()
+                    OrderProductCard()
                 }
 
-                item { OrderResume() }
+                item { OrderSummary() }
 
             }
         }
