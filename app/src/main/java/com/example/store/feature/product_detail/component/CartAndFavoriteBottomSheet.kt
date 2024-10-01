@@ -21,9 +21,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.CustomButton
+import com.example.store.core.ui.theme.StoreTheme
+
 
 @Composable
 fun CartAndFavoriteBottomSheet(
@@ -34,10 +38,12 @@ fun CartAndFavoriteBottomSheet(
     onAddToCart: () -> Unit,
 ) {
     Surface(
-        modifier = modifier,
+        modifier = modifier
+            .shadow(12.dp, RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
+            .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
+            .topBorderRounded(),
         shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp),
-        shadowElevation = 12.dp,
-        color = MaterialTheme.colorScheme.secondaryContainer
+        color = MaterialTheme.colorScheme.secondaryContainer,
     ) {
         Row(
             modifier = Modifier
@@ -72,7 +78,7 @@ fun CartAndFavoriteBottomSheet(
                     .size(40.dp)
                     .background(MaterialTheme.colorScheme.inverseOnSurface.copy(0.2f)),
                 onClick = onAddFavorite,
-                enabled = !isFavorite,
+                enabled = ! isFavorite,
             ) {
                 Icon(
                     modifier = Modifier,
@@ -84,5 +90,18 @@ fun CartAndFavoriteBottomSheet(
             }
 
         }
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    StoreTheme {
+        CartAndFavoriteBottomSheet(
+            productPrice = 100.0,
+            isFavorite = false,
+            onAddFavorite = {},
+            onAddToCart = {}
+        )
     }
 }

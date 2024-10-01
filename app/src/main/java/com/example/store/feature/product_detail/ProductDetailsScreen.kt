@@ -16,8 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -79,7 +78,6 @@ fun ProductDetailsScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ProductDetailContent(
     modifier: Modifier = Modifier,
@@ -116,8 +114,7 @@ private fun ProductDetailContent(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(bottom = 0.dp)
-                        .verticalScroll(rememberScrollState())
-                        ,
+                        .verticalScroll(rememberScrollState()),
                 ) {
                     ProductImageCarousel(images = images)
                     Column(
@@ -128,7 +125,7 @@ private fun ProductDetailContent(
                         ProductDetails(
                             product = product
                         )
-                        Divider(Modifier.padding(vertical = 16.dp))
+                        HorizontalDivider(Modifier.padding(vertical = 16.dp))
                         SizeSelector(
                             modifier = Modifier.fillMaxWidth(),
                             selectedSize = size,
@@ -137,7 +134,10 @@ private fun ProductDetailContent(
                         )
                         Spacer(modifier = Modifier.height(18.dp))
                     }
-                    Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    HorizontalDivider(
+                        thickness = 0.5.dp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -156,7 +156,10 @@ private fun ProductDetailContent(
                             modifier = Modifier.size(12.dp)
                         )
                     }
-                    Divider(thickness = 0.5.dp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    HorizontalDivider(
+                        thickness = 0.5.dp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                     RelatedProductsSection(
                         modifier = Modifier.padding(16.dp),
                         onProductClick = { onSuggestedProductsClick(it) },
@@ -166,7 +169,8 @@ private fun ProductDetailContent(
                     Spacer(modifier = Modifier.height(100.dp))
                 }
                 CartAndFavoriteBottomSheet(
-                    modifier = Modifier.align(Alignment.BottomCenter),
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter),//.shadow(12.dp),
                     productPrice = product.price,
                     isFavorite = isFavorite,
                     onAddFavorite = onAddFavorite,
@@ -180,9 +184,6 @@ private fun ProductDetailContent(
         }
     }
 }
-
-
-
 
 
 @ThemePreviews
