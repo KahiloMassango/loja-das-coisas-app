@@ -69,7 +69,7 @@ fun StoreTextField(
                 unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Unspecified,
+                disabledIndicatorColor = Color.Transparent,
                 errorSupportingTextColor = MaterialTheme.colorScheme.error,
                 errorIndicatorColor = Color.Unspecified,
                 errorContainerColor = MaterialTheme.colorScheme.background
