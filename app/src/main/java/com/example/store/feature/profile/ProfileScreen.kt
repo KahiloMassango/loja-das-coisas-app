@@ -40,6 +40,7 @@ fun ProfileScreen(
     onMyReviewsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
+    onAddressesClick: () -> Unit,
     onPolicePrivacyClick: () -> Unit
 ) {
     Scaffold(
@@ -68,7 +69,8 @@ fun ProfileScreen(
                     onMyReviewsClick = onMyReviewsClick,
                     onSettingsClick = onSettingsClick,
                     onHelpCenterClick= onHelpCenterClick,
-                    onPolicePrivacyClick = onPolicePrivacyClick
+                    onPolicePrivacyClick = onPolicePrivacyClick,
+                    onAddressesClick = onAddressesClick
                 )
             }
         }

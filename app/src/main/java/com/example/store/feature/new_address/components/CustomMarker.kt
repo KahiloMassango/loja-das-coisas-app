@@ -1,4 +1,4 @@
-package com.example.store.feature.select_delivery_location.components
+package com.example.store.feature.new_address.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

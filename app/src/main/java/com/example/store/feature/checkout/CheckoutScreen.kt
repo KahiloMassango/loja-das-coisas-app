@@ -4,6 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,22 +22,21 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.core.model.Address
 import com.example.store.core.model.DeliveryMethod
-import com.example.store.core.model.Location
-import com.example.store.core.model.LocationCoordinates
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
-import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.checkout.component.AddressSection
 import com.example.store.feature.checkout.component.CheckoutSectionText
 import com.example.store.feature.checkout.component.CheckoutSummary
+import com.example.store.feature.checkout.component.DeliveryAddressList
 import com.example.store.feature.checkout.component.DeliveryMethodSection
 import com.example.store.feature.checkout.component.RequestLocationPermissionScreen
 
@@ -44,6 +46,7 @@ internal fun CheckoutScreen(
     modifier: Modifier = Modifier,
     viewModel: CheckoutViewModel = hiltViewModel(),
     onChangeDeliveryLocation: () -> Unit,
+    onAddAddress: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -59,8 +62,8 @@ internal fun CheckoutScreen(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         isPermissionGranted = isGranted
-        if(isGranted) {
-            viewModel.setUserLocation()
+        if (isGranted) {
+            //viewModel.setUserLocation()
         }
     }
     LaunchedEffect(null) {
@@ -68,22 +71,22 @@ internal fun CheckoutScreen(
     }
 
     val order by viewModel.order.collectAsStateWithLifecycle()
-    val userLocation  = Location(
-        order.deliveryLocationName,
-        LocationCoordinates(order.latitude, order.longitude)
-    )
+    val currentDeliveryAddress by viewModel.currentDeliveryAddress.collectAsStateWithLifecycle()
+    val deliveryAddresses by viewModel.deliveryAddresses.collectAsStateWithLifecycle()
 
     if (isPermissionGranted) {
         CheckoutContent(
             modifier = modifier,
-            userLocation = userLocation,
+            deliveryAddress = currentDeliveryAddress,
+            deliveryAddresses = deliveryAddresses,
             deliveryPrice = order.deliveryFee,
             cartTotal = order.cartTotal,
             orderTotal = order.orderTotal,
             deliveryMethod = order.deliveryMethod,
             onNavigateUp = onNavigateUp,
             onDeliveryMethodChange = { viewModel.setDeliveryMethod(it) },
-            onChangeAddress = { onChangeDeliveryLocation() }
+            onAddAddress = onAddAddress,
+            onChangeDeliveryAddress = { viewModel.changeDeliveryAddress(it) }
         )
     } else {
         RequestLocationPermissionScreen(
@@ -97,15 +100,18 @@ internal fun CheckoutScreen(
 private fun CheckoutContent(
     modifier: Modifier = Modifier,
     onNavigateUp: () -> Unit,
-    userLocation: Location,
-    onChangeAddress: () -> Unit,
+    deliveryAddresses: List<Address>,
+    deliveryAddress: Address?,
     deliveryPrice: Double,
     deliveryMethod: DeliveryMethod,
     onDeliveryMethodChange: (DeliveryMethod) -> Unit,
+    onChangeDeliveryAddress: (Address) -> Unit,
+    onAddAddress: () -> Unit,
     cartTotal: Double,
     orderTotal: Double
 ) {
     val sectionSpacing = 42.dp
+    var changeDeliveryAddress by rememberSaveable { mutableStateOf(false) }
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -129,9 +135,9 @@ private fun CheckoutContent(
                     .padding(15.dp),
             ) {
                 AddressSection(
-                    username = "Jane Doe",
-                    address = userLocation.name,
-                    onChangeAddress = onChangeAddress
+                    address = deliveryAddress,
+                    onAddNewAddress = onAddAddress,
+                    onChangeAddress = { changeDeliveryAddress = true }
                 )
 
                 Spacer(modifier = Modifier.height(sectionSpacing))
@@ -164,22 +170,19 @@ private fun CheckoutContent(
             }
         }
     }
-}
+    AnimatedVisibility(
+        enter = fadeIn(),
+        exit = fadeOut(),
+        visible = changeDeliveryAddress
+    ) {
 
-
-@PreviewLightDark
-@Composable
-private fun Preview() {
-    StoreTheme {
-        CheckoutContent(
-            onNavigateUp = { },
-            userLocation = Location("Luanda, Angola", LocationCoordinates(0.0, 0.0)),
-            onChangeAddress = { },
-            deliveryPrice = 1200.00,
-            deliveryMethod = DeliveryMethod.DELIVERY,
-            onDeliveryMethodChange = { },
-            cartTotal = 4500.00,
-            orderTotal = 6745.00
+        DeliveryAddressList(
+            addresses = deliveryAddresses,
+            onSelectAddress = {
+                onChangeDeliveryAddress(it)
+                changeDeliveryAddress = false
+            },
+            onDismiss = { changeDeliveryAddress = false }
         )
     }
 }

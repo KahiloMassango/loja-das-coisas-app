@@ -1,5 +1,8 @@
 package com.example.store.core.model.resource
 
+import android.util.Patterns
+import androidx.core.text.isDigitsOnly
+
 fun isPasswordValid(password: String): Boolean {
     return password.length >= 8
 }
@@ -11,11 +14,12 @@ fun isNameValid(name: String): Boolean {
 }
 
 fun isEmailValid(email: String): Boolean {
-    return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.endsWith(".com")
+    return Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.endsWith(".com")
 }
 
 fun isPhoneNumberValid(phoneNumber: String): Boolean {
-    return phoneNumber.length == 9
+    val n = phoneNumber.length
+    return n == 9 && phoneNumber.isDigitsOnly()
 }
 
 

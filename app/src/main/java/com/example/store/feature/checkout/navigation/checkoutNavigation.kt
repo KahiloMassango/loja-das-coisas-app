@@ -15,11 +15,13 @@ fun NavController.navigateToCheckout() = navigate(CheckoutRoute)
 
 fun NavGraphBuilder.checkoutScreen(
     onChangeDeliveryLocation: () -> Unit,
+    onAddAddress: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     composable<CheckoutRoute> {
         CheckoutScreen(
             onChangeDeliveryLocation = onChangeDeliveryLocation,
+            onAddAddress = onAddAddress,
             onNavigateUp = onNavigateUp
         )
     }

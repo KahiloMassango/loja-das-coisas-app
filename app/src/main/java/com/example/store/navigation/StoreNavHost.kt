@@ -18,6 +18,8 @@ import com.example.store.feature.cart.navigation.cartScreen
 import com.example.store.feature.category.navigation.categoryScreen
 import com.example.store.feature.checkout.navigation.checkoutScreen
 import com.example.store.feature.checkout.navigation.navigateToCheckout
+import com.example.store.feature.delivery_address.navigation.deliveryAddressesScreen
+import com.example.store.feature.delivery_address.navigation.navigateToAddresses
 import com.example.store.feature.favorite.navigation.favoriteScreen
 import com.example.store.feature.help_center.navigation.helpCenterScreen
 import com.example.store.feature.help_center.navigation.navigateToHelpCenter
@@ -25,6 +27,7 @@ import com.example.store.feature.home.navigation.HomeRoute
 import com.example.store.feature.home.navigation.homeScreen
 import com.example.store.feature.my_orders.navigation.myOrdersScreen
 import com.example.store.feature.my_orders.navigation.navigateToMyOrders
+import com.example.store.feature.new_address.navigation.navigateToNewAddressScreen
 import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
 import com.example.store.feature.order_detail.navigation.orderDetailScreen
 import com.example.store.feature.police_privacy.navigation.navigateToPolicePrivacy
@@ -38,8 +41,7 @@ import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
 import com.example.store.feature.search.navigation.navigateToSearch
 import com.example.store.feature.search.navigation.searchScreen
-import com.example.store.feature.select_delivery_location.navigation.navigateToSelectDeliveryLocationScreen
-import com.example.store.feature.select_delivery_location.navigation.selectDeliveryLocationScreen
+import com.example.store.feature.new_address.navigation.newAddressScreen
 import com.example.store.feature.settings.navigation.navigateToSettings
 import com.example.store.feature.settings.navigation.settingsScreen
 import com.example.store.feature.shop.navigation.navigateToShop
@@ -79,7 +81,8 @@ fun  NavigationGraph(
                 onMyReviewsClick = { /* TODO */ },
                 onSettingsClick = { navController.navigateToSettings() },
                 onHelpCenterClick = { navController.navigateToHelpCenter() },
-                onPolicePrivacyClick = { navController.navigateToPolicePrivacy() }
+                onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
+                onAddressesClick = { navController.navigateToAddresses() }
             )
 
             helpCenterScreen(
@@ -97,7 +100,11 @@ fun  NavigationGraph(
                 onSelectCategory = { section, category ->
                     navController.navigateToShop(section, category)
                 }
+            )
 
+            deliveryAddressesScreen(
+                onAddNewAddress = { navController.navigateToNewAddressScreen() },
+                onNavigateUp = navController::navigateUp
             )
 
             searchScreen(
@@ -133,10 +140,11 @@ fun  NavigationGraph(
 
             checkoutScreen(
                 onNavigateUp = navController::navigateUp,
-                onChangeDeliveryLocation = { navController.navigateToSelectDeliveryLocationScreen() }
+                onChangeDeliveryLocation = {  },
+                onAddAddress = { navController.navigateToAddresses() }
             )
 
-            selectDeliveryLocationScreen(onNavigateUp = navController::navigateUp)
+            newAddressScreen(onNavigateUp = navController::navigateUp)
 
             reviewsScreen(onNavigateUp = navController::navigateUp)
         }

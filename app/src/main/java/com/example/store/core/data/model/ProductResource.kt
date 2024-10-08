@@ -1,8 +1,9 @@
 package com.example.store.core.data.model
 
+import com.example.store.core.database.model.AddressEntity
 import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.FavoriteProductEntity
-import com.example.store.core.model.CartProduct
+import com.example.store.core.model.Address
 import com.example.store.core.model.Product
 
 fun Product.asFavoriteProductEntity(
@@ -32,4 +33,14 @@ fun Product.asCartProductEntity(
     color = color,
     size = size,
     quantity = 1
+)
+
+fun Address.asEntity(): AddressEntity = AddressEntity(
+    receiverName = receiverName,
+    phoneNumber = phoneNumber,
+    addressType = addressType,
+    addressLine = addressLine.address,
+    shortName = addressLine.shortName,
+    latitude = latitude,
+    longitude = longitude
 )

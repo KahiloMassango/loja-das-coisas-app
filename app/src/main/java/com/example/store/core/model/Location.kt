@@ -1,12 +1,9 @@
 package com.example.store.core.model
 
 data class Location(
-    val name: String,
-    val coordinates: LocationCoordinates
-)
-
-data class LocationCoordinates(
+    val addressLine: String,
     val latitude: Double,
     val longitude: Double
 )
+
 

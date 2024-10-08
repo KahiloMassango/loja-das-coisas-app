@@ -8,15 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.store.core.model.Address
 
 @Composable
 internal fun AddressSection(
     modifier: Modifier = Modifier,
-    username: String,
-    address: String,
-    onChangeAddress: () -> Unit
+    address: Address?,
+    onAddNewAddress: () -> Unit,
+    onChangeAddress: () -> Unit,
 ) {
-
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -27,11 +27,14 @@ internal fun AddressSection(
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
         )
-        ShippingAddressCard(
-            username = username,
-            address = address,
-            onChangeAddress = onChangeAddress,
-        )
+        if (address == null) {
+            EmptyDeliveryAddressCard(onAddNewAddress = onAddNewAddress)
+        } else {
+            DeliveryAddressCard(
+                address = address,
+                onChangeAddress = onChangeAddress,
+            )
+        }
     }
 
 }

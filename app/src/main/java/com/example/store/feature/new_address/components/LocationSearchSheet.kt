@@ -1,4 +1,4 @@
-package com.example.store.feature.select_delivery_location.components
+package com.example.store.feature.new_address.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -41,9 +41,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Location
-import com.example.store.core.model.LocationCoordinates
 import com.example.store.feature.search.components.StoreSearchTextField
 import com.example.store.feature.settings.component.UseCurrentLocationButton
+import com.google.android.gms.maps.model.LatLng
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +52,7 @@ fun LocationSearchSheet(
     query: String,
     onQueryChange: (String) -> Unit,
     onUseUserCurrentLocation: () -> Unit,
-    onSelectLocation: (LocationCoordinates) -> Unit,
+    onSelectLocation: (LatLng) -> Unit,
     searchResult: List<Location>,
     onDismissRequest: () -> Unit
 ) {
@@ -101,9 +101,11 @@ fun LocationSearchSheet(
                 }
                 items(searchResult) { location ->
                     LocationItem(
-                        locationName = location.name,
+                        locationName = location.addressLine,
                         onClick = {
-                            onSelectLocation(location.coordinates)
+                            onSelectLocation(
+                                LatLng(location.latitude, location.longitude)
+                            )
                         }
                     )
                 }

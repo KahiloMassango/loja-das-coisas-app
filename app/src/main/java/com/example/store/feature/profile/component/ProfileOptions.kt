@@ -30,6 +30,7 @@ fun ProfileOptions(
     onMyReviewsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
+    onAddressesClick: () -> Unit,
     onPolicePrivacyClick: () -> Unit
 
 ) {
@@ -59,6 +60,13 @@ fun ProfileOptions(
             option = "Definições",
             description = "Notification, senha, etc",
             onClick = onSettingsClick
+        )
+        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        ProfileOption(
+            modifier = Modifier,
+            option = "Endereços de entrega",
+            description = "Gerencie seus endereços de entrega",
+            onClick = onAddressesClick
         )
         Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
         ProfileOption(
@@ -133,6 +141,7 @@ private fun Preview() {
             onMyReviewsClick = {},
             onSettingsClick = {},
             onHelpCenterClick = {},
+            onAddressesClick = {},
             onPolicePrivacyClick = {}
         )
     }
