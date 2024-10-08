@@ -140,7 +140,6 @@ fun  NavigationGraph(
 
             checkoutScreen(
                 onNavigateUp = navController::navigateUp,
-                onChangeDeliveryLocation = {  },
                 onAddAddress = { navController.navigateToAddresses() }
             )
 

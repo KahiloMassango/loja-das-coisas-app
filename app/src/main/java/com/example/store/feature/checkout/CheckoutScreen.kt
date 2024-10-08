@@ -45,7 +45,6 @@ import com.example.store.feature.checkout.component.RequestLocationPermissionScr
 internal fun CheckoutScreen(
     modifier: Modifier = Modifier,
     viewModel: CheckoutViewModel = hiltViewModel(),
-    onChangeDeliveryLocation: () -> Unit,
     onAddAddress: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
