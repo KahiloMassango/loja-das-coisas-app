@@ -7,8 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.store.core.data.model.asCartProduct
 import com.example.store.core.data.repository.ProductRepositoryImpl
-import com.example.store.core.data.model.asCartProductEntity
 import com.example.store.core.data.model.asFavoriteProductEntity
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.FavoriteRepository
@@ -56,7 +56,7 @@ class ProductDetailViewModel @Inject constructor(
     )
 
 
-    val isFavorite: StateFlow<Boolean> = favoriteRepository.checkProductIsFavorite(productId)
+    val isFavorite: StateFlow<Boolean> = favoriteRepository.checkFavoriteProductFlow(productId)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -82,15 +82,14 @@ class ProductDetailViewModel @Inject constructor(
     fun addFavorite() {
         viewModelScope.launch {
             val state = uiState.value as ProductDetailState.Success
-            val product = state.product.asFavoriteProductEntity(productColor, productSize)
-            favoriteRepository.insertFavoriteProduct(product)
+            favoriteRepository.addFavoriteProduct(state.product)
         }
     }
 
     fun addCart() {
         viewModelScope.launch(Dispatchers.IO) {
             val product = (uiState.value as ProductDetailState.Success).product
-            cartRepository.addCartProduct(product.asCartProductEntity(productColor, productSize))
+            cartRepository.addCartProduct(product.asCartProduct(productColor, productSize))
         }
     }
 }

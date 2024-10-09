@@ -4,32 +4,41 @@ import com.example.store.core.database.model.AddressEntity
 import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.model.Address
+import com.example.store.core.model.CartProduct
 import com.example.store.core.model.Product
 
-fun Product.asFavoriteProductEntity(
-    color: String,
-    size: String
-): FavoriteProductEntity = FavoriteProductEntity(
+fun Product.asFavoriteProductEntity(): FavoriteProductEntity = FavoriteProductEntity(
     id = id,
     name = name,
     storeName = storeName,
     price = price,
     imageUrl = images[0],
-    color = color,
-    size = size,
+    color = availableColors[0],
+    size = availableSizes[0],
     avgRating = averageRating,
     totalRatings = totalRating
 
 )
 
-fun Product.asCartProductEntity(
+fun Product.asCartProduct(
     color: String,
     size: String
-): CartProductEntity = CartProductEntity(
+): CartProduct = CartProduct(
+    id = 0,
     uuid = id,
     name = name,
     price = price,
     imageUrl = images[0],
+    color = color,
+    size = size,
+    quantity = 1
+)
+
+fun CartProduct.asEntity(): CartProductEntity = CartProductEntity(
+    uuid = uuid,
+    name = name,
+    price = price,
+    imageUrl = imageUrl,
     color = color,
     size = size,
     quantity = 1

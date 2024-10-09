@@ -1,17 +1,17 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.model.FavoriteProduct
+import com.example.store.core.model.Product
 import kotlinx.coroutines.flow.Flow
 
 interface FavoriteRepository {
 
     fun getFavoriteProductsStream(): Flow<List<FavoriteProduct>>
 
-    fun checkProductIsFavorite(productId: String): Flow<Boolean>
+    fun checkFavoriteProductFlow(productId: String): Flow<Boolean>
 
-    suspend fun insertFavoriteProduct(product: FavoriteProductEntity)
+    suspend fun addFavoriteProduct(product: Product)
 
-    suspend fun deleteFavoriteProduct(productId: String)
+    suspend fun removeFavoriteProduct(productId: String)
 
 }

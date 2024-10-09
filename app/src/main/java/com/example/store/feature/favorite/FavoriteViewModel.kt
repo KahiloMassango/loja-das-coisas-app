@@ -38,7 +38,7 @@ class FavoriteViewModel @Inject constructor(
 
     fun removeFavoriteProduct(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            favoriteRepository.deleteFavoriteProduct(productId)
+            favoriteRepository.removeFavoriteProduct(productId)
         }
     }
 
