@@ -1,17 +1,16 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.model.CartProduct
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
 
-    fun getCartProducts(): Flow<List<CartProduct>>
-    fun getCartProductsCount(): Flow<Int>
-    fun getCartTotal(): Flow<Double>
-    suspend fun addCartProduct(product: CartProductEntity)
+    fun getCartProductsStream(): Flow<List<CartProduct>>
+    fun getCartProductsCountStream(): Flow<Int>
+    fun getCartTotalStream(): Flow<Double>
+    suspend fun addToCart(product: CartProduct)
     suspend fun removeCartProduct(id: Int)
-    suspend fun updateProductQuantity(id: Int, quantity: Int)
+    suspend fun updateQuantity(id: Int, quantity: Int)
 
 
 }

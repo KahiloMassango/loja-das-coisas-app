@@ -13,7 +13,7 @@ class AppViewModel @Inject constructor(
     private val cartRepository: CartRepository,
 ): ViewModel() {
 
-    val cartCount = cartRepository.getCartProductsCount()
+    val cartCount = cartRepository.getCartProductsCountStream()
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5_000),

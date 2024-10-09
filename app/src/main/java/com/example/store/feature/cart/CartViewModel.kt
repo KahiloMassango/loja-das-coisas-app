@@ -18,14 +18,14 @@ class CartViewModel @Inject constructor(
     private val orderRepository: OrderRepository
 ) : ViewModel() {
 
-    val uiState = cartRepository.getCartProducts()
+    val uiState = cartRepository.getCartProductsStream()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = emptyList()
         )
 
-    val cartTotal = cartRepository.getCartTotal()
+    val cartTotal = cartRepository.getCartTotalStream()
         .onEach { total ->
             if (total == 0.0) {
                 viewModelScope.launch {
@@ -51,7 +51,7 @@ class CartViewModel @Inject constructor(
 
     fun updateQuantity(productId: Int, quantity: Int) {
         viewModelScope.launch {
-            cartRepository.updateProductQuantity(productId, quantity)
+            cartRepository.updateQuantity(productId, quantity)
         }
     }
 }

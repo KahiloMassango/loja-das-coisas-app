@@ -8,10 +8,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.model.asCartProduct
-import com.example.store.core.data.repository.ProductRepositoryImpl
-import com.example.store.core.data.model.asFavoriteProductEntity
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.FavoriteRepository
+import com.example.store.core.data.repository.ProductRepositoryImpl
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +22,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+ @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
     private val cartRepository: CartRepository,
@@ -89,7 +88,7 @@ class ProductDetailViewModel @Inject constructor(
     fun addCart() {
         viewModelScope.launch(Dispatchers.IO) {
             val product = (uiState.value as ProductDetailState.Success).product
-            cartRepository.addCartProduct(product.asCartProduct(productColor, productSize))
+            cartRepository.addToCart(product.asCartProduct(productColor, productSize))
         }
     }
 }

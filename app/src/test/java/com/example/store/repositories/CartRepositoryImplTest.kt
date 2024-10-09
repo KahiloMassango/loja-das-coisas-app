@@ -28,12 +28,12 @@ class CartRepositoryImplTest {
 
     @Test
     fun `Return empty list when no products in cart`() = runTest {
-        assertEquals(emptyList<Product>(), repository.getCartProducts().first())
+        assertEquals(emptyList<Product>(), repository.getCartProductsStream().first())
     }
 
     @Test
     fun `Return count 0 when no products in cart`() = runTest {
-        assertEquals(0, repository.getCartProductsCount().first())
+        assertEquals(0, repository.getCartProductsCountStream().first())
     }
 
     @Test
@@ -41,10 +41,10 @@ class CartRepositoryImplTest {
         val expectedCartTotal = listOf(CART_PRODUCT_1, CART_PRODUCT_2)
             .fold(0.0) { sum, p -> sum + (p.price * p.quantity) }
 
-        repository.addCartProduct(CART_PRODUCT_1)
-        repository.addCartProduct(CART_PRODUCT_2)
+        repository.addToCart(CART_PRODUCT_1)
+        repository.addToCart(CART_PRODUCT_2)
 
-        assertEquals(expectedCartTotal, repository.getCartTotal().first(), defaultDelta)
+        assertEquals(expectedCartTotal, repository.getCartTotalStream().first(), defaultDelta)
     }
 
     @Test
@@ -53,62 +53,71 @@ class CartRepositoryImplTest {
         val expectedCartTotal = listOf(CART_PRODUCT_1, CART_PRODUCT_2)
             .fold(0.0) { sum, p -> sum + (p.price * p.quantity) }
 
-        repository.addCartProduct(CART_PRODUCT_1)
-        repository.addCartProduct(CART_PRODUCT_2)
-        repository.addCartProduct(CART_PRODUCT_3)
+        repository.addToCart(CART_PRODUCT_1)
+        repository.addToCart(CART_PRODUCT_2)
+        repository.addToCart(CART_PRODUCT_3)
 
-        assertNotEquals(expectedCartTotal, repository.getCartTotal().first(), defaultDelta)
+        assertNotEquals(expectedCartTotal, repository.getCartTotalStream().first(), defaultDelta)
     }
 
     @Test
     fun `add products correctly`() = runTest {
-        repository.addCartProduct(CART_PRODUCT_3)
-        repository.addCartProduct(CART_PRODUCT_2)
+        repository.addToCart(CART_PRODUCT_3)
+        repository.addToCart(CART_PRODUCT_2)
 
-        assertEquals(listOf(CART_PRODUCT_3, CART_PRODUCT_2), repository.getCartProducts().first())
+        assertEquals(listOf(CART_PRODUCT_3, CART_PRODUCT_2), repository.getCartProductsStream().first())
     }
 
     @Test
     fun `Duplicated product do not not add`() = runTest {
 
-        repository.addCartProduct(CART_PRODUCT_3)
-        repository.addCartProduct(CART_PRODUCT_3)
+        repository.addToCart(CART_PRODUCT_3)
+        repository.addToCart(CART_PRODUCT_3)
         val unexpectedList = listOf(CART_PRODUCT_3, CART_PRODUCT_3)
 
-        assertNotEquals(unexpectedList, repository.getCartProducts().first())
+        assertNotEquals(unexpectedList, repository.getCartProductsStream().first())
     }
 
     @Test
     fun `given id remove product correctly`() = runTest {
-        repository.addCartProduct(CART_PRODUCT_3)
+        repository.addToCart(CART_PRODUCT_3)
         repository.removeCartProduct(CART_PRODUCT_3.id)
 
-        assert(CART_PRODUCT_3 !in repository.getCartProducts().first())
+        assert(CART_PRODUCT_3 !in repository.getCartProductsStream().first())
     }
 
     @Test
     fun `update quantity correctly`() = runTest {
         val expectedQuantity = 5
-        repository.addCartProduct(CART_PRODUCT_1)
+        repository.addToCart(CART_PRODUCT_1)
 
-        repository.updateProductQuantity(CART_PRODUCT_1.id, expectedQuantity)
+        repository.updateQuantity(CART_PRODUCT_1.id, expectedQuantity)
 
-        val actualQuantity = repository.getCartProducts().first().first().quantity
+        val actualQuantity = repository.getCartProductsStream().first().first().quantity
 
         assertEquals(expectedQuantity, actualQuantity)
     }
 
     @Test
     fun `add same product with variation`() = runTest {
-        val productVariation1 = CART_PRODUCT_1.copy(color = "color")
-        val productVariation2 = CART_PRODUCT_1.copy(size = "size")
-        repository.addCartProduct(CART_PRODUCT_1)
-        repository.addCartProduct(productVariation1)
-        repository.addCartProduct(productVariation2)
+        val productVariation1 = CART_PRODUCT_1.copy(color = "color1")
+        val productVariation2 = CART_PRODUCT_1.copy(size = "size2")
+        repository.addToCart(productVariation1)
+        repository.addToCart(productVariation2)
 
-       val expectedProducts = listOf(CART_PRODUCT_1, productVariation1, productVariation2)
+       val expectedProducts = listOf(productVariation1, productVariation2)
 
-        assertEquals(expectedProducts, repository.getCartProducts().first())
+        assertEquals(expectedProducts, repository.getCartProductsStream().first())
+    }
+
+    @Test
+    fun `add same product with same variation`() = runTest {
+        repository.addToCart(CART_PRODUCT_1)
+        repository.addToCart(CART_PRODUCT_1)
+
+       val expectedProducts = listOf(CART_PRODUCT_1)
+
+        assertEquals(expectedProducts, repository.getCartProductsStream().first())
     }
 
 
