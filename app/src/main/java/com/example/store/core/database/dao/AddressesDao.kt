@@ -13,13 +13,7 @@ interface AddressesDao {
     fun getAddressesStream(): Flow<List<AddressEntity>>
 
     @Query("SELECT * FROM addresses ORDER BY id DESC LIMIT 1")
-    fun getLastAddedAddress(): AddressEntity
-
-    @Query("SELECT * FROM addresses WHERE id = :id")
-    fun getAddressByIdFlow(id: Int): Flow<AddressEntity>
-
-    @Query("SELECT * FROM addresses WHERE id = :id")
-    fun getAddressById(id: Int): AddressEntity
+    fun getLastAddedAddress(): AddressEntity?
 
     @Query("DELETE FROM addresses WHERE id = :id")
     fun deleteAddressById(id: Int)

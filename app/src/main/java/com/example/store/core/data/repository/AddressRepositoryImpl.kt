@@ -15,17 +15,10 @@ class AddressRepositoryImpl(
         return addressesDao.getAddressesStream().map { list -> list.map { it.asExternalModel() } }
     }
 
-    override fun getLastAddedAddress(): Address {
-        return addressesDao.getLastAddedAddress().asExternalModel()
+    override fun getLastAddedAddress(): Address? {
+        return addressesDao.getLastAddedAddress()?.asExternalModel()
     }
 
-    override fun getAddressByIdStream(id: Int): Flow<Address> {
-        return addressesDao.getAddressByIdFlow(id).map { it.asExternalModel() }
-    }
-
-    override fun getAddressById(id: Int): Address {
-        return addressesDao.getAddressById(id).asExternalModel()
-    }
 
     override suspend fun addAddress(address: Address) {
         addressesDao.insertAddress(address.asEntity())

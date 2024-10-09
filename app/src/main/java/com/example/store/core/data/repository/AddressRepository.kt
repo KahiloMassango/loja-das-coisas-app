@@ -5,9 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AddressRepository {
     fun getAllAddressesStream(): Flow<List<Address>>
-    fun getLastAddedAddress(): Address
-    fun getAddressByIdStream(id: Int): Flow<Address>
-    fun getAddressById(id: Int): Address?
+    fun getLastAddedAddress(): Address?
     suspend fun addAddress(address: Address)
     suspend fun deleteAddressById(id: Int)
 }
