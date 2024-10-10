@@ -5,7 +5,7 @@ import com.example.store.core.model.AddressLine
 import com.example.store.core.model.AddressType
 
 val ADDRESS_1 = Address(
-    0,
+    1,
     "test1",
     "123456789",
     AddressType.HOME,
@@ -14,7 +14,7 @@ val ADDRESS_1 = Address(
     0.0
 )
 val ADDRESS_2 = Address(
-    0,
+    2,
     "test2",
     "123456789",
     AddressType.OTHER,
@@ -23,7 +23,7 @@ val ADDRESS_2 = Address(
     0.0
 )
 val ADDRESS_3 = Address(
-    0,
+    3,
     "test3",
     "123456789",
     AddressType.OTHER,
