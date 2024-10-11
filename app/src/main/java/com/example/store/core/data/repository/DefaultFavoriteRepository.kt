@@ -6,6 +6,7 @@ import com.example.store.core.database.model.asExternalModel
 import com.example.store.core.model.FavoriteProduct
 import com.example.store.core.model.Product
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 internal class DefaultFavoriteRepository(
@@ -22,6 +23,9 @@ internal class DefaultFavoriteRepository(
     }
 
     override suspend fun addFavoriteProduct(product: Product) {
+        if (favoritesDao.getProductCount(product.id).first() == 1) {
+            return
+        }
         favoritesDao.insertFavoriteProduct(product.asFavoriteProductEntity())
     }
 
