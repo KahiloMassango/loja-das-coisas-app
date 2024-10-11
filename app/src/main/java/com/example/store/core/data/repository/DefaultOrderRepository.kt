@@ -8,7 +8,7 @@ import com.example.store.core.model.asEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class OrderRepositoryImpl(
+class DefaultOrderRepository(
     private val orderDao: OrderDao
 ): OrderRepository {
     override fun addOrder(order: Order) {

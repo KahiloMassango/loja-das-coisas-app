@@ -2,15 +2,15 @@ package com.example.store.core.data.di
 
 import android.location.Geocoder
 import com.example.store.core.data.repository.AddressRepository
-import com.example.store.core.data.repository.AddressRepositoryImpl
+import com.example.store.core.data.repository.DefaultAddressRepository
 import com.example.store.core.data.repository.CartRepository
-import com.example.store.core.data.repository.CartRepositoryImpl
-import com.example.store.core.data.repository.LocationRepositoryImpl
+import com.example.store.core.data.repository.DefaultCartRepository
+import com.example.store.core.data.repository.DefaultLocationRepository
 import com.example.store.core.data.repository.FavoriteRepository
-import com.example.store.core.data.repository.FavoriteRepositoryImpl
+import com.example.store.core.data.repository.DefaultFavoriteRepository
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.data.repository.OrderRepository
-import com.example.store.core.data.repository.OrderRepositoryImpl
+import com.example.store.core.data.repository.DefaultOrderRepository
 import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
@@ -30,22 +30,22 @@ internal object DataModule {
     @Provides
     fun providesFavoriteRepository(
         favoritesDao: FavoritesDao
-    ): FavoriteRepository = FavoriteRepositoryImpl(favoritesDao)
+    ): FavoriteRepository = DefaultFavoriteRepository(favoritesDao)
 
     @Provides
     fun providesAddressesRepository(
         addressesDao: AddressesDao
-    ): AddressRepository = AddressRepositoryImpl(addressesDao)
+    ): AddressRepository = DefaultAddressRepository(addressesDao)
 
     @Provides
     fun providesCartRepository(
         cartDao: CartDao
-    ): CartRepository = CartRepositoryImpl(cartDao)
+    ): CartRepository = DefaultCartRepository(cartDao)
 
     @Provides
     fun providesOrderRepository(
         orderDao: OrderDao
-    ): OrderRepository = OrderRepositoryImpl(orderDao)
+    ): OrderRepository = DefaultOrderRepository(orderDao)
 
     @Provides
     fun providesLocationRepository(
@@ -54,7 +54,7 @@ internal object DataModule {
         locationService: FusedLocationProviderClient,
         distanceMatrixService: DistanceMatrixApiService
     ): LocationRepository =
-        LocationRepositoryImpl(
+        DefaultLocationRepository(
             locationApiService,
             geocodeService,
             locationService,

@@ -3,7 +3,7 @@ package com.example.store.feature.reviews
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.data.repository.ProductRepositoryImpl
+import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ReviewsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    private val productRepository = ProductRepositoryImpl()
+    private val productRepository = DefaultProductRepository()
     private val productId = savedStateHandle.get<String>("productId")!!
 
     private val _uiState = MutableStateFlow<ReviewsUiState>(ReviewsUiState.Loading)

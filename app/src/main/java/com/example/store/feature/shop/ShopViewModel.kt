@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.mock.productList
-import com.example.store.core.data.repository.ProductRepositoryImpl
+import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.model.Product
 import com.example.store.feature.shop.model.OrderCriteria
 import com.example.store.feature.shop.model.getFilters
@@ -22,7 +22,7 @@ class ShopViewModel @Inject constructor(
 
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val productRepository = ProductRepositoryImpl()
+    private val productRepository = DefaultProductRepository()
 
     val section = savedStateHandle.get<String>("section") ?: ""
     val category = savedStateHandle.get<String>("category") ?: ""

@@ -2,14 +2,13 @@ package com.example.store.core.data.repository
 
 import com.example.store.core.data.model.asFavoriteProductEntity
 import com.example.store.core.database.dao.FavoritesDao
-import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.database.model.asExternalModel
 import com.example.store.core.model.FavoriteProduct
 import com.example.store.core.model.Product
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-internal class FavoriteRepositoryImpl(
+internal class DefaultFavoriteRepository(
     private val favoritesDao: FavoritesDao
 ): FavoriteRepository {
 

@@ -1,6 +1,6 @@
 package com.example.store.repositories
 
-import com.example.store.core.data.repository.CartRepositoryImpl
+import com.example.store.core.data.repository.DefaultCartRepository
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.model.Product
 import com.example.store.data.CART_PRODUCT_1
@@ -18,12 +18,12 @@ class CartRepositoryImplTest {
     val defaultDelta = 0.000000
 
     lateinit var cartDao: CartDao
-    lateinit var repository: CartRepositoryImpl
+    lateinit var repository: DefaultCartRepository
 
     @Before
     fun setUp() {
         cartDao = FakeCartDao()
-        repository = CartRepositoryImpl(cartDao)
+        repository = DefaultCartRepository(cartDao)
     }
 
     @Test

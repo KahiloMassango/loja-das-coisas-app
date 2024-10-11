@@ -16,7 +16,7 @@ import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class LocationRepositoryImpl(
+class DefaultLocationRepository(
     private val locationApisService: GeocodeApiService,
     private val geocodeService: Geocoder,
     private val locationService: FusedLocationProviderClient,

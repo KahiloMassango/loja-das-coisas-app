@@ -1,7 +1,7 @@
 package com.example.store.repositories
 
 import com.example.store.core.data.repository.AddressRepository
-import com.example.store.core.data.repository.AddressRepositoryImpl
+import com.example.store.core.data.repository.DefaultAddressRepository
 import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.model.Address
 import com.example.store.data.ADDRESS_1
@@ -21,7 +21,7 @@ class AddressRepositoryImplTest {
     @Before
     fun setUp() {
       addressDao = FakeAddressDao()
-      repository = AddressRepositoryImpl(addressDao)
+      repository = DefaultAddressRepository(addressDao)
     }
 
     @Test

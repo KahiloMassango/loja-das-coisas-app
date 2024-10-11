@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.model.asCartProduct
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.FavoriteRepository
-import com.example.store.core.data.repository.ProductRepositoryImpl
+import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +28,7 @@ class ProductDetailViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val productRepository = ProductRepositoryImpl()
+    private val productRepository = DefaultProductRepository()
     private val productId: String = checkNotNull(savedStateHandle["productId"])
 
     var productSize by mutableStateOf("")

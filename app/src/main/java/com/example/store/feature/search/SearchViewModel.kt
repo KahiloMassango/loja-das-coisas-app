@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.data.repository.ProductRepositoryImpl
+import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
 
 ): ViewModel() {
-    private val productRepository = ProductRepositoryImpl()
+    private val productRepository = DefaultProductRepository()
 
     var searchQuery by mutableStateOf("")
         private set

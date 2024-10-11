@@ -7,7 +7,7 @@ import com.example.store.core.model.CartProduct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class CartRepositoryImpl(
+class DefaultCartRepository(
     private val cartDao: CartDao
 ): CartRepository {
 

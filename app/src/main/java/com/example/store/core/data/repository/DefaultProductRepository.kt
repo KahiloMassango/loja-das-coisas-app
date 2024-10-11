@@ -6,10 +6,8 @@ import com.example.store.core.data.mock.ratingsList
 import com.example.store.core.model.Product
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
-class ProductRepositoryImpl: ProductRepository {
+class DefaultProductRepository: ProductRepository {
 
     private val products = productList
     private val ratings = ratingsList
