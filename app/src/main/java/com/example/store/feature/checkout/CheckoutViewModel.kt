@@ -29,7 +29,7 @@ class CheckoutViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val deliveryPricePerKM = 150.0
-    val deliveryAddresses = addressRepository.getAllAddressesStream()
+    val deliveryAddresses = addressRepository.getAddressesStream()
         .hotFlow(viewModelScope, emptyList())
 
     private var _currentDeliveryAddress: MutableStateFlow<Address?> = MutableStateFlow(null)

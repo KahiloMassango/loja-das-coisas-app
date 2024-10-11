@@ -8,7 +8,7 @@ interface FavoriteRepository {
 
     fun getFavoriteProductsStream(): Flow<List<FavoriteProduct>>
 
-    fun checkFavoriteProductFlow(productId: String): Flow<Boolean>
+    fun checkFavoriteProductStream(productId: String): Flow<Boolean>
 
     suspend fun addFavoriteProduct(product: Product)
 

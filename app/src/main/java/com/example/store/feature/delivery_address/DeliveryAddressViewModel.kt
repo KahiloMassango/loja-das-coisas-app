@@ -19,7 +19,7 @@ class DeliveryAddressesViewModel @Inject constructor(
     private val addressRepository: AddressRepository,
 ) : ViewModel() {
 
-    val deliveryAddresses = addressRepository.getAllAddressesStream()
+    val deliveryAddresses = addressRepository.getAddressesStream()
         .hotFlow(viewModelScope, initialValue = emptyList())
 
 

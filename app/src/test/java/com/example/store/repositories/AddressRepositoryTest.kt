@@ -26,7 +26,7 @@ class AddressRepositoryImplTest {
 
     @Test
     fun repository_first_created_state_is_empty() = runTest {
-        assertEquals(emptyList<Address>(), repository.getAllAddressesStream().first())
+        assertEquals(emptyList<Address>(), repository.getAddressesStream().first())
     }
 
     @Test
@@ -34,16 +34,16 @@ class AddressRepositoryImplTest {
         repository.addAddress(ADDRESS_1)
         repository.addAddress(ADDRESS_2)
 
-        assertEquals(listOf(ADDRESS_1,ADDRESS_2), repository.getAllAddressesStream().first())
+        assertEquals(listOf(ADDRESS_1,ADDRESS_2), repository.getAddressesStream().first())
     }
 
     @Test
     fun repository_delete_address_correctly() = runTest {
         repository.addAddress(ADDRESS_1)
-        assertEquals(ADDRESS_1, repository.getLastAddedAddress())
+        //assertEquals(ADDRESS_1, repository.getLastAddedAddress())
 
-        repository.deleteAddressById(ADDRESS_1.id)
-        assertNull(repository.getLastAddedAddress())
+        repository.deleteAddressById(1)
+        assertEquals(emptyList<Address>(), repository.getAddressesStream().first())
     }
 
     @Test

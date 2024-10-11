@@ -55,7 +55,7 @@ class ProductDetailViewModel @Inject constructor(
     )
 
 
-    val isFavorite: StateFlow<Boolean> = favoriteRepository.checkFavoriteProductFlow(productId)
+    val isFavorite: StateFlow<Boolean> = favoriteRepository.checkFavoriteProductStream(productId)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),

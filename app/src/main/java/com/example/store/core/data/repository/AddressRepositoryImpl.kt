@@ -11,7 +11,7 @@ class AddressRepositoryImpl(
     private val addressesDao: AddressesDao
 ): AddressRepository {
 
-    override fun getAllAddressesStream(): Flow<List<Address>> {
+    override fun getAddressesStream(): Flow<List<Address>> {
         return addressesDao.getAddressesStream().map { list -> list.map { it.asExternalModel() } }
     }
 

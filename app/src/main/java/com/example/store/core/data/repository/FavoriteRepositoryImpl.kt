@@ -17,7 +17,7 @@ internal class FavoriteRepositoryImpl(
        return favoritesDao.getFavoriteProducts().map { list -> list.map { it.asExternalModel() } }
     }
 
-    override fun checkFavoriteProductFlow(productId: String): Flow<Boolean> {
+    override fun checkFavoriteProductStream(productId: String): Flow<Boolean> {
         return favoritesDao.getProductCount(productId).map { it == 1 }
 
     }

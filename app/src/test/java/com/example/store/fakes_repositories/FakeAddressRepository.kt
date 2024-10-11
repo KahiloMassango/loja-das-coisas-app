@@ -11,7 +11,7 @@ class FakeAddressRepository: AddressRepository {
 
     private val addresses = MutableStateFlow<List<Address>>(emptyList())
 
-    override fun getAllAddressesStream(): Flow<List<Address>> = addresses
+    override fun getAddressesStream(): Flow<List<Address>> = addresses
 
     override fun getLastAddedAddress(): Address {
         return addresses.value.last()
