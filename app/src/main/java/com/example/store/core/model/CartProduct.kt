@@ -1,7 +1,7 @@
 package com.example.store.core.model
 
 data class CartProduct(
-    val id: Int,
+    val id: Int = 0,
     val uuid: String,
     val name: String,
     val price: Double,

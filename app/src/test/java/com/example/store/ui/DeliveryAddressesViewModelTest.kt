@@ -1,10 +1,10 @@
-package com.example.store
+package com.example.store.ui
 
 import com.example.store.core.data.repository.AddressRepository
 import com.example.store.core.model.Address
-import com.example.store.data.ADDRESS_1
-import com.example.store.data.ADDRESS_2
-import com.example.store.fakes_repositories.FakeAddressRepository
+import com.example.store.testdata.ADDRESS_1
+import com.example.store.testdata.ADDRESS_2
+import com.example.store.testdata.FakeAddressRepository
 import com.example.store.feature.delivery_address.DeliveryAddressesViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

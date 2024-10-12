@@ -1,4 +1,4 @@
-package com.example.store.data
+package com.example.store.testdata
 
 import com.example.store.core.model.Address
 import com.example.store.core.model.AddressLine

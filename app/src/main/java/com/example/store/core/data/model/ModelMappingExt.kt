@@ -24,17 +24,17 @@ fun Product.asCartProduct(
     color: String,
     size: String
 ): CartProduct = CartProduct(
-    id = 0,
     uuid = id,
     name = name,
     price = price,
     imageUrl = images[0],
     color = color,
     size = size,
-    quantity = 1
+    quantity = 1,
 )
 
 fun CartProduct.asEntity(): CartProductEntity = CartProductEntity(
+    id = id,
     uuid = uuid,
     name = name,
     price = price,
@@ -45,6 +45,7 @@ fun CartProduct.asEntity(): CartProductEntity = CartProductEntity(
 )
 
 fun Address.asEntity(): AddressEntity = AddressEntity(
+    id = id,
     receiverName = receiverName,
     phoneNumber = phoneNumber,
     addressType = addressType,

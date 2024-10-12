@@ -1,4 +1,4 @@
-package com.example.store.repositories.datasources
+package com.example.store.data.testdoubles
 
 import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.model.AddressEntity

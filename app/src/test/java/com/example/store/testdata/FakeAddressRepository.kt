@@ -1,10 +1,9 @@
-package com.example.store.fakes_repositories
+package com.example.store.testdata
 
 import com.example.store.core.data.repository.AddressRepository
 import com.example.store.core.model.Address
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 
 
 class FakeAddressRepository: AddressRepository {
