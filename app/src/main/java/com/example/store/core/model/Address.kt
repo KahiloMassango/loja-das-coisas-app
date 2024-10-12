@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.example.store.R
 
 data class Address(
-    val id: Int,
+    val id: Int = 0,
     val receiverName: String,
     val phoneNumber: String,
     val addressType: AddressType,
