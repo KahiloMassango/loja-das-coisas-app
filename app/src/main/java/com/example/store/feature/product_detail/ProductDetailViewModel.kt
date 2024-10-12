@@ -80,15 +80,25 @@ class ProductDetailViewModel @Inject constructor(
 
     fun addFavorite() {
         viewModelScope.launch {
-            val state = uiState.value as ProductDetailState.Success
-            favoriteRepository.addFavoriteProduct(state.product)
+            try {
+                val state = uiState.value as ProductDetailState.Success
+                favoriteRepository.addFavoriteProduct(state.product)
+            } catch (e: Exception) {
+                Log.d("ProductDetailViewModel", "addFavoriteProduct: $e")
+            }
+
         }
     }
 
     fun addCart() {
         viewModelScope.launch(Dispatchers.IO) {
-            val product = (uiState.value as ProductDetailState.Success).product
-            cartRepository.addToCart(product.asCartProduct(productColor, productSize))
+            try {
+                val product = (uiState.value as ProductDetailState.Success).product
+                cartRepository.addToCart(product.asCartProduct(productColor, productSize))
+            } catch (e: Exception) {
+                Log.d("ProductDetailViewModel", "addToCart: $e")
+            }
+
         }
     }
 }

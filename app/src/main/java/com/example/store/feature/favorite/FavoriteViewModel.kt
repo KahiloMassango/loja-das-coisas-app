@@ -1,5 +1,6 @@
 package com.example.store.feature.favorite
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.FavoriteRepository
@@ -38,7 +39,12 @@ class FavoriteViewModel @Inject constructor(
 
     fun removeFavoriteProduct(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            favoriteRepository.removeFavoriteProduct(productId)
+            try {
+                favoriteRepository.removeFavoriteProduct(productId)
+            } catch (e: Exception) {
+                Log.d("FavoriteViewModel", "removeFavoriteProduct: $e")
+            }
+
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.store.feature.shop
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,6 +46,7 @@ class ShopViewModel @Inject constructor(
                 _uiState.value = ShopUiState.Success(products)
             } catch (e: Exception) {
                 _uiState.value = ShopUiState.Error
+                Log.d("ShopViewModel", "getProducts: $e")
             }
         }
 

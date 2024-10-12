@@ -25,11 +25,11 @@ class SettingsViewModel @Inject constructor(
 
     fun updateNotificationPreference(receiveNotification: Boolean) {
         viewModelScope.launch {
-            userPreferencesRepository.updateNotificationPreference(receiveNotification)
-            Log.e(
-                "UserPreferencesRepository viemodel",
-                "reading preferences: ${notificationPreference.value}"
-            )
+            try {
+                userPreferencesRepository.updateNotificationPreference(receiveNotification)
+            } catch (e: Exception) {
+                Log.d("SettingsViewModel", "removeProductFromCart: $e")
+            }
         }
     }
 
