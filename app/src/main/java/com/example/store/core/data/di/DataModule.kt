@@ -1,5 +1,6 @@
 package com.example.store.core.data.di
 
+import android.content.Context
 import android.location.Geocoder
 import com.example.store.core.data.repository.AddressRepository
 import com.example.store.core.data.repository.DefaultAddressRepository
@@ -11,6 +12,8 @@ import com.example.store.core.data.repository.DefaultFavoriteRepository
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.data.repository.OrderRepository
 import com.example.store.core.data.repository.DefaultOrderRepository
+import com.example.store.core.data.util.ConnectivityManagerNetworkMonitor
+import com.example.store.core.data.util.NetworkMonitor
 import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
@@ -21,6 +24,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -60,6 +64,13 @@ internal object DataModule {
             locationService,
             distanceMatrixService
         )
+
+    @Provides
+    fun providesNetworkMonitor(
+        @ApplicationContext context: Context
+    ): NetworkMonitor = ConnectivityManagerNetworkMonitor(
+        context
+    )
 
 
 }

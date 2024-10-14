@@ -1,10 +1,25 @@
 package com.example.store.navigation
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -28,6 +43,7 @@ import com.example.store.feature.home.navigation.homeScreen
 import com.example.store.feature.my_orders.navigation.myOrdersScreen
 import com.example.store.feature.my_orders.navigation.navigateToMyOrders
 import com.example.store.feature.new_address.navigation.navigateToNewAddressScreen
+import com.example.store.feature.new_address.navigation.newAddressScreen
 import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
 import com.example.store.feature.order_detail.navigation.orderDetailScreen
 import com.example.store.feature.police_privacy.navigation.navigateToPolicePrivacy
@@ -41,21 +57,44 @@ import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
 import com.example.store.feature.search.navigation.navigateToSearch
 import com.example.store.feature.search.navigation.searchScreen
-import com.example.store.feature.new_address.navigation.newAddressScreen
 import com.example.store.feature.settings.navigation.navigateToSettings
 import com.example.store.feature.settings.navigation.settingsScreen
 import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
+import com.example.store.R
 
 
 @Composable
-fun  NavigationGraph(
+fun  App(
     modifier: Modifier = Modifier,
     viewModel: AppViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController()
 ) {
     val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
+    val isOffline by viewModel.isOffline
 
+    if (isOffline) {
+        NoInternetConnection(
+            onTryAgain = {
+                viewModel.tryAgain()
+            }
+        )
+    } else {
+        AppNavigation(
+            modifier = modifier,
+            navController = navController,
+            cartItemsCount = cartItemsCount
+        )
+    }
+
+}
+
+@Composable
+fun AppNavigation(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    cartItemsCount: Int
+) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -151,11 +190,42 @@ fun  NavigationGraph(
     }
 }
 
+@Composable
+fun NoInternetConnection(
+    modifier: Modifier = Modifier,
+    onTryAgain: () -> Unit
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Image(
+            modifier = Modifier.size(100.dp),
+            painter = painterResource(R.drawable.ic_no_internet),
+            contentDescription = null,
+        )
+        Spacer(Modifier.height(16.dp))
+        Text(
+            text = "Nenhuma conexão de internet foi encontrada. Verifique sua conexão e tente novamente",
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.Normal,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(24.dp))
+        Button(
+            onTryAgain
+        ) {
+            Text(text = "Tentar novamente")
+        }
+    }
+}
+
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        NavigationGraph()
+        App()
     }
 }
 
