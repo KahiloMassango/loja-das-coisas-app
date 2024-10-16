@@ -179,7 +179,7 @@ fun AppNavigation(
 
             checkoutScreen(
                 onNavigateUp = navController::navigateUp,
-                onAddAddress = { navController.navigateToAddresses() }
+                onAddAddress = { navController.navigateToNewAddressScreen() }
             )
 
             newAddressScreen(onNavigateUp = navController::navigateUp)

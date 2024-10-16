@@ -1,9 +1,5 @@
 package com.example.store.feature.checkout
 
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -18,14 +14,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -38,7 +31,6 @@ import com.example.store.feature.checkout.component.CheckoutSectionText
 import com.example.store.feature.checkout.component.CheckoutSummary
 import com.example.store.feature.checkout.component.DeliveryAddressList
 import com.example.store.feature.checkout.component.DeliveryMethodSection
-import com.example.store.feature.checkout.component.RequestLocationPermissionScreen
 
 
 @Composable
@@ -48,16 +40,16 @@ internal fun CheckoutScreen(
     onAddAddress: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
-    val context = LocalContext.current
+    /*val context = LocalContext.current
     val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
     var isPermissionGranted by remember {
         mutableStateOf(
             context.checkSelfPermission(locationPermission)
                     == PackageManager.PERMISSION_GRANTED
         )
-    }
+    }*/
 
-    val requestPermission = rememberLauncherForActivityResult(
+    /*val requestPermission = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         isPermissionGranted = isGranted
@@ -65,33 +57,31 @@ internal fun CheckoutScreen(
             //viewModel.setUserLocation()
         }
     }
-    LaunchedEffect(null) {
+    *//*LaunchedEffect(null) {
         viewModel.calculateDeliveryPrice()
-    }
+    }*/
 
-    val order by viewModel.order.collectAsStateWithLifecycle()
+    val cartTotal by viewModel.cartTotal.collectAsStateWithLifecycle()
+    val orderTotal by viewModel.orderTotal.collectAsStateWithLifecycle()
+    val deliveryFee by viewModel.deliveryFee.collectAsStateWithLifecycle()
+    val deliveryMethod by viewModel.deliveryMethod.collectAsStateWithLifecycle()
     val currentDeliveryAddress by viewModel.currentDeliveryAddress.collectAsStateWithLifecycle()
     val deliveryAddresses by viewModel.deliveryAddresses.collectAsStateWithLifecycle()
 
-    if (isPermissionGranted) {
-        CheckoutContent(
-            modifier = modifier,
-            deliveryAddress = currentDeliveryAddress,
-            deliveryAddresses = deliveryAddresses,
-            deliveryPrice = order.deliveryFee,
-            cartTotal = order.cartTotal,
-            orderTotal = order.orderTotal,
-            deliveryMethod = order.deliveryMethod,
-            onNavigateUp = onNavigateUp,
-            onDeliveryMethodChange = { viewModel.setDeliveryMethod(it) },
-            onAddAddress = onAddAddress,
-            onChangeDeliveryAddress = { viewModel.changeDeliveryAddress(it) }
-        )
-    } else {
-        RequestLocationPermissionScreen(
-            onGrant = { requestPermission.launch(locationPermission) },
-        )
-    }
+    CheckoutContent(
+        modifier = modifier,
+        deliveryAddress = currentDeliveryAddress,
+        deliveryAddresses = deliveryAddresses,
+        deliveryPrice = deliveryFee,
+        cartTotal = cartTotal,
+        orderTotal = orderTotal,
+        deliveryMethod = deliveryMethod,
+        onNavigateUp = onNavigateUp,
+        onDeliveryMethodChange = { viewModel.updateDeliveryMethod(it) },
+        onAddAddress = onAddAddress,
+        onChangeDeliveryAddress = { viewModel.changeDeliveryAddress(it) }
+    )
+
 
 }
 
@@ -135,7 +125,6 @@ private fun CheckoutContent(
             ) {
                 AddressSection(
                     address = deliveryAddress,
-                    onAddNewAddress = onAddAddress,
                     onChangeAddress = { changeDeliveryAddress = true }
                 )
 
@@ -177,6 +166,7 @@ private fun CheckoutContent(
 
         DeliveryAddressList(
             addresses = deliveryAddresses,
+            onAddNewAddress = onAddAddress,
             onSelectAddress = {
                 onChangeDeliveryAddress(it)
                 changeDeliveryAddress = false

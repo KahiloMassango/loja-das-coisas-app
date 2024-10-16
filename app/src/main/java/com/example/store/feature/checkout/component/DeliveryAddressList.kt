@@ -30,11 +30,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Address
+import com.example.store.feature.delivery_address.components.NewAddressButton
 
 @Composable
 fun DeliveryAddressList(
     modifier: Modifier = Modifier,
     addresses: List<Address>,
+    onAddNewAddress: () -> Unit,
     onSelectAddress: (Address) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -67,7 +69,8 @@ fun DeliveryAddressList(
             )
             LazyColumn(
                 modifier = modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .weight(1f),
                 contentPadding = PaddingValues(vertical = 14.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
@@ -78,6 +81,10 @@ fun DeliveryAddressList(
                     )
                 }
             }
+            NewAddressButton(
+                modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp),
+                onClick = onAddNewAddress
+            )
         }
     }
 }

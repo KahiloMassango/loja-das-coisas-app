@@ -1,9 +1,7 @@
 package com.example.store.feature.checkout.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,7 +25,6 @@ import com.example.store.core.ui.theme.StoreTheme
 fun DeliveryAddressCard(
     modifier: Modifier = Modifier,
     address: Address,
-    onChangeAddress: () -> Unit
 ) {
     Card(
         modifier = modifier
@@ -42,24 +39,11 @@ fun DeliveryAddressCard(
             modifier = Modifier.padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = address.receiverName,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium
-                )
-                Text(
-                    modifier = Modifier.clickable { onChangeAddress() },
-                    text = "Alterar",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Medium
-                )
-
-            }
+            Text(
+                text = address.receiverName,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Medium
+            )
             Text(
                 text = address.addressLine.address,
                 style = MaterialTheme.typography.bodyMedium,
@@ -77,14 +61,12 @@ fun DeliveryAddressCard(
 @Composable
 fun EmptyDeliveryAddressCard(
     modifier: Modifier = Modifier,
-    onAddNewAddress: () -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .height(100.dp),
         elevation = CardDefaults.cardElevation(5.dp),
-        onClick = onAddNewAddress,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -96,7 +78,7 @@ fun EmptyDeliveryAddressCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Aicionar novo endereço",
+                text = "Selecione um endereço",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium
             )

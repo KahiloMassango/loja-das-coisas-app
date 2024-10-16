@@ -1,7 +1,10 @@
 package com.example.store.feature.checkout.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,25 +17,37 @@ import com.example.store.core.model.Address
 internal fun AddressSection(
     modifier: Modifier = Modifier,
     address: Address?,
-    onAddNewAddress: () -> Unit,
     onChangeAddress: () -> Unit,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(
-            modifier = modifier,
-            text = "Endereço de entrega",
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                modifier = modifier,
+                text = "Endereço de entrega",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                modifier = Modifier.clickable { onChangeAddress() },
+                text = "Alterar",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Medium
+            )
+
+        }
         if (address == null) {
-            EmptyDeliveryAddressCard(onAddNewAddress = onAddNewAddress)
+            EmptyDeliveryAddressCard()
         } else {
             DeliveryAddressCard(
+                modifier = Modifier.fillMaxWidth(),
                 address = address,
-                onChangeAddress = onChangeAddress,
             )
         }
     }
