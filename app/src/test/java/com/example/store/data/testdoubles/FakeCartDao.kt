@@ -27,7 +27,7 @@ class FakeCartDao : CartDao {
         return cart.find { it.uuid == uuid }
     }
 
-    override fun getCartTotal(): Flow<Double> {
+    override fun getCartTotalStream(): Flow<Double> {
         val cartTotal = cart.fold(0.0) { sum, p -> sum + (p.price * p.quantity) }
         return flow {
             emit(cartTotal)
