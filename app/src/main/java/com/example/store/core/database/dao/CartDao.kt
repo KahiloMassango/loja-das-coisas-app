@@ -22,7 +22,7 @@ interface CartDao {
     suspend fun getProductByUUID(uuid: String): CartProductEntity?
 
     @Query("SELECT SUM(price * quantity) FROM cart ")
-    fun getCartTotal(): Flow<Double>
+    fun getCartTotalStream(): Flow<Double>
 
     @Query("SELECT COUNT(*) FROM cart")
     fun getCartProductCount(): Flow<Int>
