@@ -20,7 +20,7 @@ class DefaultCartRepository(
     }
 
     override fun getCartTotalStream(): Flow<Double> {
-        return cartDao.getCartTotal()
+        return cartDao.getCartTotalStream()
     }
 
     override suspend fun addToCart(product: CartProduct) {
