@@ -55,13 +55,11 @@ internal object DataModule {
     fun providesLocationRepository(
         locationApiService: GeocodeApiService,
         geocodeService: Geocoder,
-        locationService: FusedLocationProviderClient,
         distanceMatrixService: DistanceMatrixApiService
     ): LocationRepository =
         DefaultLocationRepository(
             locationApiService,
             geocodeService,
-            locationService,
             distanceMatrixService
         )
 

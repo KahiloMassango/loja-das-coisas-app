@@ -19,23 +19,9 @@ import kotlin.coroutines.suspendCoroutine
 class DefaultLocationRepository(
     private val locationApisService: GeocodeApiService,
     private val geocodeService: Geocoder,
-    private val locationService: FusedLocationProviderClient,
     private val distanceMatrixService: DistanceMatrixApiService
 ) : LocationRepository {
 
-    @SuppressLint("MissingPermission")
-    override suspend fun getCurrentLocation(): LatLng? {
-        val location = locationService.getCurrentLocation(
-            Priority.PRIORITY_BALANCED_POWER_ACCURACY, null
-        ).await()
-
-        if (location == null) {
-            return null
-        }
-
-        return LatLng(location.latitude, location.longitude)
-
-    }
 
     @Suppress("DEPRECATION")
     override suspend fun getLocationName(coordinates: LatLng): AddressLine {
