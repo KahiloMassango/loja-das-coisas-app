@@ -62,6 +62,8 @@ import com.example.store.feature.settings.navigation.settingsScreen
 import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.R
+import com.example.store.feature.store.navigation.navigateToStore
+import com.example.store.feature.store.navigation.storeScreen
 
 
 @Composable
@@ -165,12 +167,18 @@ fun AppNavigation(
             productDetailScreen(
                 onReviewsClick = { navController.navigateToReviews(it) },
                 onNavigateUp = navController::navigateUp,
-                onSuggestedProductsClick = { navController.navigateToProductDetail(it) }
+                onSuggestedProductsClick = { navController.navigateToProductDetail(it) },
+                onStoreClick = { navController.navigateToStore(it) }
             )
 
             myOrdersScreen(
                 onDetailClick = { navController.navigateToOrderDetail(0) },
                 navController::navigateUp
+            )
+
+            storeScreen(
+                onProductClick = { navController.navigateToProductDetail(it) },
+                onNavigateUp = navController::navigateUp
             )
 
             orderDetailScreen(navController::navigateUp)

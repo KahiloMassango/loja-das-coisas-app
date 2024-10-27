@@ -1,5 +1,6 @@
 package com.example.store.feature.product_detail.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import com.example.store.core.ui.component.StarRating
 @Composable
 fun ProductDetails(
     modifier: Modifier = Modifier,
+    onStoreClick: (String) -> Unit,
     product: Product,
 ) {
     Column(
@@ -36,7 +38,7 @@ fun ProductDetails(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                modifier = Modifier,
+                modifier = Modifier.clickable { onStoreClick(product.storeId) },
                 text = product.storeName,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
                 style = MaterialTheme.typography.bodyMedium,

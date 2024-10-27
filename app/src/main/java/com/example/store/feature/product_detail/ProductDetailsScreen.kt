@@ -49,6 +49,7 @@ val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
 @Composable
 fun ProductDetailsScreen(
     modifier: Modifier = Modifier,
+    onStoreClick: (String) -> Unit,
     viewModel: ProductDetailViewModel = hiltViewModel(),
     onReviewsClick: (String) -> Unit,
     onSuggestedProductClick: (String) -> Unit,
@@ -68,6 +69,7 @@ fun ProductDetailsScreen(
             isFavorite = isFavorite,
             onSizeChange = { viewModel.updateSize(it) },
             onColorChange = { viewModel.updateColor(it) },
+            onStoreClick = onStoreClick,
             onNavigateUp = onNavigateUp,
             onReviewsClick = { onReviewsClick(it) },
             onSuggestedProductsClick = { onSuggestedProductClick(it) },
@@ -91,6 +93,7 @@ private fun ProductDetailContent(
     onReviewsClick: (String) -> Unit,
     onAddToCart: () -> Unit,
     onSuggestedProductsClick: (String) -> Unit,
+    onStoreClick: (String) -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -123,6 +126,7 @@ private fun ProductDetailContent(
                             .padding(16.dp),
                     ) {
                         ProductDetails(
+                            onStoreClick = onStoreClick,
                             product = product
                         )
                         HorizontalDivider(Modifier.padding(vertical = 16.dp))
@@ -201,6 +205,7 @@ private fun Preview() {
             onReviewsClick = {},
             onAddToCart = {},
             onSuggestedProductsClick = {},
+            onStoreClick = {},
             onNavigateUp = {}
         )
     }

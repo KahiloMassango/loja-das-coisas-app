@@ -15,10 +15,12 @@ fun NavController.navigateToProductDetail(productId: String) = navigate(ProductD
 fun NavGraphBuilder.productDetailScreen(
     onReviewsClick: (String) -> Unit,
     onSuggestedProductsClick: (String) -> Unit,
+    onStoreClick: (String) -> Unit,
     onNavigateUp: () -> Unit
     ) {
     composable<ProductDetailRoute> {
         ProductDetailsScreen(
+            onStoreClick = onStoreClick,
             onReviewsClick = { onReviewsClick(it) },
             onNavigateUp = onNavigateUp,
             onSuggestedProductClick = { onSuggestedProductsClick(it) }
