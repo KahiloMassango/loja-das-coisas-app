@@ -63,8 +63,8 @@ fun CartAndFavoriteBottomSheet(
                 )
                 Text(
                     text = productPrice.toString() + "Kz",
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
