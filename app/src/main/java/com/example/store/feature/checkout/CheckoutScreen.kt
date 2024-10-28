@@ -40,27 +40,6 @@ internal fun CheckoutScreen(
     onAddAddress: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
-    /*val context = LocalContext.current
-    val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
-    var isPermissionGranted by remember {
-        mutableStateOf(
-            context.checkSelfPermission(locationPermission)
-                    == PackageManager.PERMISSION_GRANTED
-        )
-    }*/
-
-    /*val requestPermission = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        isPermissionGranted = isGranted
-        if (isGranted) {
-            //viewModel.setUserLocation()
-        }
-    }
-    *//*LaunchedEffect(null) {
-        viewModel.calculateDeliveryPrice()
-    }*/
-
     val cartTotal by viewModel.cartTotal.collectAsStateWithLifecycle()
     val orderTotal by viewModel.orderTotal.collectAsStateWithLifecycle()
     val deliveryFee by viewModel.deliveryFee.collectAsStateWithLifecycle()
