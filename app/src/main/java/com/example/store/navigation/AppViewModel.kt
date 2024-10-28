@@ -1,6 +1,5 @@
 package com.example.store.navigation
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.CartRepository
@@ -16,12 +15,13 @@ class AppViewModel @Inject constructor(
     private val networkMonitor: NetworkMonitor,
 ): ViewModel() {
 
-    var isOffline = mutableStateOf(true)
-        private set
+    val isOffline = networkMonitor.isOnline
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            false
+        )
 
-    init {
-        isOffline.value = !networkMonitor.hasNetworkConnection()
-    }
 
     val cartCount = cartRepository.getCartProductsCountStream()
         .stateIn(
@@ -29,10 +29,5 @@ class AppViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5_000),
             0
         )
-
-    fun tryAgain() {
-        isOffline.value = !networkMonitor.hasNetworkConnection()
-
-    }
 
 }
