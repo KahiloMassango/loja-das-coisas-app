@@ -1,4 +1,4 @@
-package com.example.store.feature.checkout.component
+package com.example.store.feature.new_address.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -27,7 +26,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.store.R
 
 @Composable
-fun RequestLocationPermissionScreen(
+fun LocationPermissionScreen(
     modifier: Modifier = Modifier,
     onGrant: () -> Unit,
 ) {
@@ -63,7 +62,8 @@ fun RequestLocationPermissionScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Ajude-nos a exibir suas opções de entrega local concedendo permissões de localização",
+                text = "Ajude-nos a exibir suas opções de entrega " +
+                        "local concedendo permissões de localização",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center
@@ -74,7 +74,7 @@ fun RequestLocationPermissionScreen(
             Button(onClick = {
                 onGrant()
             }) {
-                Text(text = "Permitir Acesso à Localização")
+                Text(text = "Permitir")
             }
         }
     }

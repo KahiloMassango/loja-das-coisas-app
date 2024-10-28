@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -38,6 +36,7 @@ import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.feature.new_address.components.AddressDetailsSheet
 import com.example.store.feature.new_address.components.AddressInformationCard
 import com.example.store.feature.new_address.components.CustomMarker
+import com.example.store.feature.new_address.components.LocationPermissionScreen
 import com.example.store.feature.new_address.components.LocationSearchSheet
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -101,16 +100,12 @@ fun NewAddressScreen(
             }
         )
     } else {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ){
-            Button(onClick = {
+        LocationPermissionScreen(
+            modifier = modifier,
+            onGrant = {
                 requestLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-            }) {
-                Text(text = "Grant")
             }
-        }
+        )
     }
 
 
