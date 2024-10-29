@@ -1,27 +1,17 @@
 package com.example.store.feature.product_detail
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForwardIos
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,6 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.R
 import com.example.store.core.data.mock.productList
+import com.example.store.core.data.mock.ratingInfosList
+import com.example.store.core.data.mock.ratingsList
 import com.example.store.core.model.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
@@ -41,7 +33,8 @@ import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.product_detail.component.CartAndFavoriteBottomSheet
 import com.example.store.feature.product_detail.component.ProductDetails
 import com.example.store.feature.product_detail.component.ProductImageCarousel
-import com.example.store.feature.product_detail.component.RelatedProductsSection
+import com.example.store.feature.product_detail.component.ReviewAndRatingSection
+import com.example.store.feature.product_detail.component.ReviewCard
 import com.example.store.feature.product_detail.component.SizeSelector
 
 val images = listOf(R.drawable.detail_image_ex1, R.drawable.detail_image_ex2)
@@ -113,64 +106,54 @@ private fun ProductDetailContent(
                 .padding(paddingValues)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Column(
+                LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 0.dp)
-                        .verticalScroll(rememberScrollState()),
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = 75.dp)
                 ) {
-                    ProductImageCarousel(images = images)
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                    ) {
+                    item { ProductImageCarousel(images = images) }
+
+                    item { Spacer(modifier = Modifier.height(16.dp)) }
+
+                    item {
                         ProductDetails(
+                            modifier = Modifier.padding(horizontal = 16.dp),
                             onStoreClick = onStoreClick,
                             product = product
                         )
-                        HorizontalDivider(Modifier.padding(vertical = 16.dp))
+                    }
+
+                    item { Spacer(modifier = Modifier.height(25.dp)) }
+
+                    item {
                         SizeSelector(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
                             selectedSize = size,
                             availableSizes = product.availableSizes,
                             onChangeSize = { onSizeChange(it) }
                         )
-                        Spacer(modifier = Modifier.height(18.dp))
+
                     }
-                    HorizontalDivider(
-                        thickness = 0.5.dp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onReviewsClick(product.id) }
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Comentários & Avaliações",
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                        Icon(
-                            imageVector = Icons.Default.ArrowForwardIos,
-                            contentDescription = null,
-                            modifier = Modifier.size(12.dp)
+
+                    item { Spacer(modifier = Modifier.height(40.dp)) }
+
+                    item {
+                        ReviewAndRatingSection(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            ratingInfo = ratingInfosList.first()
                         )
                     }
-                    HorizontalDivider(
-                        thickness = 0.5.dp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    RelatedProductsSection(
-                        modifier = Modifier.padding(16.dp),
-                        onProductClick = { onSuggestedProductsClick(it) },
-                        onFavoriteClick = { /* TODO */ },
-                        products = productList
-                    )
-                    Spacer(modifier = Modifier.height(100.dp))
+
+                    item { Spacer(modifier = Modifier.height(14.dp)) }
+                    items(ratingsList.filterNot { it.comment == null }.take(2)) { rating ->
+                        ReviewCard(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            rating = rating
+                        )
+                        Spacer(modifier = Modifier.height(22.dp))
+                    }
                 }
                 CartAndFavoriteBottomSheet(
                     modifier = Modifier

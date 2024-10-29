@@ -32,10 +32,10 @@ import com.example.store.core.model.RatingInfo
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.feature.product_detail.component.ReviewAndRatingSection
 import com.example.store.feature.reviews.components.AddCommentFab
 import com.example.store.feature.reviews.components.AddCommentSheet
-import com.example.store.feature.reviews.components.RatingStats
-import com.example.store.feature.reviews.components.ReviewCard
+import com.example.store.feature.product_detail.component.ReviewCard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -105,7 +105,7 @@ private fun ReviewsContent(
             ) {
                 item {
                     Spacer(modifier = Modifier.height(26.dp))
-                    RatingStats(
+                    ReviewAndRatingSection(
                         modifier = Modifier.padding(horizontal = 16.dp),
                         ratingInfo = ratingInfo
                     )

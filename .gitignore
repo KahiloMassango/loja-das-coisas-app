@@ -1,6 +1,7 @@
 *.iml
 .gradle
 test.kt
+/component/test.kt
 /local.properties
 /.idea/caches
 /.idea/libraries
