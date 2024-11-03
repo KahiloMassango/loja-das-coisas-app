@@ -1,11 +1,18 @@
 package com.example.store.core.ui.component
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,10 +29,48 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.my_orders.component.OrdersContentList
 
+@Composable
+private fun ShimmerBox1(
+    modifier: Modifier,
+    cornerShape: Int = 4,
+) {
+    val durationMillis = 1900
+
+    val transition = rememberInfiniteTransition(label = "")
+    val lightColor = MaterialTheme.colorScheme.outlineVariant.copy(0.5f)
+    val darkColor = MaterialTheme.colorScheme.outlineVariant
+    val translateAnimation = transition.animateColor(
+        initialValue = darkColor,
+        targetValue = lightColor,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = durationMillis,
+                easing = LinearEasing,
+            ),
+            repeatMode = RepeatMode.Reverse,
+        ), label = ""
+    )
+
+
+
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(cornerShape))
+    ) {
+        Spacer(
+            modifier = Modifier
+                .matchParentSize()
+                .background(translateAnimation.value)
+        )
+    }
+
+
+}
 
 @Composable
 fun OrdersContentLoadingState(
@@ -68,11 +113,11 @@ fun OrderItemCardSkeleton(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ShimmerBox(
+                ShimmerBox1(
                     modifier = Modifier
                         .size(width = 100.dp, height = 16.dp)
                 )
-                ShimmerBox(
+                ShimmerBox1(
                     modifier = Modifier
                         .size(width = 80.dp, height = 16.dp)
                 )
@@ -84,12 +129,12 @@ fun OrderItemCardSkeleton(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ShimmerBox(
+                ShimmerBox1(
                     modifier = Modifier
                         .size(width = 120.dp, height = 16.dp)
 
                 )
-                ShimmerBox(
+                ShimmerBox1(
                     modifier = Modifier
                         .size(width = 100.dp, height = 16.dp)
 
@@ -102,13 +147,13 @@ fun OrderItemCardSkeleton(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ShimmerBox(
+                ShimmerBox1(
                     modifier = Modifier
                         .size(width = 80.dp, height = 32.dp),
                     cornerShape = 50
 
                 )
-                ShimmerBox(
+                ShimmerBox1(
                     modifier = Modifier
                         .size(width = 60.dp, height = 16.dp)
                 )
@@ -152,7 +197,7 @@ private fun Preview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun Preview1() {
     StoreTheme {

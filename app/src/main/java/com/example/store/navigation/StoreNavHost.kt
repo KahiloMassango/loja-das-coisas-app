@@ -23,7 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.store.core.ui.component.BottomNavigationBar
+import com.example.store.core.ui.navigation.BottomNavigationBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.autentication.navigation.authentication

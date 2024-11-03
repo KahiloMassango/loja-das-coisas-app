@@ -1,27 +1,21 @@
-package com.example.store.core.ui.component
+package com.example.store.core.ui.navigation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Surface
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,14 +29,22 @@ import com.example.store.navigation.TopLevelDestination
 
 private val navBarRoutes = TopLevelDestination.entries.map { it.route::class }
 
-@OptIn(ExperimentalMaterial3Api::class)
+private fun NavController.navigateToTopLevelDestination(route: Any) {
+    navigate(route) {
+        popUpTo(graph.startDestinationId) {
+            saveState = true
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
+}
+
 @Composable
-fun BottomNavigationBar(
+fun StoreNavigationRail(
     modifier: Modifier = Modifier,
     navController: NavController,
     cartItemsCount: Int,
 ) {
-
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStack?.destination
     val showBottomBar = currentBackStack?.destination?.hierarchy?.any { backStack ->
@@ -58,42 +60,39 @@ fun BottomNavigationBar(
         visible = showBottomBar,
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
-    ){
-        Surface(
+    ) {
+        Box(
             modifier = Modifier
-                .shadow(24.dp, shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp) )
+                .shadow(24.dp, shape = RoundedCornerShape(bottomEnd = 12.dp, topEnd = 12.dp))
         ) {
-            NavigationBar(
-                modifier = modifier.clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
-                containerColor = MaterialTheme.colorScheme.background,
+            NavigationRail(
+                modifier = modifier,
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
             ) {
                 TopLevelDestination.entries.forEach { destination ->
-                    val isSelected = currentRoute?.hasRoute(destination.route::class) ?: false
+                    val b = currentRoute?.hierarchy?.any { it.route == destination.route } == true
+                    val isSelected = currentRoute?.hasRoute(destination.route::class) == true
                     val isCart = currentBackStack?.toRoute<CartRoute>() == destination.route
-                    NavigationBarItem(
+                    NavigationRailItem(
+                        modifier = Modifier.padding(bottom = 8.dp),
                         selected = isSelected,
                         onClick = {
-                            navController.navigate(destination.route) {
-                                popUpTo(navController.graph.startDestinationId) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
+                            navController.navigateToTopLevelDestination(destination.route)
                         },
-                        label = null/*{
-                         Text(
-                             text = destination.title,
-                             style = MaterialTheme.typography.labelSmall,
-                             fontSize = 10.sp,
-                             fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
-                         )
-                     }*/,
+                        label = {
+                            Text(
+                                text = destination.title,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontSize = 10.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                            )
+                        },
                         icon = {
                             if (isCart && cartItemsCount > 0) {
                                 CartIconWithBadge(
                                     cartItemsCount = cartItemsCount,
-                                    icon = if (isSelected) destination.selectedIcon else destination.unselectedIcon,)
+                                    icon = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
+                                )
                             } else {
                                 Icon(
                                     imageVector = if (isSelected) destination.selectedIcon else destination.unselectedIcon,
@@ -101,9 +100,9 @@ fun BottomNavigationBar(
                                 )
                             }
                         },
-                        colors = NavigationBarItemDefaults.colors(
-                            indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-                            selectedIconColor = MaterialTheme.colorScheme.primary,
+                        colors = NavigationRailItemDefaults.colors(
+                            indicatorColor = MaterialTheme.colorScheme.primary,
+                            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
                             unselectedIconColor = MaterialTheme.colorScheme.inverseOnSurface,
                             selectedTextColor = MaterialTheme.colorScheme.primary,
                             unselectedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -114,29 +113,3 @@ fun BottomNavigationBar(
         }
     }
 }
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun CartIconWithBadge(
-    modifier: Modifier = Modifier,
-    cartItemsCount: Int,
-    icon: ImageVector
-) {
-    BadgedBox(
-        modifier = modifier,
-        badge = {
-            Badge(
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                containerColor = MaterialTheme.colorScheme.primary
-            ) { Text(text = "$cartItemsCount") }
-        }
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-        )
-    }
-}
-
-
