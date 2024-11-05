@@ -68,7 +68,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material3.window.size)
+    implementation(libs.androidx.material3.adaptive.navigation.suite)
+    implementation(libs.androidx.material3.windowSizeClass)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -87,7 +88,7 @@ dependencies {
     implementation(libs.kotlinx.serialization)
 
     // M3 icons
-    implementation(libs.material3.icons)
+    implementation(libs.androidx.material3.icons)
 
     //Room database
     implementation(libs.androidx.room.runtime)
@@ -95,12 +96,12 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     // google maps
-    implementation(libs.google.maps)
+    implementation(libs.google.maps.compose)
     implementation(libs.play.services.location)
 
     // Navigation
-    implementation(libs.compose.navigation)
-    implementation(libs.compose.navigation.ui)
+    implementation(libs.androidx.compose.navigation)
+    implementation(libs.androidx.compose.navigation.ui)
 
     // Coil
     implementation(libs.coil)
@@ -113,7 +114,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.test)
-    testImplementation(libs.kotlin.coroutine.test)
+    testImplementation(libs.kotlin.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
