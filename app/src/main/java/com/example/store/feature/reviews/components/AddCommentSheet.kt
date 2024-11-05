@@ -65,7 +65,7 @@ fun AddCommentSheet(
         dragHandle = {
             CustomDragHandle("Qual é a sua avaliação")
         },
-        windowInsets = WindowInsets.ime.union(WindowInsets.navigationBars)
+        contentWindowInsets = { WindowInsets.ime.union(WindowInsets.navigationBars) }
     ){
         Column(
             modifier = Modifier

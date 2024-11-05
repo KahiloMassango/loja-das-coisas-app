@@ -59,7 +59,7 @@ fun ChangePasswordSheet(
         scrimColor = Color(0xFF000000).copy(0.3f),
         contentColor = MaterialTheme.colorScheme.onSurface,
         onDismissRequest = onDismissRequest,
-        windowInsets = WindowInsets.ime.union(WindowInsets.navigationBars),
+        contentWindowInsets = { WindowInsets.ime.union(WindowInsets.navigationBars) },
         dragHandle = {
             CustomDragHandle("Alterar palavra-passe")
         }

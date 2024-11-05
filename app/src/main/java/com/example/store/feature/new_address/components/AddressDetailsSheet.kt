@@ -70,7 +70,7 @@ fun AddressDetailsSheet(
         contentColor = MaterialTheme.colorScheme.onSurface,
         onDismissRequest = onDismissRequest,
         dragHandle = null,
-        windowInsets = WindowInsets.navigationBars.union(WindowInsets.ime)
+        contentWindowInsets = { WindowInsets.navigationBars.union(WindowInsets.ime) }
     ) {
         val focusManager = LocalFocusManager.current
 
