@@ -3,6 +3,7 @@ package com.example.store.navigation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,8 +25,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.store.core.ui.navigation.BottomNavigationBar
+import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.core.ui.navigation.BottomNavigationBar
+import com.example.store.core.ui.navigation.StoreNavigationRail
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.autentication.navigation.authentication
 import com.example.store.feature.cart.navigation.cartScreen
@@ -59,17 +63,18 @@ import com.example.store.feature.settings.navigation.navigateToSettings
 import com.example.store.feature.settings.navigation.settingsScreen
 import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
-import com.example.store.R
 import com.example.store.feature.store.navigation.navigateToStore
 import com.example.store.feature.store.navigation.storeScreen
 
 
 @Composable
-fun  App(
+fun App(
     modifier: Modifier = Modifier,
     viewModel: AppViewModel = hiltViewModel(),
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    windowSize: WindowWidthSizeClass,
 ) {
+
     val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
@@ -80,119 +85,138 @@ fun  App(
             }
         )
     } else {
-        AppNavigation(
-            modifier = modifier,
-            navController = navController,
-            cartItemsCount = cartItemsCount
-        )
-    }
+        when (windowSize) {
+            WindowWidthSizeClass.Compact -> {
+                Column(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    AppContent(
+                        modifier = modifier.weight(1f),
+                        navController = navController,
+                    )
+                    BottomNavigationBar(
+                        navController = navController,
+                        cartItemsCount = cartItemsCount
+                    )
+                }
+            }
 
+            else -> {
+                Row(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    StoreNavigationRail(
+                        navController = navController,
+                        cartItemsCount = cartItemsCount
+                    )
+                    AppContent(
+                        modifier = modifier.weight(1f),
+                        navController = navController,
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Composable
-fun AppNavigation(
+fun AppContent(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    cartItemsCount: Int
 ) {
-    Column(
-        modifier = modifier.fillMaxSize()
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = HomeRoute
     ) {
-        NavHost(
-            modifier = Modifier.weight(1f),
-            navController = navController,
-            startDestination = HomeRoute
-        ) {
-            authentication(navController)
+        authentication(navController)
 
-            homeScreen(
-                onProductClick = { navController.navigateToProductDetail(it) },
-                onSeeAll = { navController.navigateToProductListing(it) }
-            )
+        homeScreen(
+            onProductClick = { navController.navigateToProductDetail(it) },
+            onSeeAll = { navController.navigateToProductListing(it) }
+        )
 
-            cartScreen(
-                onProductClick = { navController.navigateToProductDetail(it) },
-                onCheckout = { navController.navigateToCheckout() }
-            )
+        cartScreen(
+            onProductClick = { navController.navigateToProductDetail(it) },
+            onCheckout = { navController.navigateToCheckout() }
+        )
 
-            profileScreen(
-                onMyOrdersClick = { navController.navigateToMyOrders() },
-                onMyReviewsClick = { /* TODO */ },
-                onSettingsClick = { navController.navigateToSettings() },
-                onHelpCenterClick = { navController.navigateToHelpCenter() },
-                onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
-                onAddressesClick = { navController.navigateToAddresses() }
-            )
+        profileScreen(
+            onMyOrdersClick = { navController.navigateToMyOrders() },
+            onMyReviewsClick = { /* TODO */ },
+            onSettingsClick = { navController.navigateToSettings() },
+            onHelpCenterClick = { navController.navigateToHelpCenter() },
+            onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
+            onAddressesClick = { navController.navigateToAddresses() }
+        )
 
-            helpCenterScreen(
-                onNavigationUp = navController::navigateUp
-            )
+        helpCenterScreen(
+            onNavigationUp = navController::navigateUp
+        )
 
-            shopScreen(
-                onSearch = { navController.navigateToSearch() },
-                onProductClick = { navController.navigateToProductDetail(it) },
-                onNavigateUp = navController::navigateUp
-            )
+        shopScreen(
+            onSearch = { navController.navigateToSearch() },
+            onProductClick = { navController.navigateToProductDetail(it) },
+            onNavigateUp = navController::navigateUp
+        )
 
-            categoryScreen(
-                onSearch = { navController.navigateToSearch() },
-                onSelectCategory = { section, category ->
-                    navController.navigateToShop(section, category)
-                }
-            )
+        categoryScreen(
+            onSearch = { navController.navigateToSearch() },
+            onSelectCategory = { section, category ->
+                navController.navigateToShop(section, category)
+            }
+        )
 
-            deliveryAddressesScreen(
-                onAddNewAddress = { navController.navigateToNewAddressScreen() },
-                onNavigateUp = navController::navigateUp
-            )
+        deliveryAddressesScreen(
+            onAddNewAddress = { navController.navigateToNewAddressScreen() },
+            onNavigateUp = navController::navigateUp
+        )
 
-            searchScreen(
-                onNavigateUp = navController::navigateUp,
-                onProductClick = { navController.navigateToProductDetail(it) }
-            )
+        searchScreen(
+            onNavigateUp = navController::navigateUp,
+            onProductClick = { navController.navigateToProductDetail(it) }
+        )
 
-            favoriteScreen(onProductDetail = { navController.navigateToProductDetail(it) })
+        favoriteScreen(onProductDetail = { navController.navigateToProductDetail(it) })
 
-            productListingScreen(
-                onProductClick = { navController.navigateToProductDetail(it) },
-                onNavigateUp = navController::navigateUp
-            )
+        productListingScreen(
+            onProductClick = { navController.navigateToProductDetail(it) },
+            onNavigateUp = navController::navigateUp
+        )
 
-            policePrivacyScreen(
-                onNavigationUp = navController::navigateUp
-            )
+        policePrivacyScreen(
+            onNavigationUp = navController::navigateUp
+        )
 
-            productDetailScreen(
-                onReviewsClick = { navController.navigateToReviews(it) },
-                onNavigateUp = navController::navigateUp,
-                onSuggestedProductsClick = { navController.navigateToProductDetail(it) },
-                onStoreClick = { navController.navigateToStore(it) }
-            )
+        productDetailScreen(
+            onReviewsClick = { navController.navigateToReviews(it) },
+            onNavigateUp = navController::navigateUp,
+            onSuggestedProductsClick = { navController.navigateToProductDetail(it) },
+            onStoreClick = { navController.navigateToStore(it) }
+        )
 
-            myOrdersScreen(
-                onDetailClick = { navController.navigateToOrderDetail(0) },
-                navController::navigateUp
-            )
+        myOrdersScreen(
+            onDetailClick = { navController.navigateToOrderDetail(0) },
+            navController::navigateUp
+        )
 
-            storeScreen(
-                onProductClick = { navController.navigateToProductDetail(it) },
-                onNavigateUp = navController::navigateUp
-            )
+        storeScreen(
+            onProductClick = { navController.navigateToProductDetail(it) },
+            onNavigateUp = navController::navigateUp
+        )
 
-            orderDetailScreen(navController::navigateUp)
+        orderDetailScreen(navController::navigateUp)
 
-            settingsScreen(navController::navigateUp)
+        settingsScreen(navController::navigateUp)
 
-            checkoutScreen(
-                onNavigateUp = navController::navigateUp,
-                onAddAddress = { navController.navigateToNewAddressScreen() }
-            )
+        checkoutScreen(
+            onNavigateUp = navController::navigateUp,
+            onAddAddress = { navController.navigateToNewAddressScreen() }
+        )
 
-            newAddressScreen(onNavigateUp = navController::navigateUp)
+        newAddressScreen(onNavigateUp = navController::navigateUp)
 
-            reviewsScreen(onNavigateUp = navController::navigateUp)
-        }
-        BottomNavigationBar(navController = navController, cartItemsCount = cartItemsCount)
+        reviewsScreen(onNavigateUp = navController::navigateUp)
     }
 }
 
@@ -205,7 +229,7 @@ fun NoInternetConnection(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Image(
             modifier = Modifier.size(100.dp),
             painter = painterResource(R.drawable.ic_no_internet),
@@ -227,11 +251,12 @@ fun NoInternetConnection(
     }
 }
 
+
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        App()
+        //App()
     }
 }
 
