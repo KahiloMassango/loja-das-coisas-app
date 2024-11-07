@@ -31,3 +31,5 @@ enum class TopLevelDestination (
     FAVORITE("Favorito", FavoriteRoute, Icons.Outlined.FavoriteBorder, Icons.Filled.Favorite),
     PROFILE("Perfil", ProfileRoute,Icons.Outlined.PersonOutline, Icons.Filled.Person)
 }
+
+val navBarRoutes = TopLevelDestination.entries.map { it.route::class }.toSet()

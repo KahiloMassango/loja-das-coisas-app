@@ -1,9 +1,12 @@
 package com.example.store.core.ui.navigation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -29,16 +32,6 @@ import com.example.store.navigation.TopLevelDestination
 
 private val navBarRoutes = TopLevelDestination.entries.map { it.route::class }
 
-private fun NavController.navigateToTopLevelDestination(route: Any) {
-    navigate(route) {
-        popUpTo(graph.startDestinationId) {
-            saveState = true
-        }
-        launchSingleTop = true
-        restoreState = true
-    }
-}
-
 @Composable
 fun StoreNavigationRail(
     modifier: Modifier = Modifier,
@@ -54,12 +47,12 @@ fun StoreNavigationRail(
             }
         }
         false
-    } ?: true
+    } != false
 
     AnimatedVisibility(
         visible = showBottomBar,
-        enter = slideInVertically(initialOffsetY = { it }),
-        exit = slideOutVertically(targetOffsetY = { it }),
+        enter = slideInHorizontally(initialOffsetX = { -it }),
+        exit = slideOutHorizontally(targetOffsetX = { -it }),
     ) {
         Box(
             modifier = Modifier
@@ -69,15 +62,15 @@ fun StoreNavigationRail(
                 modifier = modifier,
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
             ) {
+                Spacer(Modifier.weight(1f))
                 TopLevelDestination.entries.forEach { destination ->
-                    val b = currentRoute?.hierarchy?.any { it.route == destination.route } == true
                     val isSelected = currentRoute?.hasRoute(destination.route::class) == true
                     val isCart = currentBackStack?.toRoute<CartRoute>() == destination.route
                     NavigationRailItem(
                         modifier = Modifier.padding(bottom = 8.dp),
                         selected = isSelected,
                         onClick = {
-                            navController.navigateToTopLevelDestination(destination.route)
+                            navController.navigateToTopLevelDestination(destination)
                         },
                         label = {
                             Text(
@@ -109,6 +102,7 @@ fun StoreNavigationRail(
                         )
                     )
                 }
+                Spacer(Modifier.weight(1f))
             }
         }
     }

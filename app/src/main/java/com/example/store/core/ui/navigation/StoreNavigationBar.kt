@@ -44,7 +44,7 @@ fun BottomNavigationBar(
             }
         }
         false
-    } ?: true
+    } != false
 
     AnimatedVisibility(
         visible = showBottomBar,
@@ -65,13 +65,7 @@ fun BottomNavigationBar(
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {
-                            navController.navigate(destination.route) {
-                                popUpTo(navController.graph.startDestinationId) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
+                            navController.navigateToTopLevelDestination(destination)
                         },
                         label = null/*{
                          Text(
