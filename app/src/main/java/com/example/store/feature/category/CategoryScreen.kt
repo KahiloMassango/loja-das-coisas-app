@@ -21,11 +21,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.category.component.CategoriesList
 import com.example.store.feature.category.component.SectionSelectorTab
 import com.example.store.feature.category.model.Section
+import com.example.store.feature.category.model.cosmeticsCategories
 import com.example.store.feature.category.model.kidsCategories
 import com.example.store.feature.category.model.menCategories
 import com.example.store.feature.category.model.womenCategories
@@ -90,22 +93,44 @@ fun CategoryScreen(
                                     onSelectCategory(currentSection.name, category)
                                 }
                             )
+
                             Section.Men -> CategoriesList(
                                 categories = menCategories,
                                 onCategoryClick = { category ->
                                     onSelectCategory(currentSection.name, category)
                                 }
                             )
+
                             Section.Kids -> CategoriesList(
                                 categories = kidsCategories,
                                 onCategoryClick = { category ->
                                     onSelectCategory(currentSection.name, category)
                                 }
                             )
+
+                            Section.Cosmetics -> CategoriesList(
+                                categories = cosmeticsCategories,
+                                onCategoryClick = { category -> }
+                            )
                         }
                     }
                 }
             }
         }
+    }
+}
+
+
+
+@Preview(name = "Compact", device = "spec:width=411dp, height=891dp, dpi=420", showBackground = true)
+@Preview(name = "Medium", device = "spec:width=673dp,height=841dp,dpi=420", showBackground = true)
+@Preview(name = "Expanded", device = "spec:width=1280dp,height=800dp,dpi=240", showBackground = true)
+@Composable
+private fun Preview1() {
+    StoreTheme {
+        CategoryScreen(
+            onSelectCategory = { _, _ -> },
+            onSearch = {}
+        )
     }
 }

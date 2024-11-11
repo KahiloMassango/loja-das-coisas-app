@@ -6,5 +6,6 @@ enum class Section(
 ) {
     Women("Mulheres"),
     Men("Homens"),
-    Kids("Crianças")
+    Kids("Crianças"),
+    Cosmetics("Cosméticos")
 }
