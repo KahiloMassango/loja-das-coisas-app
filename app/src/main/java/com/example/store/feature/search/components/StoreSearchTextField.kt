@@ -40,6 +40,7 @@ fun StoreSearchTextField(
     modifier: Modifier = Modifier,
     query: String,
     placeholder: String,
+    enabled: Boolean = true,
     onQueryChange: (String) -> Unit,
     onClearQuery: () -> Unit,
     onSearch: () -> Unit,
@@ -52,7 +53,7 @@ fun StoreSearchTextField(
         onValueChange = onQueryChange,
         singleLine = true,
         maxLines = 1,
-        enabled = true,
+        enabled = enabled,
         readOnly = false,
         interactionSource = remember { MutableInteractionSource() },
         textStyle = LocalTextStyle.current.copy(
