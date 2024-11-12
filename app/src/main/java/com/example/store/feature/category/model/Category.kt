@@ -36,3 +36,12 @@ val cosmeticsCategories = listOf(
     Category(name = "Frangace", description = "Perfumes", image = R.drawable.category)
 )
 
+fun Section.getCategories(): List<Category> {
+    return when (this) {
+        Section.Women -> womenCategories
+        Section.Men -> menCategories
+        Section.Kids -> kidsCategories
+        Section.Cosmetics -> cosmeticsCategories
+    }
+}
+
