@@ -1,22 +1,16 @@
 package com.example.store.feature.search.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,6 +35,8 @@ fun StoreSearchTextField(
     query: String,
     placeholder: String,
     enabled: Boolean = true,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     onQueryChange: (String) -> Unit,
     onClearQuery: () -> Unit,
     onSearch: () -> Unit,
@@ -78,12 +74,7 @@ fun StoreSearchTextField(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                Icon(
-                    modifier = Modifier.size(22.dp),
-                    imageVector = Icons.Default.Search,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
-                )
+                if (leadingIcon != null) leadingIcon()
                 Box(Modifier.weight(1f)) {
                     if (query.isEmpty()) Text(
                         text = placeholder,
@@ -94,16 +85,7 @@ fun StoreSearchTextField(
                     )
                     innerTextField()
                 }
-                    Icon(
-                        modifier = Modifier
-                            .size(22.dp)
-                            .clickable(
-                                interactionSource = null,
-                                indication = null) { onClearQuery() },
-                        imageVector = Icons.Default.Close,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.inverseOnSurface
-                    )
+                    if (trailingIcon != null) trailingIcon()
             }
         }
     )
