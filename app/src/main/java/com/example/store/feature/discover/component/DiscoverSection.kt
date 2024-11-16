@@ -30,9 +30,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.example.store.feature.category.model.Category
-import com.example.store.feature.category.model.Section
-import com.example.store.feature.category.model.getCategories
+import com.example.store.feature.discover.model.Category
+import com.example.store.feature.discover.model.Section
+import com.example.store.feature.discover.model.getCategories
 
 
 @Composable

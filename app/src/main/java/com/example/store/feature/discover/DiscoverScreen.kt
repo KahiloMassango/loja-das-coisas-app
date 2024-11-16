@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.category.model.Section
+import com.example.store.feature.discover.model.Section
 import com.example.store.feature.discover.component.CategorySection
 import com.example.store.feature.search.components.StoreSearchTextField
 
