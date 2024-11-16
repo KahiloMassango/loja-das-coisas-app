@@ -5,6 +5,7 @@ import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
 import com.example.store.core.database.dao.OrderDao
+import com.example.store.core.database.dao.RecentSearchDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +34,10 @@ internal object DaosModule {
     fun providesAddressesDao(
         database: StoreDatabase
     ): AddressesDao  = database.addressesDao()
+
+    @Provides
+    fun providesRecentSearchDao(
+        database: StoreDatabase
+    ): RecentSearchDao  = database.recentSearchDao()
 
 }

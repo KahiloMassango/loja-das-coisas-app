@@ -9,21 +9,24 @@ import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
 import com.example.store.core.database.dao.OrderDao
+import com.example.store.core.database.dao.RecentSearchDao
 import com.example.store.core.database.model.AddressEntity
 import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.database.model.OrderEntity
+import com.example.store.core.database.model.RecentSearchEntity
 import com.example.store.core.model.Order
 import com.example.store.core.model.asEntity
 import java.util.concurrent.Executors
 
 @Database(
-    version = 2,
+    version = 1,
     entities = [
         FavoriteProductEntity::class,
         CartProductEntity::class,
         OrderEntity::class,
-        AddressEntity::class
+        AddressEntity::class,
+        RecentSearchEntity::class
     ],
     exportSchema = false
 )
@@ -33,6 +36,7 @@ abstract class StoreDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao
     abstract fun orderDao(): OrderDao
     abstract fun addressesDao(): AddressesDao
+    abstract fun recentSearchDao(): RecentSearchDao
 
 
     companion object {
