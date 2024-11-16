@@ -1,4 +1,4 @@
-package com.example.store.feature.category.model
+package com.example.store.feature.discover.model
 
 import androidx.annotation.DrawableRes
 import com.example.store.R
