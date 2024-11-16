@@ -3,20 +3,20 @@ package com.example.store.feature.category.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.store.feature.category.CategoryScreen
+import com.example.store.feature.category.DiscoverScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-object CategoryRoute
+object DiscoverRoute
 
-fun NavController.navigateToCategory() = navigate(CategoryRoute)
+fun NavController.navigateToDiscover() = navigate(DiscoverRoute)
 
-fun NavGraphBuilder.categoryScreen(
+fun NavGraphBuilder.discoverScreen(
     onSelectCategory: (section: String, category: String) -> Unit,
-    onSearch: () -> Unit = {}
+    onSearch: () -> Unit
 ) {
-    composable<CategoryRoute> {
-        CategoryScreen(
+    composable<DiscoverRoute> {
+        DiscoverScreen(
             onSelectCategory = onSelectCategory,
             onSearch = onSearch
         )

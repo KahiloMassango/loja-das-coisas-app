@@ -32,7 +32,7 @@ import com.example.store.core.ui.navigation.StoreNavigationRail
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.autentication.navigation.authentication
 import com.example.store.feature.cart.navigation.cartScreen
-import com.example.store.feature.category.navigation.categoryScreen
+import com.example.store.feature.category.navigation.discoverScreen
 import com.example.store.feature.checkout.navigation.checkoutScreen
 import com.example.store.feature.checkout.navigation.navigateToCheckout
 import com.example.store.feature.delivery_address.navigation.deliveryAddressesScreen
@@ -160,7 +160,7 @@ fun AppContent(
             onNavigateUp = navController::navigateUp
         )
 
-        categoryScreen(
+        discoverScreen(
             onSearch = { navController.navigateToSearch() },
             onSelectCategory = { section, category ->
                 navController.navigateToShop(section, category)
