@@ -132,7 +132,7 @@ fun CartScreen(
                             )
                         }
                         CustomButton(
-                            text = "Pagar",
+                            text = "Continuar",
                             modifier = Modifier.fillMaxWidth(),
                             onClick = onCheckout
                         )
