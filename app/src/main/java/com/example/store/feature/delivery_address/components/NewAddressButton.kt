@@ -29,7 +29,7 @@ fun NewAddressButton(
         modifier = modifier
             .clip(RoundedCornerShape(25))
             .background(
-                MaterialTheme.colorScheme.primaryContainer,
+                MaterialTheme.colorScheme.primary,
                 RoundedCornerShape(25)
             )
             .clickable { onClick() }
