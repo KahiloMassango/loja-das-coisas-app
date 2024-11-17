@@ -1,6 +1,7 @@
 package com.example.store.feature.cart.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
@@ -21,7 +21,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -128,8 +127,8 @@ fun CartProductCard(
                     Text(
                         text = "${product.price}kz",
                         color = MaterialTheme.colorScheme.onSurface,
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.SemiBold
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
@@ -145,24 +144,18 @@ private fun QuantitySelector(
     onIncrease: () -> Unit
 ) {
     Row(
-        modifier = modifier.width(115.dp),
+        modifier = modifier
+            .width(85.dp),
         verticalAlignment = CenterVertically,
     ) {
+        Icon(
+            modifier = Modifier
+                .size(26.dp)
+                .clickable(null, null) { onDecrease() },
+            imageVector = Icons.Default.Remove,
+            contentDescription = null,
+        )
 
-        Surface(
-            modifier = Modifier,
-            shape = CircleShape,
-            shadowElevation = 4.dp,
-            onClick = onDecrease,
-            color = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.inverseOnSurface
-        ) {
-            Icon(
-                modifier = Modifier.size(26.dp),
-                imageVector = Icons.Default.Remove,
-                contentDescription = null,
-            )
-        }
         Text(
             text = quantity.toString(),
             style = MaterialTheme.typography.labelMedium,
@@ -171,20 +164,14 @@ private fun QuantitySelector(
             modifier = Modifier.weight(1f)
 
         )
-        Surface(
-            modifier = Modifier,
-            shape = CircleShape,
-            shadowElevation = 4.dp,
-            onClick = onIncrease,
-            color = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.inverseOnSurface
-        ) {
-            Icon(
-                modifier = Modifier.size(26.dp),
-                imageVector = Icons.Default.Add,
-                contentDescription = null,
-            )
-        }
+
+        Icon(
+            modifier = Modifier
+                .size(26.dp)
+                .clickable(null, null) { onIncrease() },
+            imageVector = Icons.Default.Add,
+            contentDescription = null,
+        )
     }
 }
 
