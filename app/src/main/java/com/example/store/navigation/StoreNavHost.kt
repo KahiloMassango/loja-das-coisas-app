@@ -156,7 +156,6 @@ fun AppContent(
         )
 
         shopScreen(
-            onSearch = { navController.navigateToSearch() },
             onProductClick = { navController.navigateToProductDetail(it) },
             onNavigateUp = navController::navigateUp
         )

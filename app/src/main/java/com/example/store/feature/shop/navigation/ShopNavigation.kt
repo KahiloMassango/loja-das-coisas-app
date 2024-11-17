@@ -16,7 +16,6 @@ fun NavController.navigateToShop(
 ) = navigate(ShopRoute(section, category))
 
 fun NavGraphBuilder.shopScreen(
-    onSearch: () -> Unit,
     onProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {
@@ -24,7 +23,6 @@ fun NavGraphBuilder.shopScreen(
         val shop: ShopRoute = backStackEntry.toRoute()
         ShopScreen(
             section = shop.section,
-            onSearch = onSearch,
             onProductClick = { onProductClick(it) },
             onNavigateUp = onNavigateUp
         )

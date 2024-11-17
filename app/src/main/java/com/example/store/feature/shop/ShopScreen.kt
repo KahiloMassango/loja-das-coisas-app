@@ -29,7 +29,6 @@ fun ShopScreen(
     viewModel: ShopViewModel = hiltViewModel(),
     section: String,
     onProductClick: (String) -> Unit,
-    onSearch: () -> Unit,
     onNavigateUp: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
@@ -47,7 +46,6 @@ fun ShopScreen(
             products = uiState.products,
             filters = filters,
             onFilterChange = { viewModel.updateFilter(it) },
-            onSearch = onSearch,
             onNavigateUp = onNavigateUp,
             onProductClick = { onProductClick(it) },
             onChangeOrderOption = { viewModel.updateOrderOption(it) },
@@ -66,7 +64,6 @@ fun ShopContent(
     onFilterChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
     onChangeOrderOption: (String) -> Unit,
-    onSearch: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     Scaffold(
@@ -75,15 +72,7 @@ fun ShopContent(
             StoreCenteredTopBar(
                 title = section,
                 canNavigateBack = true,
-                onNavigateUp = onNavigateUp,
-                action = {
-                    IconButton(onClick = onSearch) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null,
-                        )
-                    }
-                }
+                onNavigateUp = onNavigateUp
             )
         },
     ) { paddingValues ->
