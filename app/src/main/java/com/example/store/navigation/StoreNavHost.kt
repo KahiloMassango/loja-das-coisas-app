@@ -133,7 +133,8 @@ fun AppContent(
 
         homeScreen(
             onProductClick = { navController.navigateToProductDetail(it) },
-            onSeeAll = { navController.navigateToProductListing(it) }
+            onSeeAll = { navController.navigateToProductListing(it) },
+            onSearch = { navController.navigateToSearch() }
         )
 
         cartScreen(

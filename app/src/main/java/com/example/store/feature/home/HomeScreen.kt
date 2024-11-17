@@ -1,14 +1,22 @@
 package com.example.store.feature.home
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,13 +31,15 @@ import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.home.component.HomeBanner
 import com.example.store.feature.home.component.Section
+import com.example.store.feature.search.components.StoreSearchTextField
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     onProductClick: (String) -> Unit,
-    onSeeAll: (String) -> Unit
+    onSeeAll: (String) -> Unit,
+    onSearch: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     when (uiState) {
@@ -38,7 +48,8 @@ fun HomeScreen(
         is HomeUiState.Success -> HomeContent(
             modifier = modifier,
             onProductClick = onProductClick,
-            onSeeMore = onSeeAll
+            onSeeMore = onSeeAll,
+            onSearch = onSearch
         )
     }
 
@@ -48,7 +59,8 @@ fun HomeScreen(
 private fun HomeContent(
     modifier: Modifier = Modifier,
     onProductClick: (String) -> Unit,
-    onSeeMore: (String) -> Unit
+    onSeeMore: (String) -> Unit,
+    onSearch: () -> Unit
 ) {
     Surface(
         modifier = modifier,
@@ -60,6 +72,28 @@ private fun HomeContent(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(Modifier.height(32.dp))
+            StoreSearchTextField(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12))
+                    .clickable(null, null, onClick = onSearch),
+                query = "",
+                placeholder = "Pesquise por lojas, roupas, calçados, acessórios, etc.",
+                enabled = false,
+                leadingIcon = {
+                    Icon(
+                        modifier = Modifier.size(22.dp),
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                },
+                onQueryChange = {},
+                onSearch = {},
+                onClearQuery = {},
+            )
+            Spacer(modifier = Modifier.height(18.dp))
             HomeBanner()
             Spacer(modifier = Modifier.height(18.dp))
             Column(
@@ -92,6 +126,6 @@ private fun HomeContent(
 @Composable
 private fun Preview() {
     StoreTheme {
-        HomeScreen(onProductClick = {}, onSeeAll = {})
+        HomeScreen(onProductClick = {}, onSeeAll = {}, onSearch = {})
     }
 }
