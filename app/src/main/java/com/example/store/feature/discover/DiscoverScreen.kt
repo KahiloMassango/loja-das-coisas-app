@@ -1,4 +1,4 @@
-package com.example.store.feature.category
+package com.example.store.feature.discover
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
