@@ -29,7 +29,7 @@ import com.example.store.R
 import com.example.store.core.model.FavoriteProduct
 import com.example.store.core.model.favoriteProduct
 import com.example.store.core.ui.component.AttributeDescription
-import com.example.store.core.ui.component.StarRating
+import com.example.store.core.ui.component.ProductRating
 import com.example.store.core.ui.theme.StoreTheme
 
 
@@ -104,7 +104,7 @@ fun FavoriteProductCard(
                             fontWeight = FontWeight.SemiBold
                         )
 
-                        StarRating(totalRatings = product.totalRatings, rating = product.avgRating)
+                        ProductRating(totalRatings = product.totalRatings, rating = product.avgRating)
                     }
                 }
 

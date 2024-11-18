@@ -84,7 +84,7 @@ fun LargeProductCard(
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    StarRating(totalRatings = product.totalRating, rating = product.averageRating)
+                    ProductRating(totalRatings = product.totalRating, rating = product.averageRating)
                 }
             }
         }

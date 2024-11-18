@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -27,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.example.store.R
 import com.example.store.core.model.Product
 import com.example.store.core.ui.component.FavoriteButton
-import com.example.store.core.ui.component.StarRating
 
 @Composable
 fun StoreProductCard(
