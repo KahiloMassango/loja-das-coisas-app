@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.R
 import com.example.store.core.data.mock.p1
@@ -63,16 +62,14 @@ fun ProductCard(
                 )
                 FavoriteButton(
                     modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .offset {
-                            IntOffset(x = 0, y = 50)
-                        },
+                        .align(Alignment.TopEnd)
+                        .padding(6.dp),
                     isFavorite = false,
                     onClick = { onFavoriteClick(product.id) }
                 )
             }
             StarRating(
-                modifier = Modifier.padding(vertical = 3.dp),
+                modifier = Modifier.padding(top = 3.dp),
                 totalRatings = product.totalRating,
                 rating = product.averageRating
             )
@@ -80,12 +77,14 @@ fun ProductCard(
                 text = product.storeName,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
                 style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Normal,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = product.name,
                 color = MaterialTheme.colorScheme.onSurface,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold
             )
             Row(
@@ -94,9 +93,9 @@ fun ProductCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "${product.price}kz",
+                    text = "${product.price} kz",
                     color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold
                 )
             }
