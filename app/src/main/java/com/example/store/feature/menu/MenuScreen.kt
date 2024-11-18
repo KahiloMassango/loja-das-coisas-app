@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -49,6 +51,8 @@ fun MenuScreen(
     ) { paddingValues ->
         Surface(
             modifier = modifier.padding(paddingValues)
+
+
         ) {
             Column(
                 modifier = Modifier
@@ -62,7 +66,9 @@ fun MenuScreen(
                 )
                 Spacer(modifier = Modifier.height(46.dp))
                 MenuOptions(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .weight(1f),
                     onMyOrdersClick = onMyOrdersClick,
                     onProfileClick = onProfileClick,
                     onSettingsClick = onSettingsClick,
