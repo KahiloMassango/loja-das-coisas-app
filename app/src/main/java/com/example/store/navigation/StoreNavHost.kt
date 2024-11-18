@@ -54,6 +54,8 @@ import com.example.store.feature.product_detail.navigation.navigateToProductDeta
 import com.example.store.feature.product_detail.navigation.productDetailScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
 import com.example.store.feature.product_listing.navigation.productListingScreen
+import com.example.store.feature.menu.navigation.menuScreen
+import com.example.store.feature.profile.navigation.navigateToProfile
 import com.example.store.feature.profile.navigation.profileScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
@@ -142,9 +144,9 @@ fun AppContent(
             onCheckout = { navController.navigateToCheckout() }
         )
 
-        profileScreen(
+        menuScreen(
             onMyOrdersClick = { navController.navigateToMyOrders() },
-            onMyReviewsClick = { /* TODO */ },
+            onProfileClick = { navController.navigateToProfile() },
             onSettingsClick = { navController.navigateToSettings() },
             onHelpCenterClick = { navController.navigateToHelpCenter() },
             onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
@@ -165,6 +167,10 @@ fun AppContent(
             onSelectCategory = { section, category ->
                 navController.navigateToShop(section, category)
             }
+        )
+
+        profileScreen(
+            onNavigateUp = navController::navigateUp
         )
 
         deliveryAddressesScreen(

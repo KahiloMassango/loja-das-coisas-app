@@ -1,4 +1,4 @@
-package com.example.store.feature.profile.component
+package com.example.store.feature.menu.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForwardIos
-import androidx.compose.material3.Divider
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,15 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.os.persistableBundleOf
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
-fun ProfileOptions(
+fun MenuOptions(
     modifier: Modifier = Modifier,
     onMyOrdersClick: () -> Unit,
-    onMyReviewsClick: () -> Unit,
+    onProfileClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
     onAddressesClick: () -> Unit,
@@ -37,47 +36,47 @@ fun ProfileOptions(
     Column(
         modifier = modifier
     ) {
-        ProfileOption(
-            modifier = Modifier,
+        MenuOptionItem(
+            option = "Perfil",
+            description = "Suas informações",
+            onClick = onProfileClick
+        )
+
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+
+        MenuOptionItem(
             option = "Minhas encomendas",
             description = "Já tem 12 encomendas",
-            onClick = onMyOrdersClick
+            onClick =  onMyOrdersClick
         )
 
-        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
-        ProfileOption(
-            modifier = Modifier,
-            option = "Minhas avaliações",
-            description = "Avaliações de 4 itens",
-            onClick =  onMyReviewsClick
-        )
-
-        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
-
-        ProfileOption(
-            modifier = Modifier,
+        MenuOptionItem(
             option = "Definições",
             description = "Notification, senha, etc",
             onClick = onSettingsClick
         )
-        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
-        ProfileOption(
-            modifier = Modifier,
+
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+
+        MenuOptionItem(
             option = "Endereços de entrega",
             description = "Gerencie seus endereços de entrega",
             onClick = onAddressesClick
         )
-        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
-        ProfileOption(
-            modifier = Modifier,
+
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+
+        MenuOptionItem(
             option = "Centro de ajuda",
             description = "Encontre respostas para suas dúvidas.",
             onClick = onHelpCenterClick
         )
-        Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
-        ProfileOption(
-            modifier = Modifier,
+
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
+
+        MenuOptionItem(
             option = "Política de privacidade",
             description = "Saiba como seus dados são usados.",
             onClick = onPolicePrivacyClick
@@ -86,7 +85,7 @@ fun ProfileOptions(
 }
 
 @Composable
-private fun ProfileOption(
+private fun MenuOptionItem(
     modifier: Modifier = Modifier,
     option: String,
     description: String,
@@ -94,7 +93,6 @@ private fun ProfileOption(
 ) {
     Box(
         modifier = modifier
-          //  .minimumInteractiveComponentSize()
             .clickable { onClick() }
     ) {
         Row(
@@ -123,7 +121,7 @@ private fun ProfileOption(
             }
             Icon(
                 modifier = Modifier.size(18.dp),
-                imageVector = Icons.Default.ArrowForwardIos,
+                imageVector = Icons. AutoMirrored.Filled.ArrowForwardIos,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.inverseOnSurface
             )
@@ -136,9 +134,9 @@ private fun ProfileOption(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProfileOptions(
+        MenuOptions(
             onMyOrdersClick = {},
-            onMyReviewsClick = {},
+            onProfileClick = {},
             onSettingsClick = {},
             onHelpCenterClick = {},
             onAddressesClick = {},

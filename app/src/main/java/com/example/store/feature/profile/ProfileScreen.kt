@@ -1,76 +1,159 @@
- package com.example.store.feature.profile
+package com.example.store.feature.profile
 
-import androidx.compose.foundation.Image
+import android.widget.Toast
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.BottomAppBarDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.store.R
+import com.example.store.core.model.resource.isEmailValid
+import com.example.store.core.model.resource.isNameValid
+import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
-import com.example.store.core.ui.component.ThemePreviews
+import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.profile.component.ProfileOptions
+import com.example.store.feature.profile.component.GenderSelector
+import com.example.store.feature.profile.component.ProfileImagePicker
 
- @Composable
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel = hiltViewModel(),
-    onMyOrdersClick: () -> Unit,
-    onMyReviewsClick: () -> Unit,
-    onSettingsClick: () -> Unit,
-    onHelpCenterClick: () -> Unit,
-    onAddressesClick: () -> Unit,
-    onPolicePrivacyClick: () -> Unit
+    viewmodel: ProfileViewModel = ProfileViewModel(),
+    onNavigateUp: () -> Unit = {}
 ) {
+    val context = LocalContext.current
+    val keyboardManager = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     Scaffold(
+        modifier = modifier,
         topBar = {
-            StoreLargeTopBar(title = "Meu perfil", canNavigateBack = false )
-        },
-        contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
+            StoreLargeTopBar(
+                title = "Meu Perfil",
+                canNavigateBack = true,
+                onNavigateUp = onNavigateUp
+            )
+        }
     ) { paddingValues ->
         Surface(
-            modifier = modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = {
+                            focusManager.clearFocus()
+                            keyboardManager?.hide()
+                        }
+                    )
+                }
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(16.dp))
-                ProfileUserCard(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    name = "Matilda Brown",
-                    email = "matildabrown@mail.com"
+                ProfileImagePicker(
+                    imageUrl = viewmodel.userPhoto,
+                    onChangeImage = { viewmodel.setPhoto(it) }
                 )
-                Spacer(modifier = Modifier.height(46.dp))
-                ProfileOptions(
-                    modifier = Modifier.weight(1f),
-                    onMyOrdersClick = onMyOrdersClick,
-                    onMyReviewsClick = onMyReviewsClick,
-                    onSettingsClick = onSettingsClick,
-                    onHelpCenterClick= onHelpCenterClick,
-                    onPolicePrivacyClick = onPolicePrivacyClick,
-                    onAddressesClick = onAddressesClick
+                Spacer(Modifier.height(34.dp))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(18.dp)
+                ) {
+                    StoreTextField(
+                        value = viewmodel.userName,
+                        onValueChange = { viewmodel.updateUsername(it) },
+                        placeholder = "Nome",
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            }
+                        )
+                    )
+                    StoreTextField(
+                        value = viewmodel.userEmail,
+                        onValueChange = { viewmodel.updateEmail(it) },
+                        placeholder = "Email",
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            }
+                        )
+                    )
+                    StoreTextField(
+                        value = viewmodel.userPhoneNumber,
+                        onValueChange = { viewmodel.updatePhoneNumber(it) },
+                        placeholder = "Telefone",
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Phone,
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                keyboardManager?.hide()
+                                focusManager.clearFocus()
+                            }
+                        )
+                    )
+                    GenderSelector(
+                        modifier = Modifier.fillMaxWidth(),
+                        selectedGender = viewmodel.userGender,
+                        onSelectGender = {},
+                        enabled = false
+                    )
+                }
+
+                Spacer(Modifier.height(34.dp))
+                CustomButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(),
+                    text = "Salvar Alterações",
+                    onClick = {
+                        when {
+                            !isNameValid(viewmodel.userName) -> {
+                                Toast.makeText(context, "Nome inválido", Toast.LENGTH_SHORT).show()
+                            }
+                            !isEmailValid(viewmodel.userEmail) -> {
+                                Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            else -> {
+                                viewmodel.saveProfile()
+                            }
+                        }
+                    }
                 )
             }
         }
@@ -78,47 +161,15 @@ fun ProfileScreen(
 }
 
 
-@Composable
-private fun ProfileUserCard(
-    modifier: Modifier = Modifier,
-    name: String,
-    email: String
-) {
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(14.dp)
-    ) {
-        Image(
-            modifier = Modifier
-                .size(70.dp)
-                .clip(CircleShape),
-            painter = painterResource(id = R.drawable.dog_profile),
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
-        Column(
-            modifier = Modifier,
-        ) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.SemiBold,
-            )
-            Text(
-                text = email,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.inverseOnSurface,
-               // fontWeight = FontWeight.SemiBold
-            )
-        }
-    }
-}
 
-@ThemePreviews
+
+
+
+@Preview
 @Composable
 private fun Preview() {
     StoreTheme {
+        ProfileScreen()
 
     }
 }

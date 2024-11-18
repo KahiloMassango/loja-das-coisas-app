@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import com.example.store.feature.profile.ProfileScreen
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data object ProfileRoute
 
@@ -14,21 +13,12 @@ data object ProfileRoute
 fun NavController.navigateToProfile() = navigate(ProfileRoute)
 
 fun NavGraphBuilder.profileScreen(
-    onMyOrdersClick: () -> Unit,
-    onMyReviewsClick: () -> Unit,
-    onSettingsClick: () -> Unit,
-    onHelpCenterClick: () -> Unit,
-    onAddressesClick: () -> Unit,
-    onPolicePrivacyClick: () -> Unit
+    onNavigateUp: () -> Unit
 ) {
-    composable<ProfileRoute> {
+    composable<ProfileRoute>() {
         ProfileScreen(
-            onMyOrdersClick = onMyOrdersClick,
-            onMyReviewsClick = onMyReviewsClick,
-            onSettingsClick = onSettingsClick,
-            onHelpCenterClick = onHelpCenterClick,
-            onPolicePrivacyClick = onPolicePrivacyClick,
-            onAddressesClick = onAddressesClick
+            onNavigateUp = onNavigateUp
         )
+
     }
 }
