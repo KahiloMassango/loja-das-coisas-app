@@ -158,7 +158,7 @@ fun ChangePasswordScreen(
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-                            !passwordMatches -> {
+                            uiState.newPassword != uiState.repeatPassword -> {
                                 Toast.makeText(
                                     context,
                                     "As senhas não coincidem",
