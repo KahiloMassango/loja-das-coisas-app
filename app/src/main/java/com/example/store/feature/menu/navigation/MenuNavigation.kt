@@ -11,7 +11,7 @@ data object MenuRoute
 
 fun NavGraphBuilder.menuScreen(
     onMyOrdersClick: () -> Unit,
-    onProfileClick: () -> Unit,
+    onEditProfileClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
     onAddressesClick: () -> Unit,
@@ -20,7 +20,7 @@ fun NavGraphBuilder.menuScreen(
     composable<MenuRoute> {
         MenuScreen(
             onMyOrdersClick = onMyOrdersClick,
-            onProfileClick = onProfileClick,
+            onEditProfileClick = onEditProfileClick,
             onSettingsClick = onSettingsClick,
             onHelpCenterClick = onHelpCenterClick,
             onPolicePrivacyClick = onPolicePrivacyClick,

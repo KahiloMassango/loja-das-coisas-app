@@ -26,7 +26,7 @@ import com.example.store.core.ui.theme.StoreTheme
 fun MenuOptions(
     modifier: Modifier = Modifier,
     onMyOrdersClick: () -> Unit,
-    onProfileClick: () -> Unit,
+    onEditProfileClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
     onAddressesClick: () -> Unit,
@@ -37,16 +37,16 @@ fun MenuOptions(
         modifier = modifier
     ) {
         MenuOptionItem(
-            option = "Perfil",
-            description = "Suas informações",
-            onClick = onProfileClick
+            option = "Editar Perfil",
+            description = "Altere suas informações",
+            onClick = onEditProfileClick
         )
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         MenuOptionItem(
             option = "Minhas encomendas",
-            description = "Já tem 12 encomendas",
+            description = "Histórico de encomendas",
             onClick =  onMyOrdersClick
         )
 
@@ -136,7 +136,7 @@ private fun Preview() {
     StoreTheme {
         MenuOptions(
             onMyOrdersClick = {},
-            onProfileClick = {},
+            onEditProfileClick = {},
             onSettingsClick = {},
             onHelpCenterClick = {},
             onAddressesClick = {},

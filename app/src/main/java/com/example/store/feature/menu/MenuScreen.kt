@@ -37,7 +37,7 @@ import com.example.store.feature.menu.component.MenuOptions
 fun MenuScreen(
      modifier: Modifier = Modifier,
      onMyOrdersClick: () -> Unit,
-     onProfileClick: () -> Unit,
+     onEditProfileClick: () -> Unit,
      onSettingsClick: () -> Unit,
      onHelpCenterClick: () -> Unit,
      onAddressesClick: () -> Unit,
@@ -70,7 +70,7 @@ fun MenuScreen(
                         .verticalScroll(rememberScrollState())
                         .weight(1f),
                     onMyOrdersClick = onMyOrdersClick,
-                    onProfileClick = onProfileClick,
+                    onEditProfileClick = onEditProfileClick,
                     onSettingsClick = onSettingsClick,
                     onHelpCenterClick= onHelpCenterClick,
                     onPolicePrivacyClick = onPolicePrivacyClick,

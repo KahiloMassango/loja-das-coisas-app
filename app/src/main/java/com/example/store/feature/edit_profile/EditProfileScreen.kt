@@ -51,7 +51,7 @@ fun EditProfileScreen(
         modifier = modifier,
         topBar = {
             StoreLargeTopBar(
-                title = "Meu Perfil",
+                title = "Editar Perfil",
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )

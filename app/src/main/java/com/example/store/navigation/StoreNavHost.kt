@@ -146,7 +146,7 @@ fun AppContent(
 
         menuScreen(
             onMyOrdersClick = { navController.navigateToMyOrders() },
-            onProfileClick = { navController.navigateToEditProfile() },
+            onEditProfileClick = { navController.navigateToEditProfile() },
             onSettingsClick = { navController.navigateToSettings() },
             onHelpCenterClick = { navController.navigateToHelpCenter() },
             onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
