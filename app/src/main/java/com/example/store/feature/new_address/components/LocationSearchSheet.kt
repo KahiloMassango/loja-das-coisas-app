@@ -42,7 +42,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Location
 import com.example.store.feature.search.components.StoreSearchTextField
-import com.example.store.feature.settings.component.UseCurrentLocationButton
 import com.google.android.gms.maps.model.LatLng
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,9 +94,9 @@ fun LocationSearchSheet(
                 contentPadding = PaddingValues(bottom = 16.dp)
             ) {
                 item {
-                    UseCurrentLocationButton(
+                    /*UseCurrentLocationButton(
                         onClick = onUseUserCurrentLocation
-                    )
+                    )*/
                 }
                 items(searchResult) { location ->
                     LocationItem(

@@ -38,7 +38,7 @@ fun MenuScreen(
      modifier: Modifier = Modifier,
      onMyOrdersClick: () -> Unit,
      onEditProfileClick: () -> Unit,
-     onSettingsClick: () -> Unit,
+     onChangePasswordClick: () -> Unit,
      onHelpCenterClick: () -> Unit,
      onAddressesClick: () -> Unit,
      onPolicePrivacyClick: () -> Unit
@@ -71,7 +71,7 @@ fun MenuScreen(
                         .weight(1f),
                     onMyOrdersClick = onMyOrdersClick,
                     onEditProfileClick = onEditProfileClick,
-                    onSettingsClick = onSettingsClick,
+                    onChangePasswordClick = onChangePasswordClick,
                     onHelpCenterClick= onHelpCenterClick,
                     onPolicePrivacyClick = onPolicePrivacyClick,
                     onAddressesClick = onAddressesClick

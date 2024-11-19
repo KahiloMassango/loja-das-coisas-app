@@ -61,8 +61,8 @@ import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
 import com.example.store.feature.search.navigation.navigateToSearch
 import com.example.store.feature.search.navigation.searchScreen
-import com.example.store.feature.settings.navigation.navigateToSettings
-import com.example.store.feature.settings.navigation.settingsScreen
+import com.example.store.feature.change_password.navigation.navigateToChangePassword
+import com.example.store.feature.change_password.navigation.changePasswordScreen
 import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.feature.store.navigation.navigateToStore
@@ -147,7 +147,7 @@ fun AppContent(
         menuScreen(
             onMyOrdersClick = { navController.navigateToMyOrders() },
             onEditProfileClick = { navController.navigateToEditProfile() },
-            onSettingsClick = { navController.navigateToSettings() },
+            onChangePasswordClick = { navController.navigateToChangePassword() },
             onHelpCenterClick = { navController.navigateToHelpCenter() },
             onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
             onAddressesClick = { navController.navigateToAddresses() }
@@ -213,7 +213,7 @@ fun AppContent(
 
         orderDetailScreen(navController::navigateUp)
 
-        settingsScreen(navController::navigateUp)
+        changePasswordScreen(navController::navigateUp)
 
         checkoutScreen(
             onNavigateUp = navController::navigateUp,

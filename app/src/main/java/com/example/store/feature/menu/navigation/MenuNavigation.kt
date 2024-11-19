@@ -12,7 +12,7 @@ data object MenuRoute
 fun NavGraphBuilder.menuScreen(
     onMyOrdersClick: () -> Unit,
     onEditProfileClick: () -> Unit,
-    onSettingsClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
     onAddressesClick: () -> Unit,
     onPolicePrivacyClick: () -> Unit
@@ -21,7 +21,7 @@ fun NavGraphBuilder.menuScreen(
         MenuScreen(
             onMyOrdersClick = onMyOrdersClick,
             onEditProfileClick = onEditProfileClick,
-            onSettingsClick = onSettingsClick,
+            onChangePasswordClick = onChangePasswordClick,
             onHelpCenterClick = onHelpCenterClick,
             onPolicePrivacyClick = onPolicePrivacyClick,
             onAddressesClick = onAddressesClick

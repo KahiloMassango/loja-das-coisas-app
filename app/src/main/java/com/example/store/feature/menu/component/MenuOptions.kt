@@ -27,7 +27,7 @@ fun MenuOptions(
     modifier: Modifier = Modifier,
     onMyOrdersClick: () -> Unit,
     onEditProfileClick: () -> Unit,
-    onSettingsClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
     onHelpCenterClick: () -> Unit,
     onAddressesClick: () -> Unit,
     onPolicePrivacyClick: () -> Unit
@@ -45,17 +45,17 @@ fun MenuOptions(
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         MenuOptionItem(
-            option = "Minhas encomendas",
-            description = "Histórico de encomendas",
-            onClick =  onMyOrdersClick
+            option = "Alterar senha",
+            description = "Mantenha-se seguro",
+            onClick = onChangePasswordClick
         )
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
         MenuOptionItem(
-            option = "Definições",
-            description = "Notification, senha, etc",
-            onClick = onSettingsClick
+            option = "Minhas encomendas",
+            description = "Histórico de encomendas",
+            onClick =  onMyOrdersClick
         )
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
@@ -137,7 +137,7 @@ private fun Preview() {
         MenuOptions(
             onMyOrdersClick = {},
             onEditProfileClick = {},
-            onSettingsClick = {},
+            onChangePasswordClick = {},
             onHelpCenterClick = {},
             onAddressesClick = {},
             onPolicePrivacyClick = {}
