@@ -1,6 +1,6 @@
- package com.example.store.feature.menu
+package com.example.store.feature.profile
 
-aimport androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
@@ -20,11 +20,11 @@ import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.menu.component.MenuOptions
-import com.example.store.feature.menu.component.UserInfoCard
+import com.example.store.feature.profile.component.ProfileOptions
+import com.example.store.feature.profile.component.UserInfoCard
 
  @Composable
-fun MenuScreen(
+fun ProfileScreen(
      modifier: Modifier = Modifier,
      onMyOrdersClick: () -> Unit,
      onEditProfileClick: () -> Unit,
@@ -33,9 +33,34 @@ fun MenuScreen(
      onAddressesClick: () -> Unit,
      onPolicePrivacyClick: () -> Unit
 ) {
+    ProfileContent(
+        modifier = modifier,
+        onMyOrdersClick = onMyOrdersClick,
+        onEditProfileClick = onEditProfileClick,
+        onChangePasswordClick = onChangePasswordClick,
+        onHelpCenterClick = onHelpCenterClick,
+        onAddressesClick = onAddressesClick,
+        onPolicePrivacyClick = onPolicePrivacyClick,
+        userPhotoUrl = null,
+        onLogoutClick = {}
+    )
+}
+
+@Composable
+fun ProfileContent(
+    modifier: Modifier = Modifier,
+    onMyOrdersClick: () -> Unit,
+    onEditProfileClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
+    onHelpCenterClick: () -> Unit,
+    onAddressesClick: () -> Unit,
+    onPolicePrivacyClick: () -> Unit,
+    userPhotoUrl: String?,
+    onLogoutClick: () -> Unit
+) {
     Scaffold(
         topBar = {
-            StoreLargeTopBar(title = "Menu", canNavigateBack = false )
+            StoreLargeTopBar(title = "Perfil", canNavigateBack = false )
         },
         contentWindowInsets = WindowInsets.statusBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
@@ -54,10 +79,11 @@ fun MenuScreen(
                         .padding(horizontal = 16.dp),
                     userName = "Matilda Brown",
                     userEmail = "matildabrown@mail.com",
-                    onLogout = {}
+                    userPhotoUrl = userPhotoUrl,
+                    onLogout = onLogoutClick
                 )
                 Spacer(modifier = Modifier.height(46.dp))
-                MenuOptions(
+                ProfileOptions(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                         .weight(1f),
@@ -74,13 +100,11 @@ fun MenuScreen(
 }
 
 
-
-
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        MenuScreen(
+        ProfileScreen(
             onMyOrdersClick = {},
             onEditProfileClick = {},
             onChangePasswordClick = {},

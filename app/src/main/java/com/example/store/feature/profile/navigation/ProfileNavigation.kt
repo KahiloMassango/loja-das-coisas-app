@@ -1,15 +1,15 @@
-package com.example.store.feature.menu.navigation
+package com.example.store.feature.profile.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.store.feature.menu.MenuScreen
+import com.example.store.feature.profile.ProfileScreen
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data object MenuRoute
+data object ProfileRoute
 
-fun NavGraphBuilder.menuScreen(
+fun NavGraphBuilder.profileScreen(
     onMyOrdersClick: () -> Unit,
     onEditProfileClick: () -> Unit,
     onChangePasswordClick: () -> Unit,
@@ -17,8 +17,8 @@ fun NavGraphBuilder.menuScreen(
     onAddressesClick: () -> Unit,
     onPolicePrivacyClick: () -> Unit
 ) {
-    composable<MenuRoute> {
-        MenuScreen(
+    composable<ProfileRoute> {
+        ProfileScreen(
             onMyOrdersClick = onMyOrdersClick,
             onEditProfileClick = onEditProfileClick,
             onChangePasswordClick = onChangePasswordClick,

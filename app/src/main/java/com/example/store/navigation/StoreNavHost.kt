@@ -54,7 +54,7 @@ import com.example.store.feature.product_detail.navigation.navigateToProductDeta
 import com.example.store.feature.product_detail.navigation.productDetailScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
 import com.example.store.feature.product_listing.navigation.productListingScreen
-import com.example.store.feature.menu.navigation.menuScreen
+import com.example.store.feature.profile.navigation.profileScreen
 import com.example.store.feature.edit_profile.navigation.navigateToEditProfile
 import com.example.store.feature.edit_profile.navigation.editProfileScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
@@ -144,7 +144,7 @@ fun AppContent(
             onCheckout = { navController.navigateToCheckout() }
         )
 
-        menuScreen(
+        profileScreen(
             onMyOrdersClick = { navController.navigateToMyOrders() },
             onEditProfileClick = { navController.navigateToEditProfile() },
             onChangePasswordClick = { navController.navigateToChangePassword() },

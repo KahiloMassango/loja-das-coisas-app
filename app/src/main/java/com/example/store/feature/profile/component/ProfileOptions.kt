@@ -1,4 +1,4 @@
-package com.example.store.feature.menu.component
+package com.example.store.feature.profile.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
-fun MenuOptions(
+fun ProfileOptions(
     modifier: Modifier = Modifier,
     onMyOrdersClick: () -> Unit,
     onEditProfileClick: () -> Unit,
@@ -36,7 +36,7 @@ fun MenuOptions(
     Column(
         modifier = modifier
     ) {
-        MenuOptionItem(
+        ProfileOptionItem(
             option = "Editar Perfil",
             description = "Altere suas informações",
             onClick = onEditProfileClick
@@ -44,7 +44,7 @@ fun MenuOptions(
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
-        MenuOptionItem(
+        ProfileOptionItem(
             option = "Alterar senha",
             description = "Mantenha-se seguro",
             onClick = onChangePasswordClick
@@ -52,7 +52,7 @@ fun MenuOptions(
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
-        MenuOptionItem(
+        ProfileOptionItem(
             option = "Minhas encomendas",
             description = "Histórico de encomendas",
             onClick =  onMyOrdersClick
@@ -60,7 +60,7 @@ fun MenuOptions(
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
-        MenuOptionItem(
+        ProfileOptionItem(
             option = "Endereços de entrega",
             description = "Gerencie seus endereços de entrega",
             onClick = onAddressesClick
@@ -68,7 +68,7 @@ fun MenuOptions(
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
-        MenuOptionItem(
+        ProfileOptionItem(
             option = "Centro de ajuda",
             description = "Encontre respostas para suas dúvidas.",
             onClick = onHelpCenterClick
@@ -76,7 +76,7 @@ fun MenuOptions(
 
         HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.inverseOnSurface)
 
-        MenuOptionItem(
+        ProfileOptionItem(
             option = "Política de privacidade",
             description = "Saiba como seus dados são usados.",
             onClick = onPolicePrivacyClick
@@ -85,7 +85,7 @@ fun MenuOptions(
 }
 
 @Composable
-private fun MenuOptionItem(
+private fun ProfileOptionItem(
     modifier: Modifier = Modifier,
     option: String,
     description: String,
@@ -134,7 +134,7 @@ private fun MenuOptionItem(
 @Composable
 private fun Preview() {
     StoreTheme {
-        MenuOptions(
+        ProfileOptions(
             onMyOrdersClick = {},
             onEditProfileClick = {},
             onChangePasswordClick = {},
