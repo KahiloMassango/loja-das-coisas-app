@@ -1,4 +1,4 @@
-package com.example.store.feature.profile
+package com.example.store.feature.edit_profile
 
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //@HiltViewModel
-class ProfileViewModel(
+class EditProfileViewModel(
 
 ): ViewModel() {
 

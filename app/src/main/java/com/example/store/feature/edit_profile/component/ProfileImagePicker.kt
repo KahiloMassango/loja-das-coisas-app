@@ -1,4 +1,4 @@
-package com.example.store.feature.profile.component
+package com.example.store.feature.edit_profile.component
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

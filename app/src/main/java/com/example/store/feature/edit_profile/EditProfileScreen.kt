@@ -1,4 +1,4 @@
-package com.example.store.feature.profile
+package com.example.store.feature.edit_profile
 
 import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -34,14 +34,14 @@ import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.profile.component.GenderSelector
-import com.example.store.feature.profile.component.ProfileImagePicker
+import com.example.store.feature.edit_profile.component.GenderSelector
+import com.example.store.feature.edit_profile.component.ProfileImagePicker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(
+fun EditProfileScreen(
     modifier: Modifier = Modifier,
-    viewmodel: ProfileViewModel = ProfileViewModel(),
+    viewmodel: EditProfileViewModel = EditProfileViewModel(),
     onNavigateUp: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -169,7 +169,7 @@ fun ProfileScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProfileScreen()
+        EditProfileScreen()
 
     }
 }

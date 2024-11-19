@@ -1,4 +1,4 @@
-package com.example.store.feature.profile.component
+package com.example.store.feature.edit_profile.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
