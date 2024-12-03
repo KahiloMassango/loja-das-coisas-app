@@ -3,7 +3,6 @@ package com.example.store.feature.reviews
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +16,7 @@ import javax.inject.Inject
 class ReviewsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    private val productRepository = DefaultProductRepository()
-    private val productId = savedStateHandle.get<String>("productId")!!
+    private val productId = savedStateHandle.get<Int>("productId")!!
 
     private val _uiState = MutableStateFlow<ReviewsUiState>(ReviewsUiState.Loading)
     val uiState = _uiState.asStateFlow()
@@ -27,9 +25,9 @@ class ReviewsViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO){
             try {
-                val ratings = productRepository.getProductRatings(productId).filter { it.comment != null }
-                val ratingInfo = productRepository.getProductRatingInfo(productId)
-                _uiState.value = ReviewsUiState.Success(ratings, ratingInfo)
+                //val ratings = productRepository.getProductRatings(productId).filter { it.comment != null }
+                //val ratingInfo = productRepository.getProductRatingInfo(productId)
+                //_uiState.value = ReviewsUiState.Success(ratings, ratingInfo)
             } catch (e: Exception) {
                 _uiState.value = ReviewsUiState.Error(e.message ?: "Unknown error")
             }

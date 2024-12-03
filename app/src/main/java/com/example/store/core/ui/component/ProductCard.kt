@@ -1,6 +1,5 @@
 package com.example.store.core.ui.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,13 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.store.R
-import com.example.store.core.data.mock.p1
-import com.example.store.core.model.Product
+import coil.compose.AsyncImage
+import com.example.store.core.model.product.Product
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
@@ -44,12 +41,12 @@ fun ProductCard(
     ) {
         Column {
             Box {
-                Image(
+                AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(184.dp)
                         .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
-                    painter = painterResource(id = R.drawable.men_clothes),
+                    model = product.image,
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -58,16 +55,16 @@ fun ProductCard(
                         .align(Alignment.TopEnd)
                         .padding(6.dp),
                     isFavorite = false,
-                    onClick = { onFavoriteClick(product.id) }
+                    onClick = { onFavoriteClick("product.i") }
                 )
             }
-            ProductRating(
+            /*ProductRating(
                 modifier = Modifier.padding(top = 3.dp),
                 totalRatings = product.totalRating,
                 rating = product.averageRating
-            )
+            )*/
             Text(
-                text = product.name,
+                text = product.title,
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold
@@ -81,7 +78,7 @@ fun ProductCard(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "${product.price} kz",
+                text = "49.99 kz",
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold
@@ -95,9 +92,6 @@ fun ProductCard(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductCard(
-            onClick = {},
-            product = p1,
-        )
+
     }
 }

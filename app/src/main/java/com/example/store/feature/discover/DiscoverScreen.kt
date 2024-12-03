@@ -23,14 +23,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.discover.model.Section
-import com.example.store.feature.discover.component.CategorySection
+import com.example.store.feature.discover.model.Category
+import com.example.store.feature.discover.component.CategoryContainer
 import com.example.store.feature.search.components.StoreSearchTextField
 
 @Composable
 fun DiscoverScreen(
     modifier: Modifier = Modifier,
-    onSelectCategory: (section: String, category: String) -> Unit,
+    onSelectCategory: (category: String, subCategory: String) -> Unit,
     onSearch: () -> Unit,
 ) {
 
@@ -75,11 +75,11 @@ fun DiscoverScreen(
                 fontWeight = FontWeight.Bold
             )
             Spacer(Modifier.height(8.dp))
-            Section.entries.forEach {
-                CategorySection(
-                    section = it,
-                    onCategoryClick = { section, category ->
-                        onSelectCategory(section, category)
+            Category.entries.forEach {
+                CategoryContainer(
+                    category = it,
+                    onCategoryClick = { category, subcategory ->
+                        onSelectCategory(category, subcategory)
                     }
                 )
             }

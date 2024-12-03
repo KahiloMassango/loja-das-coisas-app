@@ -11,41 +11,45 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.core.model.Product
 
 @Composable
 fun ProductDetails(
     modifier: Modifier = Modifier,
-    onStoreClick: (String) -> Unit,
-    product: Product,
+    onStoreClick: () -> Unit,
+    name: String,
+    description: String,
+    storeName: String,
 ) {
     Column(
         modifier = modifier
     ) {
 
         Text(
-            modifier = Modifier.clickable { onStoreClick(product.storeId) },
-            text = product.storeName,
-            color = MaterialTheme.colorScheme.inverseOnSurface,
+            modifier = Modifier.clickable { onStoreClick() },
+            text = storeName,
+            color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.bodyMedium,
-            //fontWeight = FontWeight.Light
-        )
+
+            )
         Spacer(modifier = Modifier.height(8.dp))
+
         Text(
-            text = product.name,
+            modifier = Modifier,
+            text = name,
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 2
         )
 
-        Spacer(modifier = Modifier.height(14.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = product.description,
-            color = MaterialTheme.colorScheme.outlineVariant,
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = FontWeight.Normal
+            text = description,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 3
         )
     }
 }

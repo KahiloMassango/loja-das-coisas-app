@@ -1,6 +1,6 @@
 package com.example.store.testdata
 
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 
 
 val PRODUCT_1 = Product(

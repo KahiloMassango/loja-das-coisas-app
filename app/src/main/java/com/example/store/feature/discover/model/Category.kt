@@ -4,44 +4,13 @@ import androidx.annotation.DrawableRes
 import com.example.store.R
 
 
-data class Category(
-    val name: String,
+enum class Category(
     val description: String,
     @DrawableRes
-    val image: Int
-)
-
-val womenCategories = listOf(
-    Category(name = "Clothes", description = "Roupas", image = R.drawable.category),
-    Category(name = "Shoes", description = "Calçados", image = R.drawable.category),
-    Category(name = "Accessory", description = "Acessórios", image = R.drawable.category)
-)
-
-val menCategories = listOf(
-    Category(name = "Clothes", description = "Roupas", image = R.drawable.men_clothes),
-    Category(name = "Shoes", description = "Calçados", image = R.drawable.men_shoes),
-    Category(name = "Accessory", description = "Acessórios", image = R.drawable.category)
-)
-
-val kidsCategories = listOf(
-    Category(name = "Clothes", description = "Roupas", image = R.drawable.category),
-    Category(name = "Shoes", description = "Calçados", image = R.drawable.category),
-    Category(name = "Accessory", description = "Acessórios", image = R.drawable.category)
-)
-
-val cosmeticsCategories = listOf(
-    Category(name = "Skin Care", description = "Skin Care", image = R.drawable.category),
-    Category(name = "Makeup", description = "Makeup", image = R.drawable.category),
-    Category(name = "Hair care", description = "Cuidados com o cabelo", image = R.drawable.category),
-    Category(name = "Frangace", description = "Perfumes", image = R.drawable.category)
-)
-
-fun Section.getCategories(): List<Category> {
-    return when (this) {
-        Section.Women -> womenCategories
-        Section.Men -> menCategories
-        Section.Kids -> kidsCategories
-        Section.Cosmetics -> cosmeticsCategories
-    }
+    val icon: Int
+) {
+    Women("Mulheres", R.drawable.ic_women_category),
+    Men("Homens", R.drawable.ic_man_category),
+    Kids("Crianças", R.drawable.ic_kids_category),
+    Cosmetics("Cosméticos", R.drawable.ic_cosmetics_category)
 }
-

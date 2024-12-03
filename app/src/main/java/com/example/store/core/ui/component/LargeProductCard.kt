@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.store.R
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +54,7 @@ fun LargeProductCard(
                     .padding(10.dp)
             ) {
                 Text(
-                    text = product.name,
+                    text = product.title,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold
@@ -78,13 +78,13 @@ fun LargeProductCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "${product.price}Kz",
+                        text = "499 Kz",
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    ProductRating(totalRatings = product.totalRating, rating = product.averageRating)
+                    //ProductRating(totalRatings = product.totalRating, rating = product.averageRating)
                 }
             }
         }

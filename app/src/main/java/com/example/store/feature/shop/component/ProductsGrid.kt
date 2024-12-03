@@ -18,8 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.example.store.core.data.mock.productList
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import com.example.store.core.ui.component.ProductCard
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
@@ -90,7 +89,7 @@ private fun Preview() {
         ProductsGrid(
             onProductClick = {},
             onChangeOrderOption = {},
-            products = productList,
+            products = emptyList(),
             selectedOption = OrderCriteria.Popular.title,
         )
 

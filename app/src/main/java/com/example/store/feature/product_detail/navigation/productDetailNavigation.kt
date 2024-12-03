@@ -20,7 +20,7 @@ fun NavGraphBuilder.productDetailScreen(
     ) {
     composable<ProductDetailRoute> {
         ProductDetailsScreen(
-            onStoreClick = onStoreClick,
+            onStoreClick = { onStoreClick(it.toString()) },
             onReviewsClick = { onReviewsClick(it) },
             onNavigateUp = onNavigateUp,
             onSuggestedProductClick = { onSuggestedProductsClick(it) }

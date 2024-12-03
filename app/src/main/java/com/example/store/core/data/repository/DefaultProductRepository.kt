@@ -1,43 +1,27 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.data.mock.productList
-import com.example.store.core.data.mock.ratingInfosList
-import com.example.store.core.data.mock.ratingsList
-import com.example.store.core.model.Product
-import com.example.store.core.model.Rating
-import com.example.store.core.model.RatingInfo
+import com.example.store.core.data.P1
+import com.example.store.core.data.P1V
+import com.example.store.core.model.product.Product
+import com.example.store.core.model.product.ProductWithVariation
+import com.example.store.core.network.model.product.network_product.asExternalModel
+import com.example.store.core.network.model.product.network_product_With_Variation.asExternalModel
+import com.example.store.core.network.retrofit.AppApiService
 
-class DefaultProductRepository: ProductRepository {
+class DefaultProductRepository(
+    private val appApiService: AppApiService
+): ProductRepository {
+    val products = mutableListOf<Product>(P1, P1, P1, P1, P1, P1)
 
-    private val products = productList
-    private val ratings = ratingsList
-    private val ratingInfos = ratingInfosList
-
-    override fun getAllProducts(): List<Product> {
+    override suspend fun getAllProducts(): List<Product> {
         return products
     }
 
-    override fun getProducts(gender: String, category: String): List<Product> {
-        return products.filter { it.section == gender && it.category == category }
+    override suspend fun getProducts(category: String, subCategory: String): List<Product> {
+        return products
     }
 
-    override fun getProductById(id: String): Product {
-        return products.find { it.id == id } !!
-    }
-
-    override fun getProductsByCategory(category: String): List<Product> {
-        return products.filter { it.category == category }
-    }
-
-    override fun getNewProducts(category: String): List<Product> {
-        return products.filter { it.category == category }.sortedByDescending { it.publishedAt }
-    }
-
-    override fun getProductRatingInfo(productId: String): RatingInfo {
-        return ratingInfos.find { it.productId == productId } !!
-    }
-
-    override fun getProductRatings(productId: String): List<Rating> {
-        return ratings.filter { it.productId == productId }
+    override suspend fun getProductById(id: Int): ProductWithVariation {
+        return P1V
     }
 }

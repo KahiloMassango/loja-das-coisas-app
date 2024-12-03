@@ -164,8 +164,8 @@ fun AppContent(
 
         discoverScreen(
             onSearch = { navController.navigateToSearch() },
-            onSelectCategory = { section, category ->
-                navController.navigateToShop(section, category)
+            onSelectCategory = { category, subcategory ->
+                navController.navigateToShop(category, subcategory)
             }
         )
 

@@ -1,16 +1,15 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import com.example.store.core.model.Rating
 import com.example.store.core.model.RatingInfo
-import kotlinx.coroutines.flow.Flow
+import com.example.store.core.model.product.ProductWithVariation
 
 interface ProductRepository {
-    fun getProducts(gender: String, category: String): List<Product>
-    fun getAllProducts():  List<Product>
-    fun getProductById(id: String): Product
-    fun getProductsByCategory(category: String): List<Product>
-    fun getNewProducts(category: String): List<Product>
-    fun getProductRatingInfo(productId: String): RatingInfo
-    fun getProductRatings(productId: String): List<Rating>
+    suspend fun getProducts(category: String, subCategory: String): List<Product>
+    suspend fun getAllProducts():  List<Product>
+    suspend fun getProductById(id: Int): ProductWithVariation
+    /*suspend fun getNewProducts(category: String): List<Product>
+    suspend fun getProductRatingInfo(productId: String): RatingInfo
+    suspend fun getProductRatings(productId: String): List<Rating>*/
 }

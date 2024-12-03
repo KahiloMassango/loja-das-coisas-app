@@ -2,7 +2,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlinx-serialization")
+    //id("kotlinx-serialization")
+    alias(libs.plugins.kotlin.serialization)
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
     alias(libs.plugins.ksp)
@@ -88,7 +89,7 @@ dependencies {
    // implementation(libs.firebase.cloud.messaging)
 
     // Serialization
-    implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.json)
 
     // M3 icons
     implementation(libs.androidx.material3.icons)

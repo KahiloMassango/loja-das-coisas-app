@@ -32,7 +32,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.R
-import com.example.store.core.data.mock.productList
 import com.example.store.core.model.Address
 import com.example.store.core.model.AddressLine
 import com.example.store.core.model.AddressType
@@ -99,7 +98,7 @@ fun StoreScreen(
                         StoreSection.AllProducts -> {
                             StoreProductsListingGrid(
                                 description = section.description,
-                                products = productList,
+                                products = emptyList(),
                                 onProductClick = onProductClick
                             )
                         }

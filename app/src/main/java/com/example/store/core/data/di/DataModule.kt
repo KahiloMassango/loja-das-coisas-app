@@ -9,10 +9,12 @@ import com.example.store.core.data.repository.DefaultCartRepository
 import com.example.store.core.data.repository.DefaultFavoriteRepository
 import com.example.store.core.data.repository.DefaultLocationRepository
 import com.example.store.core.data.repository.DefaultOrderRepository
+import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.data.repository.DefaultRecentSearchRepository
 import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.data.repository.OrderRepository
+import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.data.repository.RecentSearchRepository
 import com.example.store.core.data.util.ConnectivityManagerNetworkMonitor
 import com.example.store.core.data.util.NetworkMonitor
@@ -23,6 +25,7 @@ import com.example.store.core.database.dao.OrderDao
 import com.example.store.core.database.dao.RecentSearchDao
 import com.example.store.core.location.DistanceMatrixApiService
 import com.example.store.core.location.GeocodeApiService
+import com.example.store.core.network.retrofit.AppApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,6 +60,11 @@ internal object DataModule {
     fun providesRecentSearchRepository(
         recentSearchDao: RecentSearchDao
     ): RecentSearchRepository = DefaultRecentSearchRepository(recentSearchDao)
+
+    @Provides
+    fun providesProductRepository(
+        appApiService: AppApiService
+    ): ProductRepository = DefaultProductRepository(appApiService)
 
     @Provides
     fun providesLocationRepository(

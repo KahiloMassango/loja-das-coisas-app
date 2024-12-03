@@ -40,7 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import com.example.store.core.model.RecentSearch
 import com.example.store.core.ui.component.LargeProductCard
 import com.example.store.core.ui.theme.StoreTheme

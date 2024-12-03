@@ -5,29 +5,19 @@ import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.model.Address
 import com.example.store.core.model.CartProduct
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 
-fun Product.asFavoriteProductEntity(): FavoriteProductEntity = FavoriteProductEntity(
-    id = id,
-    name = name,
-    storeName = storeName,
-    price = price,
-    imageUrl = images[0],
-    color = availableColors[0],
-    size = availableSizes[0],
-    avgRating = averageRating,
-    totalRatings = totalRating
 
-)
 
 fun Product.asCartProduct(
     color: String,
-    size: String
+    size: String,
+    price: Double = 9.0
 ): CartProduct = CartProduct(
-    uuid = id,
-    name = name,
+    uuid = id.toString(),
+    name = title,
     price = price,
-    imageUrl = images[0],
+    imageUrl = image,
     color = color,
     size = size,
     quantity = 1,

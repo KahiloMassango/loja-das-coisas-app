@@ -19,12 +19,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 
 @Composable
 fun ProductImageCarousel(
     modifier: Modifier = Modifier,
-    images: List<Int>
+    images: List<String>
 ) {
     val pagerState = rememberPagerState { images.size }
     Box(modifier = modifier) {
@@ -36,9 +37,9 @@ fun ProductImageCarousel(
             state = pagerState,
             pageSpacing = 16.dp
         ) { page ->
-            Image(
+            AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = images[page]),
+                model = images[page],
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )

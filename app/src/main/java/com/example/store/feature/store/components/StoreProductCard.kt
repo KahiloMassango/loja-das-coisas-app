@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.store.R
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import com.example.store.core.ui.component.FavoriteButton
 
 @Composable
@@ -63,11 +63,11 @@ fun StoreProductCard(
                             IntOffset(x = 0, y = 50)
                         },
                     isFavorite = false,
-                    onClick = { onFavoriteClick(product.id) }
+                    onClick = { onFavoriteClick(product.id.toString()) }
                 )
             }
             Text(
-                text = product.name,
+                text = product.title,
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold
@@ -78,7 +78,7 @@ fun StoreProductCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "${product.price}kz",
+                    text = "499 kz",
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold

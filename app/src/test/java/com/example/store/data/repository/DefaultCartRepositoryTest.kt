@@ -1,7 +1,7 @@
 package com.example.store.data.repository
 
 import com.example.store.core.data.repository.DefaultCartRepository
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import com.example.store.data.testdoubles.FakeCartDao
 import com.example.store.testdata.CART_PRODUCT_1
 import com.example.store.testdata.CART_PRODUCT_2

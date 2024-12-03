@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.store.core.data.mock.productList
+import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.theme.StoreTheme
@@ -49,7 +49,8 @@ fun HomeScreen(
             modifier = modifier,
             onProductClick = onProductClick,
             onSeeMore = onSeeAll,
-            onSearch = onSearch
+            onSearch = onSearch,
+            products = uiState.products
         )
     }
 
@@ -60,7 +61,8 @@ private fun HomeContent(
     modifier: Modifier = Modifier,
     onProductClick: (String) -> Unit,
     onSeeMore: (String) -> Unit,
-    onSearch: () -> Unit
+    onSearch: () -> Unit,
+    products: List<Product>
 ) {
     Surface(
         modifier = modifier,
@@ -103,7 +105,7 @@ private fun HomeContent(
                 Section(
                     title = "Sale",
                     description = "Super summer sale",
-                    products = productList,
+                    products = products,
                     onProductClick = { onProductClick(it) },
                     onSeeMore = { onSeeMore(it) },
                 )
@@ -111,7 +113,7 @@ private fun HomeContent(
                 Section(
                     title = "New",
                     description = "You’ve never seen it before!",
-                    products = productList,
+                    products = products,
                     onProductClick = { onProductClick(it) },
                     onSeeMore = { onSeeMore(it) },
                 )

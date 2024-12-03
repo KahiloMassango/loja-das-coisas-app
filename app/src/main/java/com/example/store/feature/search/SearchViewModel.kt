@@ -7,8 +7,9 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.DefaultProductRepository
+import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.data.repository.RecentSearchRepository
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,8 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val recentSearchRepository: RecentSearchRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
-    private val productRepository = DefaultProductRepository()
 
     var searchQuery by mutableStateOf("")
         private set
@@ -37,7 +38,7 @@ class SearchViewModel @Inject constructor(
         .mapLatest {
             when {
                 searchQuery.isNotEmpty() -> productRepository.getAllProducts().filter { product ->
-                    product.name.contains(searchQuery, ignoreCase = true) or
+                    product.title.contains(searchQuery, ignoreCase = true) or
                             product.description.contains(searchQuery, ignoreCase = true)
                 }
 

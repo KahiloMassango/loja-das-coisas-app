@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,17 +32,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.example.store.feature.discover.model.Category
-import com.example.store.feature.discover.model.Section
-import com.example.store.feature.discover.model.getCategories
+import com.example.store.feature.discover.model.SubCategory
+import com.example.store.feature.discover.model.getSubCategories
 
 
 @Composable
-fun CategorySection(
+fun CategoryContainer(
     modifier: Modifier = Modifier,
-    section: Section,
-    onCategoryClick: (section: String, category: String) -> Unit
+    category: Category,
+    onCategoryClick: (category: String, subcategory: String) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
     val iconRotation by animateFloatAsState(
         targetValue = if (expanded) 0f else - 180f,
         animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
@@ -73,12 +74,12 @@ fun CategorySection(
             ) {
                 Icon(
                     modifier = Modifier.size(22.dp),
-                    painter = painterResource(section.icon),
+                    painter = painterResource(category.icon),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = section.description,
+                    text = category.description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Medium
@@ -99,14 +100,16 @@ fun CategorySection(
                     .fillMaxWidth()
                     .padding(start = 52.dp)
             ) {
-                section.getCategories().forEachIndexed { index, category ->
-                    CategoryItem(
-                        category = category,
+                category.getSubCategories().forEachIndexed { index, subcategory ->
+                    SubCategoryItem(
+                        subCategory = subcategory,
                         onCategoryClick = {
-                            onCategoryClick(section.description, category.description)
+                            onCategoryClick(
+                                category.name.lowercase(),
+                                subcategory.name)
                         }
                     )
-                    if (index != section.getCategories().lastIndex) {
+                    if (index != category.getSubCategories().lastIndex) {
                         HorizontalDivider()
                     }
                 }
@@ -117,9 +120,9 @@ fun CategorySection(
 }
 
 @Composable
-private fun CategoryItem(
+private fun SubCategoryItem(
     modifier: Modifier = Modifier,
-    category: Category,
+    subCategory: SubCategory,
     onCategoryClick: () -> Unit
 ) {
     Column(
@@ -134,7 +137,7 @@ private fun CategoryItem(
         ) {
             Text(
                 modifier = Modifier.padding(14.dp),
-                text = category.description,
+                text = subCategory.description,
                 style = MaterialTheme.typography.bodyMedium
             )
         }

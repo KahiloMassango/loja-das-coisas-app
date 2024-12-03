@@ -2,6 +2,7 @@ package com.example.store.core.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -23,9 +24,8 @@ fun FavoriteButton(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier
-            .size(36.dp),
-        color = MaterialTheme.colorScheme.inverseOnSurface.copy(0.6f),
+        modifier = modifier.size(40.dp),
+        color = MaterialTheme.colorScheme.secondaryContainer,
         shape = CircleShape,
         shadowElevation = 4.dp,
         onClick = onClick,
@@ -41,7 +41,7 @@ fun FavoriteButton(
                 imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                 contentDescription = null,
                 tint = if (isFavorite) MaterialTheme.colorScheme.primary
-                else Color.White.copy(0.8f)
+                else MaterialTheme.colorScheme.inverseOnSurface
             )
         }
     }

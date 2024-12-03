@@ -9,11 +9,11 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class ShopRoute(val section: String, val category: String)
+data class ShopRoute(val category: String, val subcategory: String)
 
 fun NavController.navigateToShop(
-    section: String, category: String
-) = navigate(ShopRoute(section, category))
+    category: String, subcategory: String
+) = navigate(ShopRoute(category, subcategory))
 
 fun NavGraphBuilder.shopScreen(
     onProductClick: (String) -> Unit,
@@ -22,7 +22,7 @@ fun NavGraphBuilder.shopScreen(
     composable<ShopRoute> { backStackEntry  ->
         val shop: ShopRoute = backStackEntry.toRoute()
         ShopScreen(
-            section = shop.section,
+            section = shop.category,
             onProductClick = { onProductClick(it) },
             onNavigateUp = onNavigateUp
         )

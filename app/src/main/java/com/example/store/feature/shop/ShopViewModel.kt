@@ -4,14 +4,12 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.data.mock.productList
-import com.example.store.core.data.repository.DefaultProductRepository
-import com.example.store.core.model.Product
+import com.example.store.core.data.repository.ProductRepository
+import com.example.store.core.model.product.Product
 import com.example.store.feature.shop.model.OrderCriteria
 import com.example.store.feature.shop.model.getFilters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -20,19 +18,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShopViewModel @Inject constructor(
-
+    val productRepository: ProductRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val productRepository = DefaultProductRepository()
 
-    val section = savedStateHandle.get<String>("section") ?: ""
     val category = savedStateHandle.get<String>("category") ?: ""
+    val subcategory = savedStateHandle.get<String>("subcategory") ?: ""
 
 
     private val _uiState = MutableStateFlow<ShopUiState>(ShopUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    val filters = getFilters(section, category)
+    val filters = getFilters(category, subcategory)
 
     init {
         getProducts()
@@ -40,9 +37,9 @@ class ShopViewModel @Inject constructor(
 
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            delay(3000L)
+            //delay(3000L)
             try {
-                val products = productList
+                val products = productRepository.getProducts(category, subcategory)
                 _uiState.value = ShopUiState.Success(products)
             } catch (e: Exception) {
                 _uiState.value = ShopUiState.Error

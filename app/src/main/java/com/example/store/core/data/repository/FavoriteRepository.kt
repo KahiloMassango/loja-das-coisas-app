@@ -1,7 +1,7 @@
 package com.example.store.core.data.repository
 
 import com.example.store.core.model.FavoriteProduct
-import com.example.store.core.model.Product
+import com.example.store.core.model.product.Product
 import kotlinx.coroutines.flow.Flow
 
 interface FavoriteRepository {

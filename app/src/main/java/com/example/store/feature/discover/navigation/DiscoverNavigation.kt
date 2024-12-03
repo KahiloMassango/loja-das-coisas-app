@@ -9,10 +9,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 object DiscoverRoute
 
-fun NavController.navigateToDiscover() = navigate(DiscoverRoute)
 
 fun NavGraphBuilder.discoverScreen(
-    onSelectCategory: (section: String, category: String) -> Unit,
+    onSelectCategory: (category: String, subcategory: String) -> Unit,
     onSearch: () -> Unit
 ) {
     composable<DiscoverRoute> {

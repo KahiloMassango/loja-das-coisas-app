@@ -13,8 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.core.model.Product
-import com.example.store.core.ui.component.ProductCard
+import com.example.store.core.model.product.Product
 
 @Composable
 fun StoreRecentAddedProductsSection(
@@ -42,7 +41,7 @@ fun StoreRecentAddedProductsSection(
         items(products, key = { it.id }) { product ->
             StoreProductCard(
                 product = product,
-                onClick = { onProductClick(it) },
+                onClick = { onProductClick(it.toString()) },
             )
         }
     }
