@@ -27,21 +27,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.core.ui.navigation.BottomNavigationBar
-import com.example.store.core.ui.navigation.StoreNavigationRail
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.feature.autentication.navigation.authentication
 import com.example.store.feature.cart.navigation.cartScreen
-import com.example.store.feature.discover.navigation.discoverScreen
+import com.example.store.feature.change_password.navigation.changePasswordScreen
+import com.example.store.feature.change_password.navigation.navigateToChangePassword
 import com.example.store.feature.checkout.navigation.checkoutScreen
 import com.example.store.feature.checkout.navigation.navigateToCheckout
 import com.example.store.feature.delivery_address.navigation.deliveryAddressesScreen
 import com.example.store.feature.delivery_address.navigation.navigateToAddresses
+import com.example.store.feature.discover.navigation.discoverScreen
+import com.example.store.feature.edit_profile.navigation.editProfileScreen
+import com.example.store.feature.edit_profile.navigation.navigateToEditProfile
 import com.example.store.feature.favorite.navigation.favoriteScreen
 import com.example.store.feature.help_center.navigation.helpCenterScreen
 import com.example.store.feature.help_center.navigation.navigateToHelpCenter
-import com.example.store.feature.home.navigation.HomeRoute
-import com.example.store.feature.home.navigation.homeScreen
 import com.example.store.feature.my_orders.navigation.myOrdersScreen
 import com.example.store.feature.my_orders.navigation.navigateToMyOrders
 import com.example.store.feature.new_address.navigation.navigateToNewAddressScreen
@@ -55,18 +55,18 @@ import com.example.store.feature.product_detail.navigation.productDetailScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
 import com.example.store.feature.product_listing.navigation.productListingScreen
 import com.example.store.feature.profile.navigation.profileScreen
-import com.example.store.feature.edit_profile.navigation.navigateToEditProfile
-import com.example.store.feature.edit_profile.navigation.editProfileScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
 import com.example.store.feature.search.navigation.navigateToSearch
 import com.example.store.feature.search.navigation.searchScreen
-import com.example.store.feature.change_password.navigation.navigateToChangePassword
-import com.example.store.feature.change_password.navigation.changePasswordScreen
 import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.feature.store.navigation.navigateToStore
 import com.example.store.feature.store.navigation.storeScreen
+import com.example.store.features.home.navigation.HomeRoute
+import com.example.store.features.home.navigation.homeScreen
+import com.example.store.navigation.navigation.BottomNavigationBar
+import com.example.store.navigation.navigation.StoreNavigationRail
 
 
 @Composable
@@ -132,6 +132,7 @@ fun AppContent(
         startDestination = HomeRoute
     ) {
         authentication(navController)
+
 
         homeScreen(
             onProductClick = { navController.navigateToProductDetail(it) },

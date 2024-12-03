@@ -42,6 +42,8 @@ junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 coroutinesTest = "1.9.0-RC.2"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 
 [libraries]
@@ -102,6 +104,8 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 [plugins]
@@ -112,3 +116,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 kotlin-serialization = { id= "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPlugin" }
+android-library = { id = "com.android.library", version.ref = "agp" }

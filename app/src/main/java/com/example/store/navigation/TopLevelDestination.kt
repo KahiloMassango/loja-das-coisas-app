@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.store.feature.cart.navigation.CartRoute
 import com.example.store.feature.discover.navigation.DiscoverRoute
 import com.example.store.feature.favorite.navigation.FavoriteRoute
-import com.example.store.feature.home.navigation.HomeRoute
+import com.example.store.features.home.navigation.HomeRoute
 import com.example.store.feature.profile.navigation.ProfileRoute
 
 

@@ -22,4 +22,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "store"
 include(":app")
- 
+include(":core:model")
+include(":core:ui")
+include(":core:database")
+include(":core:network")
+include(":core:data")
+include(":features:home")
