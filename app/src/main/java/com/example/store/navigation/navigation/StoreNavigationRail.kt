@@ -2,9 +2,7 @@ package com.example.store.navigation.navigation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -27,7 +25,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
-import com.example.store.feature.cart.navigation.CartRoute
+import com.example.store.features.cart.navigation.CartRoute
 import com.example.store.navigation.TopLevelDestination
 
 private val navBarRoutes = TopLevelDestination.entries.map { it.route::class }
@@ -51,8 +49,8 @@ fun StoreNavigationRail(
 
     AnimatedVisibility(
         visible = showBottomBar,
-        enter = slideInHorizontally(initialOffsetX = { -it }),
-        exit = slideOutHorizontally(targetOffsetX = { -it }),
+        enter = slideInHorizontally(initialOffsetX = { - it }),
+        exit = slideOutHorizontally(targetOffsetX = { - it }),
     ) {
         Box(
             modifier = Modifier

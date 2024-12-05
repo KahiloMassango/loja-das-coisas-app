@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.store.feature.autentication.forgot.ForgotPasswordScreen
+import com.example.store.feature.authentication.forgot.ForgotPasswordScreen
 import com.example.store.core.ui.theme.StoreTheme
 import org.junit.Rule
 import org.junit.Test

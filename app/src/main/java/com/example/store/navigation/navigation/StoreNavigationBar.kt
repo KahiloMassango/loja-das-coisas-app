@@ -22,7 +22,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
-import com.example.store.feature.cart.navigation.CartRoute
+import com.example.store.features.cart.navigation.CartRoute
 import com.example.store.navigation.TopLevelDestination
 
 private val navBarRoutes = TopLevelDestination.entries.map { it.route::class }

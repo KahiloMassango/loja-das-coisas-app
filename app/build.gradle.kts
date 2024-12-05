@@ -39,10 +39,14 @@ android {
 
 dependencies {
 
-    implementation(project(":features:home"))
     implementation(project(":core:data"))
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
+
+    implementation(project(":features:home"))
+    implementation(project(":features:discover"))
+    implementation(project(":features:cart"))
+    implementation(project(":features:profile"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
