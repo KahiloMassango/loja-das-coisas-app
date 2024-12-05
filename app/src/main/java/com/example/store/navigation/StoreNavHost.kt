@@ -28,7 +28,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.authentication.navigation.authentication
 import com.example.store.feature.change_password.navigation.changePasswordScreen
 import com.example.store.feature.change_password.navigation.navigateToChangePassword
 import com.example.store.feature.checkout.navigation.checkoutScreen
@@ -47,8 +46,8 @@ import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
 import com.example.store.feature.order_detail.navigation.orderDetailScreen
 import com.example.store.feature.police_privacy.navigation.navigateToPolicePrivacy
 import com.example.store.feature.police_privacy.navigation.policePrivacyScreen
-import com.example.store.feature.product_detail.navigation.navigateToProductDetail
-import com.example.store.feature.product_detail.navigation.productDetailScreen
+import com.example.store.features.productdetail.navigation.navigateToProductDetail
+import com.example.store.features.productdetail.navigation.productDetailScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
 import com.example.store.feature.product_listing.navigation.productListingScreen
 import com.example.store.features.profile.navigation.profileScreen
@@ -60,6 +59,8 @@ import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.feature.store.navigation.navigateToStore
 import com.example.store.feature.store.navigation.storeScreen
+import com.example.store.features.authentication.navigation.AuthenticationRoute
+import com.example.store.features.authentication.navigation.authenticationRoute
 import com.example.store.features.cart.navigation.cartScreen
 import com.example.store.features.discover.navigation.discoverScreen
 import com.example.store.features.home.navigation.HomeRoute
@@ -130,7 +131,7 @@ fun AppContent(
         navController = navController,
         startDestination = HomeRoute
     ) {
-        authentication(navController)
+        authenticationRoute(navController)
 
 
         homeScreen(

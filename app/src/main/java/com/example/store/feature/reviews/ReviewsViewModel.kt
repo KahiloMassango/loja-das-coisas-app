@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ReviewsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    private val productId = savedStateHandle.get<Int>("productId")!!
+    private val productId = savedStateHandle.get<String>("productId")!!
 
     private val _uiState = MutableStateFlow<ReviewsUiState>(ReviewsUiState.Loading)
     val uiState = _uiState.asStateFlow()
