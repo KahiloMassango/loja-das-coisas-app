@@ -2,9 +2,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    //id("kotlinx-serialization")
     alias(libs.plugins.kotlin.serialization)
-    id("com.google.gms.google-services")
     id("kotlin-parcelize")
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
@@ -49,6 +47,10 @@ dependencies {
     implementation(project(":features:profile"))
     implementation(project(":features:authentication"))
     implementation(project(":features:productdetail"))
+    implementation(project(":features:checkout"))
+    implementation(project(":features:search"))
+    implementation(project(":features:editprofile"))
+    implementation(project(":features:store"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

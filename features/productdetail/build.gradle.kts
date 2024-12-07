@@ -9,7 +9,6 @@ plugins {
 
 android {
     namespace = "com.example.store.features.productdetail"
-    compileSdk = 34
 
     buildTypes {
         release {
