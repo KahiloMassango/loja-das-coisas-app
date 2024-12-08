@@ -6,22 +6,7 @@ import com.example.store.core.database.model.OrderEntity
 import com.example.store.core.model.Address
 import com.example.store.core.model.CartProduct
 import com.example.store.core.model.Order
-import com.example.store.core.model.product.Product
 
-
-fun Product.asCartProduct(
-    color: String,
-    size: String,
-    price: Double = 9.0
-): CartProduct = CartProduct(
-    uuid = id.toString(),
-    name = title,
-    price = price,
-    imageUrl = image,
-    color = color,
-    size = size,
-    quantity = 1,
-)
 
 fun Order.asEntity() = OrderEntity(
     id,
@@ -35,16 +20,6 @@ fun Order.asEntity() = OrderEntity(
     deliveryMethod
 )
 
-fun CartProduct.asEntity(): CartProductEntity = CartProductEntity(
-    id = id,
-    uuid = uuid,
-    name = name,
-    price = price,
-    imageUrl = imageUrl,
-    color = color,
-    size = size,
-    quantity = 1
-)
 
 fun Address.asEntity(): AddressEntity = AddressEntity(
     id = id,

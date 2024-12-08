@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.P1V
+import com.example.store.core.data.model.asCartProductEntity
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.data.repository.ProductRepository
@@ -134,23 +135,13 @@ internal class ProductDetailViewModel @Inject constructor(
     }
 
 
-    fun addFavorite() {
-        viewModelScope.launch {
-            try {
-                val state = uiState.value as ProductDetailState.Success
-                //favoriteRepository.addFavoriteProduct(state.product)
-            } catch (e: Exception) {
-                Log.d("ProductDetailViewModel", "addFavoriteProduct: $e")
-            }
-
-        }
-    }
 
     fun addCart() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val product = (uiState.value as ProductDetailState.Success).product
-                //cartRepository.addToCart(product.asCartProduct(productColor, productSize))
+                val productItem = _selectedItem.value!!
+                cartRepository.addToCart(product.title, product.image, productItem)
             } catch (e: Exception) {
                 Log.d("ProductDetailViewModel", "addToCart: $e")
             }

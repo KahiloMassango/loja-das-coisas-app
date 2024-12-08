@@ -7,21 +7,19 @@ import com.example.store.core.model.CartProduct
 
 @Entity(tableName = "cart")
 data class CartProductEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val uuid: String,
+    @PrimaryKey(autoGenerate = false)
+    val productItemId: String,
     val name: String,
     val price: Double,
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
-    val color: String,
-    val size: String,
-    val quantity: Int,
+    val color: String?,
+    val size: String?,
+    val quantity: Int = 1,
 )
 
 fun CartProductEntity.asExternalModel() = CartProduct(
-    id = id,
-    uuid = uuid,
+    productItemId = productItemId,
     name = name,
     price = price,
     imageUrl = imageUrl,

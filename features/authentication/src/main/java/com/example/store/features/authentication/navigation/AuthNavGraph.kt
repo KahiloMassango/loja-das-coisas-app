@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object AuthenticationRoute
 
-fun NavGraphBuilder.authenticationRoute(
+fun NavGraphBuilder.authentication(
     navController: NavController,
 ) {
     navigation<AuthenticationRoute>(

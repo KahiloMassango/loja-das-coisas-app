@@ -22,12 +22,12 @@
             <option value="$PROJECT_DIR$/features/cart" />
             <option value="$PROJECT_DIR$/features/checkout" />
             <option value="$PROJECT_DIR$/features/discover" />
-            <option value="$PROJECT_DIR$/features/editprofile" />
             <option value="$PROJECT_DIR$/features/home" />
+            <option value="$PROJECT_DIR$/features/newaddress" />
             <option value="$PROJECT_DIR$/features/productdetail" />
-            <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/features/search" />
             <option value="$PROJECT_DIR$/features/store" />
+            <option value="$PROJECT_DIR$/features/userprofile" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

@@ -28,42 +28,28 @@ import androidx.navigation.compose.rememberNavController
 import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.change_password.navigation.changePasswordScreen
-import com.example.store.feature.change_password.navigation.navigateToChangePassword
-import com.example.store.feature.delivery_address.navigation.deliveryAddressesScreen
-import com.example.store.feature.delivery_address.navigation.navigateToAddresses
-import com.example.store.features.editprofile.navigation.editProfileScreen
-import com.example.store.features.editprofile.navigation.navigateToEditProfile
-import com.example.store.feature.help_center.navigation.helpCenterScreen
-import com.example.store.feature.help_center.navigation.navigateToHelpCenter
-import com.example.store.feature.my_orders.navigation.myOrdersScreen
-import com.example.store.feature.my_orders.navigation.navigateToMyOrders
-import com.example.store.feature.new_address.navigation.navigateToNewAddressScreen
-import com.example.store.feature.new_address.navigation.newAddressScreen
-import com.example.store.feature.order_detail.navigation.navigateToOrderDetail
-import com.example.store.feature.order_detail.navigation.orderDetailScreen
-import com.example.store.feature.police_privacy.navigation.navigateToPolicePrivacy
-import com.example.store.feature.police_privacy.navigation.policePrivacyScreen
 import com.example.store.feature.product_listing.navigation.navigateToProductListing
 import com.example.store.feature.product_listing.navigation.productListingScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
-import com.example.store.features.search.navigation.navigateToSearch
-import com.example.store.features.search.navigation.searchScreen
 import com.example.store.feature.shop.navigation.navigateToShop
 import com.example.store.feature.shop.navigation.shopScreen
-import com.example.store.features.store.navigation.navigateToStore
-import com.example.store.features.store.navigation.storeScreen
-import com.example.store.features.authentication.navigation.authenticationRoute
+import com.example.store.features.authentication.navigation.authentication
 import com.example.store.features.cart.navigation.cartScreen
 import com.example.store.features.checkout.navigation.checkoutScreen
 import com.example.store.features.checkout.navigation.navigateToCheckout
 import com.example.store.features.discover.navigation.discoverScreen
 import com.example.store.features.home.navigation.HomeRoute
 import com.example.store.features.home.navigation.homeScreen
+import com.example.store.features.newaddress.navigation.navigateToNewAddressScreen
+import com.example.store.features.newaddress.navigation.newAddressScreen
 import com.example.store.features.productdetail.navigation.navigateToProductDetail
 import com.example.store.features.productdetail.navigation.productDetailScreen
-import com.example.store.features.profile.navigation.profileScreen
+import com.example.store.features.search.navigation.navigateToSearch
+import com.example.store.features.search.navigation.searchScreen
+import com.example.store.features.store.navigation.navigateToStore
+import com.example.store.features.store.navigation.storeScreen
+import com.example.store.features.userprofile.navigation.userProfileScreen
 import com.example.store.navigation.navigation.BottomNavigationBar
 import com.example.store.navigation.navigation.StoreNavigationRail
 
@@ -130,7 +116,13 @@ fun AppContent(
         navController = navController,
         startDestination = HomeRoute
     ) {
-        authenticationRoute(navController)
+
+        authentication(navController)
+
+        userProfileScreen(
+            navController = navController,
+            onAddNewAddress = { navController.navigateToNewAddressScreen() }
+        )
 
 
         homeScreen(
@@ -142,19 +134,6 @@ fun AppContent(
         cartScreen(
             onProductClick = { navController.navigateToProductDetail(it) },
             onCheckout = { navController.navigateToCheckout() }
-        )
-
-        profileScreen(
-            onMyOrdersClick = { navController.navigateToMyOrders() },
-            onEditProfileClick = { navController.navigateToEditProfile() },
-            onChangePasswordClick = { navController.navigateToChangePassword() },
-            onHelpCenterClick = { navController.navigateToHelpCenter() },
-            onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
-            onAddressesClick = { navController.navigateToAddresses() }
-        )
-
-        helpCenterScreen(
-            onNavigationUp = navController::navigateUp
         )
 
         shopScreen(
@@ -169,15 +148,6 @@ fun AppContent(
             }
         )
 
-        editProfileScreen(
-            onNavigateUp = navController::navigateUp
-        )
-
-        deliveryAddressesScreen(
-            onAddNewAddress = { navController.navigateToNewAddressScreen() },
-            onNavigateUp = navController::navigateUp
-        )
-
         searchScreen(
             onNavigateUp = navController::navigateUp,
             onProductClick = { navController.navigateToProductDetail(it) }
@@ -189,10 +159,6 @@ fun AppContent(
             onNavigateUp = navController::navigateUp
         )
 
-        policePrivacyScreen(
-            onNavigationUp = navController::navigateUp
-        )
-
         productDetailScreen(
             onReviewsClick = { navController.navigateToReviews(it) },
             onNavigateUp = navController::navigateUp,
@@ -200,19 +166,11 @@ fun AppContent(
             onStoreClick = { navController.navigateToStore(it) }
         )
 
-        myOrdersScreen(
-            onDetailClick = { navController.navigateToOrderDetail(0) },
-            navController::navigateUp
-        )
-
         storeScreen(
             onProductClick = { navController.navigateToProductDetail(it) },
             onNavigateUp = navController::navigateUp
         )
 
-        orderDetailScreen(navController::navigateUp)
-
-        changePasswordScreen(navController::navigateUp)
 
         checkoutScreen(
             onNavigateUp = navController::navigateUp,

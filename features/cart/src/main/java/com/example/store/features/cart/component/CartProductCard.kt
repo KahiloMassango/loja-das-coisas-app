@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.store.core.model.CartProduct
 import com.example.store.core.model.cartProduct
 import com.example.store.core.ui.R
@@ -50,11 +51,11 @@ internal fun CartProductCard(
     onClick: (String) -> Unit,
     onIncreaseQty: () -> Unit,
     onDecreaseQty: () -> Unit,
-    onRemove: (Int) -> Unit
+    onRemove: (String) -> Unit
 ) {
 
     Card(
-        onClick = { onClick(product.uuid) },
+        onClick = { onClick(product.productItemId) },
         modifier = modifier.height(104.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
@@ -65,11 +66,11 @@ internal fun CartProductCard(
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(100.dp),
-                painter = painterResource(id = R.drawable.ic_person),
+                model = product.imageUrl,
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
@@ -97,15 +98,18 @@ internal fun CartProductCard(
                         Column(
                             modifier = Modifier,
                             verticalArrangement = Arrangement.spacedBy(0.dp),
-                            //horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Attribute(attribute = "Cor", value = product.color)
-                            Attribute(attribute = "Tamanho", value = product.size)
+                            if (product.color != null) {
+                                Attribute(attribute = "Cor", value = product.color!!)
+                            }
+                            if (product.size != null) {
+                                Attribute(attribute = "Tamanho", value = product.size!!)
+                            }
                         }
                     }
                     IconButton(
                         modifier = Modifier.size(22.dp),
-                        onClick = { onRemove(product.id) }
+                        onClick = { onRemove(product.productItemId) }
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Close,

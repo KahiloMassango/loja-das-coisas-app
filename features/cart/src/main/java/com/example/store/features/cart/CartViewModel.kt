@@ -44,7 +44,7 @@ class CartViewModel @Inject constructor(
             initialValue = 0.0
         )
 
-    fun removeProductFromCart(productId: Int) {
+    fun removeProductFromCart(productId: String) {
         viewModelScope.launch {
             try {
                 cartRepository.removeCartProduct(productId)
@@ -54,7 +54,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun updateQuantity(productId: Int, quantity: Int) {
+    fun updateQuantity(productId: String, quantity: Int) {
         viewModelScope.launch {
             try {
                 cartRepository.updateQuantity(productId, quantity)

@@ -77,7 +77,7 @@ internal fun ProductDetailsScreen(
             onNavigateUp = onNavigateUp,
             onReviewsClick = { onReviewsClick(it) },
             onAddToCart = viewModel::addCart,
-            onAddFavorite = viewModel::addFavorite,
+            onAddFavorite = {},
             selectedItem = selectedItem,
             selectedColor = selectedColor,
             selectedSize = selectedSize,
@@ -195,7 +195,7 @@ private fun ProductDetailContent(
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                         .align(Alignment.BottomCenter),
                     price = selectedItem?.price ?: 0.0,
-                    onAddToCart = {}
+                    onAddToCart = onAddToCart
                 )
             }
         }

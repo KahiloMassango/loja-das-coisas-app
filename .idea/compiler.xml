@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="store.features.deliveryaddress" target="21" />
+      <module name="store.features.editprofile" target="21" />
       <module name="store.features.produtdetail" target="21" />
     </bytecodeTargetLevel>
   </component>

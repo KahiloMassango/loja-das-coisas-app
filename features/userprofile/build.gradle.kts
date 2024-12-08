@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.store.features.profile"
+    namespace = "com.example.store.features.userprofile"
 
     buildTypes {
         release {
@@ -45,6 +45,10 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.material3.icons)
     implementation(libs.coil)
+
+    // google maps
+    implementation(libs.google.maps.compose)
+    implementation(libs.play.services.location)
 
     // Navigation
     implementation(libs.androidx.compose.navigation)

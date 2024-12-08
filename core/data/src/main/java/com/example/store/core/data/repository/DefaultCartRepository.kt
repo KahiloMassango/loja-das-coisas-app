@@ -1,15 +1,17 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.data.model.asEntity
+import com.example.store.core.data.model.asCartProductEntity
 import com.example.store.core.database.dao.CartDao
+import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.asExternalModel
 import com.example.store.core.model.CartProduct
+import com.example.store.core.model.product.ProductItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DefaultCartRepository(
     private val cartDao: CartDao
-): CartRepository {
+) : CartRepository {
 
     override fun getCartProductsStream(): Flow<List<CartProduct>> {
         return cartDao.getCartProducts().map { list -> list.map { it.asExternalModel() } }
@@ -23,24 +25,25 @@ class DefaultCartRepository(
         return cartDao.getCartTotalStream()
     }
 
-    override suspend fun addToCart(product: CartProduct) {
+    override suspend fun addToCart(
+        productName: String,
+        imageUrl: String,
+        productItem: ProductItem
+    ) {
         // if product already exists in cart with the same properties do not add
-        val checkProduct = cartDao.getProductByUUID(product.uuid)
-        if(checkProduct != null){
-            if(checkProduct.color != product.color || checkProduct.size != product.size){
-                cartDao.insertCartProduct(product.asEntity())
-            }
-        } else {
-            cartDao.insertCartProduct(product.asEntity())
+        val checkProduct = cartDao.getProductByID(productItem.id)
+        if (checkProduct == null) {
+            cartDao.insertCartProduct(productItem.asCartProductEntity(productName, imageUrl))
         }
+
 
     }
 
-    override suspend fun removeCartProduct(id: Int) {
+    override suspend fun removeCartProduct(id: String) {
         cartDao.deleteCartProduct(id)
     }
 
-    override suspend fun updateQuantity(id: Int, quantity: Int) {
+    override suspend fun updateQuantity(id: String, quantity: Int) {
         cartDao.updateQuantity(id, quantity)
     }
 }

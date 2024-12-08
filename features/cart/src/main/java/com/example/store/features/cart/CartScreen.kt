@@ -95,13 +95,13 @@ internal fun CartScreen(
                                 onRemove = { viewModel.removeProductFromCart(it) },
                                 onIncreaseQty = {
                                     viewModel.updateQuantity(
-                                        product.id,
+                                        product.productItemId,
                                         product.quantity + 1
                                     )
                                 },
                                 onDecreaseQty = {
                                     viewModel.updateQuantity(
-                                        product.id,
+                                        product.productItemId,
                                         product.quantity - 1
                                     )
                                 }
