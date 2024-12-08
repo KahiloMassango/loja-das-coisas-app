@@ -1,6 +1,5 @@
 package com.example.store.core.ui.component
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +11,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -28,7 +26,6 @@ fun ProductCard(
     modifier: Modifier = Modifier,
     product: Product,
     onClick: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -40,30 +37,24 @@ fun ProductCard(
         )
     ) {
         Column {
-            Box {
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(184.dp)
-                        .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
-                    model = product.image,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop
-                )
-                FavoriteButton(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(6.dp),
-                    isFavorite = false,
-                    onClick = { onFavoriteClick("product.i") }
-                )
-            }
+
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(184.dp)
+                    .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
+                model = product.image,
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+
             /*ProductRating(
                 modifier = Modifier.padding(top = 3.dp),
                 totalRatings = product.totalRating,
                 rating = product.averageRating
             )*/
             Text(
+                modifier = Modifier.padding(top = 3.dp),
                 text = product.title,
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleSmall,
@@ -72,7 +63,7 @@ fun ProductCard(
             Text(
                 text = product.storeName,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
-                style = MaterialTheme.typography.labelSmall,
+                style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Normal,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

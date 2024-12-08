@@ -4,18 +4,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.example.store.features.userprofile.changepassword.navigation.changePasswordScreen
-import com.example.store.features.userprofile.changepassword.navigation.navigateToChangePassword
 import com.example.store.features.userprofile.deliveryaddress.navigation.deliveryAddressesScreen
-import com.example.store.features.userprofile.deliveryaddress.navigation.navigateToAddresses
 import com.example.store.features.userprofile.editprofile.navigation.editProfileScreen
-import com.example.store.features.userprofile.editprofile.navigation.navigateToEditProfile
 import com.example.store.features.userprofile.helpcenter.navigation.helpCenterScreen
-import com.example.store.features.userprofile.helpcenter.navigation.navigateToHelpCenter
 import com.example.store.features.userprofile.orderdeail.navigation.navigateToOrderDetail
 import com.example.store.features.userprofile.orderdeail.navigation.orderDetailScreen
 import com.example.store.features.userprofile.orders.navigation.myOrdersScreen
-import com.example.store.features.userprofile.orders.navigation.navigateToMyOrders
-import com.example.store.features.userprofile.policyprivacy.navigation.navigateToPolicePrivacy
 import com.example.store.features.userprofile.policyprivacy.navigation.policePrivacyScreen
 import com.example.store.features.userprofile.profile.navigation.ProfileRoute
 import com.example.store.features.userprofile.profile.navigation.profileScreen
@@ -24,44 +18,49 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object UserProfileRoute
 
-fun NavController.navigateToUserProfile() = navigate(UserProfileRoute)
-
 fun NavGraphBuilder.userProfileScreen(
-    navController: NavController,
-    onAddNewAddress: () -> Unit
+    onMyOrdersClick: () -> Unit,
+    onOrderClick: (String) -> Unit,
+    onEditProfileClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
+    onHelpCenterClick: () -> Unit,
+    onAddressesClick: () -> Unit,
+    onPolicePrivacyClick: () -> Unit,
+    onAddNewAddress: () -> Unit,
+    onNavigateUp: () -> Unit,
 ) {
     navigation<UserProfileRoute>(startDestination = ProfileRoute) {
         profileScreen(
-            onMyOrdersClick = { navController.navigateToMyOrders() },
-            onEditProfileClick = { navController.navigateToEditProfile() },
-            onChangePasswordClick = { navController.navigateToChangePassword() },
-            onHelpCenterClick = { navController.navigateToHelpCenter() },
-            onAddressesClick = { navController.navigateToAddresses() },
-            onPolicePrivacyClick = { navController.navigateToPolicePrivacy() }
+            onMyOrdersClick = onMyOrdersClick,
+            onEditProfileClick = onEditProfileClick,
+            onChangePasswordClick = onChangePasswordClick,
+            onHelpCenterClick = onHelpCenterClick,
+            onAddressesClick = onAddressesClick,
+            onPolicePrivacyClick = onPolicePrivacyClick
         )
         policePrivacyScreen(
-            onNavigationUp = navController::navigateUp
+            onNavigationUp = onNavigateUp
         )
         editProfileScreen(
-            onNavigateUp = navController::navigateUp
+            onNavigateUp = onNavigateUp
         )
 
         helpCenterScreen(
-            onNavigationUp = navController::navigateUp
+            onNavigationUp = onNavigateUp
         )
         myOrdersScreen(
-            onDetailClick = { navController.navigateToOrderDetail(it) },
-            onNavigateUp = navController::navigateUp
+            onOrderClick = onOrderClick,
+            onNavigateUp = onNavigateUp
         )
         orderDetailScreen(
-            onNavigateUp = navController::navigateUp
+            onNavigateUp = onNavigateUp
         )
         changePasswordScreen(
-            onNavigateUp = navController::navigateUp
+            onNavigateUp = onNavigateUp
         )
         deliveryAddressesScreen(
             onAddNewAddress = onAddNewAddress,
-            onNavigateUp = navController::navigateUp
+            onNavigateUp = onNavigateUp
         )
     }
 }

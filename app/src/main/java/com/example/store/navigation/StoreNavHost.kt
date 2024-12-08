@@ -32,13 +32,12 @@ import com.example.store.feature.product_listing.navigation.navigateToProductLis
 import com.example.store.feature.product_listing.navigation.productListingScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
-import com.example.store.feature.shop.navigation.navigateToShop
-import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.features.authentication.navigation.authentication
 import com.example.store.features.cart.navigation.cartScreen
 import com.example.store.features.checkout.navigation.checkoutScreen
 import com.example.store.features.checkout.navigation.navigateToCheckout
-import com.example.store.features.discover.navigation.discoverScreen
+import com.example.store.features.discover.discoverScreen
+import com.example.store.features.discover.shop.navigation.navigateToShop
 import com.example.store.features.home.navigation.HomeRoute
 import com.example.store.features.home.navigation.homeScreen
 import com.example.store.features.newaddress.navigation.navigateToNewAddressScreen
@@ -49,7 +48,14 @@ import com.example.store.features.search.navigation.navigateToSearch
 import com.example.store.features.search.navigation.searchScreen
 import com.example.store.features.store.navigation.navigateToStore
 import com.example.store.features.store.navigation.storeScreen
+import com.example.store.features.userprofile.changepassword.navigation.navigateToChangePassword
+import com.example.store.features.userprofile.deliveryaddress.navigation.navigateToAddresses
+import com.example.store.features.userprofile.editprofile.navigation.navigateToEditProfile
+import com.example.store.features.userprofile.helpcenter.navigation.navigateToHelpCenter
 import com.example.store.features.userprofile.navigation.userProfileScreen
+import com.example.store.features.userprofile.orderdeail.navigation.navigateToOrderDetail
+import com.example.store.features.userprofile.orders.navigation.navigateToMyOrders
+import com.example.store.features.userprofile.policyprivacy.navigation.navigateToPolicePrivacy
 import com.example.store.navigation.navigation.BottomNavigationBar
 import com.example.store.navigation.navigation.StoreNavigationRail
 
@@ -65,7 +71,7 @@ fun App(
     val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
-    if (!isOffline) {
+    if (! isOffline) {
         NoInternetConnection(
             onTryAgain = {
                 //viewModel.tryAgain()
@@ -120,8 +126,24 @@ fun AppContent(
         authentication(navController)
 
         userProfileScreen(
-            navController = navController,
-            onAddNewAddress = { navController.navigateToNewAddressScreen() }
+            onMyOrdersClick = { navController.navigateToMyOrders() },
+            onEditProfileClick = { navController.navigateToEditProfile() },
+            onChangePasswordClick = { navController.navigateToChangePassword() },
+            onHelpCenterClick = { navController.navigateToHelpCenter() },
+            onAddressesClick = { navController.navigateToAddresses() },
+            onPolicePrivacyClick = { navController.navigateToPolicePrivacy() },
+            onOrderClick = { navController.navigateToOrderDetail(it) },
+            onAddNewAddress = { navController.navigateToNewAddressScreen() },
+            onNavigateUp = navController::navigateUp,
+        )
+
+        discoverScreen(
+            onSearch = { navController.navigateToSearch() },
+            onProductClick = { navController.navigateToProductDetail(it) },
+            onNavigateUp = navController::navigateUp,
+            onSelectCategory = { category, subcategory ->
+                navController.navigateToShop(category, subcategory)
+            }
         )
 
 
@@ -134,18 +156,6 @@ fun AppContent(
         cartScreen(
             onProductClick = { navController.navigateToProductDetail(it) },
             onCheckout = { navController.navigateToCheckout() }
-        )
-
-        shopScreen(
-            onProductClick = { navController.navigateToProductDetail(it) },
-            onNavigateUp = navController::navigateUp
-        )
-
-        discoverScreen(
-            onSearch = { navController.navigateToSearch() },
-            onSelectCategory = { category, subcategory ->
-                navController.navigateToShop(category, subcategory)
-            }
         )
 
         searchScreen(

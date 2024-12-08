@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class OrderDetailRoute(val orderId: String)
 
-internal fun NavController.navigateToOrderDetail(orderId: String) = navigate(OrderDetailRoute(orderId))
+fun NavController.navigateToOrderDetail(orderId: String) = navigate(OrderDetailRoute(orderId))
 
 internal fun NavGraphBuilder.orderDetailScreen(
     onNavigateUp: () -> Unit

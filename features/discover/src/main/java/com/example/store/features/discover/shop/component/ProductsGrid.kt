@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.features.discover.shop.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,6 @@ import com.example.store.core.model.product.Product
 import com.example.store.core.ui.component.ProductCard
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.shop.model.OrderCriteria
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -82,16 +81,11 @@ fun ProductsGrid(
     }
 }
 
+
 @ThemePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        ProductsGrid(
-            onProductClick = {},
-            onChangeOrderOption = {},
-            products = emptyList(),
-            selectedOption = OrderCriteria.Popular.title,
-        )
-
+        //ProductCardSkeleton()
     }
 }

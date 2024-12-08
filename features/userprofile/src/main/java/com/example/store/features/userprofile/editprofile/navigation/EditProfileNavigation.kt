@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 internal data object EditProfileRoute
 
 
-internal fun NavController.navigateToEditProfile() = navigate(EditProfileRoute)
+fun NavController.navigateToEditProfile() = navigate(EditProfileRoute)
 
 internal fun NavGraphBuilder.editProfileScreen(
     onNavigateUp: () -> Unit

@@ -21,8 +21,8 @@ fun BaseExtension.defaultConfig() {
     compileSdkVersion(34)
 
     defaultConfig {
-        minSdk = 28
-        targetSdk = 34
+        minSdk = 26
+        targetSdk = 33
         consumerProguardFiles("consumer-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -33,8 +33,6 @@ fun BaseExtension.defaultConfig() {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-
-
 
 
     packagingOptions {
@@ -68,6 +66,7 @@ fun PluginContainer.applyDefaultConfig(project: Project) {
                     .apply {
                         sourceCompatibility = JavaVersion.VERSION_21
                         targetCompatibility = JavaVersion.VERSION_21
+
                     }
             }
         }

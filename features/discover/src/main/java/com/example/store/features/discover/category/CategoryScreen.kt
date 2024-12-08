@@ -1,4 +1,4 @@
-package com.example.store.features.discover
+package com.example.store.features.discover.category
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,16 +24,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreSearchTextField
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.features.discover.component.CategoryContainer
-import com.example.store.features.discover.model.Category
+import com.example.store.features.discover.category.component.CategoryContainer
+import com.example.store.features.discover.category.model.Category
 
 @Composable
-internal fun DiscoverScreen(
+internal fun CategoryScreen(
     modifier: Modifier = Modifier,
     onSelectCategory: (category: String, subCategory: String) -> Unit,
     onSearch: () -> Unit,
 ) {
-
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -102,7 +101,7 @@ internal fun DiscoverScreen(
 @Composable
 private fun Preview1() {
     StoreTheme {
-        DiscoverScreen(
+        CategoryScreen(
             onSelectCategory = { _, _ -> },
             onSearch = {}
         )

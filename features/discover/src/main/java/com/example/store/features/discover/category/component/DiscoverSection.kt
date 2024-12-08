@@ -1,4 +1,4 @@
-package com.example.store.features.discover.component
+package com.example.store.features.discover.category.component
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -30,9 +30,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.example.store.features.discover.model.Category
-import com.example.store.features.discover.model.SubCategory
-import com.example.store.features.discover.model.getSubCategories
+import com.example.store.features.discover.category.model.Category
+import com.example.store.features.discover.category.model.SubCategory
+import com.example.store.features.discover.category.model.getSubCategories
 
 
 @Composable

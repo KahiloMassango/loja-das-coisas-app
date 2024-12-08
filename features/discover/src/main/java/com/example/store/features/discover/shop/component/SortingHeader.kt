@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.features.discover.shop.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,11 +20,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.store.R
+import com.example.store.core.ui.R
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
-fun SortingHeader(
+internal fun SortingHeader(
     modifier: Modifier = Modifier,
     onSortClick: () -> Unit
 ) {

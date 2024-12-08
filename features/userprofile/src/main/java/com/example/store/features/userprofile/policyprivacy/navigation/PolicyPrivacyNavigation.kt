@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data object PolicePrivacyRoute
 
-internal fun NavController.navigateToPolicePrivacy() = navigate(PolicePrivacyRoute)
+fun NavController.navigateToPolicePrivacy() = navigate(PolicePrivacyRoute)
 
 internal fun NavGraphBuilder.policePrivacyScreen(
     onNavigationUp: () -> Unit

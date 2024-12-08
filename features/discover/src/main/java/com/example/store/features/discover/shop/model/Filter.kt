@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.model
+package com.example.store.features.discover.shop.model
 
 
 data class Filter(val name: String, val description: String, val category: String)

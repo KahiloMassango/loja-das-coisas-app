@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.model
+package com.example.store.features.discover.shop.model
 
 enum class OrderCriteria(val title: String, val description: String) {
     Popular("popular", "Mais vendidos"),

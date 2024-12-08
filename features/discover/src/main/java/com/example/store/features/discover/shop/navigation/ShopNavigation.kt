@@ -1,21 +1,21 @@
-package com.example.store.feature.shop.navigation
+package com.example.store.features.discover.shop.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.store.feature.shop.ShopScreen
+import com.example.store.features.discover.shop.ShopScreen
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class ShopRoute(val category: String, val subcategory: String)
+internal data class ShopRoute(val category: String, val subcategory: String)
 
 fun NavController.navigateToShop(
     category: String, subcategory: String
 ) = navigate(ShopRoute(category, subcategory))
 
-fun NavGraphBuilder.shopScreen(
+internal fun NavGraphBuilder.shopScreen(
     onProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {

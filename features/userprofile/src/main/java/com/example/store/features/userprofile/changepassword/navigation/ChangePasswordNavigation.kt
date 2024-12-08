@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data object ChangePasswordRoute
 
-internal fun NavController.navigateToChangePassword() = navigate(ChangePasswordRoute)
+fun NavController.navigateToChangePassword() = navigate(ChangePasswordRoute)
 
 internal fun NavGraphBuilder.changePasswordScreen(onNavigateUp: () -> Unit, ) {
     composable<ChangePasswordRoute> {

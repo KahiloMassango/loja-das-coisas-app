@@ -10,15 +10,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data object MyOrdersRoute
 
-internal fun NavController.navigateToMyOrders() = navigate(MyOrdersRoute)
+fun NavController.navigateToMyOrders() = navigate(MyOrdersRoute)
 
 internal fun NavGraphBuilder.myOrdersScreen(
-    onDetailClick: (String) -> Unit,
+    onOrderClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {
     composable<MyOrdersRoute> {
         MyOrdersScreen(
-            onDetailClick = onDetailClick,
+            onDetailClick = onOrderClick,
             onNavigateUp = onNavigateUp
         )
     }

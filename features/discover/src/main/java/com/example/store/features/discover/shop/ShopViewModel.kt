@@ -1,4 +1,4 @@
-package com.example.store.feature.shop
+package com.example.store.features.discover.shop
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
@@ -6,10 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.model.product.Product
-import com.example.store.feature.shop.model.OrderCriteria
-import com.example.store.feature.shop.model.getFilters
+import com.example.store.features.discover.shop.model.OrderCriteria
+import com.example.store.features.discover.shop.model.getFilters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShopViewModel @Inject constructor(
+internal class ShopViewModel @Inject constructor(
     val productRepository: ProductRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -37,7 +38,7 @@ class ShopViewModel @Inject constructor(
 
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            //delay(3000L)
+            delay(3000L)
             try {
                 val products = productRepository.getProducts(category, subcategory)
                 _uiState.value = ShopUiState.Success(products)

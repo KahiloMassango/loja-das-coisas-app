@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.features.discover.shop.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.CustomDragHandle
-import com.example.store.feature.shop.model.OrderCriteria
+import com.example.store.features.discover.shop.model.OrderCriteria
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OrderOptionsBottomSheet(
+internal fun OrderOptionsBottomSheet(
     state: SheetState,
     currentOrderOption: String,
     onDismissRequest: () -> Unit,

@@ -1,4 +1,4 @@
-package com.example.store.feature.shop.component
+package com.example.store.features.discover.shop.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -22,7 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.feature.shop.model.Filter
+import com.example.store.features.discover.shop.model.Filter
 
 @Composable
 internal fun FilterContainer(
