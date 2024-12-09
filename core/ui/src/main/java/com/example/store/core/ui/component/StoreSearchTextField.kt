@@ -1,16 +1,21 @@
 package com.example.store.core.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,7 +49,8 @@ fun StoreSearchTextField(
     BasicTextField(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(12)),
+            .background(MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(12))
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12)),
         value = query,
         onValueChange = onQueryChange,
         singleLine = true,
@@ -74,7 +80,13 @@ fun StoreSearchTextField(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                if (leadingIcon != null) leadingIcon()
+                Icon(
+                    modifier = Modifier.size(22.dp),
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+
                 Box(Modifier.weight(1f)) {
                     if (query.isEmpty()) Text(
                         text = placeholder,
@@ -85,7 +97,7 @@ fun StoreSearchTextField(
                     )
                     innerTextField()
                 }
-                    if (trailingIcon != null) trailingIcon()
+                if (trailingIcon != null) trailingIcon()
             }
         }
     )
