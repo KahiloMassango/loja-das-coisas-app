@@ -42,14 +42,14 @@ fun ProductCardSkeleton(
             )
             ShimmerBox(
                 Modifier
-                    .fillMaxWidth(0.5f)
-                    .height(10.dp),
+                    .fillMaxWidth(0.6f)
+                    .height(12.dp),
                 cornerRadius = 20
             )
             ShimmerBox(
                 Modifier
-                    .fillMaxWidth(0.6f)
-                    .height(10.dp),
+                    .fillMaxWidth(0.4f)
+                    .height(12.dp),
                 cornerRadius = 20
             )
         }
