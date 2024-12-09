@@ -3,12 +3,17 @@ package com.example.store.features.productdetail
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -37,6 +42,7 @@ import com.example.store.features.productdetail.component.AttributeSelector
 import com.example.store.features.productdetail.component.ProductAttributes
 import com.example.store.features.productdetail.component.ProductDetails
 import com.example.store.features.productdetail.component.ProductImageCarousel
+import com.example.store.features.productdetail.component.ReviewAndRatingSection
 
 
 @Composable
@@ -122,7 +128,7 @@ private fun ProductDetailContent(
                 onNavigateUp = onNavigateUp
             )
         },
-
+        contentWindowInsets = WindowInsets.navigationBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         Surface(
             modifier = modifier
@@ -164,39 +170,16 @@ private fun ProductDetailContent(
                             storeName = product.storeName,
                         )
 
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(
-                            onClick = { onReviewsClick(product.id) }
-                        ) {
-                            Text(
-                                text = "Reviews"
-                            )
-                        }
+                        Spacer(modifier = Modifier.height(36.dp))
+                        AddToCartContainer(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            price = selectedItem?.price ?: 0.0,
+                            onAddToCart = onAddToCart
+                        )
                     }
-
-                    /*item {
-                        ReviewAndRatingSection(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            ratingInfo = ratingInfosList.first()
-                        )
-                    }*/
-
-                    //item { Spacer(modifier = Modifier.height(14.dp)) }
-                    /*items(ratingsList.filterNot { it.comment == null }.take(2)) { rating ->
-                        ReviewCard(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            rating = rating
-                        )
-                        Spacer(modifier = Modifier.height(22.dp))
-                    }*/
                 }
-                AddToCartContainer(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 16.dp)
-                        .align(Alignment.BottomCenter),
-                    price = selectedItem?.price ?: 0.0,
-                    onAddToCart = onAddToCart
-                )
+
             }
         }
         if (showSizeSelector) {

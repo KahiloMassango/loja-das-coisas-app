@@ -5,11 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -40,14 +46,16 @@ fun MyOrdersScreen(
     var currentTab by rememberSaveable { mutableStateOf(OrderTabs.DELIVERED) }
 
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             StoreLargeTopBar(
                 title = "Minhas Encomendas",
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )
-        }
+        },
+        contentWindowInsets = WindowInsets.navigationBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         Surface(
             modifier = Modifier.padding(paddingValues),

@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -69,6 +70,7 @@ internal fun ChangePasswordScreen(
 
     Scaffold(
         modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             StoreLargeTopBar(
                 title = "Alterar senha",
@@ -91,7 +93,7 @@ internal fun ChangePasswordScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    //.fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 16.dp, vertical = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(30.dp),

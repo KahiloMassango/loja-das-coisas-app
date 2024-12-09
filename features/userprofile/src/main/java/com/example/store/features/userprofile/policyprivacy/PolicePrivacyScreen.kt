@@ -24,6 +24,7 @@ internal fun PolicePrivacyScreen(
     onNavigationUp: () -> Unit = {}
 ) {
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             StoreCenteredTopBar(
                 title = "Política de Privacidade",
