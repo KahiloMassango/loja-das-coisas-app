@@ -32,7 +32,7 @@ internal fun ShopLoadingScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(12) {
+            items(10) {
                 ProductCardSkeleton()
             }
         }
