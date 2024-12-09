@@ -21,7 +21,6 @@ import com.example.store.core.data.util.NetworkMonitor
 import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
-import com.example.store.core.database.dao.OrderDao
 import com.example.store.core.database.dao.RecentSearchDao
 import com.example.store.core.network.retrofit.DistanceApiService
 import com.example.store.core.network.retrofit.GeocodeApiService
@@ -51,10 +50,6 @@ object DataModule {
         cartDao: CartDao
     ): CartRepository = DefaultCartRepository(cartDao)
 
-    @Provides
-    fun providesOrderRepository(
-        orderDao: OrderDao
-    ): OrderRepository = DefaultOrderRepository(orderDao)
 
     @Provides
     fun providesRecentSearchRepository(
