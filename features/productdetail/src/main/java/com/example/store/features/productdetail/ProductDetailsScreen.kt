@@ -28,13 +28,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.ProductItem
 import com.example.store.core.model.product.ProductWithVariation
 import com.example.store.core.ui.ErrorScreen
-import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
-import com.example.store.core.ui.component.ThemePreviews
-import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.features.productdetail.component.AddToCartContainer
 import com.example.store.features.productdetail.component.AttributeSelector
 import com.example.store.features.productdetail.component.ProductAttributes
+import com.example.store.features.productdetail.component.ProductDetailLoadingScreen
 import com.example.store.features.productdetail.component.ProductDetails
 import com.example.store.features.productdetail.component.ProductImageCarousel
 
@@ -63,10 +61,8 @@ internal fun ProductDetailsScreen(
     val productImages = viewModel.productImages.value
 
 
-
-
     when (uiState) {
-        is ProductDetailState.Loading -> LoadingScreen(modifier)
+        is ProductDetailState.Loading -> ProductDetailLoadingScreen(onNavigateUp)
         is ProductDetailState.Error -> ErrorScreen(onTryAgain = viewModel::refresh)
         is ProductDetailState.Success -> ProductDetailContent(
             modifier = modifier,
@@ -114,6 +110,7 @@ private fun ProductDetailContent(
     var showSizeSelector by remember { mutableStateOf(false) }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             StoreCenteredTopBar(
                 modifier = Modifier,
@@ -125,7 +122,7 @@ private fun ProductDetailContent(
         contentWindowInsets = WindowInsets.navigationBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         Surface(
-            modifier = modifier
+            modifier = Modifier
                 .padding(paddingValues)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
@@ -200,27 +197,5 @@ private fun ProductDetailContent(
                 onDismissRequest = { showColorSelector = false }
             )
         }
-    }
-}
-
-
-@ThemePreviews
-@Composable
-private fun Preview() {
-    StoreTheme {
-        /* ProductDetailContent(
-             product = productList[0],
-             size = "M",
-             color = "Azul",
-             isFavorite = false,
-             onSizeChange = {},
-             onColorChange = {},
-             onAddFavorite = {},
-             onReviewsClick = {},
-             onAddToCart = {},
-             onSuggestedProductsClick = {},
-             onStoreClick = {},
-             onNavigateUp = {}
-         )*/
     }
 }
