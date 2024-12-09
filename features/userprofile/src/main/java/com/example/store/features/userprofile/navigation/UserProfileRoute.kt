@@ -1,13 +1,11 @@
 package com.example.store.features.userprofile.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.example.store.features.userprofile.changepassword.navigation.changePasswordScreen
 import com.example.store.features.userprofile.deliveryaddress.navigation.deliveryAddressesScreen
 import com.example.store.features.userprofile.editprofile.navigation.editProfileScreen
 import com.example.store.features.userprofile.helpcenter.navigation.helpCenterScreen
-import com.example.store.features.userprofile.orderdeail.navigation.navigateToOrderDetail
 import com.example.store.features.userprofile.orderdeail.navigation.orderDetailScreen
 import com.example.store.features.userprofile.orders.navigation.myOrdersScreen
 import com.example.store.features.userprofile.policyprivacy.navigation.policePrivacyScreen
@@ -18,7 +16,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object UserProfileRoute
 
-fun NavGraphBuilder.userProfileScreen(
+fun NavGraphBuilder.userProfile(
     onMyOrdersClick: () -> Unit,
     onOrderClick: (String) -> Unit,
     onEditProfileClick: () -> Unit,

@@ -52,7 +52,7 @@ import com.example.store.features.userprofile.changepassword.navigation.navigate
 import com.example.store.features.userprofile.deliveryaddress.navigation.navigateToAddresses
 import com.example.store.features.userprofile.editprofile.navigation.navigateToEditProfile
 import com.example.store.features.userprofile.helpcenter.navigation.navigateToHelpCenter
-import com.example.store.features.userprofile.navigation.userProfileScreen
+import com.example.store.features.userprofile.navigation.userProfile
 import com.example.store.features.userprofile.orderdeail.navigation.navigateToOrderDetail
 import com.example.store.features.userprofile.orders.navigation.navigateToMyOrders
 import com.example.store.features.userprofile.policyprivacy.navigation.navigateToPolicePrivacy
@@ -125,7 +125,7 @@ fun AppContent(
 
         authentication(navController)
 
-        userProfileScreen(
+        userProfile(
             onMyOrdersClick = { navController.navigateToMyOrders() },
             onEditProfileClick = { navController.navigateToEditProfile() },
             onChangePasswordClick = { navController.navigateToChangePassword() },
