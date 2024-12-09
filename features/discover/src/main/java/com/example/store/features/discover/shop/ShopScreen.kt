@@ -1,9 +1,13 @@
 package com.example.store.features.discover.shop
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -13,7 +17,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
-import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.features.discover.shop.component.FilterContainer
 import com.example.store.features.discover.shop.component.ProductsGrid
@@ -39,6 +42,7 @@ internal fun ShopScreen(
                 onNavigateUp = onNavigateUp
             )
         },
+        contentWindowInsets = WindowInsets.navigationBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
         when (uiState) {
             is ShopUiState.Loading -> ShopLoadingScreen(Modifier.padding(paddingValues))
