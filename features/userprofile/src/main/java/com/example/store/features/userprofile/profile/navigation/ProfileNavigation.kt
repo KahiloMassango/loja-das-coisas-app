@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-internal data object ProfileRoute
+data object ProfileRoute
 
-internal fun NavGraphBuilder.profileScreen(
+fun NavGraphBuilder.profileScreen(
     onMyOrdersClick: () -> Unit,
     onEditProfileClick: () -> Unit,
     onChangePasswordClick: () -> Unit,

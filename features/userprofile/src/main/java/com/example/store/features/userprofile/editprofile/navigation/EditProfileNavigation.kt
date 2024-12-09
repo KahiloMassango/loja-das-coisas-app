@@ -12,7 +12,7 @@ internal data object EditProfileRoute
 
 fun NavController.navigateToEditProfile() = navigate(EditProfileRoute)
 
-internal fun NavGraphBuilder.editProfileScreen(
+fun NavGraphBuilder.editProfileScreen(
     onNavigateUp: () -> Unit
 ) {
     composable<EditProfileRoute>() {

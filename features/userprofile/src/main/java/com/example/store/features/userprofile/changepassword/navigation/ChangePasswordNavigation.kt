@@ -11,7 +11,7 @@ internal data object ChangePasswordRoute
 
 fun NavController.navigateToChangePassword() = navigate(ChangePasswordRoute)
 
-internal fun NavGraphBuilder.changePasswordScreen(onNavigateUp: () -> Unit, ) {
+fun NavGraphBuilder.changePasswordScreen(onNavigateUp: () -> Unit, ) {
     composable<ChangePasswordRoute> {
         ChangePasswordScreen(onNavigateUp = onNavigateUp)
     }

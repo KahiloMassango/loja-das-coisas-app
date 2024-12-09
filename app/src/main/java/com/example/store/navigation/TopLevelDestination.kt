@@ -11,9 +11,9 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingBasket
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.store.features.cart.navigation.CartRoute
-import com.example.store.features.discover.DiscoverRoute
+import com.example.store.features.discover.category.navigation.CategoryRoute
 import com.example.store.features.home.navigation.HomeRoute
-import com.example.store.features.userprofile.navigation.UserProfileRoute
+import com.example.store.features.userprofile.profile.navigation.ProfileRoute
 
 
 enum class TopLevelDestination (
@@ -23,8 +23,8 @@ enum class TopLevelDestination (
     val selectedIcon: ImageVector
 ){
     HOME("Home", HomeRoute, Icons.Outlined.Home, Icons.Filled.Home),
-    DISCOVER("Descobrir", DiscoverRoute,Icons.Outlined.Category,Icons.Filled.Category),
+    DISCOVER("Categorias", CategoryRoute,Icons.Outlined.Category,Icons.Filled.Category),
     CART("Cesto", CartRoute, Icons.Outlined.ShoppingBasket,Icons.Filled.ShoppingBasket),
-    PROFILE("Perfil", UserProfileRoute, Icons.Outlined.Person, Icons.Filled.Person)
+    PROFILE("Perfil", ProfileRoute, Icons.Outlined.Person, Icons.Filled.Person)
 }
 

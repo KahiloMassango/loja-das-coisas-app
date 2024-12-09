@@ -12,7 +12,7 @@ internal data class OrderDetailRoute(val orderId: String)
 
 fun NavController.navigateToOrderDetail(orderId: String) = navigate(OrderDetailRoute(orderId))
 
-internal fun NavGraphBuilder.orderDetailScreen(
+fun NavGraphBuilder.orderDetailScreen(
     onNavigateUp: () -> Unit
 ) {
     composable<OrderDetailRoute>() {

@@ -15,7 +15,7 @@ fun NavController.navigateToShop(
     category: String, subcategory: String
 ) = navigate(ShopRoute(category, subcategory))
 
-internal fun NavGraphBuilder.shopScreen(
+fun NavGraphBuilder.shopScreen(
     onProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {

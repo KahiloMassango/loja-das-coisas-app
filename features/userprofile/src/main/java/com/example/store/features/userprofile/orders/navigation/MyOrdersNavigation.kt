@@ -12,7 +12,7 @@ internal data object MyOrdersRoute
 
 fun NavController.navigateToMyOrders() = navigate(MyOrdersRoute)
 
-internal fun NavGraphBuilder.myOrdersScreen(
+fun NavGraphBuilder.myOrdersScreen(
     onOrderClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {

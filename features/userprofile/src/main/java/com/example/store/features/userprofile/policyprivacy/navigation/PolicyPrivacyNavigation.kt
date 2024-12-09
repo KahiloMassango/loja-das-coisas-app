@@ -12,12 +12,12 @@ internal data object PolicePrivacyRoute
 
 fun NavController.navigateToPolicePrivacy() = navigate(PolicePrivacyRoute)
 
-internal fun NavGraphBuilder.policePrivacyScreen(
-    onNavigationUp: () -> Unit
+fun NavGraphBuilder.policePrivacyScreen(
+    onNavigateUp: () -> Unit
 ) {
     composable<PolicePrivacyRoute> {
         PolicePrivacyScreen(
-            onNavigationUp = onNavigationUp
+            onNavigationUp = onNavigateUp
         )
     }
 

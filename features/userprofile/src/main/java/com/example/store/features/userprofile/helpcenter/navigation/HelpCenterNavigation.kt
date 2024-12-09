@@ -11,7 +11,7 @@ internal data object HelpCenterRoute
 
 fun NavController.navigateToHelpCenter() = navigate(HelpCenterRoute)
 
-internal fun NavGraphBuilder.helpCenterScreen(
+fun NavGraphBuilder.helpCenterScreen(
     onNavigationUp: () -> Unit
 ){
     composable<HelpCenterRoute> {
