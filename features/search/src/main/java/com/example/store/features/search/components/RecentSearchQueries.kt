@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.store.core.model.RecentSearch
+import com.example.store.core.model.search.RecentSearch
 import kotlin.collections.forEach
 
 @Composable

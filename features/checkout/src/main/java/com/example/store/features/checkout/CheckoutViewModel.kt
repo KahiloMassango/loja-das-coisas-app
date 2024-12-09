@@ -7,7 +7,7 @@ import com.example.store.core.data.repository.AddressRepository
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.model.Address
-import com.example.store.core.model.DeliveryMethod
+import com.example.store.core.model.cart.DeliveryMethod
 import com.example.store.core.model.resource.calculateOrderTotal
 import com.example.store.core.ui.util.hotFlow
 import com.google.android.gms.maps.model.LatLng

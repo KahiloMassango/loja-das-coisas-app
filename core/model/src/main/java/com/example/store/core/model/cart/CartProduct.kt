@@ -1,4 +1,4 @@
-package com.example.store.core.model
+package com.example.store.core.model.cart
 
 data class CartProduct(
     val productItemId: String,

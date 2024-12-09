@@ -3,7 +3,7 @@ package com.example.store.core.data.repository
 import com.example.store.core.database.dao.RecentSearchDao
 import com.example.store.core.database.model.RecentSearchEntity
 import com.example.store.core.database.model.asExternalModel
-import com.example.store.core.model.RecentSearch
+import com.example.store.core.model.search.RecentSearch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

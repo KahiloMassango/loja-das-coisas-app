@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.Address
-import com.example.store.core.model.DeliveryMethod
+import com.example.store.core.model.cart.DeliveryMethod
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.features.checkout.component.AddressSection

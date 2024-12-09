@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.store.core.database.model.OrderEntity
-import com.example.store.core.model.DeliveryMethod
+import com.example.store.core.model.cart.DeliveryMethod
 import kotlinx.coroutines.flow.Flow
 
 @Dao

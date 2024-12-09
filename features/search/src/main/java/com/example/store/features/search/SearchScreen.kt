@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
-import com.example.store.core.model.RecentSearch
+import com.example.store.core.model.search.RecentSearch
 import com.example.store.core.ui.component.LargeProductCard
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.features.search.components.RecentSearchQueries

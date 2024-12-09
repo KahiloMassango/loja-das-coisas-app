@@ -1,10 +1,8 @@
 package com.example.store.core.data.model
 
 import com.example.store.core.database.model.AddressEntity
-import com.example.store.core.database.model.CartProductEntity
 import com.example.store.core.database.model.OrderEntity
 import com.example.store.core.model.Address
-import com.example.store.core.model.CartProduct
 import com.example.store.core.model.Order
 
 

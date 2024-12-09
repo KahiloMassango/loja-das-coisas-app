@@ -1,5 +1,7 @@
 package com.example.store.core.model
 
+import com.example.store.core.model.cart.DeliveryMethod
+
 data class Order(
     val id: Int = 0,
     val cartTotal: Double = 0.0,

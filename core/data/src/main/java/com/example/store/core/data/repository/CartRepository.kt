@@ -1,6 +1,6 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.model.CartProduct
+import com.example.store.core.model.cart.CartProduct
 import com.example.store.core.model.product.ProductItem
 import kotlinx.coroutines.flow.Flow
 

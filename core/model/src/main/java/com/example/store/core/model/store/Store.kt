@@ -1,4 +1,4 @@
-package com.example.store.core.model
+package com.example.store.core.model.store
 
 data class Store(
     val id: String,

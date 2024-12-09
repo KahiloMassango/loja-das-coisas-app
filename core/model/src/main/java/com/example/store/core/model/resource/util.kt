@@ -1,6 +1,6 @@
 package com.example.store.core.model.resource
 
-import com.example.store.core.model.DeliveryMethod
+import com.example.store.core.model.cart.DeliveryMethod
 
 fun calculateOrderTotal(
     deliveryFee: Double,

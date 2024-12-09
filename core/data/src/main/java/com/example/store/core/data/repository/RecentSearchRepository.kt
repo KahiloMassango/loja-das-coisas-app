@@ -1,6 +1,6 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.model.RecentSearch
+import com.example.store.core.model.search.RecentSearch
 import kotlinx.coroutines.flow.Flow
 
 interface RecentSearchRepository {

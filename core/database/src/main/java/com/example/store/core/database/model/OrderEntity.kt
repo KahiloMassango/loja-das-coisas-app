@@ -2,7 +2,7 @@ package com.example.store.core.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.store.core.model.DeliveryMethod
+import com.example.store.core.model.cart.DeliveryMethod
 import com.example.store.core.model.Order
 
 @Entity(tableName = "orders")

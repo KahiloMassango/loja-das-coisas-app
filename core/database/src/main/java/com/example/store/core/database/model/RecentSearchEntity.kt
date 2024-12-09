@@ -2,7 +2,7 @@ package com.example.store.core.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.store.core.model.RecentSearch
+import com.example.store.core.model.search.RecentSearch
 
 @Entity(tableName = "recent_search")
 data class RecentSearchEntity(

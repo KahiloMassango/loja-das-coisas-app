@@ -3,7 +3,7 @@ package com.example.store.core.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.store.core.model.CartProduct
+import com.example.store.core.model.cart.CartProduct
 
 @Entity(tableName = "cart")
 data class CartProductEntity(
