@@ -6,6 +6,7 @@ import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.model.product.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
+            delay(4000L)
             _uiState.value = HomeUiState.Success(
                 products = productRepository.getProducts("women", "clothes")
             )

@@ -27,10 +27,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
-import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreSearchTextField
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.features.home.component.HomeBanner
+import com.example.store.features.home.component.HomeLoadingContent
 import com.example.store.features.home.component.Section
 
 @Composable
@@ -44,7 +44,7 @@ internal fun HomeScreen(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     when (uiState) {
         is HomeUiState.Error -> ErrorScreen(onTryAgain = {})
-        is HomeUiState.Loading -> LoadingScreen()
+        is HomeUiState.Loading -> HomeLoadingContent()
         is HomeUiState.Success -> HomeContent(
             modifier = modifier,
             onProductClick = onProductClick,
