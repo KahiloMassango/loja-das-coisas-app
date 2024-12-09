@@ -12,22 +12,25 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.features.discover.category.model.Category
 import com.example.store.features.discover.shop.component.FilterContainer
 import com.example.store.features.discover.shop.component.ProductsGrid
 import com.example.store.features.discover.shop.component.ShopLoadingScreen
 import com.example.store.features.discover.shop.model.Filter
+import java.util.Locale
 
 
 @Composable
 internal fun ShopScreen(
     viewModel: ShopViewModel = hiltViewModel(),
-    section: String,
+    category: String,
     onProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {
@@ -37,7 +40,7 @@ internal fun ShopScreen(
     Scaffold(
         topBar = {
             StoreCenteredTopBar(
-                title = section,
+                title = Category.valueOf(category).description,
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )

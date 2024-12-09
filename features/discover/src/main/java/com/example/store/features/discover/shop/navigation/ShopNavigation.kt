@@ -22,7 +22,7 @@ fun NavGraphBuilder.shopScreen(
     composable<ShopRoute> { backStackEntry  ->
         val shop: ShopRoute = backStackEntry.toRoute()
         ShopScreen(
-            section = shop.category,
+            category = shop.category.replaceFirstChar { it.uppercase() },
             onProductClick = { onProductClick(it) },
             onNavigateUp = onNavigateUp
         )
