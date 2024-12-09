@@ -14,6 +14,7 @@ import com.example.store.core.model.product.ProductItem
 import com.example.store.core.model.product.ProductWithVariation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -51,6 +52,7 @@ internal class ProductDetailViewModel @Inject constructor(
 
     var uiState: StateFlow<ProductDetailState> = flow {
         emit(ProductDetailState.Loading)
+        delay(3000L)
         try {
             val product = P1V
             emit(ProductDetailState.Success(product))
