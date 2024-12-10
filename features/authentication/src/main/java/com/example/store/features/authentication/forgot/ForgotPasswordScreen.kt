@@ -1,13 +1,16 @@
 package com.example.store.features.authentication.forgot
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -18,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -47,11 +51,19 @@ fun ForgotPasswordScreen(
         }
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = { focusManager.clearFocus() }
+                    )
+                }
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp,end = 16.dp,top = 64.dp,bottom = 16.dp)
+                    .verticalScroll(rememberScrollState())
+                    .padding(start = 16.dp,end = 16.dp,top = 54.dp,bottom = 16.dp)
                     .fillMaxSize(),
             ) {
                 Text(
@@ -61,7 +73,7 @@ fun ForgotPasswordScreen(
                     color = MaterialTheme.colorScheme.onSurface,
 
                 )
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(22.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
@@ -79,7 +91,7 @@ fun ForgotPasswordScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(24.dp))
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "ENVIAR",

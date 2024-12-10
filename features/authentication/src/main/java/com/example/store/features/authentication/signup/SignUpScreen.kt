@@ -1,5 +1,6 @@
 package com.example.store.features.authentication.signup
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -46,7 +48,7 @@ import com.example.store.features.authentication.component.CustomClickableText
 fun SignUpScreen(
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
-    onNavigateLogin: () -> Unit,
+    onLogin: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -65,7 +67,13 @@ fun SignUpScreen(
         }
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = { focusManager.clearFocus() }
+                    )
+                }
         ) {
             Column(
                 modifier = Modifier
@@ -170,7 +178,7 @@ fun SignUpScreen(
                     text = "Já tem uma conta?",
                     supportText = "Entrar",
                     horizontalArrangement = Arrangement.End,
-                    onClick = { onNavigateLogin() }
+                    onClick = { onLogin() }
                 )
 
                 CustomButton(
@@ -206,7 +214,7 @@ fun SignUpScreen(
 private fun Preview() {
     StoreTheme {
         SignUpScreen(
-            onNavigateLogin = {},
+            onLogin = {},
             onNavigateUp = {}
         )
     }

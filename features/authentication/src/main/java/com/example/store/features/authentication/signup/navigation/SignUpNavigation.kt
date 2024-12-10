@@ -13,12 +13,12 @@ data object SignUpRoute
 fun NavController.navigateToSignUp() = navigate(SignUpRoute)
 
 fun NavGraphBuilder.signUpScreen(
-    onNavigateLogin: () -> Unit,
+    onLogin: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     composable<SignUpRoute> {
         SignUpScreen(
-            onNavigateLogin = onNavigateLogin,
+            onLogin = onLogin,
             onNavigateUp = onNavigateUp,
         )
     }

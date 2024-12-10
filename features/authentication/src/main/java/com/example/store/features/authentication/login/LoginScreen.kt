@@ -1,6 +1,7 @@
 package com.example.store.features.authentication.login
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,21 +10,31 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.ui.R
 import com.example.store.core.ui.component.CustomButton
@@ -44,34 +55,54 @@ fun LoginScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
 
 
     Scaffold(
         modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             StoreLargeTopBar(
                 title = "Login",
-                canNavigateBack = true,
+                canNavigateBack = false,
                 onNavigateUp = onNavigateUp
             )
         }
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = { focusManager.clearFocus() }
+                    )
+                }
         ){
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 54.dp, bottom = 16.dp)
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp)
                     .fillMaxSize(),
+                verticalArrangement = Arrangement.Center
             ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "App Name",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(30.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = viewModel.email,
+                    value = email,
                     placeholder = "Email",
                     isError = false,
-                    supportingText = "Not a valid email. Should be your@email.com.",
-                    onValueChange = { viewModel.updateEmail(it) },
+                    onValueChange = { email = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Email
@@ -82,12 +113,12 @@ fun LoginScreen(
                         }
                     )
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(24.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = viewModel.password,
-                    placeholder = "Password",
-                    onValueChange = { viewModel.updatePassword(it) },
+                    value = password,
+                    placeholder = "Senha",
+                    onValueChange = { password = it },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
@@ -106,7 +137,7 @@ fun LoginScreen(
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .clickable { onForgotPassword() },
-                        text = "Esqueceu a password?",
+                        text = "Esqueceu a senha?",
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }

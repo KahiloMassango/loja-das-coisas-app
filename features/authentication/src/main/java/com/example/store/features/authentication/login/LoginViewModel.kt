@@ -13,17 +13,5 @@ class LoginViewModel @Inject constructor(
 
 ): ViewModel() {
 
-    var email by  mutableStateOf("")
-        private set
 
-    var password by mutableStateOf("")
-        private set
-
-    fun updateEmail(value: String) {
-        email = value
-    }
-
-    fun updatePassword(value: String) {
-        password = value
-    }
 }
