@@ -3,7 +3,6 @@ package com.example.store.features.authentication.login
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,10 +34,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.store.core.ui.R
 import com.example.store.core.ui.component.CustomButton
-import com.example.store.core.ui.component.SocialAuthButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.component.ThemePreviews
@@ -48,14 +44,14 @@ import com.example.store.features.authentication.component.CustomClickableText
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = hiltViewModel() ,
+    viewModel: LoginViewModel = LoginViewModel(),
     onSignUp: () -> Unit,
     onForgotPassword: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
-    var email by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
 
@@ -63,13 +59,6 @@ fun LoginScreen(
     Scaffold(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surface,
-        topBar = {
-            StoreLargeTopBar(
-                title = "Login",
-                canNavigateBack = false,
-                onNavigateUp = onNavigateUp
-            )
-        }
     ) { paddingValues ->
         Surface(
             modifier = Modifier
@@ -80,7 +69,7 @@ fun LoginScreen(
                         onTap = { focusManager.clearFocus() }
                     )
                 }
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -88,24 +77,25 @@ fun LoginScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Center
             ) {
+
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "App Name",
+                    text = "Entrar",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
+                    fontSize = 22.sp,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = email,
-                    placeholder = "Email",
+                    value = phoneNumber,
+                    placeholder = "Telefone",
                     isError = false,
-                    onValueChange = { email = it },
+                    onValueChange = { phoneNumber = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email
+                        keyboardType = KeyboardType.Phone
                     ),
                     keyboardActions = KeyboardActions(
                         onNext = {
@@ -132,15 +122,16 @@ fun LoginScreen(
                 )
 
                 Spacer(modifier = Modifier.height(26.dp))
-                Box(modifier = Modifier.fillMaxWidth()){
-                    Text(
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .clickable { onForgotPassword() },
-                        text = "Esqueceu a senha?",
-                        style = MaterialTheme.typography.labelMedium,
-                    )
-                }
+
+                Text(
+                    modifier = Modifier
+                        .clickable { onForgotPassword() }
+                        .fillMaxWidth(),
+                    text = "Esqueceu a senha?",
+                    style = MaterialTheme.typography.labelMedium,
+                    textAlign = TextAlign.Right
+                )
+
 
                 Spacer(modifier = Modifier.height(26.dp))
                 CustomButton(
@@ -149,29 +140,12 @@ fun LoginScreen(
                     onClick = { /* TODO */ }
                 )
                 Spacer(modifier = Modifier.height(30.dp))
-                Column (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ){
-                    Text(
-                        text = "Ou faça login com ",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    SocialAuthButton(
-                        iconRes = R.drawable.google_icon,
-                        onClick = { /* TODO */ }
-                    )
-                }
-                Spacer(modifier = Modifier.height(26.dp))
                 CustomClickableText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Não tem uma conta?",
                     supportText = "Criar",
-                    onClick =  { onSignUp() }
+                    onClick = { onSignUp() }
                 )
             }
         }
@@ -182,6 +156,10 @@ fun LoginScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        //LoginScreen(Modifier, {}, {}, {})
+        LoginScreen(
+            onSignUp = {},
+            onForgotPassword = {},
+            onNavigateUp = {}
+        )
     }
 }
