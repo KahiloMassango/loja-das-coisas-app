@@ -32,7 +32,13 @@ import com.example.store.feature.product_listing.navigation.navigateToProductLis
 import com.example.store.feature.product_listing.navigation.productListingScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
-import com.example.store.features.authentication.navigation.authentication
+import com.example.store.features.authentication.forgot.navigation.forgotPasswordScreen
+import com.example.store.features.authentication.forgot.navigation.navigateToForgotPassword
+import com.example.store.features.authentication.login.navigation.LoginRoute
+import com.example.store.features.authentication.login.navigation.loginScreen
+import com.example.store.features.authentication.login.navigation.navigateToLogin
+import com.example.store.features.authentication.signup.navigation.navigateToSignUp
+import com.example.store.features.authentication.signup.navigation.signUpScreen
 import com.example.store.features.cart.navigation.cartScreen
 import com.example.store.features.checkout.navigation.checkoutScreen
 import com.example.store.features.checkout.navigation.navigateToCheckout
@@ -79,7 +85,7 @@ fun App(
     val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
 
-    if (! isOffline) {
+    if (false) {
         NoInternetConnection(
             onTryAgain = {
                 //viewModel.tryAgain()
@@ -131,7 +137,20 @@ fun AppContent(
         startDestination = HomeRoute
     ) {
 
-        authentication(navController)
+        loginScreen(
+            onSignUp = { navController.navigateToSignUp() },
+            onForgotPassword = { navController.navigateToForgotPassword() },
+            onNavigateUp = navController::navigateUp
+        )
+
+        signUpScreen(
+            onLogin = { navController.navigateToLogin() },
+            onNavigateUp = navController::navigateUp
+        )
+
+        forgotPasswordScreen(
+            onNavigateUp = navController::navigateUp
+        )
 
         profileScreen(
             onMyOrdersClick = { navController.navigateToMyOrders() },

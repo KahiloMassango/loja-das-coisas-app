@@ -44,8 +44,8 @@ import com.example.store.core.model.AddressType
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreTextField
 import androidx.compose.runtime.setValue
-import com.example.store.core.model.resource.isNameValid
-import com.example.store.core.model.resource.isPhoneNumberValid
+import com.example.store.core.model.resource.isValidName
+import com.example.store.core.model.resource.isValidPhoneNumber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -159,8 +159,8 @@ internal fun AddressDetailsSheet(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Salvar endereço",
                     onClick = {
-                        isValidName = isNameValid(receiverName)
-                        isValidPhoneNumber = isPhoneNumberValid(phoneNumber)
+                        isValidName = isValidName(receiverName)
+                        isValidPhoneNumber = isValidPhoneNumber(phoneNumber)
                         if(isValidName && isValidPhoneNumber) {
                             saveAddress()
                         }

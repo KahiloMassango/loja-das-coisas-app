@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -34,7 +36,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.ui.R
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.SocialAuthButton
@@ -47,7 +48,7 @@ import com.example.store.features.authentication.component.CustomClickableText
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = hiltViewModel(),
+    viewModel: SignUpViewModel = SignUpViewModel(),
     onLogin: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
@@ -58,6 +59,7 @@ fun SignUpScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             StoreLargeTopBar(
                 title = "Criar conta",
@@ -68,7 +70,9 @@ fun SignUpScreen(
     ) { paddingValues ->
         Surface(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(paddingValues)
+                .fillMaxSize()
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = { focusManager.clearFocus() }
@@ -81,95 +85,92 @@ fun SignUpScreen(
                     .fillMaxSize(),
                 // horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                StoreTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = uiState.name,
-                    placeholder = "Nome",
-                    isError = uiState.nameError,
-                    supportingText = "(Mínimo 4 caracteres, letras apenas.)",
-                    onValueChange = { viewModel.updateName(it) },
-
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Password,
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    StoreTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = uiState.name,
+                        placeholder = "Nome",
+                        isError = uiState.nameError,
+                        onValueChange = { viewModel.updateName(it) },
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Password,
+                        )
                     )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                StoreTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = uiState.email,
-                    placeholder = "Email",
-                    isError = uiState.emailError,
-                    supportingText = "Ex: meu@email.com)",
-                    onValueChange = { viewModel.updateEmail(it) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email
+                    StoreTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = uiState.email,
+                        placeholder = "Email",
+                        isError = uiState.emailError,
+                        onValueChange = { viewModel.updateEmail(it) },
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Email
+                        )
                     )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                StoreTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = uiState.phoneNumber,
-                    placeholder = "Telefone",
-                    isError = uiState.phoneNumberError,
-                    supportingText = "*obrigatório",
-                    onValueChange = { viewModel.updatePhoneNumber(it) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Number
+                    StoreTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = uiState.phoneNumber,
+                        placeholder = "Telefone",
+                        isError = uiState.phoneNumberError,
+                        onValueChange = { viewModel.updatePhoneNumber(it) },
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Number
+                        )
                     )
-                )
 
-                Spacer(modifier = Modifier.height(20.dp))
-                StoreTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = uiState.password,
-                    placeholder = "Senha",
-                    isError = uiState.passwordError,
-                    supportingText = "(Mínimo 8 caracteres)",
-                    onValueChange = { viewModel.updatePassword(it) },
-                    visualTransformation = if (showPassword) VisualTransformation.None
-                    else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Password
-                    ),
-                    trailingIcon = {
-                        val imageVector = if (showPassword) Icons.Default.VisibilityOff else
-                            Icons.Default.Visibility
+                    StoreTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = uiState.password,
+                        placeholder = "Senha",
+                        isError = uiState.passwordError,
+                        onValueChange = { viewModel.updatePassword(it) },
+                        visualTransformation = if (showPassword) VisualTransformation.None
+                        else PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Password
+                        ),
+                        trailingIcon = {
+                            val imageVector = if (showPassword) Icons.Default.VisibilityOff else
+                                Icons.Default.Visibility
 
-                        IconButton(
-                            onClick = { showPassword = ! showPassword }
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(24.dp),
-                                imageVector = imageVector,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.inverseOnSurface
-                            )
-                        }
-                    }
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                StoreTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = uiState.confirmPassword,
-                    placeholder = "Confirmar senha",
-                    isError = uiState.confirmPasswordError,
-                    supportingText = "As senhas não correspondem.",
-                    onValueChange = { viewModel.updateConfirmPassword(it) },
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Done,
-                        keyboardType = KeyboardType.Password
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.clearFocus()
+                            IconButton(
+                                onClick = { showPassword = ! showPassword }
+                            ) {
+                                Icon(
+                                    modifier = Modifier.size(20.dp),
+                                    imageVector = imageVector,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.inverseOnSurface
+                                )
+                            }
                         }
                     )
-                )
+                    StoreTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = uiState.confirmPassword,
+                        placeholder = "Confirmar senha",
+                        isError = uiState.confirmPasswordError,
+                        onValueChange = { viewModel.updateConfirmPassword(it) },
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Password
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focusManager.clearFocus()
+                            }
+                        )
+                    )
+                }
+
 
                 CustomClickableText(
                     modifier = Modifier
@@ -186,23 +187,6 @@ fun SignUpScreen(
                     text = "CRIAR CONTA",
                     onClick = { viewModel.validateForm() }
                 )
-
-                Spacer(modifier = Modifier.weight(1f))
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Text(
-                        text = "Inscrever-se com",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    SocialAuthButton(
-                        iconRes = R.drawable.google_icon,
-                        onClick = { /* TODO */ }
-                    )
-                }
             }
         }
     }

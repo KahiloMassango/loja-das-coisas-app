@@ -29,8 +29,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.store.core.model.resource.isEmailValid
-import com.example.store.core.model.resource.isNameValid
+import com.example.store.core.model.resource.isValidEmail
+import com.example.store.core.model.resource.isValidName
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
@@ -144,10 +144,10 @@ internal fun EditProfileScreen(
                     text = "Salvar Alterações",
                     onClick = {
                         when {
-                            !isNameValid(viewmodel.userName) -> {
+                            !isValidName(viewmodel.userName) -> {
                                 Toast.makeText(context, "Nome inválido", Toast.LENGTH_SHORT).show()
                             }
-                            !isEmailValid(viewmodel.userEmail) -> {
+                            !isValidEmail(viewmodel.userEmail) -> {
                                 Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT)
                                     .show()
                             }

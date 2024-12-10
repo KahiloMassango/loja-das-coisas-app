@@ -4,10 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.store.core.model.resource.isEmailValid
-import com.example.store.core.model.resource.isNameValid
+import com.example.store.core.model.resource.isValidEmail
+import com.example.store.core.model.resource.isValidName
 import com.example.store.core.model.resource.isPasswordValid
-import com.example.store.core.model.resource.isPhoneNumberValid
+import com.example.store.core.model.resource.isValidPhoneNumber
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -46,13 +46,13 @@ class SignUpViewModel @Inject constructor(
 
 
         // name
-        uiState = uiState.copy(nameError = ! isNameValid(uiState.name))
+        uiState = uiState.copy(nameError = ! isValidName(uiState.name))
 
         // email
-        uiState = uiState.copy(emailError = ! isEmailValid(uiState.email))
+        uiState = uiState.copy(emailError = ! isValidEmail(uiState.email))
 
         // phone number
-        uiState = uiState.copy(phoneNumberError = ! isPhoneNumberValid(uiState.phoneNumber))
+        uiState = uiState.copy(phoneNumberError = ! isValidPhoneNumber(uiState.phoneNumber))
 
         // password
         uiState = uiState.copy(passwordError = ! isPasswordValid(uiState.password))

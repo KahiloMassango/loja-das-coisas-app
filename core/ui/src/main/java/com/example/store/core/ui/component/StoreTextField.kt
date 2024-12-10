@@ -50,7 +50,7 @@ fun StoreTextField(
                 .shadow(
                     elevation,
                     MaterialTheme.shapes.small
-                ),//.border(1.dp, textFieldBorderColor, MaterialTheme.shapes.small),
+                ),
             value = value,
             textStyle = MaterialTheme.typography.bodyMedium,
             isError = isError,
@@ -73,7 +73,6 @@ fun StoreTextField(
                 errorSupportingTextColor = MaterialTheme.colorScheme.error,
                 errorIndicatorColor = Color.Unspecified,
                 errorContainerColor = MaterialTheme.colorScheme.background
-                //disabledContainerColor = Color.Transparent,
             ),
             label = {
                 Text(
@@ -108,7 +107,6 @@ private fun Preview() {
             onValueChange = { value = it },
             placeholder = "Password",
             isError = false,
-            supportingText = "Error Message"
         )
     }
 }
