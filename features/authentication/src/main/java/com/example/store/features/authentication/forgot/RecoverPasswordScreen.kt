@@ -33,12 +33,12 @@ import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
-fun ForgotPasswordScreen(
+fun RecoverPasswordScreen(
     modifier: Modifier = Modifier,
     onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-    var email by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
 
     Scaffold(
         modifier = modifier,
@@ -54,6 +54,7 @@ fun ForgotPasswordScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = { focusManager.clearFocus() }
@@ -62,13 +63,13 @@ fun ForgotPasswordScreen(
         ){
             Column(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(start = 16.dp,end = 16.dp,top = 54.dp,bottom = 16.dp)
+                    .padding(horizontal = 16.dp)
                     .fillMaxSize(),
             ) {
+                Spacer(Modifier.height(56.dp))
                 Text(
-                    text = "Por favor, indique o seu endereço de e-mail." +
-                        " Você receberá um link para criar uma nova senha por e-mail.",
+                    text = "Por favor, indique o seu número de telefone. " +
+                        "Para recuperarmos sua senha.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
 
@@ -76,17 +77,15 @@ fun ForgotPasswordScreen(
                 Spacer(modifier = Modifier.height(22.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = email,
-                    placeholder = "Email",
-                    onValueChange = { email = it },
-                    isError = false,
-                    supportingText = "Não é um endereço de e-mail válido. Deve ser seu@email.com",
+                    value = phoneNumber,
+                    placeholder = "Telefone",
+                    onValueChange = { phoneNumber = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
-                        keyboardType = KeyboardType.Email
+                        keyboardType = KeyboardType.Phone
                     ),
                     keyboardActions = KeyboardActions(
-                        onNext = {
+                        onDone = {
                             focusManager.clearFocus()
                         }
                     )
@@ -94,7 +93,7 @@ fun ForgotPasswordScreen(
                 Spacer(modifier = Modifier.height(24.dp))
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "ENVIAR",
+                    text = "Prosseguir",
                     onClick = { /* TODO */ }
                 )
             }
@@ -106,6 +105,6 @@ fun ForgotPasswordScreen(
 @Composable
 private fun Preview() {
     StoreTheme {
-        ForgotPasswordScreen{}
+        RecoverPasswordScreen{}
     }
 }
