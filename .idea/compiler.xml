@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="21">
       <module name="store.features.deliveryaddress" target="21" />
       <module name="store.features.editprofile" target="21" />
       <module name="store.features.produtdetail" target="21" />

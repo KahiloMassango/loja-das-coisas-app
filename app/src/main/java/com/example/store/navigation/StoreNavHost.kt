@@ -34,7 +34,6 @@ import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
 import com.example.store.features.authentication.forgot.navigation.forgotPasswordScreen
 import com.example.store.features.authentication.forgot.navigation.navigateToForgotPassword
-import com.example.store.features.authentication.login.navigation.LoginRoute
 import com.example.store.features.authentication.login.navigation.loginScreen
 import com.example.store.features.authentication.login.navigation.navigateToLogin
 import com.example.store.features.authentication.signup.navigation.navigateToSignUp
@@ -42,9 +41,9 @@ import com.example.store.features.authentication.signup.navigation.signUpScreen
 import com.example.store.features.cart.navigation.cartScreen
 import com.example.store.features.checkout.navigation.checkoutScreen
 import com.example.store.features.checkout.navigation.navigateToCheckout
-import com.example.store.features.discover.category.navigation.categoryScreen
-import com.example.store.features.discover.shop.navigation.navigateToShop
-import com.example.store.features.discover.shop.navigation.shopScreen
+import com.example.store.features.discover.navigation.categoryScreen
+import com.example.store.feature.shop.navigation.navigateToShop
+import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.features.home.navigation.HomeRoute
 import com.example.store.features.home.navigation.homeScreen
 import com.example.store.features.newaddress.navigation.navigateToNewAddressScreen

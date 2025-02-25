@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/features/newaddress" />
             <option value="$PROJECT_DIR$/features/productdetail" />
             <option value="$PROJECT_DIR$/features/search" />
+            <option value="$PROJECT_DIR$/features/shop" />
             <option value="$PROJECT_DIR$/features/store" />
             <option value="$PROJECT_DIR$/features/userprofile" />
           </set>

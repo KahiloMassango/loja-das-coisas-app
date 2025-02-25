@@ -17,11 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.store.core.model.product.Category
 import com.example.store.core.ui.component.FavoriteButton
 
 @Composable
 internal fun ProductAttributes(
-    subcategory: String,
+    category: Category,
     selectedSize: String?,
     selectedColor: String?,
     onShowSizeOptions: () -> Unit,
@@ -33,8 +34,8 @@ internal fun ProductAttributes(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        when (subcategory) {
-            "clothes", "shoes" -> {
+        when {
+            category.hasSizeVariation && category.hasColorVariation -> {
                 // Show both Color and Size dropdowns
                 Row(
                     modifier = Modifier.weight(1f),
@@ -60,7 +61,7 @@ internal fun ProductAttributes(
                 )
             }
 
-            "accessories" -> {
+            category.hasColorVariation -> {
                 // Show only Color dropdown
                 Attribute(
                     modifier = Modifier.fillMaxWidth(0.5f),
@@ -70,7 +71,7 @@ internal fun ProductAttributes(
                 )
             }
 
-            "skincare", "bodycare", "fragrance" -> {
+            category.hasSizeVariation -> {
                 // Show only Size dropdown
                 Attribute(
                     modifier = Modifier.fillMaxWidth(0.5f),

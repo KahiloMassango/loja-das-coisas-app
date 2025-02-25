@@ -13,7 +13,7 @@ data class FavoriteProductEntity(
     val name: String,
     @ColumnInfo(name = "store_name")
     val storeName: String,
-    val price: Double,
+    val price: Int,
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
     val color: String,

@@ -37,7 +37,7 @@ internal fun ProductImageCarousel(
         ) { page ->
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                model = images[page],
+                model = images[page].replace("localhost", "10.0.2.2"),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )

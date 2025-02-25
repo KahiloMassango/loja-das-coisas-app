@@ -43,7 +43,7 @@ internal fun HomeScreen(
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     when (uiState) {
-        is HomeUiState.Error -> ErrorScreen(onTryAgain = {})
+        is HomeUiState.Error -> ErrorScreen(onTryAgain = viewModel::loadProducts)
         is HomeUiState.Loading -> HomeLoadingContent()
         is HomeUiState.Success -> HomeContent(
             modifier = modifier,

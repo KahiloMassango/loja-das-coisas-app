@@ -23,16 +23,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.store.core.ui.R
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.component.FavoriteButton
+import com.example.store.core.ui.util.toCurrency
 
 @Composable
 internal fun StoreProductCard(
     modifier: Modifier = Modifier,
     product: Product,
     onClick: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit = {}
+    //onFavoriteClick: (String) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -46,28 +48,18 @@ internal fun StoreProductCard(
         Column(
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
-            Box {
-                Image(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(184.dp)
-                        .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
-                    painter = painterResource(id = R.drawable.men_clothes),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop
-                )
-                FavoriteButton(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .offset {
-                            IntOffset(x = 0, y = 50)
-                        },
-                    isFavorite = false,
-                    onClick = { onFavoriteClick(product.id.toString()) }
-                )
-            }
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(184.dp)
+                    .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
+                model = product.image.replace("localhost", "10.0.2.2"),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+
             Text(
-                text = product.title,
+                text = product.name,
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold
@@ -78,7 +70,7 @@ internal fun StoreProductCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "499 kz",
+                    text = product.minPrice.toCurrency(),
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold

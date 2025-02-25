@@ -6,8 +6,14 @@ data class ProductWithVariation(
     val description: String,
     val image: String,
     val storeId: String,
-    val subCategory: String,
     val storeName: String,
-    val title: String,
+    val name: String,
+    val category: Category,
     val productItems: List<ProductItem>
+)
+
+data class Category(
+    val name: String,
+    val hasColorVariation: Boolean,
+    val hasSizeVariation: Boolean
 )

@@ -1,13 +1,11 @@
 package com.example.store.features.store.navigation
 
-import android.annotation.SuppressLint
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.store.features.store.StoreScreen
 import kotlinx.serialization.Serializable
 
-@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class StoreRoute(val id: String)
 

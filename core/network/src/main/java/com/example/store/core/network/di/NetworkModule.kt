@@ -4,7 +4,7 @@ import android.content.Context
 import android.location.Geocoder
 import com.example.store.core.network.retrofit.DistanceApiService
 import com.example.store.core.network.retrofit.GeocodeApiService
-import com.example.store.core.network.retrofit.StoreApiService
+import com.example.store.core.network.retrofit.AppApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,12 +19,12 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideStoreApiService(): StoreApiService {
+    fun provideApiService(): AppApiService {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://10.0.2.2:8080/")
+            .baseUrl("http://10.0.2.2:8080/v1/")
             .build()
-            .create(StoreApiService::class.java)
+            .create(AppApiService::class.java)
 
     }
 

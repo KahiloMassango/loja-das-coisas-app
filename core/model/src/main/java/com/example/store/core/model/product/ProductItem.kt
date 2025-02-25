@@ -5,7 +5,7 @@ data class ProductItem(
     val id: String,
     val color: String?,
     val image: String?,
-    val price: Double,
+    val price: Int,
     val size: String?,
     val stockQuantity: Int
 )

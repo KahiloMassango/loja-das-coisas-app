@@ -8,23 +8,24 @@ import com.example.store.core.data.repository.DefaultAddressRepository
 import com.example.store.core.data.repository.DefaultCartRepository
 import com.example.store.core.data.repository.DefaultFavoriteRepository
 import com.example.store.core.data.repository.DefaultLocationRepository
-import com.example.store.core.data.repository.DefaultOrderRepository
 import com.example.store.core.data.repository.DefaultProductRepository
 import com.example.store.core.data.repository.DefaultRecentSearchRepository
 import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.data.repository.LocationRepository
-import com.example.store.core.data.repository.OrderRepository
 import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.data.repository.RecentSearchRepository
+import com.example.store.core.data.repository.StoreRepository
+import com.example.store.core.data.repository.StoreRepositoryImpl
 import com.example.store.core.data.util.ConnectivityManagerNetworkMonitor
 import com.example.store.core.data.util.NetworkMonitor
 import com.example.store.core.database.dao.AddressesDao
 import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
 import com.example.store.core.database.dao.RecentSearchDao
+import com.example.store.core.network.datasources.ProductNetworkDatasource
+import com.example.store.core.network.datasources.StoreNetworkDatasource
 import com.example.store.core.network.retrofit.DistanceApiService
 import com.example.store.core.network.retrofit.GeocodeApiService
-import com.example.store.core.network.retrofit.StoreApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,6 +40,12 @@ object DataModule {
     fun providesFavoriteRepository(
         favoritesDao: FavoritesDao
     ): FavoriteRepository = DefaultFavoriteRepository(favoritesDao)
+
+
+    @Provides
+    fun providesStoreRepository(
+        datasource: StoreNetworkDatasource
+    ): StoreRepository = StoreRepositoryImpl(datasource)
 
     @Provides
     fun providesAddressesRepository(
@@ -58,8 +65,8 @@ object DataModule {
 
     @Provides
     fun providesProductRepository(
-        storeApiService: StoreApiService
-    ): ProductRepository = DefaultProductRepository(storeApiService)
+        networkDatasource: ProductNetworkDatasource
+    ): ProductRepository = DefaultProductRepository(networkDatasource)
 
     @Provides
     fun providesLocationRepository(

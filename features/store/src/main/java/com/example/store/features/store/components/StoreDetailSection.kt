@@ -1,24 +1,30 @@
 package com.example.store.features.store.components
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.store.core.model.store.Store
 import com.example.store.core.ui.R
-import com.example.store.features.store.ADDRESS_1
 
 @Composable
 internal fun StoreDetailSection(
     modifier: Modifier = Modifier,
+    store: Store,
     onSeeOnMapClick: () -> Unit
 ) {
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -31,39 +37,49 @@ internal fun StoreDetailSection(
         )
         Spacer(Modifier.height(14.dp))
         Text(
-            text = "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for" +
-                    " those interested. Sections 1.10.32 and 1.10.33 from " +
-                    "\"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their " +
-                    "exact original form, accompanied by English versions from the 1914 translation " +
-                    "by H. Rackham.",
+            text = store.description,
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Justify,
             softWrap = true,
             color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(Modifier.height(22.dp))
-        StoreDetailItem(
-            title = "Hórario de Funcionamento",
-            detail = "08:00 - 17:30",
-            icon = R.drawable.ic_time
+        OpeningDetail(
+            openingTime = store.openingTime,
+            closingTime = store.closingTime
         )
         Spacer(Modifier.height(18.dp))
-        StoreDetailItem(
+        DetailItem(
             title = "Membro desde",
-            detail = "Junho 2022",
+            detail = store.memberSince,
             icon = R.drawable.ic_user
         )
         Spacer(Modifier.height(18.dp))
-        StoreDetailItem(
+        DetailItem(
             title = "NIF",
-            detail = "008649092LA048",
+            detail = store.nif,
             icon = R.drawable.ic_user_admin
         )
         Spacer(Modifier.height(18.dp))
-        StoreAddressDetailItem(
-            title = "Localização",
-            address = ADDRESS_1,
-            onSeeOnMapClick = onSeeOnMapClick
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            AddressDetail(
+                modifier = Modifier,
+                address = store.address,
+            )
+            Text(
+                modifier = Modifier.clickable(
+                    indication = null,
+                    interactionSource = null
+                ) { onSeeOnMapClick() },
+                text = "Ver no mapa",
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
     }
 }

@@ -11,23 +11,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.store.core.ui.util.toCurrency
 
 @Composable
 internal fun CheckoutSummary(
     modifier: Modifier = Modifier,
-    cartTotal: Double,
-    deliveryPrice: Double,
-    totalSummary: Double,
+    cartTotal: Int,
+    deliveryPrice: Int,
+    totalSummary: Int,
 ) {
-    val formatedCartTotal = "%.2f".format(cartTotal)
-    val formatedTotalSummary = "%.2f".format(totalSummary)
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        SummaryItem(description = "Carrinho", value = "${formatedCartTotal}Kz")
-        SummaryItem(description = "Entrega", value = deliveryPrice.toString())
-        SummaryItem(description = "Total", value = "${formatedTotalSummary}Kz")
+        SummaryItem(description = "Carrinho", value = cartTotal.toCurrency())
+        SummaryItem(description = "Entrega", value = deliveryPrice.toCurrency())
+        SummaryItem(description = "Total", value = totalSummary.toCurrency())
 
     }
 }

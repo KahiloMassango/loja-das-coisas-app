@@ -7,5 +7,6 @@ data class Product(
     val image: String,
     val storeId: String,
     val storeName: String,
-    val title: String
+    val name: String,
+    val minPrice: Int
 )

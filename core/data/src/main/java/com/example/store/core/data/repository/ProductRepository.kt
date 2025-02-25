@@ -6,10 +6,10 @@ import com.example.store.core.model.RatingInfo
 import com.example.store.core.model.product.ProductWithVariation
 
 interface ProductRepository {
-    suspend fun getProducts(category: String, subCategory: String): List<Product>
-    suspend fun getAllProducts():  List<Product>
-    suspend fun getProductById(id: Int): ProductWithVariation
-    /*suspend fun getNewProducts(category: String): List<Product>
-    suspend fun getProductRatingInfo(productId: String): RatingInfo
-    suspend fun getProductRatings(productId: String): List<Rating>*/
+    suspend fun getProducts(gender: String?, category: String?): Result<List<Product>>
+    suspend fun getProductById(id: String): Result<ProductWithVariation>
+    suspend fun searchProducts(query: String): Result<List<Product>>
+    suspend fun getProductsByCategory(category: String): Result<List<Product>>
+    //suspend fun getProductRatingInfo(productId: String): RatingInfo
+    //suspend fun getProductRatings(productId: String): List<Rating>
 }

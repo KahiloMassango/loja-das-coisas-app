@@ -21,11 +21,18 @@ class HomeViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
+        loadProducts()
+    }
+
+    fun loadProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            delay(4000L)
-            _uiState.value = HomeUiState.Success(
-                products = productRepository.getProducts("women", "clothes")
-            )
+            productRepository.getProductsByCategory("Roupas")
+                .onSuccess {
+                    _uiState.value = HomeUiState.Success(it)
+                }
+                .onFailure {
+                    _uiState.value = HomeUiState.Error(it.message ?: "Unknown error")
+                }
         }
     }
 

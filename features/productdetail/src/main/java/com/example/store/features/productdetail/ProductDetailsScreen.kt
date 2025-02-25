@@ -114,7 +114,7 @@ private fun ProductDetailContent(
         topBar = {
             StoreCenteredTopBar(
                 modifier = Modifier,
-                title = product.title,
+                title = product.name,
                 canNavigateBack = true,
                 onNavigateUp = onNavigateUp
             )
@@ -144,7 +144,7 @@ private fun ProductDetailContent(
                     ) {
                         ProductAttributes(
                             modifier = Modifier,
-                            subcategory = product.subCategory,
+                            category = product.category,
                             selectedSize = selectedSize,
                             selectedColor = selectedColor,
                             onShowSizeOptions = { showSizeSelector = true },
@@ -156,7 +156,7 @@ private fun ProductDetailContent(
                         ProductDetails(
                             modifier = Modifier,
                             onStoreClick = { onStoreClick(product.storeId) },
-                            name = product.title,
+                            name = product.name,
                             description = product.description,
                             storeName = product.storeName,
                         )
@@ -165,7 +165,7 @@ private fun ProductDetailContent(
                         AddToCartContainer(
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            price = selectedItem?.price ?: 0.0,
+                            price = selectedItem?.price ?: 0,
                             onAddToCart = {
                                 onAddToCart()
                             }

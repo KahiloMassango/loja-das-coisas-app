@@ -1,25 +1,35 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.data.P1
-import com.example.store.core.data.P1V
 import com.example.store.core.model.product.Product
 import com.example.store.core.model.product.ProductWithVariation
-import com.example.store.core.network.retrofit.StoreApiService
+import com.example.store.core.network.datasources.ProductNetworkDatasource
+import com.example.store.core.network.model.product.asExternalModel
 
 class DefaultProductRepository(
-    private val appApiService: StoreApiService
-): ProductRepository {
-    val products = mutableListOf<Product>(P1, P1, P1, P1, P1, P1)
+    private val remoteDatasource: ProductNetworkDatasource
+) : ProductRepository {
 
-    override suspend fun getAllProducts(): List<Product> {
-        return products
+    override suspend fun getProducts(gender: String?, category: String?): Result<List<Product>> {
+        return remoteDatasource.getProductsByGenderAndCategory(gender, category)
+            .mapCatching { products ->
+                products.map { it.asExternalModel() }
+            }
     }
 
-    override suspend fun getProducts(category: String, subCategory: String): List<Product> {
-        return products
+    override suspend fun getProductsByCategory(category: String): Result<List<Product>> {
+        return remoteDatasource.getProductsByGenderAndCategory(null, category)
+            .mapCatching { products ->
+                products.map { it.asExternalModel() }
+            }
     }
 
-    override suspend fun getProductById(id: Int): ProductWithVariation {
-        return P1V
+    override suspend fun getProductById(id: String): Result<ProductWithVariation> {
+        return remoteDatasource.getProductById(id).map { it.asExternalModel() }
+    }
+
+    override suspend fun searchProducts(query: String): Result<List<Product>> {
+        return remoteDatasource.searchProducts(query).mapCatching { products ->
+            products.map { it.asExternalModel() }
+        }
     }
 }

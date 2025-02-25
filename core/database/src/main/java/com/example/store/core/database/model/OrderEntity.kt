@@ -9,9 +9,9 @@ import com.example.store.core.model.Order
 data class OrderEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int = 0,
-    val cartTotal: Double,
-    val deliveryFee: Double,
-    val orderTotal: Double,
+    val cartTotal: Int,
+    val deliveryFee: Int,
+    val orderTotal: Int,
     val deliveryLocationName: String,
     val latitude: Double,
     val longitude: Double,

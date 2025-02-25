@@ -1,6 +1,6 @@
 [versions]
 # Core
-agp = "8.5.0-rc01"
+agp = "8.7.3"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 lifecycleRuntimeKtx = "2.8.0"

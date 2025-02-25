@@ -41,6 +41,7 @@ import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.toCurrency
 import com.example.store.features.cart.component.CartProductCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -124,7 +125,7 @@ internal fun CartScreen(
                                 color = MaterialTheme.colorScheme.inverseOnSurface,
                             )
                             Text(
-                                text = "%.2f".format(cartTotal),
+                                text = cartTotal.toCurrency(),
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontSize = 16.sp,

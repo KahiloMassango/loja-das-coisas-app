@@ -30,7 +30,7 @@ class CheckoutViewModel @Inject constructor(
     private val addressRepository: AddressRepository
 ) : ViewModel() {
 
-    private val deliveryPricePerKM = 150.0
+    private val deliveryPricePerKM = 150
     val deliveryAddresses = addressRepository.getAddressesStream()
         .hotFlow(viewModelScope, emptyList())
 
@@ -44,27 +44,28 @@ class CheckoutViewModel @Inject constructor(
 
 
     val cartTotal = cartRepository.getCartTotalStream()
-        .hotFlow(viewModelScope, 0.0)
+        .hotFlow(viewModelScope, 0)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val deliveryFee: StateFlow<Double> = _currentDeliveryAddress
+    val deliveryFee: StateFlow<Int> = _currentDeliveryAddress
         .mapLatest { address ->
             if (address == null) {
-                0.0
+                0
             } else {
 
                 val distance = locationRepository.getLocationDistance(
                     origin = LatLng(- 8.893632, 13.188212),
                     destination = LatLng(address.latitude, address.longitude)
                 ) ?: 0.0
-                (distance * deliveryPricePerKM)
+
+                (distance * deliveryPricePerKM).toInt()
             }
         }
         .catch { e ->
             Log.d("repository", "Error calculating deliveryFee: $e")
-            emit(0.0)
+            emit(0)
         }
-        .hotFlow(viewModelScope, 0.0)
+        .hotFlow(viewModelScope, 0)
 
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -75,7 +76,7 @@ class CheckoutViewModel @Inject constructor(
                 cartTotal = cartTotal,
                 deliveryMethod = deliveryMethod
             )
-        }.hotFlow(viewModelScope, 0.0)
+        }.hotFlow(viewModelScope, 0)
 
     init {
         loadInitialAddress()

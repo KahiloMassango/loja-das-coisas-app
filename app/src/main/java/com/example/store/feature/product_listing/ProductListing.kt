@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.features.discover.shop.component.ProductsGrid
+import com.example.store.feature.shop.component.ProductsGrid
 
 @Composable
 fun ProductListing(

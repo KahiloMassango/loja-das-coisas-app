@@ -27,7 +27,7 @@ class CartViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = 0.0
+            initialValue = 0
         )
 
     fun removeProductFromCart(productId: String) {

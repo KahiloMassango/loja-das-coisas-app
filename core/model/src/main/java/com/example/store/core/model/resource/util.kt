@@ -3,10 +3,10 @@ package com.example.store.core.model.resource
 import com.example.store.core.model.cart.DeliveryMethod
 
 fun calculateOrderTotal(
-    deliveryFee: Double,
-    cartTotal: Double,
+    deliveryFee: Int,
+    cartTotal: Int,
     deliveryMethod: DeliveryMethod
-): Double {
+): Int {
     return when (deliveryMethod) {
         DeliveryMethod.DELIVERY -> deliveryFee + cartTotal
         else -> cartTotal

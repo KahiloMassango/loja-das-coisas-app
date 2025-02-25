@@ -8,7 +8,7 @@ interface CartRepository {
 
     fun getCartProductsStream(): Flow<List<CartProduct>>
     fun getCartProductsCountStream(): Flow<Int>
-    fun getCartTotalStream(): Flow<Double>
+    fun getCartTotalStream(): Flow<Int>
     suspend fun addToCart(productName: String, imageUrl: String, productItem: ProductItem)
     suspend fun removeCartProduct(id: String)
     suspend fun updateQuantity(id: String, quantity: Int)

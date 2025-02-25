@@ -20,34 +20,52 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.store.core.model.Address
-import com.example.store.core.model.AddressLine
-import com.example.store.core.model.AddressType
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.store.core.model.store.Store
+import com.example.store.core.ui.ErrorScreen
+import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.features.store.components.StoreDetailSection
-import com.example.store.features.store.components.StoreHeader
 import com.example.store.features.store.components.StoreMapDialog
-import com.example.store.features.store.components.StoreProductsListingGrid
+import com.example.store.features.store.components.StoreProductsGrid
 import com.example.store.features.store.components.StoreSection
+import com.example.store.features.store.components.StoreSectionTabRow
+import com.example.store.features.store.components.StoreSmallDetailCard
+import com.example.store.features.store.model.StoreUiState
 
-val ADDRESS_1 = Address(
-    1,
-    "test1",
-    "123456789",
-    AddressType.HOME,
-    AddressLine("Samba, Luanda", "street 1, Gamek, Luanda"),
-    - 8.893235, 13.205504
-)
 
 @Composable
 internal fun StoreScreen(
     modifier: Modifier = Modifier,
+    viewmodel: StoreViewModel = hiltViewModel(),
     onProductClick: (String) -> Unit,
     onNavigateUp: () -> Unit
 ) {
 
-    var currentSection by rememberSaveable { mutableStateOf(StoreSection.AllProducts) }
+    val uiState = viewmodel.uiState.collectAsStateWithLifecycle().value
+
+    when (uiState) {
+        is StoreUiState.Loading -> { LoadingScreen() }
+        is StoreUiState.Error -> ErrorScreen(onTryAgain = viewmodel::loadStore)
+        is StoreUiState.Success -> StoreContent(
+            modifier = modifier,
+            store = uiState.store,
+            onProductClick = onProductClick,
+            onNavigateUp = onNavigateUp
+        )
+    }
+}
+
+@Composable
+private fun StoreContent(
+    modifier: Modifier = Modifier,
+    store: Store,
+    onProductClick: (String) -> Unit,
+    onNavigateUp: () -> Unit
+) {
+    var currentSection by rememberSaveable { mutableStateOf(StoreSection.Products) }
     var showMapDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
@@ -70,11 +88,20 @@ internal fun StoreScreen(
                     .padding(start = 16.dp, end = 16.dp, top = 16.dp)
                     .fillMaxSize()
             ) {
-                StoreHeader(
+                StoreSmallDetailCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    storeName = store.name,
+                    storeLogo = store.logoUrl.replace("localhost", "10.0.2.2"),
+                    totalProducts = store.totalProducts,
+                    totalOrders = store.totalCompletedOrders
+                )
+
+                StoreSectionTabRow(
                     modifier = Modifier.fillMaxWidth(),
                     currentSection = currentSection,
                     onChangeSection = { currentSection = it }
                 )
+
 
                 Spacer(Modifier.height(16.dp))
 
@@ -83,16 +110,15 @@ internal fun StoreScreen(
                     modifier = Modifier.weight(1f), label = ""
                 ) { section ->
                     when (section) {
-                        StoreSection.AllProducts -> {
-                            StoreProductsListingGrid(
-                                description = section.description,
-                                products = emptyList(),
+                        StoreSection.Products -> {
+                            StoreProductsGrid(
+                                products = store.products,
                                 onProductClick = onProductClick
                             )
                         }
-
-                        StoreSection.About -> {
+                        StoreSection.Detail -> {
                             StoreDetailSection(
+                                store = store,
                                 onSeeOnMapClick = { showMapDialog = true }
                             )
                         }
@@ -108,15 +134,12 @@ internal fun StoreScreen(
     ) {
         StoreMapDialog(
             modifier = Modifier,
-            address = ADDRESS_1,
+            store = store,
             onDismiss = { showMapDialog = false }
         )
 
     }
 }
-
-
-
 
 
 @Preview

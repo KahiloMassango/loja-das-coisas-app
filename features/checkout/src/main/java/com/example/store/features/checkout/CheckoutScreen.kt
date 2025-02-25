@@ -70,13 +70,13 @@ private fun CheckoutContent(
     onNavigateUp: () -> Unit,
     deliveryAddresses: List<Address>,
     deliveryAddress: Address?,
-    deliveryPrice: Double,
+    deliveryPrice: Int,
     deliveryMethod: DeliveryMethod,
     onDeliveryMethodChange: (DeliveryMethod) -> Unit,
     onChangeDeliveryAddress: (Address) -> Unit,
     onAddAddress: () -> Unit,
-    cartTotal: Double,
-    orderTotal: Double
+    cartTotal: Int,
+    orderTotal: Int
 ) {
     val sectionSpacing = 42.dp
     var changeDeliveryAddress by rememberSaveable { mutableStateOf(false) }
@@ -123,7 +123,7 @@ private fun CheckoutContent(
 
                 CheckoutSummary(
                     cartTotal = cartTotal,
-                    deliveryPrice = if (deliveryMethod == DeliveryMethod.DELIVERY) deliveryPrice else 0.0,
+                    deliveryPrice = if (deliveryMethod == DeliveryMethod.DELIVERY) deliveryPrice else 0,
                     totalSummary = orderTotal,
                 )
 

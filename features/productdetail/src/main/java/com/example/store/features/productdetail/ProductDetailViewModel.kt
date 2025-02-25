@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.store.core.data.P1V
-import com.example.store.core.data.model.asCartProductEntity
 import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.data.repository.ProductRepository
@@ -14,12 +12,10 @@ import com.example.store.core.model.product.ProductItem
 import com.example.store.core.model.product.ProductWithVariation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +27,7 @@ internal class ProductDetailViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val productId = savedStateHandle.get<String>("productId") !!
+    private val productId = savedStateHandle.get<String>("productId")!!
 
     private val _selectedColor = MutableStateFlow<String?>(null)
     val selectedColor: StateFlow<String?> = _selectedColor
@@ -50,44 +46,38 @@ internal class ProductDetailViewModel @Inject constructor(
 
     val productImages = mutableStateOf<List<String>>(emptyList())
 
-    var uiState: StateFlow<ProductDetailState> = flow {
-        emit(ProductDetailState.Loading)
-        delay(3000L)
-        try {
-            val product = P1V
-            emit(ProductDetailState.Success(product))
-            updateAttributes(product)
-        } catch (e: Exception) {
-            Log.e("ProductDetailViewModel", "Error fetching product", e)
-            emit(ProductDetailState.Error)
+    private val _uiState: MutableStateFlow<ProductDetailState> =
+        MutableStateFlow(ProductDetailState.Loading)
+    var uiState = _uiState.asStateFlow()
+
+    init {
+        loadProduct()
+    }
+
+
+    private fun loadProduct() {
+        viewModelScope.launch {
+            productRepository.getProductById(productId)
+                .onSuccess { product ->
+                    _uiState.value = ProductDetailState.Success(product)
+                    initAttributes(product)
+                }
+                .onFailure {
+                    Log.e("ProductDetailViewModel", "Error fetching product", it)
+                    _uiState.value = ProductDetailState.Error
+                }
         }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = ProductDetailState.Loading
-    )
+    }
 
+    private fun initAttributes(product: ProductWithVariation) {
+        productImages.value = listOf(product.image) + product.productItems.mapNotNull { it.image }
+        if (product.category.hasColorVariation) {
+            _filteredColors.value = product.productItems.mapNotNull { it.color }.distinct()
+            selectColor(_filteredColors.value.firstOrNull())
 
-    fun updateAttributes(product: ProductWithVariation) {
-        productImages.value = product.productItems.map { it.image }.filterNotNull() + product.image
-        when (product.subCategory) {
-            "clothes", "shoes" -> {
-                _filteredColors.value = product.productItems.mapNotNull { it.color }.distinct()
-                selectColor(_filteredColors.value.firstOrNull())
-            }
-
-            "accessories" -> {
-                _filteredColors.value = product.productItems.mapNotNull { it.color }.distinct()
-                selectColor(_filteredColors.value.firstOrNull())
-                _filteredSizes.value = emptyList()
-            }
-
-            "skincare", "bodycare", "fragrance" -> {
-                _filteredColors.value = emptyList()
-                _filteredSizes.value = product.productItems.mapNotNull { it.size }.distinct()
-                selectSize(_filteredSizes.value.firstOrNull())
-            }
-        }
+        } else if (product.category.hasSizeVariation)
+            _filteredSizes.value = product.productItems.mapNotNull { it.size }.distinct()
+        selectSize(_filteredSizes.value.firstOrNull())
     }
 
 
@@ -122,7 +112,7 @@ internal class ProductDetailViewModel @Inject constructor(
 
 
     val isFavorite: StateFlow<Boolean> =
-        favoriteRepository.checkFavoriteProductStream(productId.toString())
+        favoriteRepository.checkFavoriteProductStream(productId)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
@@ -131,11 +121,8 @@ internal class ProductDetailViewModel @Inject constructor(
 
 
     fun refresh() {
-        viewModelScope.launch {
-            uiState.collect()
-        }
+        loadProduct()
     }
-
 
 
     fun addCart() {
@@ -143,7 +130,7 @@ internal class ProductDetailViewModel @Inject constructor(
             try {
                 val product = (uiState.value as ProductDetailState.Success).product
                 val productItem = _selectedItem.value!!
-                cartRepository.addToCart(product.title, product.image, productItem)
+                cartRepository.addToCart(product.name, product.image, productItem)
             } catch (e: Exception) {
                 Log.d("ProductDetailViewModel", "addToCart: $e")
             }
@@ -153,7 +140,7 @@ internal class ProductDetailViewModel @Inject constructor(
 }
 
 
-sealed class ProductDetailState {
+internal sealed class ProductDetailState {
     data object Loading : ProductDetailState()
     data object Error : ProductDetailState()
     data class Success(val product: ProductWithVariation) : ProductDetailState()

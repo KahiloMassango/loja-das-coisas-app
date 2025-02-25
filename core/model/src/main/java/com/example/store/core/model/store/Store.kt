@@ -1,10 +1,20 @@
 package com.example.store.core.model.store
 
+import com.example.store.core.model.product.Product
+
 data class Store(
-    val id: String,
     val name: String,
     val description: String,
-    val isActive: Boolean,
+    val logoUrl: String,
     val offersDelivery: Boolean,
-    val sellerId: String,
+    val nif: String,
+    val memberSince: String,
+    val address: String,
+    val latitude: Double,
+    val longitude: Double,
+    val openingTime: String,
+    val closingTime: String,
+    val totalProducts: Int,
+    val totalCompletedOrders: Int,
+    val products: List<Product>
 )

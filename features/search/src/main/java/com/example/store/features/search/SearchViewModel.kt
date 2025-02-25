@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.data.repository.RecentSearchRepository
 import com.example.store.core.model.product.Product
+import com.example.store.core.ui.util.hotFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,26 +34,17 @@ internal class SearchViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val searchResults: StateFlow<List<Product>> = snapshotFlow { searchQuery }
-        .debounce(200)
+        .debounce(400)
         .mapLatest {
-            when {
-                searchQuery.isNotEmpty() -> productRepository.getAllProducts().filter { product ->
-                    product.title.contains(searchQuery, ignoreCase = true) or
-                            product.description.contains(searchQuery, ignoreCase = true)
-                }
-
-                else -> emptyList()
-            }
-        }.stateIn(
+            productRepository.searchProducts(it).getOrElse { emptyList() }
+        }.hotFlow(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
 
     val recentSearchQueries = recentSearchRepository.getRecentSearches()
-        .stateIn(
+        .hotFlow(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5_000),
             emptyList()
         )
 

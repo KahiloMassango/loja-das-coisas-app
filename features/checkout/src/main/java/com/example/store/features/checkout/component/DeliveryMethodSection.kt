@@ -18,13 +18,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.cart.DeliveryMethod
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.toCurrency
 
 
 @Composable
 internal fun DeliveryMethodSection(
     modifier: Modifier = Modifier,
     deliveryMethod: DeliveryMethod,
-    deliveryPrice: Double,
+    deliveryPrice: Int,
     onSelectDeliveryMethod: (DeliveryMethod) -> Unit
 ) {
     Column(
@@ -43,7 +44,7 @@ internal fun DeliveryMethodSection(
         ) {
             DeliveryMethodCard(
                 type = "Entrega",
-                description = "${deliveryPrice}kz",
+                description = deliveryPrice.toCurrency(),
                 selected = deliveryMethod == DeliveryMethod.DELIVERY,
                 onClick = { onSelectDeliveryMethod(DeliveryMethod.DELIVERY) }
             )

@@ -51,6 +51,7 @@ dependencies {
     implementation(project(":features:search"))
     implementation(project(":features:store"))
     implementation(project(":features:newaddress"))
+    implementation(project(":features:shop"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

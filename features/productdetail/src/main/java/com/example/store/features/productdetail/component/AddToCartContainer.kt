@@ -20,11 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.store.core.ui.util.toCurrency
 
 @Composable
 internal fun AddToCartContainer(
     modifier: Modifier = Modifier,
-    price: Double,
+    price: Int,
     onAddToCart: () -> Unit
 ) {
     Box(
@@ -49,7 +50,7 @@ internal fun AddToCartContainer(
                 ){
                     Text(
                         modifier = Modifier,
-                        text = "$price Kz",
+                        text = price.toCurrency(),
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimary

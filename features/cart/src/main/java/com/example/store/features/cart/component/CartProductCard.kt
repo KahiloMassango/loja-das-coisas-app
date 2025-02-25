@@ -39,6 +39,7 @@ import com.example.store.core.model.cart.cartProduct
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.theme.defaultFont
+import com.example.store.core.ui.util.toCurrency
 
 @ExperimentalMaterial3Api
 @Composable
@@ -126,7 +127,7 @@ internal fun CartProductCard(
                         onIncrease = onIncreaseQty
                     )
                     Text(
-                        text = "${product.price}kz",
+                        text = product.price.toCurrency(),
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold

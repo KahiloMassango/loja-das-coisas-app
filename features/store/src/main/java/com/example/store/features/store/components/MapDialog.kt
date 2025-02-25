@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Address
 import com.example.store.core.model.AddressLine
 import com.example.store.core.model.AddressType
+import com.example.store.core.model.store.Store
 import com.example.store.core.ui.theme.StoreTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -50,20 +51,21 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
+import java.time.LocalTime
 
 @Composable
 internal fun StoreMapDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
-    address: Address
+    store: Store
 ) {
     val mapState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
-            LatLng(address.latitude, address.longitude), 18f
+            LatLng(store.latitude, store.longitude), 18f
         )
     }
 
-    var isMapLoaded by rememberSaveable { mutableStateOf(false) }
+    var isMapLoaded by rememberSaveable { mutableStateOf(true) }
 
     Box(
         modifier = modifier
@@ -108,9 +110,13 @@ internal fun StoreMapDialog(
                 visible = isMapLoaded
             ) {
                 StoreAddressInfoCard(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter),
-                    address = address
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    address = store.address,
+                    latitude = store.latitude,
+                    longitude = store.longitude,
+                    storeName = store.name,
+                    openingTime = store.openingTime,
+                    closingTime = store.closingTime,
                 )
             }
         }
@@ -120,13 +126,21 @@ internal fun StoreMapDialog(
 @Composable
 private fun StoreAddressInfoCard(
     modifier: Modifier = Modifier,
-    address: Address
+    address: String,
+    storeName: String,
+    latitude: Double,
+    longitude: Double,
+    openingTime: String,
+    closingTime: String
 ) {
     val context = LocalContext.current
-    val gmmIntentUri =
-        Uri.parse("google.navigation:q=${address.latitude},${address.longitude}")
+    val gmmIntentUri = Uri.parse("google.navigation:q=${latitude},${longitude}")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-    mapIntent.setPackage("com.google.android.apps.maps")
+    //mapIntent.setPackage("com.google.android.apps.maps")
+
+    val isOpen = LocalTime.parse(openingTime) <= LocalTime.now()
+            && LocalTime.now() <= LocalTime.parse(closingTime)
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -141,7 +155,7 @@ private fun StoreAddressInfoCard(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = "Loja Kalçados",
+                text = storeName,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -149,13 +163,12 @@ private fun StoreAddressInfoCard(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
-            ){
+            ) {
                 Text(
-                    text = "08:00 - 17:30 ",
+                    text = "$openingTime - $closingTime",
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    //maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Box(
@@ -168,27 +181,20 @@ private fun StoreAddressInfoCard(
                         .clip(RoundedCornerShape(50))
                 )
                 Text(
-                    text = "Aberto",
+                    text = if (isOpen) "Aberto" else "Fechado",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.scrim,
-                    //maxLines = 1,
+                    color = if (isOpen) MaterialTheme.colorScheme.scrim else MaterialTheme.colorScheme.onError,
                     overflow = TextOverflow.Ellipsis
                 )
             }
             Text(
-                text = address.addressLine.address,
+                text = address,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            GetDirectionButton(
-                onClick = {
-                    context.startActivity(
-                        mapIntent
-                    )
-                }
-            )
+            GetDirectionButton(onClick = { context.startActivity(mapIntent) })
         }
     }
 }
@@ -205,7 +211,7 @@ private fun GetDirectionButton(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(5.dp)
-        ){
+        ) {
             Icon(
                 modifier = Modifier.size(26.dp),
                 imageVector = Icons.Default.Directions,
@@ -234,7 +240,12 @@ private fun Preview() {
     )
     StoreTheme {
         StoreAddressInfoCard(
-            address = address
+            address = address.addressLine.shortName,
+            latitude = address.latitude,
+            longitude = address.longitude,
+            storeName = "TODO()",
+            openingTime = "TODO()",
+            closingTime = "TODO()",
         )
     }
 }

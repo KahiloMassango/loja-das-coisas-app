@@ -10,12 +10,13 @@ data class CartProductEntity(
     @PrimaryKey(autoGenerate = false)
     val productItemId: String,
     val name: String,
-    val price: Double,
+    val price: Int,
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
     val color: String?,
     val size: String?,
     val quantity: Int = 1,
+    val stockQuantity: Int
 )
 
 fun CartProductEntity.asExternalModel() = CartProduct(
@@ -25,5 +26,6 @@ fun CartProductEntity.asExternalModel() = CartProduct(
     imageUrl = imageUrl,
     color = color,
     size = size,
-    quantity = quantity
+    quantity = quantity,
+    stockQuantity = stockQuantity
 )

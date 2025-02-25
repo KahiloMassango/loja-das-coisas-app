@@ -17,7 +17,7 @@ import com.example.store.core.database.model.RecentSearchEntity
 import com.example.store.core.database.model.UserEntity
 
 @Database(
-    version = 2,
+    version = 4,
     entities = [
         FavoriteProductEntity::class,
         CartProductEntity::class,

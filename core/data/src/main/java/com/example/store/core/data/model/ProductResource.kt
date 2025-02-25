@@ -13,4 +13,5 @@ fun ProductItem.asCartProductEntity(
     imageUrl = image ?: imageUrl,
     color = color,
     size = size,
+    stockQuantity = stockQuantity
 )

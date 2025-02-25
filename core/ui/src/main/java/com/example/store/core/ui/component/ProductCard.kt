@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.toCurrency
 
 @Composable
 fun ProductCard(
@@ -43,7 +44,7 @@ fun ProductCard(
                     .fillMaxWidth()
                     .height(184.dp)
                     .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
-                model = product.image,
+                model = product.image.replace("localhost", "10.0.2.2"),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
@@ -55,7 +56,7 @@ fun ProductCard(
             )*/
             Text(
                 modifier = Modifier.padding(top = 3.dp),
-                text = product.title,
+                text = product.name,
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold
@@ -69,7 +70,7 @@ fun ProductCard(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "49.99 kz",
+                text = product.minPrice.toCurrency(),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold

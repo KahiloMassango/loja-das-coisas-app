@@ -20,7 +20,7 @@ class DefaultCartRepository(
         return cartDao.getCartProductCount()
     }
 
-    override fun getCartTotalStream(): Flow<Double> {
+    override fun getCartTotalStream(): Flow<Int> {
         return cartDao.getCartTotalStream()
     }
 

@@ -54,7 +54,7 @@ fun LargeProductCard(
                     .padding(10.dp)
             ) {
                 Text(
-                    text = product.title,
+                    text = product.name,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold

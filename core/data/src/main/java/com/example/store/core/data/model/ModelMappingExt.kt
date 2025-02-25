@@ -29,3 +29,6 @@ fun Address.asEntity(): AddressEntity = AddressEntity(
     latitude = latitude,
     longitude = longitude
 )
+
+
+
