@@ -41,7 +41,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Location
-import com.example.store.core.ui.component.StoreSearchTextField
+import com.example.store.core.ui.component.SearchField
 import com.google.android.gms.maps.model.LatLng
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,7 +72,7 @@ internal fun LocationSearchSheet(
         Column(
             modifier = Modifier
         ) {
-            StoreSearchTextField(
+            SearchField(
                 modifier = Modifier
                     .padding(horizontal = 18.dp)
                     .focusRequester(focusRequester)

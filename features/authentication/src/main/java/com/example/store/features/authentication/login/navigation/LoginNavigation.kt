@@ -14,6 +14,7 @@ data object LoginRoute
 fun NavController.navigateToLogin() = navigate(LoginRoute)
 
 fun NavGraphBuilder.loginScreen(
+    onLogin: () -> Unit,
     onSignUp: () -> Unit,
     onForgotPassword: () -> Unit,
     onNavigateUp: () -> Unit,
@@ -23,6 +24,7 @@ fun NavGraphBuilder.loginScreen(
             onSignUp = onSignUp,
             onForgotPassword = onForgotPassword,
             onNavigateUp = onNavigateUp,
+            onLogin = onLogin
         )
     }
 }

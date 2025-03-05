@@ -58,7 +58,8 @@ internal fun CheckoutScreen(
         onNavigateUp = onNavigateUp,
         onDeliveryMethodChange = { viewModel.updateDeliveryMethod(it) },
         onAddAddress = onAddAddress,
-        onChangeDeliveryAddress = { viewModel.changeDeliveryAddress(it) }
+        onChangeDeliveryAddress = { viewModel.changeDeliveryAddress(it) },
+        onCheckout = viewModel::processOrder
     )
 
 
@@ -76,7 +77,8 @@ private fun CheckoutContent(
     onChangeDeliveryAddress: (Address) -> Unit,
     onAddAddress: () -> Unit,
     cartTotal: Int,
-    orderTotal: Int
+    orderTotal: Int,
+    onCheckout: () -> Unit
 ) {
     val sectionSpacing = 42.dp
     var changeDeliveryAddress by rememberSaveable { mutableStateOf(false) }
@@ -123,7 +125,7 @@ private fun CheckoutContent(
 
                 CheckoutSummary(
                     cartTotal = cartTotal,
-                    deliveryPrice = if (deliveryMethod == DeliveryMethod.DELIVERY) deliveryPrice else 0,
+                    deliveryPrice = if (deliveryMethod == DeliveryMethod.ENTREGA) deliveryPrice else 0,
                     totalSummary = orderTotal,
                 )
 
@@ -132,7 +134,7 @@ private fun CheckoutContent(
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Finalizar Compra",
-                    onClick = { /*TODO*/ },
+                    onClick = onCheckout,
                 )
             }
         }

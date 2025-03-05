@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.ShimmerBox
-import com.example.store.core.ui.component.StoreSearchTextField
+import com.example.store.core.ui.component.SearchField
 import com.example.store.core.ui.component.skeletons.ProductCardSkeleton
 
 @Preview
@@ -35,7 +35,7 @@ internal fun HomeLoadingContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.height(32.dp))
-            StoreSearchTextField(
+            SearchField(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
                 query = "",

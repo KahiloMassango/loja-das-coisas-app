@@ -122,6 +122,7 @@ internal fun CartProductCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     QuantitySelector(
+                        stockQuantity = product.stockQuantity,
                         quantity = product.quantity,
                         onDecrease = { if (product.quantity > 1) onDecreaseQty() },
                         onIncrease = onIncreaseQty
@@ -142,6 +143,7 @@ internal fun CartProductCard(
 private fun QuantitySelector(
     modifier: Modifier = Modifier,
     quantity: Int,
+    stockQuantity: Int,
     onDecrease: () -> Unit,
     onIncrease: () -> Unit
 ) {
@@ -170,7 +172,11 @@ private fun QuantitySelector(
         Icon(
             modifier = Modifier
                 .size(26.dp)
-                .clickable(null, null) { onIncrease() },
+                .clickable(null, null) {
+                    if (quantity < stockQuantity) {
+                        onIncrease()
+                    }
+                },
             imageVector = Icons.Default.Add,
             contentDescription = null,
         )

@@ -8,7 +8,7 @@ fun calculateOrderTotal(
     deliveryMethod: DeliveryMethod
 ): Int {
     return when (deliveryMethod) {
-        DeliveryMethod.DELIVERY -> deliveryFee + cartTotal
+        DeliveryMethod.ENTREGA -> deliveryFee + cartTotal
         else -> cartTotal
     }
 }

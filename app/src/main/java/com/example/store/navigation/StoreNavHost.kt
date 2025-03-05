@@ -25,6 +25,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.example.features.orders.navigation.ordersScreen
+import com.example.features.orders.navigation.navigateToMyOrders
 import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
@@ -32,8 +34,11 @@ import com.example.store.feature.product_listing.navigation.navigateToProductLis
 import com.example.store.feature.product_listing.navigation.productListingScreen
 import com.example.store.feature.reviews.navigation.navigateToReviews
 import com.example.store.feature.reviews.navigation.reviewsScreen
+import com.example.store.feature.shop.navigation.navigateToShop
+import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.features.authentication.forgot.navigation.forgotPasswordScreen
 import com.example.store.features.authentication.forgot.navigation.navigateToForgotPassword
+import com.example.store.features.authentication.login.navigation.LoginRoute
 import com.example.store.features.authentication.login.navigation.loginScreen
 import com.example.store.features.authentication.login.navigation.navigateToLogin
 import com.example.store.features.authentication.signup.navigation.navigateToSignUp
@@ -42,10 +47,9 @@ import com.example.store.features.cart.navigation.cartScreen
 import com.example.store.features.checkout.navigation.checkoutScreen
 import com.example.store.features.checkout.navigation.navigateToCheckout
 import com.example.store.features.discover.navigation.categoryScreen
-import com.example.store.feature.shop.navigation.navigateToShop
-import com.example.store.feature.shop.navigation.shopScreen
 import com.example.store.features.home.navigation.HomeRoute
 import com.example.store.features.home.navigation.homeScreen
+import com.example.store.features.home.navigation.navigateToHome
 import com.example.store.features.newaddress.navigation.navigateToNewAddressScreen
 import com.example.store.features.newaddress.navigation.newAddressScreen
 import com.example.store.features.productdetail.navigation.navigateToProductDetail
@@ -64,8 +68,6 @@ import com.example.store.features.userprofile.helpcenter.navigation.helpCenterSc
 import com.example.store.features.userprofile.helpcenter.navigation.navigateToHelpCenter
 import com.example.store.features.userprofile.orderdeail.navigation.navigateToOrderDetail
 import com.example.store.features.userprofile.orderdeail.navigation.orderDetailScreen
-import com.example.store.features.userprofile.orders.navigation.myOrdersScreen
-import com.example.store.features.userprofile.orders.navigation.navigateToMyOrders
 import com.example.store.features.userprofile.policyprivacy.navigation.navigateToPolicePrivacy
 import com.example.store.features.userprofile.policyprivacy.navigation.policePrivacyScreen
 import com.example.store.features.userprofile.profile.navigation.profileScreen
@@ -83,6 +85,8 @@ fun App(
 
     val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
     val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
+    val isUserLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle()
+    val startDestination: Any = if (isUserLoggedIn) HomeRoute else LoginRoute
 
     if (false) {
         NoInternetConnection(
@@ -98,6 +102,7 @@ fun App(
                 ) {
                     AppContent(
                         modifier = modifier.weight(1f),
+                        startDestination = startDestination,
                         navController = navController,
                     )
                     BottomNavigationBar(
@@ -117,6 +122,7 @@ fun App(
                     )
                     AppContent(
                         modifier = modifier.weight(1f),
+                        startDestination = startDestination,
                         navController = navController,
                     )
                 }
@@ -128,18 +134,20 @@ fun App(
 @Composable
 fun AppContent(
     modifier: Modifier = Modifier,
+    startDestination: Any,
     navController: NavHostController,
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = HomeRoute
+        startDestination = startDestination
     ) {
 
         loginScreen(
             onSignUp = { navController.navigateToSignUp() },
             onForgotPassword = { navController.navigateToForgotPassword() },
-            onNavigateUp = navController::navigateUp
+            onNavigateUp = navController::navigateUp,
+            onLogin = { navController.navigateToHome() }
         )
 
         signUpScreen(
@@ -198,7 +206,7 @@ fun AppContent(
             onNavigationUp = navController::navigateUp
         )
 
-        myOrdersScreen(
+        ordersScreen(
             onOrderClick = { navController.navigateToOrderDetail(it) },
             onNavigateUp = navController::navigateUp
         )

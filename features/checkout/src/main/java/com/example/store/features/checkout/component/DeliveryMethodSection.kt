@@ -45,14 +45,14 @@ internal fun DeliveryMethodSection(
             DeliveryMethodCard(
                 type = "Entrega",
                 description = deliveryPrice.toCurrency(),
-                selected = deliveryMethod == DeliveryMethod.DELIVERY,
-                onClick = { onSelectDeliveryMethod(DeliveryMethod.DELIVERY) }
+                selected = deliveryMethod == DeliveryMethod.ENTREGA,
+                onClick = { onSelectDeliveryMethod(DeliveryMethod.ENTREGA) }
             )
             DeliveryMethodCard(
                 type = "Levantar",
                 description = "Grátis",
-                selected = deliveryMethod == DeliveryMethod.PICKUP,
-                onClick = { onSelectDeliveryMethod(DeliveryMethod.PICKUP)}
+                selected = deliveryMethod == DeliveryMethod.LEVANTAR,
+                onClick = { onSelectDeliveryMethod(DeliveryMethod.LEVANTAR)}
             )
         }
     }

@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,15 +45,21 @@ import com.example.store.features.authentication.component.CustomClickableText
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = hiltViewModel(),
+    onLogin: () -> Unit,
     onSignUp: () -> Unit,
     onForgotPassword: () -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
-    var phoneNumber by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var identifier by remember { mutableStateOf("customer@example.com") }
+    var password by remember { mutableStateOf("customer@example.com") }
 
+    LaunchedEffect(viewModel.isLoggedIn) {
+        if (viewModel.isLoggedIn) {
+            onLogin()
+        }
+    }
 
 
     Scaffold(
@@ -88,10 +95,10 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 StoreTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = phoneNumber,
+                    value = identifier,
                     placeholder = "Telefone",
                     isError = false,
-                    onValueChange = { phoneNumber = it },
+                    onValueChange = { identifier = it },
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Phone
@@ -136,7 +143,7 @@ fun LoginScreen(
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
                     text = "ENTRAR",
-                    onClick = { /* TODO */ }
+                    onClick = { viewModel.login(identifier, password) }
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 CustomClickableText(
@@ -158,7 +165,8 @@ private fun Preview() {
         LoginScreen(
             onSignUp = {},
             onForgotPassword = {},
-            onNavigateUp = {}
+            onNavigateUp = {},
+            onLogin = {}
         )
     }
 }

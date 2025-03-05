@@ -28,6 +28,9 @@ interface CartDao {
     fun getCartProductCount(): Flow<Int>
 
     @Query("SELECT * FROM cart")
-    fun getCartProducts(): Flow<List<CartProductEntity>>
+    fun getCartProductsFlow(): Flow<List<CartProductEntity>>
+
+    @Query("SELECT * FROM cart")
+    fun getCartProducts(): List<CartProductEntity>
 
 }

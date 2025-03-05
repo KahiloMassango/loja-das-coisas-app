@@ -37,21 +37,23 @@ android {
 
 dependencies {
 
-    implementation(project(":core:data"))
-    implementation(project(":core:model"))
-    implementation(project(":core:ui"))
+    implementation(projects.core.data)
+    implementation(projects.core.model)
+    implementation(projects.core.ui)
 
-    implementation(project(":features:home"))
-    implementation(project(":features:discover"))
-    implementation(project(":features:cart"))
-    implementation(project(":features:userprofile"))
-    implementation(project(":features:authentication"))
-    implementation(project(":features:productdetail"))
-    implementation(project(":features:checkout"))
-    implementation(project(":features:search"))
-    implementation(project(":features:store"))
-    implementation(project(":features:newaddress"))
-    implementation(project(":features:shop"))
+    implementation(projects.features.home)
+    implementation(projects.features.discover)
+    implementation(projects.features.cart)
+    implementation(projects.features.userprofile)
+    implementation(projects.features.authentication)
+    implementation(projects.features.productdetail)
+    implementation(projects.features.checkout)
+    implementation(projects.features.search)
+    implementation(projects.features.store)
+    implementation(projects.features.newaddress)
+    implementation(projects.features.shop)
+    implementation(projects.features.orders)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
