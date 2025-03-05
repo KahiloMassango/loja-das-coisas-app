@@ -22,6 +22,7 @@ googleMaps = "6.1.0"
 # Networking and Serialization
 retrofit = "2.11.0"
 kotlinSerialization = "1.7.3"
+okhttpBom = "4.12.0"
 
 # Image Loading
 coilCompose = "2.6.0"
@@ -80,6 +81,8 @@ play-services-location = { module = "com.google.android.gms:play-services-locati
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttpBom" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
 
 # Image Loading
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
@@ -97,7 +100,7 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-test = { group = "androidx.room", name = "room-testing", version.ref = "room" }
-androidx-datastore-preference = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "preferenceDatastore" }
+datastore-preference = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "preferenceDatastore" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

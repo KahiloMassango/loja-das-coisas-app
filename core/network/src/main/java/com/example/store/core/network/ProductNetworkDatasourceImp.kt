@@ -4,13 +4,14 @@ import com.example.store.core.network.common.extractErrorMessage
 import com.example.store.core.network.datasources.ProductNetworkDatasource
 import com.example.store.core.network.model.product.ProductDtoRes
 import com.example.store.core.network.model.product.ProductWithVariationDtoRes
-import com.example.store.core.network.retrofit.AppApiService
+import com.example.store.core.network.retrofit.PublicApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.io.IOException
 
 class ProductNetworkDatasourceImp(
-    private val apiService: AppApiService
+    private val apiService: PublicApiService
 ): ProductNetworkDatasource {
 
     override suspend fun getProductsByGenderAndCategory(
@@ -24,8 +25,8 @@ class ProductNetworkDatasourceImp(
             } catch(e: HttpException){
                 val message = extractErrorMessage(e)
                 Result.failure(Exception(message))
-            } catch (e: Exception) {
-                Result.failure(Exception("Verifique sua conexão com a internet"))
+            } catch (e: IOException) {
+                Result.failure(IOException("Verifique sua conexão com a internet"))
             }
         }
     }
@@ -38,8 +39,8 @@ class ProductNetworkDatasourceImp(
             } catch(e: HttpException){
                 val message = extractErrorMessage(e)
                 Result.failure(Exception(message))
-            } catch (e: Exception) {
-                Result.failure(Exception("Verifique sua conexão com a internet, ${e.message}"))
+            } catch (e: IOException) {
+                Result.failure(IOException("Verifique sua conexão com a internet"))
             }
         }
     }
@@ -52,8 +53,8 @@ class ProductNetworkDatasourceImp(
             } catch(e: HttpException){
                 val message = extractErrorMessage(e)
                 Result.failure(Exception(message))
-            } catch (e: Exception) {
-                Result.failure(Exception("Verifique sua conexão com a internet, ${e.message}"))
+            } catch (e: IOException) {
+                Result.failure(IOException("Verifique sua conexão com a internet"))
             }
         }
     }

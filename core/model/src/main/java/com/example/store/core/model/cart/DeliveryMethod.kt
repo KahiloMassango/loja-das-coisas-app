@@ -1,4 +1,4 @@
 package com.example.store.core.model.cart
 
-enum class DeliveryMethod { PICKUP, DELIVERY }
+enum class DeliveryMethod { LEVANTAR, ENTREGA }
 

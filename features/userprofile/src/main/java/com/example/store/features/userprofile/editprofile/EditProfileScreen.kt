@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -29,25 +28,25 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.store.core.model.resource.isValidEmail
 import com.example.store.core.model.resource.isValidName
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.component.StoreTextField
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.features.userprofile.editprofile.component.GenderSelector
 import com.example.store.features.userprofile.editprofile.component.ProfileImagePicker
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun EditProfileScreen(
     modifier: Modifier = Modifier,
-    viewmodel: EditProfileViewModel = EditProfileViewModel(),
+    viewmodel: EditProfileViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val keyboardManager = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
+
     Scaffold(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surface,
@@ -88,7 +87,7 @@ internal fun EditProfileScreen(
                     verticalArrangement = Arrangement.spacedBy(18.dp)
                 ) {
                     StoreTextField(
-                        value = viewmodel.userName,
+                        value = viewmodel.username,
                         onValueChange = { viewmodel.updateUsername(it) },
                         placeholder = "Nome",
                         keyboardOptions = KeyboardOptions(
@@ -128,12 +127,6 @@ internal fun EditProfileScreen(
                             }
                         )
                     )
-                    GenderSelector(
-                        modifier = Modifier.fillMaxWidth(),
-                        selectedGender = viewmodel.userGender,
-                        onSelectGender = {},
-                        enabled = false
-                    )
                 }
 
                 Spacer(Modifier.height(34.dp))
@@ -144,27 +137,26 @@ internal fun EditProfileScreen(
                     text = "Salvar Alterações",
                     onClick = {
                         when {
-                            !isValidName(viewmodel.userName) -> {
+                            !isValidName(viewmodel.username) -> {
                                 Toast.makeText(context, "Nome inválido", Toast.LENGTH_SHORT).show()
                             }
+
                             !isValidEmail(viewmodel.userEmail) -> {
                                 Toast.makeText(context, "Email inválido", Toast.LENGTH_SHORT)
                                     .show()
                             }
                             else -> {
                                 viewmodel.saveProfile()
+
                             }
                         }
+                        focusManager.clearFocus()
                     }
                 )
             }
         }
     }
 }
-
-
-
-
 
 
 @Preview

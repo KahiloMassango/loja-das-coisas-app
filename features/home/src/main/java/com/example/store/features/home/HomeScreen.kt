@@ -1,6 +1,5 @@
 package com.example.store.features.home
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,15 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
-import com.example.store.core.ui.component.StoreSearchTextField
+import com.example.store.core.ui.component.SearchField
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.features.home.component.HomeBanner
 import com.example.store.features.home.component.HomeLoadingContent
@@ -75,22 +68,13 @@ private fun HomeContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.height(32.dp))
-            StoreSearchTextField(
+            SearchField(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12))
                     .clickable(null, null, onClick = onSearch),
                 query = "",
                 placeholder = "Pesquise por lojas, roupas, calçados, acessórios, etc.",
                 enabled = false,
-                leadingIcon = {
-                    Icon(
-                        modifier = Modifier.size(22.dp),
-                        imageVector = Icons.Default.Search,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                },
                 onQueryChange = {},
                 onSearch = {},
                 onClearQuery = {},

@@ -21,8 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.R
 import com.example.store.core.model.product.Product
+import com.example.store.core.ui.util.toCurrency
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun LargeProductCard(
     modifier: Modifier = Modifier,
@@ -66,19 +67,13 @@ fun LargeProductCard(
                     fontWeight = FontWeight.Normal
                 )
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    AttributeDescription(attribute = "Cor", value = "Preto")
-                    AttributeDescription(attribute = "Tamanho", value = "M")
-                }
-                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "499 Kz",
+                        text = product.minPrice.toCurrency(),
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold

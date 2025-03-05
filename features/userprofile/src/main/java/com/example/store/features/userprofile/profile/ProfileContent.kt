@@ -24,6 +24,8 @@ import com.example.store.features.userprofile.profile.component.UserInfoCard
 @Composable
 internal fun ProfileContent(
     modifier: Modifier = Modifier,
+    username: String,
+    email: String,
     onMyOrdersClick: () -> Unit,
     onEditProfileClick: () -> Unit,
     onChangePasswordClick: () -> Unit,
@@ -52,8 +54,8 @@ internal fun ProfileContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    userName = "Matilda Brown",
-                    userEmail = "matildabrown@mail.com",
+                    userName = username,//"Matilda Brown",
+                    userEmail = email,//"matildabrown@mail.com",
                     userPhotoUrl = userPhotoUrl,
                     onLogout = onLogoutClick
                 )

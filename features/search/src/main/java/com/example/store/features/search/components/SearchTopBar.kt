@@ -22,6 +22,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import com.example.store.core.ui.component.SearchField
 
 @Composable
 internal fun SearchTopBar(
@@ -62,7 +63,7 @@ internal fun SearchTopBar(
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
-            StoreSearchTextField(
+            SearchField(
                 modifier = Modifier
                     .weight(1f)
                     .focusRequester(searchFieldFocusRequester),

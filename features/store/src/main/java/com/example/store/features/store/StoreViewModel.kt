@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,14 +34,12 @@ internal class StoreViewModel @Inject constructor(
         viewModelScope.launch {
             storeRepository.getStoreDetailById(storeId)
                 .onSuccess {
-                    Log.d("StoreViewModel", "loadStore:  ${storeId}}")
                     _uiState.value = StoreUiState.Success(it)
-                    Log.d("StoreViewModel", "loadStore:  ${_uiState.value}}")
                 }
-                .onFailure {
-                    Log.d("StoreViewModel", "loadStore:  ${storeId}}")
-                    Log.d("StoreViewModel", "loadStore:  ${it.message}}")
-                    _uiState.value = StoreUiState.Error(it.message ?: "Unknown error")
+                .onFailure { ex ->
+                    if(ex is IOException){
+                        _uiState.value = StoreUiState.Error(ex.message ?: "Unknown error")
+                    }
                 }
         }
     }

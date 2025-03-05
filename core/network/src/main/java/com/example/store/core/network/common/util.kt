@@ -5,8 +5,9 @@ import com.google.gson.Gson
 import retrofit2.HttpException
 
 internal fun extractErrorMessage(exception: HttpException): String {
-    val errorBody = exception.response()?.errorBody()!!.charStream()
-    val errorMessage = Gson().fromJson(errorBody, Response::class.java)
+   exception.response()?.errorBody()?.charStream()?.let {
+        return Gson().fromJson(it, Response::class.java)?.message ?: "it is null"
+   }
 
-    return errorMessage.message
+    return "null reponse"
 }

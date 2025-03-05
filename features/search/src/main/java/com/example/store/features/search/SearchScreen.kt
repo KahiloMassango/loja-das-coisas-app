@@ -1,6 +1,5 @@
 package com.example.store.features.search
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -13,10 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -30,7 +27,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
@@ -43,9 +39,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.model.search.RecentSearch
 import com.example.store.core.ui.component.LargeProductCard
+import com.example.store.core.ui.component.SearchField
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.features.search.components.RecentSearchQueries
-import com.example.store.features.search.components.StoreSearchTextField
 
 @Composable
 internal fun SearchScreen(
@@ -135,26 +131,11 @@ private fun SearchContent(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
-                StoreSearchTextField(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(12))
-                        .border(
-                            1.dp,
-                            MaterialTheme.colorScheme.outlineVariant,
-                            RoundedCornerShape(12)
-                        )
-                        .focusRequester(focusRequester),
+                SearchField(
+                    modifier = Modifier.focusRequester(focusRequester),
                     query = searchQuery,
                     placeholder = "Pesquise por lojas, roupas, calçados, acessórios, etc.",
                     onQueryChange = { onQueryChange(it) },
-                    leadingIcon = {
-                        Icon(
-                            modifier = Modifier.size(22.dp),
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                    },
                     onSearch = {
                         focusController.clearFocus()
                         keyboardManager?.hide()

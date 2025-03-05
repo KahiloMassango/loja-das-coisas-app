@@ -3,14 +3,14 @@ package com.example.store.core.network
 import com.example.store.core.network.common.extractErrorMessage
 import com.example.store.core.network.datasources.StoreNetworkDatasource
 import com.example.store.core.network.model.StoreDtoRes
-import com.example.store.core.network.retrofit.AppApiService
+import com.example.store.core.network.retrofit.AuthenticatedApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
 class StoreNetworkDatasourceImpl(
-    private val apiService: AppApiService
+    private val apiService: AuthenticatedApiService
 ): StoreNetworkDatasource {
     override suspend fun getStoreDetail(id: String): Result<StoreDtoRes> {
         return withContext(Dispatchers.IO) {
