@@ -13,20 +13,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.features.orders.navigation.ordersScreen
 import com.example.features.orders.navigation.navigateToMyOrders
+import com.example.features.orders.navigation.ordersScreen
 import com.example.store.R
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
@@ -40,7 +37,6 @@ import com.example.store.features.authentication.forgot.navigation.forgotPasswor
 import com.example.store.features.authentication.forgot.navigation.navigateToForgotPassword
 import com.example.store.features.authentication.login.navigation.LoginRoute
 import com.example.store.features.authentication.login.navigation.loginScreen
-import com.example.store.features.authentication.login.navigation.navigateToLogin
 import com.example.store.features.authentication.signup.navigation.navigateToSignUp
 import com.example.store.features.authentication.signup.navigation.signUpScreen
 import com.example.store.features.cart.navigation.cartScreen
@@ -49,7 +45,6 @@ import com.example.store.features.checkout.navigation.navigateToCheckout
 import com.example.store.features.discover.navigation.categoryScreen
 import com.example.store.features.home.navigation.HomeRoute
 import com.example.store.features.home.navigation.homeScreen
-import com.example.store.features.home.navigation.navigateToHome
 import com.example.store.features.newaddress.navigation.navigateToNewAddressScreen
 import com.example.store.features.newaddress.navigation.newAddressScreen
 import com.example.store.features.productdetail.navigation.navigateToProductDetail
@@ -78,54 +73,52 @@ import com.example.store.navigation.navigation.StoreNavigationRail
 @Composable
 fun App(
     modifier: Modifier = Modifier,
-    viewModel: AppViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController(),
+    isLoggedIn: Boolean,
+    cartItemsCount: Int,
     windowSize: WindowWidthSizeClass,
 ) {
+    val startDestination: Any = if (isLoggedIn) HomeRoute else LoginRoute
 
-    val cartItemsCount by viewModel.cartCount.collectAsStateWithLifecycle()
-    val isOffline by viewModel.isOffline.collectAsStateWithLifecycle()
-    val isUserLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle()
-    val startDestination: Any = if (isUserLoggedIn) HomeRoute else LoginRoute
-
-    if (false) {
-        NoInternetConnection(
-            onTryAgain = {
-                //viewModel.tryAgain()
+    // Observe login state and navigate to LoginRoute if the user logs out
+   /* LaunchedEffect(isLoggedIn) {
+        if (!isLoggedIn) {
+            navController.navigate(LoginRoute) {
+                popUpTo(0) { inclusive = true } // Clears back stack completely
             }
-        )
-    } else {
-        when (windowSize) {
-            WindowWidthSizeClass.Compact -> {
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    AppContent(
-                        modifier = modifier.weight(1f),
-                        startDestination = startDestination,
-                        navController = navController,
-                    )
-                    BottomNavigationBar(
-                        navController = navController,
-                        cartItemsCount = cartItemsCount
-                    )
-                }
-            }
+        }
+    }*/
 
-            else -> {
-                Row(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    StoreNavigationRail(
-                        navController = navController,
-                        cartItemsCount = cartItemsCount
-                    )
-                    AppContent(
-                        modifier = modifier.weight(1f),
-                        startDestination = startDestination,
-                        navController = navController,
-                    )
-                }
+    when (windowSize) {
+        WindowWidthSizeClass.Compact -> {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                AppContent(
+                    modifier = modifier.weight(1f),
+                    startDestination = startDestination,
+                    navController = navController,
+                )
+                BottomNavigationBar(
+                    navController = navController,
+                    cartItemsCount = cartItemsCount
+                )
+            }
+        }
+
+        else -> {
+            Row(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                StoreNavigationRail(
+                    navController = navController,
+                    cartItemsCount = cartItemsCount
+                )
+                AppContent(
+                    modifier = modifier.weight(1f),
+                    startDestination = startDestination,
+                    navController = navController,
+                )
             }
         }
     }
@@ -147,11 +140,21 @@ fun AppContent(
             onSignUp = { navController.navigateToSignUp() },
             onForgotPassword = { navController.navigateToForgotPassword() },
             onNavigateUp = navController::navigateUp,
-            onLogin = { navController.navigateToHome() }
+            onLogin = {
+                navController.navigate(HomeRoute) {
+                    popUpTo(LoginRoute) {
+                        inclusive = true
+                    }
+                }
+            }
         )
 
         signUpScreen(
-            onLogin = { navController.navigateToLogin() },
+            onLogin = {
+                navController.navigate(LoginRoute) {
+                    popUpTo(LoginRoute) { inclusive = false }
+                }
+            },
             onNavigateUp = navController::navigateUp
         )
 

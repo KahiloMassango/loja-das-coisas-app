@@ -47,7 +47,6 @@ internal fun ProductDetailsScreen(
     onNavigateUp: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
-    val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
 
     val selectedColor by viewModel.selectedColor.collectAsStateWithLifecycle()
     val selectedSize by viewModel.selectedSize.collectAsStateWithLifecycle()
@@ -68,7 +67,7 @@ internal fun ProductDetailsScreen(
             modifier = modifier,
             product = uiState.product,
             productImages = productImages,
-            isFavorite = isFavorite,
+            isFavorite = false,
             onStoreClick = onStoreClick,
             onNavigateUp = onNavigateUp,
             onReviewsClick = { onReviewsClick(it) },

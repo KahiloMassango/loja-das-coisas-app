@@ -10,9 +10,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object LoginRoute
 
-
-fun NavController.navigateToLogin() = navigate(LoginRoute)
-
 fun NavGraphBuilder.loginScreen(
     onLogin: () -> Unit,
     onSignUp: () -> Unit,

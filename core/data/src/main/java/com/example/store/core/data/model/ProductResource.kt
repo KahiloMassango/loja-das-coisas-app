@@ -12,7 +12,7 @@ fun ProductItem.asCartProductEntity(
     productId = productId,
     name = productName,
     price = price,
-    imageUrl = image ?: imageUrl,
+    imageUrl = imageUrl,
     color = color,
     size = size,
     stockQuantity = stockQuantity

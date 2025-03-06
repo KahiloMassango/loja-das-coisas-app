@@ -121,7 +121,7 @@ internal class ProductDetailViewModel @Inject constructor(
                 cartRepository.addToCart(
                     productName = product.name,
                     productId = product.id,
-                    imageUrl = productItem.image ?: product.image,
+                    imageUrl = product.image,
                     productItem = productItem
                 )
             } catch (e: Exception) {

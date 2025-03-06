@@ -1,5 +1,10 @@
 package com.example.store.feature.shop
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
@@ -45,23 +50,41 @@ internal fun ShopScreen(
         },
         contentWindowInsets = WindowInsets.navigationBars.exclude(BottomAppBarDefaults.windowInsets)
     ) { paddingValues ->
-        when (uiState) {
-            is ShopUiState.Loading -> ShopLoadingScreen(Modifier.padding(paddingValues))
-            is ShopUiState.Error -> ErrorScreen(onTryAgain = {     })
-            is ShopUiState.Success -> ShopContent(
-                modifier = Modifier.padding(paddingValues),
-                currentFilter = uiState.filter,
-                orderBy = uiState.orderBy,
-                products = uiState.products,
-                filters = filters,
-                onFilterChange = { viewModel.updateFilter(it) },
-                onNavigateUp = onNavigateUp,
-                onProductClick = { onProductClick(it) },
-                onChangeOrderOption = { viewModel.updateOrderOption(it) },
-            )
+        AnimatedContent(
+            modifier = Modifier.padding(paddingValues),
+            targetState = uiState,
+            transitionSpec = {
+                fadeIn(animationSpec = tween(300))
+                    .togetherWith(fadeOut(animationSpec = tween(300)))
+            },
+            label = "ShopScreenContentAnimation"
+        ) { state ->
+            when (state) {
+                is ShopUiState.Error -> {
+                    ErrorScreen(onTryAgain = { /* Retry logic */ })
+                }
+
+                is ShopUiState.Loading -> {
+                    ShopLoadingScreen()
+                }
+
+                is ShopUiState.Success -> {
+                    ShopContent(
+                        currentFilter = state.filter,
+                        orderBy = state.orderBy,
+                        products = state.products,
+                        filters = filters,
+                        onFilterChange = { viewModel.updateFilter(it) },
+                        onNavigateUp = onNavigateUp,
+                        onProductClick = { onProductClick(it) },
+                        onChangeOrderOption = { viewModel.updateOrderOption(it) },
+                    )
+                }
+            }
         }
     }
 }
+
 
 @Composable
 private fun ShopContent(
