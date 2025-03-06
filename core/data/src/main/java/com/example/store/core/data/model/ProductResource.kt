@@ -1,13 +1,15 @@
 package com.example.store.core.data.model
 
-import com.example.store.core.database.model.CartProductEntity
+import com.example.store.core.database.model.CartProductItemEntity
 import com.example.store.core.model.product.ProductItem
 
 fun ProductItem.asCartProductEntity(
     productName: String,
-    imageUrl: String
-): CartProductEntity = CartProductEntity(
-    productItemId = id,
+    imageUrl: String,
+    productId: String
+): CartProductItemEntity = CartProductItemEntity(
+    id = id,
+    productId = productId,
     name = productName,
     price = price,
     imageUrl = image ?: imageUrl,

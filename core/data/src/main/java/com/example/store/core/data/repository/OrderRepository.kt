@@ -1,6 +1,6 @@
 package com.example.store.core.data.repository
 
-import com.example.store.core.model.cart.CartProduct
+import com.example.store.core.model.cart.CartProductItem
 import com.example.store.core.model.order.Order
 import com.example.store.core.model.order.OrderStateSummary
 import com.example.store.core.model.order.OrderWithItems
@@ -20,7 +20,7 @@ interface OrderRepository {
         longitude: Double,
         paymentType: String,
         deliveryMethod: String,
-        cartProducts: List<CartProduct>
+        cartProductItems: List<CartProductItem>
     ): Result<Order>
 
 }

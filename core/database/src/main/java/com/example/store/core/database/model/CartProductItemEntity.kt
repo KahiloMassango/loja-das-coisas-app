@@ -3,12 +3,13 @@ package com.example.store.core.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.store.core.model.cart.CartProduct
+import com.example.store.core.model.cart.CartProductItem
 
 @Entity(tableName = "cart")
-data class CartProductEntity(
+data class CartProductItemEntity(
     @PrimaryKey(autoGenerate = false)
-    val productItemId: String,
+    val id: String,
+    val productId:String,
     val name: String,
     val price: Int,
     @ColumnInfo(name = "image_url")
@@ -19,8 +20,9 @@ data class CartProductEntity(
     val stockQuantity: Int
 )
 
-fun CartProductEntity.asExternalModel() = CartProduct(
-    productItemId = productItemId,
+fun CartProductItemEntity.asExternalModel() = CartProductItem(
+    id = id,
+    productId = productId,
     name = name,
     price = price,
     imageUrl = imageUrl,

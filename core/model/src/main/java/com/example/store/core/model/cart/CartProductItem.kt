@@ -1,7 +1,8 @@
 package com.example.store.core.model.cart
 
-data class CartProduct(
-    val productItemId: String,
+data class CartProductItem(
+    val id: String,
+    val productId: String,
     val name: String,
     val price: Int,
     val imageUrl: String,
@@ -11,8 +12,9 @@ data class CartProduct(
     val stockQuantity: Int
 )
 
-val cartProduct = CartProduct(
-    productItemId = "11",
+val cartProductItem = CartProductItem(
+    id = "11",
+    productId = "",
     name = "T-Shirt Sailing",
     price = 2500,
     imageUrl = "",

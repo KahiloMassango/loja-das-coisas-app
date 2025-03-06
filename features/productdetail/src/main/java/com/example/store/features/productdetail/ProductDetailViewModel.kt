@@ -6,24 +6,20 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.CartRepository
-import com.example.store.core.data.repository.FavoriteRepository
 import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.model.product.ProductItem
 import com.example.store.core.model.product.ProductWithVariation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 internal class ProductDetailViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val favoriteRepository: FavoriteRepository,
     private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -111,14 +107,6 @@ internal class ProductDetailViewModel @Inject constructor(
     }
 
 
-    val isFavorite: StateFlow<Boolean> =
-        favoriteRepository.checkFavoriteProductStream(productId)
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = false
-            )
-
 
     fun refresh() {
         loadProduct()
@@ -130,7 +118,12 @@ internal class ProductDetailViewModel @Inject constructor(
             try {
                 val product = (uiState.value as ProductDetailState.Success).product
                 val productItem = _selectedItem.value!!
-                cartRepository.addToCart(product.name, product.image, productItem)
+                cartRepository.addToCart(
+                    productName = product.name,
+                    productId = product.id,
+                    imageUrl = productItem.image ?: product.image,
+                    productItem = productItem
+                )
             } catch (e: Exception) {
                 Log.d("ProductDetailViewModel", "addToCart: $e")
             }

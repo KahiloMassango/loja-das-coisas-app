@@ -9,15 +9,15 @@ import com.example.store.core.database.dao.CartDao
 import com.example.store.core.database.dao.FavoritesDao
 import com.example.store.core.database.dao.RecentSearchDao
 import com.example.store.core.database.model.AddressEntity
-import com.example.store.core.database.model.CartProductEntity
+import com.example.store.core.database.model.CartProductItemEntity
 import com.example.store.core.database.model.FavoriteProductEntity
 import com.example.store.core.database.model.RecentSearchEntity
 
 @Database(
-    version = 6,
+    version = 8,
     entities = [
         FavoriteProductEntity::class,
-        CartProductEntity::class,
+        CartProductItemEntity::class,
         AddressEntity::class,
         RecentSearchEntity::class,
     ],

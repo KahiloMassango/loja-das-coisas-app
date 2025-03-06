@@ -91,18 +91,18 @@ internal fun CartScreen(
                         items(products) { product ->
                             CartProductCard(
                                 modifier = Modifier,
-                                product = product,
+                                cartItem = product,
                                 onClick = { onProductClick(it) },
                                 onRemove = { viewModel.removeProductFromCart(it) },
                                 onIncreaseQty = {
                                     viewModel.updateQuantity(
-                                        product.productItemId,
+                                        product.id,
                                         product.quantity + 1
                                     )
                                 },
                                 onDecreaseQty = {
                                     viewModel.updateQuantity(
-                                        product.productItemId,
+                                        product.id,
                                         product.quantity - 1
                                     )
                                 }

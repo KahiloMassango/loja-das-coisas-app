@@ -34,8 +34,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.store.core.model.cart.CartProduct
-import com.example.store.core.model.cart.cartProduct
+import com.example.store.core.model.cart.CartProductItem
+import com.example.store.core.model.cart.cartProductItem
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.theme.defaultFont
@@ -45,7 +45,7 @@ import com.example.store.core.ui.util.toCurrency
 @Composable
 internal fun CartProductCard(
     modifier: Modifier = Modifier,
-    product: CartProduct,
+    cartItem: CartProductItem,
     onClick: (String) -> Unit,
     onIncreaseQty: () -> Unit,
     onDecreaseQty: () -> Unit,
@@ -53,7 +53,7 @@ internal fun CartProductCard(
 ) {
 
     Card(
-        onClick = { onClick(product.productItemId) },
+        onClick = { onClick(cartItem.productId) },
         modifier = modifier.height(104.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
@@ -68,7 +68,7 @@ internal fun CartProductCard(
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(100.dp),
-                model = product.imageUrl,
+                model = cartItem.imageUrl,
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
@@ -88,7 +88,7 @@ internal fun CartProductCard(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         Text(
-                            text = product.name,
+                            text = cartItem.name,
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodySmall,
                             fontWeight = FontWeight.SemiBold
@@ -97,17 +97,17 @@ internal fun CartProductCard(
                             modifier = Modifier,
                             verticalArrangement = Arrangement.spacedBy(0.dp),
                         ) {
-                            if (product.color != null) {
-                                Attribute(attribute = "Cor", value = product.color!!)
+                            if (cartItem.color != null) {
+                                Attribute(attribute = "Cor", value = cartItem.color!!)
                             }
-                            if (product.size != null) {
-                                Attribute(attribute = "Tamanho", value = product.size!!)
+                            if (cartItem.size != null) {
+                                Attribute(attribute = "Tamanho", value = cartItem.size!!)
                             }
                         }
                     }
                     IconButton(
                         modifier = Modifier.size(22.dp),
-                        onClick = { onRemove(product.productItemId) }
+                        onClick = { onRemove(cartItem.id) }
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Close,
@@ -122,13 +122,13 @@ internal fun CartProductCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     QuantitySelector(
-                        stockQuantity = product.stockQuantity,
-                        quantity = product.quantity,
-                        onDecrease = { if (product.quantity > 1) onDecreaseQty() },
+                        stockQuantity = cartItem.stockQuantity,
+                        quantity = cartItem.quantity,
+                        onDecrease = { if (cartItem.quantity > 1) onDecreaseQty() },
                         onIncrease = onIncreaseQty
                     )
                     Text(
-                        text = product.price.toCurrency(),
+                        text = cartItem.price.toCurrency(),
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold
@@ -221,7 +221,7 @@ private fun Attribute(
 private fun Preview() {
     StoreTheme {
         CartProductCard(
-            product = cartProduct,
+            cartItem = cartProductItem,
             onClick = { },
             onRemove = {},
             onIncreaseQty = {},

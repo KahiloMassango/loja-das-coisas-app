@@ -20,7 +20,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -107,7 +106,6 @@ class CheckoutViewModel @Inject constructor(
 
     fun processOrder() {
         viewModelScope.launch(Dispatchers.IO) {
-
             orderRepository.placeOrder(
                 deliveryMethod = deliveryMethod.value.name,
                 total = orderTotal.value,
@@ -117,10 +115,11 @@ class CheckoutViewModel @Inject constructor(
                 latitude = _currentDeliveryAddress.value!!.latitude,
                 longitude = _currentDeliveryAddress.value!!.longitude,
                 paymentType = "",
-                cartProducts = cartRepository.getCartProducts()
+                cartProductItems = cartRepository.getCartProducts()
             )
                 .onSuccess {
                     Log.d("CheckoutViewModel", "processOrder: Success")
+                    cartRepository.clearCart()
                 }
                 .onFailure {
                     Log.d("CheckoutViewModel", "processOrder: Failed ex -> $it")

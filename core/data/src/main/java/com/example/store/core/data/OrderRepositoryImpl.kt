@@ -1,7 +1,7 @@
 package com.example.store.core.data
 
 import com.example.store.core.data.repository.OrderRepository
-import com.example.store.core.model.cart.CartProduct
+import com.example.store.core.model.cart.CartProductItem
 import com.example.store.core.model.order.Order
 import com.example.store.core.model.order.OrderStateSummary
 import com.example.store.core.model.order.OrderWithItems
@@ -37,7 +37,7 @@ class OrderRepositoryImpl(
         longitude: Double,
         paymentType: String,
         deliveryMethod: String,
-        cartProducts: List<CartProduct>
+        cartProductItems: List<CartProductItem>
     ): Result<Order> {
         val request = OrderDtoReq(
             subTotal = subTotal,
@@ -48,9 +48,9 @@ class OrderRepositoryImpl(
             longitude = longitude,
             paymentType = paymentType,
             deliveryMethod = deliveryMethod,
-            orderItems = cartProducts.map {
+            orderItems = cartProductItems.map {
                 OrderItemDtoReq(
-                    productItemId = it.productItemId,
+                    productItemId = it.id,
                     quantity = it.quantity
                 )
             }
