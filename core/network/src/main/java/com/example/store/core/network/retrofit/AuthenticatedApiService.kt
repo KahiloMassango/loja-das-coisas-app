@@ -42,5 +42,5 @@ interface AuthenticatedApiService {
     suspend fun getOrderById(@Path("id") id: String): Response<OrderWithItemsDtoRes>
 
     @GET("customer/orders")
-    suspend fun getAllOrder(): Response<OrdersDtoRes>
+    suspend fun getAllOrders(): Response<OrdersDtoRes>
 }

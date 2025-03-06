@@ -1,13 +1,12 @@
 package com.example.store.core.model.order
 
+
 data class Order(
     val id: String,
-    val subTotal: Int,
-    val deliveryFee: Int,
+    val storeName: String,
+    val date: String,
     val total: Int,
-    val deliveryAddressName: String,
-    val paymentType: String,
-    val deliveryMethod: String
+    val totalItems: Int
 )
 
 data class OrderStateSummary(
@@ -18,10 +17,13 @@ data class OrderStateSummary(
 
 data class OrderWithItems(
     val id: String,
+    val storeName: String,
+    val status: String,
+    val date: String,
     val subTotal: Int,
     val deliveryFee: Int,
     val total: Int,
-    val deliveryAddressName: String,
+    val deliveryAddress: String,
     val paymentType: String,
     val deliveryMethod: String,
     val orderItems: List<OrderItem>

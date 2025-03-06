@@ -47,7 +47,7 @@ class OrderNetworkDatasourceImpl(
     override suspend fun getAllOrders(): Result<OrdersDtoRes> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.getAllOrder()
+                val response = apiService.getAllOrders()
                 Result.success(response.data)
             } catch (e: HttpException) {
                 val message = extractErrorMessage(e)

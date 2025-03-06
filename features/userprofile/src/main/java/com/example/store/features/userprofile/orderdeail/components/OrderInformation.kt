@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun OrderInformation(
     modifier: Modifier = Modifier,
-    orderNumber: String,
+    storeName: String,
     date: String,
     itemsQty: Int,
     status: String
@@ -33,7 +33,7 @@ internal fun OrderInformation(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Pedido №$orderNumber",
+                text = storeName,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold,
             )
@@ -63,8 +63,15 @@ internal fun OrderInformation(
         }
     }
 }
+
 @Composable
-fun OrderSummary(modifier: Modifier = Modifier) {
+fun OrderSummary(
+    modifier: Modifier = Modifier,
+    deliveryAddress: String,
+    paymentType: String,
+    deliveryMethod: String,
+    total: String
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -75,9 +82,9 @@ fun OrderSummary(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium
         )
-        OrderDescription(text = "Endereço de Entrega", description = "Gamek, Morro Bento")
-        OrderDescription(text = "Método de pagamento", description = "MCX Express")
-        OrderDescription(text = "Método de envio", description = "Entrega")
-        OrderDescription(text = "Total", description = "4.500kz")
+        OrderDescription(text = "Endereço de Entrega", description = deliveryAddress)
+        OrderDescription(text = "Método de pagamento", description = paymentType)
+        OrderDescription(text = "Método de envio", description = deliveryMethod)
+        OrderDescription(text = "Total", description = total)
     }
 }

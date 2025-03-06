@@ -4,14 +4,10 @@ import com.example.store.core.model.order.Order
 
 data class OrderDtoRes(
     val id: String,
-    val subTotal: Int,
-    val deliveryFee: Int,
+    val storeName: String,
+    val date: String,
     val total: Int,
-    val deliveryAddressName: String,
-    val paymentType: String,
-    val deliveryMethod: String,
-    val latitude: Double,
-    val longitude: Double
+    val orderTotalItems: Int,
 )
 
 data class OrdersDtoRes(
@@ -22,10 +18,8 @@ data class OrdersDtoRes(
 
 fun OrderDtoRes.asExternalModel() = Order(
     id = id,
-    subTotal = subTotal,
-    deliveryFee = deliveryFee,
     total = total,
-    deliveryAddressName = deliveryAddressName,
-    paymentType = paymentType,
-    deliveryMethod = deliveryMethod,
+    date = date,
+    storeName = storeName,
+    totalItems = orderTotalItems
 )
