@@ -44,7 +44,7 @@ fun ProductCard(
                     .fillMaxWidth()
                     .height(184.dp)
                     .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)),
-                model = product.image.replace("localhost", "10.0.2.2"),
+                model = product.image,
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )

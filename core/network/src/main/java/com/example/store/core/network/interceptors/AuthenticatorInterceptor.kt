@@ -32,7 +32,6 @@ class AuthenticatorInterceptor @Inject constructor(
                     .getOrNull()?.let { accessToken ->
                         runBlocking {
                             tokenManager.saveAccessToken(accessToken)
-                            tokenManager.saveRefreshToken(accessToken)
                         }
                         accessToken
                     }
