@@ -41,7 +41,7 @@ internal fun AddToCartContainer(
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(0.55f)
+                    .weight(1f)
                     .background(MaterialTheme.colorScheme.primary.copy(0.9f)),
                 contentAlignment = Alignment.CenterStart
             ) {
@@ -51,14 +51,14 @@ internal fun AddToCartContainer(
                     Text(
                         modifier = Modifier,
                         text = price.toCurrency(),
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                     Text(
                         modifier = Modifier,
                         text = "Unidade",
-                        style = MaterialTheme.typography.titleSmall,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onPrimary.copy(0.7f)
                     )
@@ -67,15 +67,15 @@ internal fun AddToCartContainer(
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(0.45f)
+                    .weight(1f)
                     .background(MaterialTheme.colorScheme.primary)
                     .clickable { onAddToCart() },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     modifier = Modifier,
-                    text = "Add carrinho",
-                    style = MaterialTheme.typography.titleMedium,
+                    text = "Adicionar ao carrinho",
+                    style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimary
                 )

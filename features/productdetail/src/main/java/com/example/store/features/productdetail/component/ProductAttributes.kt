@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -16,9 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.Category
-import com.example.store.core.ui.component.FavoriteButton
 
 @Composable
 internal fun ProductAttributes(
@@ -44,38 +43,35 @@ internal fun ProductAttributes(
                     Attribute(
                         modifier = Modifier.weight(1f),
                         label = "Cor",
+                        placeholder = "Selecione uma cor",
                         selectedOption = selectedColor,
                         onClick = onShowColorOptions
                     )
                     Attribute(
                         modifier = Modifier.weight(1f),
                         label = "Tamanho",
+                        placeholder = "Selecione um tamanho",
                         selectedOption = selectedSize,
                         onClick = onShowSizeOptions
                     )
                 }
-                FavoriteButton(
-                    modifier = Modifier,
-                    isFavorite = false,
-                    onClick = {}
-                )
             }
 
             category.hasColorVariation -> {
-                // Show only Color dropdown
                 Attribute(
                     modifier = Modifier.fillMaxWidth(0.5f),
                     label = "Cor",
+                    placeholder = "Selecione uma cor",
                     selectedOption = selectedColor,
                     onClick = onShowColorOptions
                 )
             }
 
             category.hasSizeVariation -> {
-                // Show only Size dropdown
                 Attribute(
                     modifier = Modifier.fillMaxWidth(0.5f),
                     label = "Tamanho",
+                    placeholder = "Selecione um tamanho",
                     selectedOption = selectedSize,
                     onClick = onShowSizeOptions
                 )
@@ -84,10 +80,10 @@ internal fun ProductAttributes(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Attribute(
     label: String,
+    placeholder: String,
     selectedOption: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -110,12 +106,15 @@ private fun Attribute(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = selectedOption?.let { "$label: $selectedOption" } ?: "Selecione $label",
-                style = MaterialTheme.typography.labelMedium
+                modifier = Modifier.weight(1f),
+                text = selectedOption?.let { "$label: $selectedOption" } ?: placeholder,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = "Show size options" // Add content description
+                contentDescription = null
             )
         }
     }

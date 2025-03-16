@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -29,6 +30,8 @@ internal fun ProductDetails(
             text = storeName,
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.bodyMedium,
+            textDecoration = TextDecoration.Underline,
+            fontWeight = FontWeight.Medium
 
             )
         Spacer(modifier = Modifier.height(8.dp))
@@ -36,7 +39,7 @@ internal fun ProductDetails(
         Text(
             modifier = Modifier,
             text = name,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface,
             maxLines = 2
@@ -48,8 +51,8 @@ internal fun ProductDetails(
             modifier = Modifier.fillMaxWidth(),
             text = description,
             color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 3
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 4
         )
     }
 }
