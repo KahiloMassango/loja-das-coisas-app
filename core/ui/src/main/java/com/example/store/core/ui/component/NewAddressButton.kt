@@ -48,7 +48,7 @@ fun NewAddressButton(
             )
             Text(
                 text = "Adicionar Novo Endereço",
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }

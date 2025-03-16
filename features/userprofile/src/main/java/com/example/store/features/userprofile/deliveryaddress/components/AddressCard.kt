@@ -83,13 +83,13 @@ internal fun AddressCard(
                     ) {
                         Text(
                             text = address.addressType.description,
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold
                         )
                     }
                     Text(
                         text = address.addressLine.address,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
