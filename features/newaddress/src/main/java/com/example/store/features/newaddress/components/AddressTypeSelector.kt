@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.AddressType
 
@@ -30,8 +31,10 @@ internal fun AddressTypeSelector(
     ) {
         Text(
             text = "Selecione o tipo de endereço",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Row(
             modifier = Modifier.padding(start = 5.dp),
@@ -71,7 +74,7 @@ private fun AddressTypeOption(
         Text(
             modifier = Modifier.padding(5.dp),
             text = addressType.description,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
             color = if(selected) MaterialTheme.colorScheme.onPrimary
                 else   MaterialTheme.colorScheme.onSurface
         )
