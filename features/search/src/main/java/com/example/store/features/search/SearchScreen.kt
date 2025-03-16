@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -40,7 +41,9 @@ import com.example.store.core.model.product.Product
 import com.example.store.core.model.search.RecentSearch
 import com.example.store.core.ui.component.LargeProductCard
 import com.example.store.core.ui.component.SearchField
+import com.example.store.core.ui.component.mockProduct
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 import com.example.store.features.search.components.RecentSearchQueries
 
 @Composable
@@ -164,6 +167,7 @@ private fun SearchContent(
                         modifier = modifier
                             .weight(1f),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
+                        contentPadding = PaddingValues(4.dp)
                     ) {
                         items(searchResult) { product ->
                             LargeProductCard(
@@ -195,13 +199,24 @@ private fun EmptySearchResult(modifier: Modifier = Modifier) {
 }
 
 
-@Preview
+@PhonePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        SearchScreen(
-            onProductClick = { },
-            onNavigateUp = {}
-        )
+        SearchContent(
+            searchQuery = "Calça",
+            onQueryChange = {},
+            onSearch = {  },
+            searchResult = listOf(
+                mockProduct.copy(name = "This is a very large long prodocut name you see"),
+                mockProduct,
+                mockProduct
+            ),
+            recentSearchList = emptyList(),
+            onClearAllRecentSearch = {},
+            onDeleteRecentSearch = {},
+            onProductClick = {},
+            onNavigateBack = {}
+        ) 
     }
 }

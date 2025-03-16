@@ -14,14 +14,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.component.SearchField
+import com.example.store.core.ui.component.mockProduct
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 import com.example.store.features.home.component.HomeBanner
 import com.example.store.features.home.component.HomeLoadingContent
 import com.example.store.features.home.component.Section
@@ -108,10 +109,22 @@ private fun HomeContent(
 }
 
 
-@PreviewLightDark
+
+//@PreviewLightDark
+@PhonePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        HomeScreen(onProductClick = {}, onSeeAll = {}, onSearch = {})
+        HomeContent(
+            products = listOf(
+                mockProduct.copy(name = "Short product name", storeName = "Short store name"),
+                mockProduct,
+                mockProduct
+            ),
+            onProductClick = {},
+            onSeeMore = {},
+            onSearch = {}
+        )
     }
 }
+

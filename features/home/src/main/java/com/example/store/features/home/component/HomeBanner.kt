@@ -37,7 +37,7 @@ fun HomeBanner(modifier: Modifier = Modifier) {
                 .padding(16.dp),
             text = "Street clothes",
             color = Color.White,
-            style = MaterialTheme.typography.headlineMedium,
+            style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
     }

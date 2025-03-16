@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.component.ProductCard
+import com.example.store.core.ui.component.mockProduct
 import com.example.store.core.ui.theme.StoreTheme
 
 @Composable
@@ -32,15 +33,14 @@ fun Section(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = description,
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.inverseOnSurface,
-            fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.height(20.dp))
         LazyRow(
@@ -66,7 +66,8 @@ private fun Preview() {
             description = "Super summer sale",
             onProductClick = {},
             onSeeMore = {},
-            products = emptyList()
+            products = listOf(mockProduct, mockProduct, mockProduct)
         )
     }
 }
+
