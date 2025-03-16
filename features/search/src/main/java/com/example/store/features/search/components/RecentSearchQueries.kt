@@ -35,9 +35,9 @@ internal fun RecentSearchQueries(
         ) {
             Text(
                 text = "Pesquisas Recentes",
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
             Text(
                 modifier = Modifier
@@ -49,7 +49,7 @@ internal fun RecentSearchQueries(
                 text = "Limpar Tudo",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.inverseOnSurface,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
         }
         Spacer(Modifier.height(16.dp))
