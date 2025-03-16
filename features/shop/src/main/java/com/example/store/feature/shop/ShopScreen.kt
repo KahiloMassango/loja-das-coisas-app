@@ -17,12 +17,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.product.Product
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.component.mockProduct
+import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 import com.example.store.feature.shop.component.FilterContainer
 import com.example.store.feature.shop.component.ProductsGrid
 import com.example.store.feature.shop.component.ShopLoadingScreen
@@ -75,7 +79,6 @@ internal fun ShopScreen(
                         products = state.products,
                         filters = filters,
                         onFilterChange = { viewModel.updateFilter(it) },
-                        onNavigateUp = onNavigateUp,
                         onProductClick = { onProductClick(it) },
                         onChangeOrderOption = { viewModel.updateOrderOption(it) },
                     )
@@ -96,7 +99,6 @@ private fun ShopContent(
     onFilterChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
     onChangeOrderOption: (String) -> Unit,
-    onNavigateUp: () -> Unit,
 ) {
 
     Surface(
@@ -124,6 +126,23 @@ private fun ShopContent(
             )
 
         }
+    }
+}
+
+@PhonePreviews
+@Composable
+private fun Preview() {
+    StoreTheme {
+        ShopContent(
+            currentFilter = "TODO()",
+            orderBy = "TODO()",
+            products = listOf(mockProduct, mockProduct, mockProduct, mockProduct),
+            filters = listOf(),
+            onFilterChange = {},
+            onProductClick = {},
+            onChangeOrderOption = {}
+
+        )
     }
 }
 
