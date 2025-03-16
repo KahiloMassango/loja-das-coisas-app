@@ -18,6 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.store.core.ui.component.StoreLargeTopBar
+import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 import com.example.store.features.userprofile.profile.component.ProfileOptions
 import com.example.store.features.userprofile.profile.component.UserInfoCard
 
@@ -43,11 +45,11 @@ internal fun ProfileContent(
     ) { paddingValues ->
         Surface(
             modifier = modifier.padding(paddingValues)
-
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
                 UserInfoCard(
@@ -62,7 +64,6 @@ internal fun ProfileContent(
                 Spacer(modifier = Modifier.height(46.dp))
                 ProfileOptions(
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState())
                         .weight(1f),
                     onMyOrdersClick = onMyOrdersClick,
                     onEditProfileClick = onEditProfileClick,
@@ -73,5 +74,24 @@ internal fun ProfileContent(
                 )
             }
         }
+    }
+}
+
+@PhonePreviews
+@Composable
+private fun Preview() {
+    StoreTheme {
+        ProfileContent(
+            username = "Kahilo Pedro Massango",
+            email = "example23@gmail.com",
+            onMyOrdersClick = {},
+            onEditProfileClick = {},
+            onChangePasswordClick = {},
+            onHelpCenterClick = {},
+            onAddressesClick = {},
+            onPolicePrivacyClick = {},
+            userPhotoUrl = "",
+            onLogoutClick = {}
+        )
     }
 }
