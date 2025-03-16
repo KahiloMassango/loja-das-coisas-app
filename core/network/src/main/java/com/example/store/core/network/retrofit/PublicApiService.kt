@@ -1,12 +1,13 @@
 package com.example.store.core.network.retrofit
 
 import com.example.store.core.network.model.Response
-import com.example.store.core.network.model.StoreDtoRes
 import com.example.store.core.network.model.authentication.AuthenticationDtoRes
 import com.example.store.core.network.model.authentication.LoginDtoReq
 import com.example.store.core.network.model.authentication.RefreshTokenDtoReq
 import com.example.store.core.network.model.product.ProductDtoRes
 import com.example.store.core.network.model.product.ProductWithVariationDtoRes
+import com.example.store.core.network.model.sync.LastUpdatedDtoRes
+import com.example.store.core.network.model.sync.SyncMetadataDtoRes
 import com.example.store.core.network.model.user.UserDtoReq
 import com.example.store.core.network.model.user.UserDtoRes
 import retrofit2.http.Body
@@ -45,4 +46,9 @@ interface PublicApiService {
     @GET("products/{id}")
     suspend fun getProductById(@Path("id") productId: String): Response<ProductWithVariationDtoRes>
 
+    @GET("sync/last-updated")
+    suspend fun fetchLastUpdated(): Response<LastUpdatedDtoRes>
+
+    @GET("sync")
+    suspend fun fetchSyncMetadata(): Response<SyncMetadataDtoRes>
 }

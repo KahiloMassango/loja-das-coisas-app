@@ -30,16 +30,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.example.store.features.discover.model.Gender
-import com.example.store.features.discover.model.SubCategory
-import com.example.store.features.discover.model.getCategories
+import com.example.store.features.discover.model.getGenderIcon
 
 
 @Composable
-internal fun GenderContainer(
+internal fun DiscoveryItem(
     modifier: Modifier = Modifier,
-    gender: Gender,
-    onCategoryClick: (gender: String, category: String) -> Unit
+    gender: String,
+    categories: List<String>,
+    onCategoryClick: (category: String) -> Unit
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     val iconRotation by animateFloatAsState(
@@ -73,12 +72,12 @@ internal fun GenderContainer(
             ) {
                 Icon(
                     modifier = Modifier.size(22.dp),
-                    painter = painterResource(gender.icon),
+                    painter = painterResource(getGenderIcon(gender)),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = gender.description,
+                    text = gender,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Medium
@@ -99,16 +98,12 @@ internal fun GenderContainer(
                     .fillMaxWidth()
                     .padding(start = 52.dp)
             ) {
-                getCategories(gender).forEachIndexed { index, category ->
-                    CategoriesList(
-                        subCategory = category,
-                        onCategoryClick = {
-                            onCategoryClick(
-                                gender.description,
-                                category.description)
-                        }
+                categories.forEachIndexed { index, category ->
+                    CategoryItem(
+                        category = category,
+                        onCategoryClick = { onCategoryClick(category) }
                     )
-                    if (index != getCategories(gender).lastIndex) {
+                    if (index != categories.lastIndex) {
                         HorizontalDivider()
                     }
                 }
@@ -119,9 +114,9 @@ internal fun GenderContainer(
 }
 
 @Composable
-private fun CategoriesList(
+private fun CategoryItem(
     modifier: Modifier = Modifier,
-    subCategory: SubCategory,
+    category: String,
     onCategoryClick: () -> Unit
 ) {
     Column(
@@ -136,7 +131,7 @@ private fun CategoriesList(
         ) {
             Text(
                 modifier = Modifier.padding(14.dp),
-                text = subCategory.description,
+                text = category,
                 style = MaterialTheme.typography.bodyMedium
             )
         }

@@ -30,6 +30,9 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    implementation(libs.work.manager)
+    implementation(libs.hilt.work)
+
     implementation(libs.google.maps.compose)
 
     implementation(libs.androidx.core.ktx)

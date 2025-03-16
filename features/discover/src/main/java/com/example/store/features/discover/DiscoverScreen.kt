@@ -1,6 +1,5 @@
 package com.example.store.features.discover
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,29 +7,46 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.ui.component.SearchField
 import com.example.store.core.ui.theme.StoreTheme
-import com.example.store.features.discover.component.GenderContainer
-import com.example.store.features.discover.model.Gender
+import com.example.store.features.discover.component.DiscoveryItem
 
 @Composable
-internal fun CategoryScreen(
+internal fun DiscoverScreen(
     modifier: Modifier = Modifier,
+    viewModel: DiscoverViewModel = hiltViewModel(),
+    onSelectCategory: (gender: String, category: String) -> Unit,
+    onSearch: () -> Unit,
+) {
+    val genders by viewModel.genders.collectAsStateWithLifecycle()
+    DiscoverContent(
+        modifier = modifier,
+        gendersWithCategory = genders,
+        onSelectCategory = onSelectCategory,
+        onSearch = onSearch
+    )
+}
+
+@Composable
+internal fun DiscoverContent(
+    modifier: Modifier = Modifier,
+    gendersWithCategory: Map<String, List<String>>,
     onSelectCategory: (gender: String, category: String) -> Unit,
     onSearch: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .statusBarsPadding()
     ) {
         Spacer(Modifier.height(32.dp))
@@ -47,7 +63,7 @@ internal fun CategoryScreen(
         )
         Spacer(Modifier.height(20.dp))
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .verticalScroll(rememberScrollState())
         ) {
             Text(
@@ -58,10 +74,11 @@ internal fun CategoryScreen(
                 fontWeight = FontWeight.Bold
             )
             Spacer(Modifier.height(8.dp))
-            Gender.entries.forEach {
-                GenderContainer(
-                    gender = it,
-                    onCategoryClick = { gender, category ->
+            gendersWithCategory.forEach { (gender, categories) ->
+                DiscoveryItem(
+                    gender = gender,
+                    categories = categories,
+                    onCategoryClick = { category ->
                         onSelectCategory(gender, category)
                     }
                 )
@@ -85,7 +102,7 @@ internal fun CategoryScreen(
 @Composable
 private fun Preview1() {
     StoreTheme {
-        CategoryScreen(
+        DiscoverScreen(
             onSelectCategory = { _, _ -> },
             onSearch = {}
         )

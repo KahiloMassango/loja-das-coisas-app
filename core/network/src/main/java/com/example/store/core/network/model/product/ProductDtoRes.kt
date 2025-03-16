@@ -1,8 +1,9 @@
 package com.example.store.core.network.model.product
 
-import com.example.store.core.model.product.Category
 import com.example.store.core.model.product.Product
 import com.example.store.core.model.product.ProductWithVariation
+import com.example.store.core.network.model.sync.CategoryDtoRes
+import com.example.store.core.network.model.sync.asExternalModel
 
 
 data class ProductDtoRes(
@@ -48,16 +49,6 @@ fun ProductWithVariationDtoRes.asExternalModel() = ProductWithVariation(
     category = category.asExternalModel()
 )
 
-data class CategoryDtoRes(
-    val name: String,
-    val hasColorVariation: Boolean,
-    val hasSizeVariation: Boolean,
-)
 
-fun CategoryDtoRes.asExternalModel() = Category(
-    name = name,
-    hasColorVariation = hasColorVariation,
-    hasSizeVariation = hasSizeVariation
-)
 
 

@@ -54,6 +54,8 @@ dependencies {
     implementation(projects.features.shop)
     implementation(projects.features.orders)
 
+    implementation(libs.work.manager)
+
 
     implementation(libs.androidx.splashscreen)
 

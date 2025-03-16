@@ -16,8 +16,8 @@ import com.example.store.core.model.Gender
 @Composable
 internal fun GenderSelector(
     modifier: Modifier = Modifier,
-    selectedGender: Gender,
-    onSelectGender: (Gender) -> Unit = {},
+    selectedGender: String,
+    onSelectGender: (String) -> Unit = {},
     enabled: Boolean = true
 ) {
     Column(
@@ -44,7 +44,7 @@ internal fun GenderSelector(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Gender.entries.forEach { gender ->
+            listOf("AS", "ff").forEach { gender ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -54,7 +54,7 @@ internal fun GenderSelector(
                         enabled = enabled
                     )
                     Text(
-                        text = gender.description,
+                        text = gender,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }

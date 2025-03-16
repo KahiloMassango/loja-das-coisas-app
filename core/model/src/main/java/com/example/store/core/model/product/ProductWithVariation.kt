@@ -1,5 +1,7 @@
 package com.example.store.core.model.product
 
+import com.example.store.core.model.Category
+
 
 data class ProductWithVariation(
     val id: String,
@@ -10,10 +12,4 @@ data class ProductWithVariation(
     val name: String,
     val category: Category,
     val productItems: List<ProductItem>
-)
-
-data class Category(
-    val name: String,
-    val hasColorVariation: Boolean,
-    val hasSizeVariation: Boolean
 )

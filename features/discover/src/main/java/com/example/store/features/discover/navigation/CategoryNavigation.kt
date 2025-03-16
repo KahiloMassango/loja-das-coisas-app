@@ -2,7 +2,7 @@ package com.example.store.features.discover.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.store.features.discover.CategoryScreen
+import com.example.store.features.discover.DiscoverScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,7 +13,7 @@ fun NavGraphBuilder.categoryScreen(
     onSearch: () -> Unit
 ) {
     composable<CategoryRoute> {
-        CategoryScreen(
+        DiscoverScreen(
             onSelectCategory = onSelectCategory,
             onSearch = onSearch
         )

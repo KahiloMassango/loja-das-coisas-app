@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.AccountRepository
 import com.example.store.core.data.repository.CartRepository
+import com.example.store.core.data.repository.SyncRepository
 import com.example.store.core.data.util.NetworkMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -20,6 +21,7 @@ class AppViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     private val networkMonitor: NetworkMonitor,
     private val accountRepository: AccountRepository,
+    private val syncRepository: SyncRepository
 ) : ViewModel() {
 
     var showSplashScreen by mutableStateOf(true)
@@ -36,6 +38,11 @@ class AppViewModel @Inject constructor(
             }
         }
 
+    init {
+        viewModelScope.launch {
+            syncRepository.sync()
+        }
+    }
 
     val isOffline = networkMonitor.isOnline
         .stateIn(

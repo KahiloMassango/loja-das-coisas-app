@@ -18,7 +18,7 @@ plugins {
 
 fun BaseExtension.defaultConfig() {
 
-    compileSdkVersion(34)
+    compileSdkVersion(35)
 
     defaultConfig {
         minSdk = 28

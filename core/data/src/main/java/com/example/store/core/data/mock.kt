@@ -1,6 +1,6 @@
 package com.example.store.core.data
 
-import com.example.store.core.model.product.Category
+import com.example.store.core.model.Category
 import com.example.store.core.model.product.Product
 import com.example.store.core.model.product.ProductItem
 import com.example.store.core.model.product.ProductWithVariation

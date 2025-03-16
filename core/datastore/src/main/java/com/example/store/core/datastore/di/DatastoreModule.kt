@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.example.store.core.datastore.AppPreferencesDataSource
+import com.example.store.core.datastore.AppPreferencesDataSourceImpl
 import com.example.store.core.datastore.JwtTokenManager
 import com.example.store.core.datastore.JwtLocalDataSource
 import com.example.store.core.datastore.UserPreferences
@@ -43,4 +45,9 @@ object DatastoreModule {
     fun providesLocalDataSource(
         dataStore: DataStore<Preferences>
     ): JwtLocalDataSource = JwtTokenManager(dataStore)
+
+    @Provides
+    fun providesAppPreferencesDataSource(
+        dataStore: DataStore<Preferences>
+    ): AppPreferencesDataSource = AppPreferencesDataSourceImpl(dataStore)
 }
