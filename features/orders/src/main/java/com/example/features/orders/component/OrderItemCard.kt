@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.store.core.model.order.Order
 import com.example.store.core.ui.component.CustomOutlinedButton
@@ -45,9 +46,14 @@ internal fun OrderItemCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .weight(1f),
                     text = order.storeName,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = order.date,
@@ -85,7 +91,7 @@ internal fun OrderItemCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Montante total: ",
+                        text = "Total: ",
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.inverseOnSurface
@@ -98,16 +104,12 @@ internal fun OrderItemCard(
                     )
                 }
             }
-            /*Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {*/
-                CustomOutlinedButton(
-                    text = "Detalhes",
-                    onClick = { onDetailClick(order.id) }
-                )
-            //}
+
+            CustomOutlinedButton(
+                text = "Detalhes",
+                onClick = { onDetailClick(order.id) }
+            )
+
         }
     }
 }

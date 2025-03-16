@@ -26,18 +26,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.features.orders.component.MyOrdersTabs
 import com.example.features.orders.component.OrdersContentList
 import com.example.features.orders.model.OrderTabs
 import com.example.features.orders.model.OrdersUiState
+import com.example.store.core.model.order.Order
 import com.example.store.core.model.order.OrderStateSummary
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreLargeTopBar
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 
 
 @Composable
@@ -134,13 +135,26 @@ internal fun MyOrdersContent(
 }
 
 
-@PreviewLightDark
+@PhonePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        MyOrdersScreen(
+        MyOrdersContent(
             onDetailClick = {},
-            onNavigateUp = {}
+            onNavigateUp = {},
+            orderSummary = OrderStateSummary(
+                delivered = listOf(mockOrder, mockOrder),
+                pending = listOf(mockOrder, mockOrder),
+                canceled = listOf(mockOrder)
+            )
         )
     }
 }
+
+val mockOrder = Order(
+    id = "TODO()",
+    storeName = "A very long store name can you see it",
+    date = "16-03-2025",
+    total = 62879,
+    totalItems = 7
+)
