@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -33,9 +34,12 @@ internal fun OrderInformation(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
+                modifier = Modifier.weight(1f),
                 text = storeName,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = date,
@@ -64,27 +68,3 @@ internal fun OrderInformation(
     }
 }
 
-@Composable
-fun OrderSummary(
-    modifier: Modifier = Modifier,
-    deliveryAddress: String,
-    paymentType: String,
-    deliveryMethod: String,
-    total: String
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ){
-        Text(
-            text = "Informações do Pedido",
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium
-        )
-        OrderDescription(text = "Endereço de Entrega", description = deliveryAddress)
-        OrderDescription(text = "Método de pagamento", description = paymentType)
-        OrderDescription(text = "Método de envio", description = deliveryMethod)
-        OrderDescription(text = "Total", description = total)
-    }
-}
