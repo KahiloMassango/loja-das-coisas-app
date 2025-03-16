@@ -44,13 +44,13 @@ private fun SummaryItem(
     ) {
         Text(
             text = "$description:",
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.bodySmall,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.inverseOnSurface,
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.bodySmall,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface,
         )

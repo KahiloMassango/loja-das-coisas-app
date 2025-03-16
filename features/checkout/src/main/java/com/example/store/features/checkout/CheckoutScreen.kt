@@ -23,9 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.Address
+import com.example.store.core.model.AddressLine
+import com.example.store.core.model.AddressType
 import com.example.store.core.model.cart.DeliveryMethod
 import com.example.store.core.ui.component.CustomButton
-import com.example.store.core.ui.component.StoreLargeTopBar
+import com.example.store.core.ui.component.StoreCenteredTopBar
+import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 import com.example.store.features.checkout.component.AddressSection
 import com.example.store.features.checkout.component.CheckoutSectionText
 import com.example.store.features.checkout.component.CheckoutSummary
@@ -80,29 +84,29 @@ private fun CheckoutContent(
     orderTotal: Int,
     onCheckout: () -> Unit
 ) {
-    val sectionSpacing = 42.dp
+    val sectionSpacing = 38.dp
     var changeDeliveryAddress by rememberSaveable { mutableStateOf(false) }
     Scaffold(
         modifier = modifier,
         topBar = {
-            StoreLargeTopBar(
+            StoreCenteredTopBar(
                 title = "Finalizar Compra",
                 canNavigateBack = true,
-                onNavigateUp = onNavigateUp
-                //elevation = 5.dp
+                onNavigateUp = onNavigateUp,
+                elevation = 5.dp
             )
         },
     ) { paddingValues ->
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
                 .padding(paddingValues),
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(15.dp),
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState()),
             ) {
                 AddressSection(
                     address = deliveryAddress,
@@ -129,7 +133,7 @@ private fun CheckoutContent(
                     totalSummary = orderTotal,
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(30.dp))
 
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
@@ -153,6 +157,34 @@ private fun CheckoutContent(
                 changeDeliveryAddress = false
             },
             onDismiss = { changeDeliveryAddress = false }
+        )
+    }
+}
+
+@PhonePreviews
+@Composable
+private fun Preview() {
+    StoreTheme {
+        CheckoutContent(
+            onNavigateUp = {},
+            deliveryAddresses = emptyList(),
+            deliveryAddress = Address(
+                id = 1,
+                receiverName = "Kahilo Pedro Massango",
+                phoneNumber = "928323341",
+                addressType = AddressType.WORK,
+                addressLine = AddressLine("Gamek", "Morro Bento, Luanda"),
+                latitude = -8.9324324,
+                longitude = 13.543534
+            ),
+            deliveryPrice = 1800,
+            deliveryMethod = DeliveryMethod.ENTREGA,
+            onDeliveryMethodChange = {},
+            onChangeDeliveryAddress = {},
+            onAddAddress = {},
+            cartTotal = 654526,
+            orderTotal = 3432,
+            onCheckout = {}
         )
     }
 }

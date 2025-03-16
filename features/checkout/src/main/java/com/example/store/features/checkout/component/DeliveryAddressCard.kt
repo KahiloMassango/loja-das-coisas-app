@@ -2,7 +2,6 @@ package com.example.store.features.checkout.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -24,8 +23,7 @@ internal fun DeliveryAddressCard(
     address: Address,
 ) {
     Card(
-        modifier = modifier
-            .heightIn(100.dp),
+        modifier = modifier,
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -38,19 +36,22 @@ internal fun DeliveryAddressCard(
         ) {
             Text(
                 text = address.receiverName,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Medium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = address.addressLine.address,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
             Text(
                 text = "+244 ${address.phoneNumber}",
-                style = MaterialTheme.typography.bodyMedium,
-                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

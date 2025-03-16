@@ -128,7 +128,7 @@ private fun AddressCard(
             ) {
                 Text(
                     text = address.receiverName,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

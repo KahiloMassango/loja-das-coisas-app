@@ -30,13 +30,14 @@ internal fun AddressSection(
             Text(
                 modifier = modifier,
                 text = "Endereço de entrega",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Text(
                 modifier = Modifier.clickable { onChangeAddress() },
                 text = "Alterar",
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Medium
             )

@@ -35,8 +35,9 @@ internal fun DeliveryMethodSection(
         Text(
             modifier = modifier,
             text = "Método de entrega",
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Row(
             modifier = modifier.fillMaxWidth() ,
@@ -88,13 +89,12 @@ private fun DeliveryMethodCard(
         ) {
             Text(
                 text = type,
-                style = MaterialTheme.typography.bodyLarge,
-               // fontWeight = FontWeight.Normal,
+                style = MaterialTheme.typography.bodyMedium,
             )
             Text(
                 text = description,
-                style = MaterialTheme.typography.labelMedium,
-               // fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.SemiBold,
             )
         }
     }
