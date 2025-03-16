@@ -77,7 +77,7 @@ fun StoreLargeTopBar(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
             )
         },
         modifier = modifier,

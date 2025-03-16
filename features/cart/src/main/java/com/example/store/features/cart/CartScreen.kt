@@ -1,6 +1,5 @@
 package com.example.store.features.cart
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.GenericShape
@@ -24,30 +22,27 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.store.core.ui.R
+import com.example.store.core.model.cart.CartProductItem
+import com.example.store.core.model.cart.cartProductItem
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreLargeTopBar
-import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
+import com.example.store.core.ui.util.PhonePreviews
 import com.example.store.core.ui.util.toCurrency
 import com.example.store.features.cart.component.CartProductCard
+import com.example.store.features.cart.component.EmptyCartContent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CartScreen(
-    modifier: Modifier = Modifier,
     viewModel: CartViewModel = hiltViewModel(),
     onProductClick: (String) -> Unit,
     onCheckout: () -> Unit,
@@ -55,6 +50,33 @@ internal fun CartScreen(
     val products by viewModel.uiState.collectAsStateWithLifecycle()
     val cartTotal by viewModel.cartTotal.collectAsStateWithLifecycle()
 
+    when {
+        products.isEmpty() -> EmptyCartContent()
+        else -> CartContent(
+            products = products,
+            cartTotal = cartTotal,
+            onProductClick = { onProductClick(it) },
+            onRemoveCartItem = { viewModel.removeProductFromCart(it) },
+            onUpdateQuantity = { id, qty -> viewModel.updateQuantity(id, qty) },
+            onCheckout = onCheckout
+        )
+    }
+
+
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CartContent(
+    modifier: Modifier = Modifier,
+    products: List<CartProductItem>,
+    cartTotal: Int,
+    onProductClick: (String) -> Unit,
+    onRemoveCartItem: (String) -> Unit,
+    onUpdateQuantity: (String, Int) -> Unit,
+    onCheckout: () -> Unit,
+) {
     Scaffold(
         topBar = {
             StoreLargeTopBar(
@@ -80,104 +102,78 @@ internal fun CartScreen(
                     .fillMaxSize(),
 
                 ) {
-                if (products.isEmpty()) {
-                    EmptyCartScreen()
-                } else {
-                    LazyColumn(
-                        modifier = Modifier.weight(1f),
-                        contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(22.dp)
-                    ) {
-                        items(products) { product ->
-                            CartProductCard(
-                                modifier = Modifier,
-                                cartItem = product,
-                                onClick = { onProductClick(it) },
-                                onRemove = { viewModel.removeProductFromCart(it) },
-                                onIncreaseQty = {
-                                    viewModel.updateQuantity(
-                                        product.id,
-                                        product.quantity + 1
-                                    )
-                                },
-                                onDecreaseQty = {
-                                    viewModel.updateQuantity(
-                                        product.id,
-                                        product.quantity - 1
-                                    )
-                                }
-                            )
-                        }
-                    }
-
-                    Column(
-                        modifier = Modifier
-                            .padding(bottom = 10.dp, top = 14.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = "Montante total:",
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.inverseOnSurface,
-                            )
-                            Text(
-                                text = cartTotal.toCurrency(),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-                        }
-                        CustomButton(
-                            text = "Continuar",
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = onCheckout
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(vertical = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(22.dp)
+                ) {
+                    items(products) { product ->
+                        CartProductCard(
+                            modifier = Modifier,
+                            cartItem = product,
+                            onClick = { onProductClick(it) },
+                            onRemove = { onRemoveCartItem(it) },
+                            onIncreaseQty = {
+                                onUpdateQuantity(
+                                    product.id,
+                                    product.quantity + 1
+                                )
+                            },
+                            onDecreaseQty = {
+                                onUpdateQuantity(
+                                    product.id,
+                                    product.quantity - 1
+                                )
+                            }
                         )
                     }
                 }
+
+                Column(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp, top = 14.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Montante total:",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.inverseOnSurface,
+                        )
+                        Text(
+                            text = cartTotal.toCurrency(),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    CustomButton(
+                        text = "Continuar",
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = onCheckout
+                    )
+                }
             }
+
         }
     }
 }
 
-@Composable
-private fun EmptyCartScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            modifier = Modifier.size(150.dp),
-            painter = painterResource(id = R.drawable.empty_cart),
-            contentDescription = null
-        )
-        Text(
-            modifier = Modifier.padding(bottom = 8.dp),
-            text = "Seu cesto está vazio",
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium
-        )
-        Text(
-            text = "Parece que você não adicionou nada ao seu cesto. Vá em frente e explore as principais categorias.",
-            style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.Center
-        )
-    }
-}
-
-
-@ThemePreviews
+@PhonePreviews
 @Composable
 private fun Preview() {
     StoreTheme {
-        CartScreen(
-            onProductClick = {},
-            onCheckout = {}
+        CartContent(
+            products = listOf(cartProductItem, cartProductItem, cartProductItem, cartProductItem),
+            cartTotal = 67614,
+            onProductClick = {  },
+            onRemoveCartItem = {  },
+            onUpdateQuantity = { _, _ -> },
+            onCheckout = {  }
         )
     }
 }

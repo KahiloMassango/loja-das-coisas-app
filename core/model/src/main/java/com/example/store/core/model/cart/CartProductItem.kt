@@ -19,7 +19,7 @@ val cartProductItem = CartProductItem(
     price = 2500,
     imageUrl = "",
     color = "Preto",
-    size = "XL",
+    size = "XXL",
     quantity = 1,
     stockQuantity = 9
 )

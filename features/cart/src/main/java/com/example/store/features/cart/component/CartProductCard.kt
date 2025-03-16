@@ -1,18 +1,15 @@
 package com.example.store.features.cart.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -26,16 +23,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.store.core.model.cart.CartProductItem
 import com.example.store.core.model.cart.cartProductItem
+import com.example.store.core.ui.R
 import com.example.store.core.ui.component.ThemePreviews
 import com.example.store.core.ui.theme.StoreTheme
 import com.example.store.core.ui.theme.defaultFont
@@ -54,7 +53,7 @@ internal fun CartProductCard(
 
     Card(
         onClick = { onClick(cartItem.productId) },
-        modifier = modifier.height(104.dp),
+        modifier = modifier.heightIn(min = 100.dp, max = 106.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -66,9 +65,10 @@ internal fun CartProductCard(
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .width(100.dp),
+                    .width(100.dp)
+                    .fillMaxHeight(),
                 model = cartItem.imageUrl,
+                placeholder = painterResource(R.drawable.detail_image_ex2),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
@@ -91,11 +91,13 @@ internal fun CartProductCard(
                             text = cartItem.name,
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodySmall,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Column(
                             modifier = Modifier,
-                            verticalArrangement = Arrangement.spacedBy(0.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp),
                         ) {
                             if (cartItem.color != null) {
                                 Attribute(attribute = "Cor", value = cartItem.color!!)
@@ -139,49 +141,6 @@ internal fun CartProductCard(
     }
 }
 
-@Composable
-private fun QuantitySelector(
-    modifier: Modifier = Modifier,
-    quantity: Int,
-    stockQuantity: Int,
-    onDecrease: () -> Unit,
-    onIncrease: () -> Unit
-) {
-    Row(
-        modifier = modifier
-            .width(85.dp),
-        verticalAlignment = CenterVertically,
-    ) {
-        Icon(
-            modifier = Modifier
-                .size(26.dp)
-                .clickable(null, null) { onDecrease() },
-            imageVector = Icons.Default.Remove,
-            contentDescription = null,
-        )
-
-        Text(
-            text = quantity.toString(),
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-
-        )
-
-        Icon(
-            modifier = Modifier
-                .size(26.dp)
-                .clickable(null, null) {
-                    if (quantity < stockQuantity) {
-                        onIncrease()
-                    }
-                },
-            imageVector = Icons.Default.Add,
-            contentDescription = null,
-        )
-    }
-}
 
 @Composable
 private fun Attribute(
@@ -221,7 +180,7 @@ private fun Attribute(
 private fun Preview() {
     StoreTheme {
         CartProductCard(
-            cartItem = cartProductItem,
+            cartItem = cartProductItem.copy(name = "this is a very long product name"),
             onClick = { },
             onRemove = {},
             onIncreaseQty = {},
