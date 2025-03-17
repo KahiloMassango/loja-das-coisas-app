@@ -37,8 +37,8 @@ internal class ShopViewModel @Inject constructor(
     }
 
     fun getProducts() {
+        _uiState.value = ShopUiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            delay(3000L)
             productRepository.getProducts(gender, category)
                 .onSuccess { products ->
                     _uiState.value = ShopUiState.Success(products)
