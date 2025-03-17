@@ -19,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -89,16 +88,22 @@ fun SearchField(
                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
 
-                Box(Modifier.weight(1f)) {
-                    if (query.isEmpty()) Text(
-                        text = placeholder,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.inverseOnSurface,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (query.isEmpty()) {
+                        Text(
+                            text = placeholder,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.inverseOnSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                     innerTextField()
                 }
+
                 if (trailingIcon != null) trailingIcon()
             }
         }

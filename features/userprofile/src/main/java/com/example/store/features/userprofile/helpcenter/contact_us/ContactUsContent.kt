@@ -43,7 +43,7 @@ fun ContactUsContent(modifier: Modifier = Modifier) {
             Text(
                 modifier = Modifier,
                 text = "Entre em contato",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
             )

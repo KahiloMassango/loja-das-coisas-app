@@ -1,5 +1,6 @@
 package com.example.store.features.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.ProductRepository
@@ -26,11 +27,12 @@ class HomeViewModel @Inject constructor(
 
     fun loadProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            productRepository.getProductsByCategory("Roupas")
+            productRepository.getProducts(null, null)
                 .onSuccess {
                     _uiState.value = HomeUiState.Success(it)
                 }
                 .onFailure {
+                    Log.d("HomeViewModel", "Error loading products: $it")
                     _uiState.value = HomeUiState.Error(it.message ?: "Unknown error")
                 }
         }

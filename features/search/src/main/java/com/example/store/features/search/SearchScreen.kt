@@ -110,7 +110,6 @@ private fun SearchContent(
                     }
                 )
             }
-
     ) {
         Column(
             modifier = Modifier

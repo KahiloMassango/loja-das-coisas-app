@@ -85,19 +85,19 @@ private fun HomeContent(
             Spacer(modifier = Modifier.height(18.dp))
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(26.dp)
+                verticalArrangement = Arrangement.spacedBy(18.dp)
             ) {
                 Section(
-                    title = "Sale",
-                    description = "Super summer sale",
+                    title = "Recomendandos",
+                    description = "Dê uma olhada 👀",
                     products = products,
                     onProductClick = { onProductClick(it) },
                     onSeeMore = { onSeeMore(it) },
                 )
 
                 Section(
-                    title = "New",
-                    description = "You’ve never seen it before!",
+                    title = "Novos",
+                    description = "Você nunca viu isso antes!",
                     products = products,
                     onProductClick = { onProductClick(it) },
                     onSeeMore = { onSeeMore(it) },

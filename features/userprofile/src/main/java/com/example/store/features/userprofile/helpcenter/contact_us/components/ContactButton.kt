@@ -22,7 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactButton(
     modifier: Modifier = Modifier,
@@ -34,7 +33,7 @@ fun ContactButton(
         modifier = modifier,
         onClick = onClick,
         shape = RoundedCornerShape(50),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface),//.copy(0.5f)),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent,
         )
@@ -54,7 +53,7 @@ fun ContactButton(
             )
             Text(
                 text = contact,
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Justify,
             )

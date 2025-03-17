@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -67,10 +68,10 @@ internal fun QuestionCard(
                 )
             }
             if(expanded){
-                Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(0.5f))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(0.5f))
                 Text(
                     text = helpQuestion.answer,
-                    style = MaterialTheme.typography.labelMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.inverseOnSurface,
                     textAlign = TextAlign.Justify
                 )

@@ -35,7 +35,7 @@ fun HomeBanner(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(16.dp),
-            text = "Street clothes",
+            text = "Loja das Coisas",
             color = Color.White,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold

@@ -20,7 +20,7 @@ fun SocialMediaButton(
 ) {
     Box(
         modifier = modifier
-            .size(48.dp)
+            .size(42.dp)
             .clickable(interactionSource = null, indication = null) { onClick() }
     ) {
         Image(
