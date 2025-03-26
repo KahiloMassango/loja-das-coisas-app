@@ -25,7 +25,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.Address
 import com.example.store.core.model.AddressLine
 import com.example.store.core.model.AddressType
-import com.example.store.core.model.cart.DeliveryMethod
 import com.example.store.core.ui.component.CustomButton
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.core.ui.theme.StoreTheme
@@ -34,7 +33,7 @@ import com.example.store.features.checkout.component.AddressSection
 import com.example.store.features.checkout.component.CheckoutSectionText
 import com.example.store.features.checkout.component.CheckoutSummary
 import com.example.store.features.checkout.component.DeliveryAddressList
-import com.example.store.features.checkout.component.DeliveryMethodSection
+import com.example.store.features.checkout.component.DeliveryFeeSection
 
 
 @Composable
@@ -47,7 +46,6 @@ internal fun CheckoutScreen(
     val cartTotal by viewModel.cartTotal.collectAsStateWithLifecycle()
     val orderTotal by viewModel.orderTotal.collectAsStateWithLifecycle()
     val deliveryFee by viewModel.deliveryFee.collectAsStateWithLifecycle()
-    val deliveryMethod by viewModel.deliveryMethod.collectAsStateWithLifecycle()
     val currentDeliveryAddress by viewModel.currentDeliveryAddress.collectAsStateWithLifecycle()
     val deliveryAddresses by viewModel.deliveryAddresses.collectAsStateWithLifecycle()
 
@@ -58,9 +56,7 @@ internal fun CheckoutScreen(
         deliveryPrice = deliveryFee,
         cartTotal = cartTotal,
         orderTotal = orderTotal,
-        deliveryMethod = deliveryMethod,
         onNavigateUp = onNavigateUp,
-        onDeliveryMethodChange = { viewModel.updateDeliveryMethod(it) },
         onAddAddress = onAddAddress,
         onChangeDeliveryAddress = { viewModel.changeDeliveryAddress(it) },
         onCheckout = viewModel::processOrder
@@ -75,9 +71,7 @@ private fun CheckoutContent(
     onNavigateUp: () -> Unit,
     deliveryAddresses: List<Address>,
     deliveryAddress: Address?,
-    deliveryPrice: Int,
-    deliveryMethod: DeliveryMethod,
-    onDeliveryMethodChange: (DeliveryMethod) -> Unit,
+    deliveryPrice: Int?,
     onChangeDeliveryAddress: (Address) -> Unit,
     onAddAddress: () -> Unit,
     cartTotal: Int,
@@ -115,10 +109,8 @@ private fun CheckoutContent(
 
                 Spacer(modifier = Modifier.height(sectionSpacing))
 
-                DeliveryMethodSection(
+                DeliveryFeeSection(
                     deliveryPrice = deliveryPrice,
-                    deliveryMethod = deliveryMethod,
-                    onSelectDeliveryMethod = onDeliveryMethodChange
                 )
 
                 Spacer(modifier = Modifier.height(sectionSpacing))
@@ -129,7 +121,7 @@ private fun CheckoutContent(
 
                 CheckoutSummary(
                     cartTotal = cartTotal,
-                    deliveryPrice = if (deliveryMethod == DeliveryMethod.ENTREGA) deliveryPrice else 0,
+                    deliveryPrice = deliveryPrice ?: 0,
                     totalSummary = orderTotal,
                 )
 
@@ -137,6 +129,7 @@ private fun CheckoutContent(
 
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(),
+                    enabled = deliveryPrice != null,
                     text = "Finalizar Compra",
                     onClick = onCheckout,
                 )
@@ -178,8 +171,6 @@ private fun Preview() {
                 longitude = 13.543534
             ),
             deliveryPrice = 1800,
-            deliveryMethod = DeliveryMethod.ENTREGA,
-            onDeliveryMethodChange = {},
             onChangeDeliveryAddress = {},
             onAddAddress = {},
             cartTotal = 654526,

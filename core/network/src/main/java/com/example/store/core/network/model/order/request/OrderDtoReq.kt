@@ -8,7 +8,6 @@ data class OrderDtoReq(
     val latitude: Double,
     val longitude: Double,
     val paymentType: String,
-    val deliveryMethod: String,
     val orderItems: List<OrderItemDtoReq>
 )
 

@@ -8,8 +8,6 @@ import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.data.repository.OrderRepository
 import com.example.store.core.model.Address
-import com.example.store.core.model.cart.DeliveryMethod
-import com.example.store.core.model.resource.calculateOrderTotal
 import com.example.store.core.ui.util.hotFlow
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,13 +30,10 @@ class CheckoutViewModel @Inject constructor(
     private val orderRepository: OrderRepository
 ) : ViewModel() {
 
-    private val deliveryPricePerKM = 150
+    private val deliveryPricePerKM = 90
     val deliveryAddresses = addressRepository.getAddressesStream()
         .hotFlow(viewModelScope, emptyList())
 
-
-    private val _deliveryMethod = MutableStateFlow(DeliveryMethod.ENTREGA)
-    val deliveryMethod = _deliveryMethod.asStateFlow()
 
 
     private var _currentDeliveryAddress: MutableStateFlow<Address?> = MutableStateFlow(null)
@@ -70,14 +65,9 @@ class CheckoutViewModel @Inject constructor(
         .hotFlow(viewModelScope, 0)
 
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val orderTotal =
-        combine(deliveryFee, _deliveryMethod, cartTotal) { deliveryFee, deliveryMethod, cartTotal ->
-            calculateOrderTotal(
-                deliveryFee = deliveryFee,
-                cartTotal = cartTotal,
-                deliveryMethod = deliveryMethod
-            )
+        combine(deliveryFee, cartTotal) { deliveryFee, cartTotal ->
+            deliveryFee + cartTotal
         }.hotFlow(viewModelScope, 0)
 
     init {
@@ -100,14 +90,10 @@ class CheckoutViewModel @Inject constructor(
         _currentDeliveryAddress.value = address
     }
 
-    fun updateDeliveryMethod(method: DeliveryMethod) {
-        _deliveryMethod.value = method
-    }
 
     fun processOrder() {
         viewModelScope.launch(Dispatchers.IO) {
             orderRepository.placeOrder(
-                deliveryMethod = deliveryMethod.value.name,
                 total = orderTotal.value,
                 subTotal = cartTotal.value,
                 deliveryFee = deliveryFee.value,

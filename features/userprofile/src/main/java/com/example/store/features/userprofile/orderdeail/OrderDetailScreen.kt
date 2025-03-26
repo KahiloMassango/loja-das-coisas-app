@@ -92,7 +92,6 @@ internal fun OrderDetailContent(
                     OrderSummary(
                         deliveryAddress = order.deliveryAddress,
                         paymentType = order.paymentType,
-                        deliveryMethod = order.deliveryMethod,
                         total = order.total.toCurrency()
                     )
                 }

@@ -36,7 +36,6 @@ class OrderRepositoryImpl(
         latitude: Double,
         longitude: Double,
         paymentType: String,
-        deliveryMethod: String,
         cartProductItems: List<CartProductItem>
     ): Result<Order> {
         val request = OrderDtoReq(
@@ -47,7 +46,6 @@ class OrderRepositoryImpl(
             latitude = latitude,
             longitude = longitude,
             paymentType = paymentType,
-            deliveryMethod = deliveryMethod,
             orderItems = cartProductItems.map {
                 OrderItemDtoReq(
                     productItemId = it.id,

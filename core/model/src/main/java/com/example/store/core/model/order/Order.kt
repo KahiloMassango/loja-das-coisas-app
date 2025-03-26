@@ -25,7 +25,6 @@ data class OrderWithItems(
     val total: Int,
     val deliveryAddress: String,
     val paymentType: String,
-    val deliveryMethod: String,
     val orderItems: List<OrderItem>
 )
 

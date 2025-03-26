@@ -19,7 +19,6 @@ interface OrderRepository {
         latitude: Double,
         longitude: Double,
         paymentType: String,
-        deliveryMethod: String,
         cartProductItems: List<CartProductItem>
     ): Result<Order>
 

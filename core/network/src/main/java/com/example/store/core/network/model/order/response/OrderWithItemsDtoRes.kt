@@ -27,7 +27,6 @@ fun OrderWithItemsDtoRes.asExternalModel() = OrderWithItems(
     total = total,
     deliveryAddress = deliveryAddressName,
     paymentType = paymentType,
-    deliveryMethod = deliveryMethod,
     orderItems = orderItems.map { it.asExternalModel() }
 )
 
