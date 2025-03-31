@@ -6,7 +6,7 @@ import com.example.store.core.model.product.ProductWithVariation
 import com.example.store.core.network.datasources.ProductNetworkDatasource
 import com.example.store.core.network.model.product.asExternalModel
 
-class DefaultProductRepository(
+class ProductRepositoryImpl(
     private val remoteDatasource: ProductNetworkDatasource
 ) : ProductRepository {
 

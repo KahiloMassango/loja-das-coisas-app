@@ -2,7 +2,7 @@ package com.example.store.core.database.di
 
 import com.example.store.core.database.GenderLocalDataSourceImpl
 import com.example.seller_app.core.database.datasources.CategoryLocalDataSource
-import com.example.seller_app.core.database.datasources.GenderLocalDataSource
+import com.example.store.core.database.datasources.GenderLocalDataSource
 import com.example.store.core.database.CategoryLocalDataSourceImp
 import com.example.store.core.database.dao.CategoryDao
 import com.example.store.core.database.dao.GenderCategoryDao

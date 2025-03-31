@@ -27,7 +27,7 @@ fun ProductDtoRes.asExternalModel(): Product =
         minPrice = minPrice
     )
 
-data class ProductWithVariationDtoRes(
+data class ProductDetailDtoRes(
     val id: String,
     val name: String,
     val imageUrl: String,
@@ -38,7 +38,7 @@ data class ProductWithVariationDtoRes(
     val category: CategoryDtoRes,
 )
 
-fun ProductWithVariationDtoRes.asExternalModel() = ProductWithVariation(
+fun ProductDetailDtoRes.asExternalModel() = ProductWithVariation(
     id = id,
     description = description,
     image = imageUrl,

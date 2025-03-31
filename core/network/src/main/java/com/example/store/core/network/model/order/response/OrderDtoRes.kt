@@ -8,6 +8,13 @@ data class OrderDtoRes(
     val date: String,
     val total: Int,
     val orderTotalItems: Int,
+    val subTotal: Int,
+    val deliveryFee: Int,
+    val status: String,
+    val deliveryAddressName: String,
+    val paymentType: String,
+    val deliveryMethod: String,
+    val orderItems: List<OrderItemDtoRes>
 )
 
 data class OrdersDtoRes(
@@ -21,5 +28,11 @@ fun OrderDtoRes.asExternalModel() = Order(
     total = total,
     date = date,
     storeName = storeName,
-    totalItems = orderTotalItems
+    totalItems = orderTotalItems,
+    status = status,
+    subTotal = subTotal,
+    deliveryFee = deliveryFee,
+    deliveryAddress = deliveryAddressName,
+    paymentType = paymentType,
+    orderItems = orderItems.map { it.asExternalModel() },
 )

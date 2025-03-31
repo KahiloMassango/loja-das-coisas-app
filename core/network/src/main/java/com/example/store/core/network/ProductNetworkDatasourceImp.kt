@@ -3,7 +3,7 @@ package com.example.store.core.network
 import com.example.store.core.network.common.extractErrorMessage
 import com.example.store.core.network.datasources.ProductNetworkDatasource
 import com.example.store.core.network.model.product.ProductDtoRes
-import com.example.store.core.network.model.product.ProductWithVariationDtoRes
+import com.example.store.core.network.model.product.ProductDetailDtoRes
 import com.example.store.core.network.retrofit.PublicApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,7 +31,7 @@ class ProductNetworkDatasourceImp(
         }
     }
 
-    override suspend fun getProductById(id: String): Result<ProductWithVariationDtoRes> {
+    override suspend fun getProductById(id: String): Result<ProductDetailDtoRes> {
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.getProductById(id)

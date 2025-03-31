@@ -4,7 +4,6 @@ import com.example.store.core.network.model.Response
 import com.example.store.core.network.model.StoreDtoRes
 import com.example.store.core.network.model.order.request.OrderDtoReq
 import com.example.store.core.network.model.order.response.OrderDtoRes
-import com.example.store.core.network.model.order.response.OrderWithItemsDtoRes
 import com.example.store.core.network.model.order.response.OrdersDtoRes
 import com.example.store.core.network.model.user.UserDtoRes
 import com.example.store.core.network.model.user.UserUpdateDtoReq
@@ -39,7 +38,7 @@ interface AuthenticatedApiService {
     suspend fun placeOrder(@Body request: OrderDtoReq): Response<OrderDtoRes>
 
     @GET("customer/orders/{id}")
-    suspend fun getOrderById(@Path("id") id: String): Response<OrderWithItemsDtoRes>
+    suspend fun getOrderById(@Path("id") id: String): Response<OrderDtoRes>
 
     @GET("customer/orders")
     suspend fun getAllOrders(): Response<OrdersDtoRes>

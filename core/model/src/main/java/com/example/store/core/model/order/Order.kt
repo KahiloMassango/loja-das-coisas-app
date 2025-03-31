@@ -6,7 +6,13 @@ data class Order(
     val storeName: String,
     val date: String,
     val total: Int,
-    val totalItems: Int
+    val totalItems: Int,
+    val status: String,
+    val subTotal: Int,
+    val deliveryFee: Int,
+    val deliveryAddress: String,
+    val paymentType: String,
+    val orderItems: List<OrderItem>
 )
 
 data class OrderStateSummary(
@@ -14,18 +20,3 @@ data class OrderStateSummary(
     val pending: List<Order>,
     val canceled: List<Order>
 )
-
-data class OrderWithItems(
-    val id: String,
-    val storeName: String,
-    val status: String,
-    val date: String,
-    val subTotal: Int,
-    val deliveryFee: Int,
-    val total: Int,
-    val deliveryAddress: String,
-    val paymentType: String,
-    val orderItems: List<OrderItem>
-)
-
-

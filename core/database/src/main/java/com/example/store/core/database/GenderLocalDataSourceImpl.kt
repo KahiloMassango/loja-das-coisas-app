@@ -1,6 +1,6 @@
 package com.example.store.core.database
 
-import com.example.seller_app.core.database.datasources.GenderLocalDataSource
+import com.example.store.core.database.datasources.GenderLocalDataSource
 import com.example.store.core.database.dao.GenderCategoryDao
 import com.example.store.core.database.dao.GenderDao
 import com.example.store.core.database.model.GenderCategory

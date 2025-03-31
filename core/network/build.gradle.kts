@@ -33,12 +33,15 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp.logging.interceptor)
 
+
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlin.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

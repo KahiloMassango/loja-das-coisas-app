@@ -6,15 +6,15 @@ import androidx.work.WorkManager
 import com.example.store.core.data.GenderRepositoryImpl
 import com.example.store.core.data.repository.GenderRepository
 import com.example.seller_app.core.database.datasources.CategoryLocalDataSource
-import com.example.seller_app.core.database.datasources.GenderLocalDataSource
+import com.example.store.core.database.datasources.GenderLocalDataSource
 import com.example.store.core.data.AccountRepositoryImpl
 import com.example.store.core.data.CategoryRepositoryImpl
-import com.example.store.core.data.DefaultAddressRepository
-import com.example.store.core.data.DefaultCartRepository
+import com.example.store.core.data.AddressRepositoryImpl
+import com.example.store.core.data.CartRepositoryImpl
 import com.example.store.core.data.DefaultFavoriteRepository
 import com.example.store.core.data.DefaultLocationRepository
-import com.example.store.core.data.DefaultProductRepository
-import com.example.store.core.data.DefaultRecentSearchRepository
+import com.example.store.core.data.ProductRepositoryImpl
+import com.example.store.core.data.RecentSearchRepositoryImpl
 import com.example.store.core.data.OrderRepositoryImpl
 import com.example.store.core.data.StoreRepositoryImpl
 import com.example.store.core.data.SyncRepositoryImpl
@@ -99,18 +99,18 @@ object DataModule {
     @Provides
     fun providesAddressesRepository(
         addressesDao: AddressesDao
-    ): AddressRepository = DefaultAddressRepository(addressesDao)
+    ): AddressRepository = AddressRepositoryImpl(addressesDao)
 
     @Provides
     fun providesCartRepository(
         cartDao: CartDao
-    ): CartRepository = DefaultCartRepository(cartDao)
+    ): CartRepository = CartRepositoryImpl(cartDao)
 
 
     @Provides
     fun providesRecentSearchRepository(
         recentSearchDao: RecentSearchDao
-    ): RecentSearchRepository = DefaultRecentSearchRepository(recentSearchDao)
+    ): RecentSearchRepository = RecentSearchRepositoryImpl(recentSearchDao)
 
     @Provides
     fun providesUserRepository(
@@ -126,7 +126,7 @@ object DataModule {
     @Provides
     fun providesProductRepository(
         networkDatasource: ProductNetworkDatasource
-    ): ProductRepository = DefaultProductRepository(networkDatasource)
+    ): ProductRepository = ProductRepositoryImpl(networkDatasource)
 
 
  @Provides

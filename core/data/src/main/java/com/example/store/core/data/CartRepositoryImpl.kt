@@ -9,7 +9,7 @@ import com.example.store.core.model.product.ProductItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DefaultCartRepository(
+class CartRepositoryImpl(
     private val cartDao: CartDao
 ) : CartRepository {
 
@@ -57,6 +57,8 @@ class DefaultCartRepository(
     }
 
     override suspend fun updateQuantity(id: String, quantity: Int) {
-        cartDao.updateQuantity(id, quantity)
+        if (quantity >= 0) {
+            cartDao.updateQuantity(id, quantity)
+        }
     }
 }

@@ -8,7 +8,7 @@ import com.example.store.core.model.Address
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DefaultAddressRepository(
+class AddressRepositoryImpl(
     private val addressesDao: AddressesDao
 ): AddressRepository {
 
