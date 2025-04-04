@@ -1,6 +1,5 @@
 package com.example.store.features.cart
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.CartRepository
@@ -32,21 +31,16 @@ class CartViewModel @Inject constructor(
 
     fun removeProductFromCart(productId: String) {
         viewModelScope.launch {
-            try {
-                cartRepository.removeCartProduct(productId)
-            } catch (e: Exception) {
-                Log.d("CartViewModel", "removeProductFromCart: $e")
-            }
+            cartRepository.removeCartProduct(productId)
         }
     }
 
     fun updateQuantity(productId: String, quantity: Int) {
         viewModelScope.launch {
-            try {
-                cartRepository.updateQuantity(productId, quantity)
-            } catch (e: Exception) {
-                Log.d("CartViewModel", "updateQuantity: $e")
+            if (quantity < 0) {
+                return@launch
             }
+            cartRepository.updateQuantity(productId, quantity)
         }
     }
 }

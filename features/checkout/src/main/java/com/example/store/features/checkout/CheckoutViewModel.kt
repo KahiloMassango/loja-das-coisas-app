@@ -110,7 +110,6 @@ class CheckoutViewModel @Inject constructor(
                 .onFailure {
                     Log.d("CheckoutViewModel", "processOrder: Failed ex -> $it")
                 }
-
         }
     }
 

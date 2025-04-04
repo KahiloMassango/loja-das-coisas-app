@@ -4,11 +4,12 @@ import com.example.store.core.data.repository.AccountRepository
 import com.example.store.core.model.user.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 
 class FakeAccountRepository : AccountRepository {
 
     private var shouldFail = false
-    private var loggedIn = MutableStateFlow(false)
+    private var loggedIn = false
     private var localUser: User? = null
 
     fun setShouldFail(value: Boolean) {
@@ -16,14 +17,14 @@ class FakeAccountRepository : AccountRepository {
     }
 
     fun setUserLoggedIn(value: Boolean) {
-        loggedIn.value = value
+        loggedIn = value
     }
 
     override suspend fun login(email: String, password: String): Result<Unit> {
         return if (shouldFail) {
             Result.failure(Exception("Network error"))
         } else {
-            loggedIn.value = true
+            loggedIn = true
             Result.success(Unit)
         }
     }
@@ -32,7 +33,7 @@ class FakeAccountRepository : AccountRepository {
         return if (shouldFail) {
             Result.failure(Exception("Network error"))
         } else {
-            loggedIn.value = false
+            loggedIn = false
             Result.success(Unit)
         }
     }
@@ -71,7 +72,7 @@ class FakeAccountRepository : AccountRepository {
         localUser = user
     }
 
-    override fun isUserLoggedIn(): Flow<Boolean> = loggedIn
+    override fun isUserLoggedIn(): Flow<Boolean> = flowOf(loggedIn)
 
     override suspend fun createAccount(
         username: String,
@@ -83,7 +84,7 @@ class FakeAccountRepository : AccountRepository {
             Result.failure(Exception("Network error"))
         } else {
             localUser = User(username, email, phoneNumber)
-            loggedIn.value = true
+            loggedIn = true
             Result.success(Unit)
         }
     }

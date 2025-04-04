@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.model.AddressLine
 import com.example.store.core.model.Location
+import com.example.store.core.model.MapCoordinates
 import com.example.store.core.network.model.geocode.asExternalModel
 import com.example.store.core.network.retrofit.DistanceApiService
 import com.example.store.core.network.retrofit.GeocodeApiService
@@ -21,7 +22,7 @@ class DefaultLocationRepository(
 
 
     @Suppress("DEPRECATION")
-    override suspend fun getLocationName(coordinates: LatLng): AddressLine {
+    override suspend fun getLocationName(coordinates: MapCoordinates): AddressLine {
         return try {
             when {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
@@ -70,8 +71,8 @@ class DefaultLocationRepository(
     }
 
     override suspend fun getLocationDistance(
-        origin: LatLng,
-        destination: LatLng
+        origin: MapCoordinates,
+        destination: MapCoordinates
     ): Double? {
         val storeLocation = "${origin.latitude},${origin.longitude}"
         val userLocation = "${destination.latitude},${destination.longitude}"

@@ -50,7 +50,9 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 
 
+    testImplementation(projects.core.testing)
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

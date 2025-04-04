@@ -10,6 +10,7 @@ import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.model.Address
 import com.example.store.core.model.AddressLine
 import com.example.store.core.model.AddressType
+import com.example.store.core.model.MapCoordinates
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewAddressViewModel @Inject constructor(
+internal class NewAddressViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val addressRepository: AddressRepository,
 ) : ViewModel() {
@@ -62,7 +63,7 @@ class NewAddressViewModel @Inject constructor(
         searchQuery.value = query
     }
 
-    fun setAddressCoordinates(coordinates: LatLng) {
+    fun setAddressCoordinates(coordinates: MapCoordinates) {
         _uiState.update { currentState ->
             currentState.copy(
                 coordinates = coordinates
@@ -78,7 +79,7 @@ class NewAddressViewModel @Inject constructor(
         }
     }
 
-    fun updateAddressLine(coordinates: LatLng) {
+    fun updateAddressLine(coordinates: MapCoordinates) {
         viewModelScope.launch(Dispatchers.IO) {
             val addressLine = locationRepository.getLocationName(coordinates)
             _uiState.update { currentState ->
@@ -125,10 +126,10 @@ class NewAddressViewModel @Inject constructor(
     }
 }
 
-data class NewAddressUiState(
+internal data class NewAddressUiState(
     val receiverName: String = "",
     val phoneNumber: String = "",
     val addressType: AddressType = AddressType.HOME,
     val addressLine: AddressLine = AddressLine("Maianga,Luanda", "56FV+4HV, Luanda"),
-    val coordinates: LatLng = LatLng(- 8.8271363, 13.243926)
+    val coordinates: MapCoordinates = MapCoordinates(- 8.8271363, 13.243926)
 )

@@ -4,41 +4,36 @@ import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.model.cart.CartProductItem
 import com.example.store.core.model.product.ProductItem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 
 class FakeCartRepository: CartRepository {
 
-    private val cartProducts = mutableListOf<CartProductItem>()
+    private val cartProducts = MutableStateFlow<List<CartProductItem>>(emptyList())
 
-    override fun getCartProductsStream(): Flow<List<CartProductItem>> {
-        return flowOf(cartProducts)
-    }
+    override fun getCartProductsStream(): Flow<List<CartProductItem>> = cartProducts
 
-    override fun getCartProducts(): List<CartProductItem> {
-        return cartProducts
-    }
+    override fun getCartProducts(): List<CartProductItem> = cartProducts.value
 
-    override fun getCartProductsCountStream(): Flow<Int> {
-        return flowOf(cartProducts.size)
-    }
+    override fun getCartProductsCountStream(): Flow<Int> = cartProducts.map { it.size }
 
-    override fun getCartTotalStream(): Flow<Int> {
-        return flowOf(cartProducts.sumOf { it.price * it.quantity })
+    override fun getCartTotalStream(): Flow<Int> = cartProducts.map { products ->
+        products.sumOf { it.price * it.quantity }
     }
 
     override suspend fun removeCartProduct(id: String) {
-        cartProducts.removeIf { it.id == id }
+        cartProducts.value = cartProducts.value.filterNot { it.id == id }
     }
 
     override suspend fun updateQuantity(id: String, quantity: Int) {
-        val index = cartProducts.indexOfFirst { it.id == id }
-        if (index != -1) {
-            cartProducts[index] = cartProducts[index].copy(quantity = quantity)
+        cartProducts.value = cartProducts.value.map {
+            if (it.id == id) it.copy(quantity = quantity) else it
         }
     }
 
     override suspend fun clearCart() {
-        cartProducts.clear()
+        cartProducts.value = emptyList()
     }
 
     override suspend fun addToCart(
@@ -58,6 +53,11 @@ class FakeCartRepository: CartRepository {
             size = productItem.size,
             stockQuantity = productItem.stockQuantity,
         )
-        cartProducts.add(cartItem)
+        cartProducts.update { it + cartItem }
+    }
+
+    // Helper function to add products to the cart for testing purposes
+    fun addCartProducts(products: List<CartProductItem>) {
+        cartProducts.update { it + products }
     }
 }

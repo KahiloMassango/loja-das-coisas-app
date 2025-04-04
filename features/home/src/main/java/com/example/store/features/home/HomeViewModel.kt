@@ -1,13 +1,10 @@
 package com.example.store.features.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.ProductRepository
 import com.example.store.core.model.product.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -16,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val productRepository: ProductRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState = _uiState.asStateFlow()
@@ -26,24 +23,21 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadProducts() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             productRepository.getProducts(null, null)
                 .onSuccess {
                     _uiState.value = HomeUiState.Success(it)
                 }
                 .onFailure {
-                    Log.d("HomeViewModel", "Error loading products: $it")
                     _uiState.value = HomeUiState.Error(it.message ?: "Unknown error")
                 }
         }
     }
-
-
 }
 
 sealed interface HomeUiState {
-    data object Loading: HomeUiState
-    data class Success(val products: List<Product>): HomeUiState
-    data class Error(val message: String): HomeUiState
+    data object Loading : HomeUiState
+    data class Success(val products: List<Product>) : HomeUiState
+    data class Error(val message: String) : HomeUiState
 
 }

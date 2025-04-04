@@ -4,6 +4,7 @@ import com.example.store.core.data.repository.GenderRepository
 import com.example.store.core.network.model.sync.GenderCategoryDtoRes
 import com.example.store.core.network.model.sync.GenderDtoRes
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
 class FakeGenderRepository: GenderRepository {
@@ -19,6 +20,16 @@ class FakeGenderRepository: GenderRepository {
             "men" to listOf("clothes", "shoes"),
             "women" to listOf("clothes", "fragances"),
             "kids" to listOf("clothes", "shoes")
+        )
+    }
+
+    override fun getGendersWithCategoriesFlow(): Flow<Map<String, List<String>>> {
+        return flowOf(
+            mapOf(
+                "men" to listOf("clothes", "shoes"),
+                "women" to listOf("clothes", "fragances"),
+                "kids" to listOf("clothes", "shoes")
+            )
         )
     }
 

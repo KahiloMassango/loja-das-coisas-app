@@ -28,7 +28,7 @@ class GenderLocalDataSourceImpl(
     }
 
     override suspend fun getGenderWithCategory(): List<GenderWithCategories> {
-        return genderDao.getGenderWithCategoryFlow()
+        return genderDao.getGenderWithCategory()
     }
 
     override suspend fun saveGenderCategories(genderCategories: List<GenderCategory>) {
@@ -36,6 +36,10 @@ class GenderLocalDataSourceImpl(
             genderCategoryDao.deleteGenderCategories()
              genderCategoryDao.upsertGenderCategories(genderCategories)
         }
+    }
+
+    override fun getGenderWithCategoryFlow(): Flow<List<GenderWithCategories>> {
+        return genderDao.getGenderWithCategoryFlow()
     }
 
 

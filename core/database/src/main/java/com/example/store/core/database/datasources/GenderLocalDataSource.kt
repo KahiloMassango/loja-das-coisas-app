@@ -10,5 +10,6 @@ interface GenderLocalDataSource {
     suspend fun saveGenderCategories(genderCategories: List<GenderCategory>)
     fun getGendersFlow(): Flow<List<GenderEntity>>
     suspend fun getGenderWithCategory(): List<GenderWithCategories>
+    fun getGenderWithCategoryFlow(): Flow<List<GenderWithCategories>>
 
 }

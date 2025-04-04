@@ -46,4 +46,13 @@ class FakeGenderLocalDataSource: GenderLocalDataSource {
             )
         }
     }
+
+    override fun getGenderWithCategoryFlow(): Flow<List<GenderWithCategories>> {
+        return flowOf(fakeGenderCategories.map { genderCategory ->
+            GenderWithCategories(
+                gender = fakeGenders.find { it.genderId == genderCategory.genderId }!!,
+                categories = fakeCategoryEntities.filter { it.categoryId == genderCategory.categoryId }
+            )
+        })
+    }
 }

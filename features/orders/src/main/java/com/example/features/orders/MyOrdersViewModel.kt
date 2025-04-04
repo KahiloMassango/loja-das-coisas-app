@@ -30,7 +30,7 @@ internal class MyOrdersViewModel @Inject constructor(
                     _uiState.value = OrdersUiState.Success(it)
                 }
                 .onFailure {
-                    _uiState.value = OrdersUiState.Error(it.message ?: "Erro desconhecido")
+                    _uiState.value = OrdersUiState.Error(it.message ?: "Network error")
                 }
         }
     }

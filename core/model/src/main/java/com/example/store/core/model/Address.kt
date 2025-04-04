@@ -17,6 +17,11 @@ data class AddressLine(
     val address: String,
 )
 
+data class MapCoordinates(
+    val latitude: Double,
+    val longitude: Double
+)
+
 enum class AddressType(
     val description: String,
     @DrawableRes

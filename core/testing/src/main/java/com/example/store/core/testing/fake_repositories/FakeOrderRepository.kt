@@ -15,8 +15,8 @@ class FakeOrderRepository : OrderRepository {
         shouldFail = value
     }
 
-    fun addOrder(order: Order) {
-        orders.add(order)
+    fun addOrders(orders: List<Order>) {
+        this.orders.addAll(orders)
     }
 
     override suspend fun getOrderById(id: String): Result<Order> {

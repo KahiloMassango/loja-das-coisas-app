@@ -32,4 +32,12 @@ class GenderRepositoryImpl(
         localDataSource.saveGenderCategories(genderCategories.map { it.asEntity() })
     }
 
+    override fun getGendersWithCategoriesFlow(): Flow<Map<String, List<String>>> {
+        return localDataSource.getGenderWithCategoryFlow().map {
+            it.associate { genderWithCategory ->
+                genderWithCategory.gender.name to genderWithCategory.categories.map { it.name }
+            }
+        }
+    }
+
 }
