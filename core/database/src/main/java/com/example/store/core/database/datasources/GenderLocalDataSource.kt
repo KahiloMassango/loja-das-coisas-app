@@ -1,4 +1,4 @@
-package com.example.seller_app.core.database.datasources
+package com.example.store.core.database.datasources
 
 import com.example.store.core.database.model.GenderCategory
 import com.example.store.core.database.model.GenderEntity
@@ -10,5 +10,6 @@ interface GenderLocalDataSource {
     suspend fun saveGenderCategories(genderCategories: List<GenderCategory>)
     fun getGendersFlow(): Flow<List<GenderEntity>>
     suspend fun getGenderWithCategory(): List<GenderWithCategories>
+    fun getGenderWithCategoryFlow(): Flow<List<GenderWithCategories>>
 
 }

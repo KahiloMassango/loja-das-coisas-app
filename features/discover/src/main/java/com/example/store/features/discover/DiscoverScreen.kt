@@ -29,7 +29,7 @@ internal fun DiscoverScreen(
     onSelectCategory: (gender: String, category: String) -> Unit,
     onSearch: () -> Unit,
 ) {
-    val genders by viewModel.genders.collectAsStateWithLifecycle()
+    val genders by viewModel.uiState.collectAsStateWithLifecycle()
     DiscoverContent(
         modifier = modifier,
         gendersWithCategory = genders,

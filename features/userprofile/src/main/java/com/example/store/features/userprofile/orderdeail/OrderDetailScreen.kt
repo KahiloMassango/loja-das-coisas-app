@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.store.core.model.order.OrderWithItems
+import com.example.store.core.model.order.Order
 import com.example.store.core.ui.ErrorScreen
 import com.example.store.core.ui.LoadingScreen
 import com.example.store.core.ui.component.StoreCenteredTopBar
@@ -51,7 +51,7 @@ internal fun OrderDetailScreen(
 @Composable
 internal fun OrderDetailContent(
     modifier: Modifier = Modifier,
-    order: OrderWithItems,
+    order: Order,
     onNavigateUp: () -> Unit
 ) {
     Scaffold(
@@ -92,7 +92,6 @@ internal fun OrderDetailContent(
                     OrderSummary(
                         deliveryAddress = order.deliveryAddress,
                         paymentType = order.paymentType,
-                        deliveryMethod = order.deliveryMethod,
                         total = order.total.toCurrency()
                     )
                 }

@@ -1,8 +1,8 @@
 package com.example.store.core.data
 
-import com.example.store.core.data.repository.GenderRepository
-import com.example.seller_app.core.database.datasources.GenderLocalDataSource
 import com.example.store.core.data.model.asEntity
+import com.example.store.core.data.repository.GenderRepository
+import com.example.store.core.database.datasources.GenderLocalDataSource
 import com.example.store.core.network.model.sync.GenderCategoryDtoRes
 import com.example.store.core.network.model.sync.GenderDtoRes
 import kotlinx.coroutines.flow.Flow
@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.map
 
 class GenderRepositoryImpl(
     private val localDataSource: GenderLocalDataSource,
-): GenderRepository {
+) : GenderRepository {
 
-    override  fun getGenders(): Flow<List<String>>{
-        return  localDataSource.getGendersFlow().map { list -> list.map { it.name } }
+    override fun getGenders(): Flow<List<String>> {
+        return localDataSource.getGendersFlow().map { list -> list.map { it.name } }
 
     }
 
@@ -30,6 +30,14 @@ class GenderRepositoryImpl(
 
     override suspend fun syncGenderCategories(genderCategories: List<GenderCategoryDtoRes>) {
         localDataSource.saveGenderCategories(genderCategories.map { it.asEntity() })
+    }
+
+    override fun getGendersWithCategoriesFlow(): Flow<Map<String, List<String>>> {
+        return localDataSource.getGenderWithCategoryFlow().map {
+            it.associate { genderWithCategory ->
+                genderWithCategory.gender.name to genderWithCategory.categories.map { it.name }
+            }
+        }
     }
 
 }

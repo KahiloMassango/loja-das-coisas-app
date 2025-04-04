@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.store.core.model.AddressLine
 import com.example.store.core.model.AddressType
 import com.example.store.core.model.Location
+import com.example.store.core.model.MapCoordinates
 import com.example.store.core.ui.component.StoreCenteredTopBar
 import com.example.store.features.newaddress.components.AddressDetailsSheet
 import com.example.store.features.newaddress.components.AddressInformationCard
@@ -49,7 +50,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.launch
 
 @Composable
-fun NewAddressScreen(
+internal fun NewAddressScreen(
     modifier: Modifier = Modifier,
     viewModel: NewAddressViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit
@@ -75,7 +76,7 @@ fun NewAddressScreen(
     val searchQuery by viewModel.searchQuery
     val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
 
-    if(hasLocationPermission){
+    if (hasLocationPermission) {
         NewAddressContent(
             modifier = modifier,
             coordinates = uiState.coordinates,
@@ -114,7 +115,7 @@ fun NewAddressScreen(
 @Composable
 private fun NewAddressContent(
     modifier: Modifier = Modifier,
-    coordinates: LatLng,
+    coordinates: MapCoordinates,
     addressLine: AddressLine,
     query: String,
     searchResult: List<Location>,
@@ -126,8 +127,8 @@ private fun NewAddressContent(
     onChooseAddressType: (AddressType) -> Unit,
     onSaveAddress: () -> Unit,
     onQueryChange: (String) -> Unit,
-    onLocationChange: (LatLng) -> Unit,
-    onConfirmLocation: (LatLng) -> Unit,
+    onLocationChange: (MapCoordinates) -> Unit,
+    onConfirmLocation: (MapCoordinates) -> Unit,
     onNavigateUp: () -> Unit
 ) {
     var isSearching by rememberSaveable { mutableStateOf(false) }
@@ -135,14 +136,16 @@ private fun NewAddressContent(
 
     val coroutineScope = rememberCoroutineScope()
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(coordinates, 17.2f)
+        position = CameraPosition.fromLatLngZoom(
+            LatLng(coordinates.latitude, coordinates.longitude), 17.2f
+        )
     }
 
     // Run when user change location in map
     LaunchedEffect(cameraPositionState.isMoving) {
-        if (! cameraPositionState.isMoving) {
+        if (!cameraPositionState.isMoving) {
             onLocationChange(
-                LatLng(
+                MapCoordinates(
                     cameraPositionState.position.target.latitude,
                     cameraPositionState.position.target.longitude
                 )
@@ -193,7 +196,7 @@ private fun NewAddressContent(
                 CustomMarker(
                     Modifier
                         .align(Alignment.Center)
-                        .offset(y = - (15).dp)
+                        .offset(y = -(15).dp)
                 )
             }
             AddressInformationCard(
@@ -201,7 +204,7 @@ private fun NewAddressContent(
                 addressLine = addressLine,
                 onConfirmLocation = {
                     onConfirmLocation(
-                        LatLng(
+                        MapCoordinates(
                             cameraPositionState.position.target.latitude,
                             cameraPositionState.position.target.longitude
                         )

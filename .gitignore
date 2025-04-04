@@ -15,6 +15,5 @@ test.kt
 .externalNativeBuild
 .cxx
 local.properties
-*.png
 /.kotlin/sessions/
 /.kotlin/errors/

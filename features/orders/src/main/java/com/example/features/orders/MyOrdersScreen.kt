@@ -156,5 +156,11 @@ val mockOrder = Order(
     storeName = "A very long store name can you see it",
     date = "16-03-2025",
     total = 62879,
-    totalItems = 7
+    totalItems = 7,
+    status = "",
+    subTotal = 99,
+    deliveryFee = 88,
+    deliveryAddress = "",
+    paymentType = "",
+    orderItems = emptyList(),
 )

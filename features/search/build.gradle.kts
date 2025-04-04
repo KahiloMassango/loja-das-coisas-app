@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.material3.adaptive.layout)
     implementation(libs.androidx.material3.adaptive.navigation)
     implementation(libs.androidx.material3.windowSizeClass)
+    implementation(libs.material)
 
     // Serialization
     implementation(libs.kotlinx.serialization.json)
@@ -65,8 +66,8 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-
-    implementation(libs.material)
+    testImplementation(projects.core.testing)
+    testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.core.data.repository.OrderRepository
-import com.example.store.core.model.order.OrderWithItems
+import com.example.store.core.model.order.Order
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -38,13 +38,11 @@ internal class OrderDetailViewModel @Inject constructor(
                 }
         }
     }
-
-
 }
 
 
 internal sealed class OrderDetailUiState {
     data object Loading : OrderDetailUiState()
     data object Error : OrderDetailUiState()
-    data class Success(val order: OrderWithItems) : OrderDetailUiState()
+    data class Success(val order: Order) : OrderDetailUiState()
 }

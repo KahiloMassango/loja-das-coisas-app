@@ -5,7 +5,7 @@ import com.example.store.core.network.model.authentication.AuthenticationDtoRes
 import com.example.store.core.network.model.authentication.LoginDtoReq
 import com.example.store.core.network.model.authentication.RefreshTokenDtoReq
 import com.example.store.core.network.model.product.ProductDtoRes
-import com.example.store.core.network.model.product.ProductWithVariationDtoRes
+import com.example.store.core.network.model.product.ProductDetailDtoRes
 import com.example.store.core.network.model.sync.LastUpdatedDtoRes
 import com.example.store.core.network.model.sync.SyncMetadataDtoRes
 import com.example.store.core.network.model.user.UserDtoReq
@@ -44,7 +44,7 @@ interface PublicApiService {
     ): Response<List<ProductDtoRes>>
 
     @GET("products/{id}")
-    suspend fun getProductById(@Path("id") productId: String): Response<ProductWithVariationDtoRes>
+    suspend fun getProductById(@Path("id") productId: String): Response<ProductDetailDtoRes>
 
     @GET("sync/last-updated")
     suspend fun fetchLastUpdated(): Response<LastUpdatedDtoRes>

@@ -10,6 +10,7 @@ import com.example.store.core.network.model.user.UserDtoReq
 import com.example.store.core.network.model.user.UserUpdateDtoReq
 import com.example.store.core.network.model.user.asExternalModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class AccountRepositoryImpl(
     private val userNetworkDatasource: UserNetworkDatasource,
@@ -34,13 +35,11 @@ class AccountRepositoryImpl(
     }
 
     override suspend fun logout(): Result<Unit> {
-        userNetworkDatasource.logout()
+        return userNetworkDatasource.logout()
             .onSuccess {
                 tokenLocalDataSource.clearAllTokens()
                 userLocalDataSource.clearUserDetails()
             }
-
-        return Result.success(Unit)
     }
 
     override suspend fun createAccount(

@@ -18,7 +18,11 @@ interface GenderDao {
 
     @Transaction
     @Query("SELECT * FROM genders")
-    suspend fun getGenderWithCategoryFlow(): List<GenderWithCategories>
+    suspend fun getGenderWithCategory(): List<GenderWithCategories>
+
+    @Transaction
+    @Query("SELECT * FROM genders")
+    fun getGenderWithCategoryFlow(): Flow<List<GenderWithCategories>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGenders(genders: List<GenderEntity>)

@@ -4,7 +4,6 @@ import com.example.store.core.data.repository.OrderRepository
 import com.example.store.core.model.cart.CartProductItem
 import com.example.store.core.model.order.Order
 import com.example.store.core.model.order.OrderStateSummary
-import com.example.store.core.model.order.OrderWithItems
 import com.example.store.core.network.datasources.OrderNetworkDatasource
 import com.example.store.core.network.model.order.request.OrderDtoReq
 import com.example.store.core.network.model.order.request.OrderItemDtoReq
@@ -14,7 +13,7 @@ class OrderRepositoryImpl(
     private val remoteDatasource: OrderNetworkDatasource
 ): OrderRepository {
 
-    override suspend fun getOrderById(id: String): Result<OrderWithItems> {
+    override suspend fun getOrderById(id: String): Result<Order> {
        return remoteDatasource.getOrderById(id).mapCatching { it.asExternalModel() }
     }
 
@@ -36,7 +35,6 @@ class OrderRepositoryImpl(
         latitude: Double,
         longitude: Double,
         paymentType: String,
-        deliveryMethod: String,
         cartProductItems: List<CartProductItem>
     ): Result<Order> {
         val request = OrderDtoReq(
@@ -47,7 +45,6 @@ class OrderRepositoryImpl(
             latitude = latitude,
             longitude = longitude,
             paymentType = paymentType,
-            deliveryMethod = deliveryMethod,
             orderItems = cartProductItems.map {
                 OrderItemDtoReq(
                     productItemId = it.id,

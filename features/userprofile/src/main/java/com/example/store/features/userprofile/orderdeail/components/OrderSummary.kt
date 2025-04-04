@@ -14,7 +14,6 @@ internal fun OrderSummary(
     modifier: Modifier = Modifier,
     deliveryAddress: String,
     paymentType: String,
-    deliveryMethod: String,
     total: String
 ) {
     Column(
@@ -29,7 +28,6 @@ internal fun OrderSummary(
         )
         OrderDescription(text = "Endereço de Entrega", description = deliveryAddress)
         OrderDescription(text = "Método de pagamento", description = paymentType)
-        OrderDescription(text = "Método de envio", description = deliveryMethod)
         OrderDescription(text = "Total", description = total)
     }
 }
