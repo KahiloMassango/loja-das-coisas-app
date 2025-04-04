@@ -8,6 +8,7 @@ import com.example.store.core.data.repository.CartRepository
 import com.example.store.core.data.repository.LocationRepository
 import com.example.store.core.data.repository.OrderRepository
 import com.example.store.core.model.Address
+import com.example.store.core.model.MapCoordinates
 import com.example.store.core.ui.util.hotFlow
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,8 +52,8 @@ class CheckoutViewModel @Inject constructor(
             } else {
 
                 val distance = locationRepository.getLocationDistance(
-                    origin = LatLng(- 8.893632, 13.188212),
-                    destination = LatLng(address.latitude, address.longitude)
+                    origin = MapCoordinates(- 8.893632, 13.188212),
+                    destination = MapCoordinates(address.latitude, address.longitude)
                 ) ?: 0.0
 
                 (distance * deliveryPricePerKM).toInt()
