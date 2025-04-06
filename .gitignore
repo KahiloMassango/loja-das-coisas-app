@@ -11,6 +11,7 @@ test.kt
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+/testing/build/
 /captures
 .externalNativeBuild
 .cxx
