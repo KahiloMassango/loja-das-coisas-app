@@ -33,7 +33,7 @@ class FakeProductRepository : ProductRepository {
 
     override suspend fun getProductById(id: String): Result<ProductWithVariation> {
         return if (shouldFail) {
-            Result.failure(Exception("Server unavailable"))
+            Result.failure(Exception("Network error"))
         } else {
             fakeProductsWithVariations.find { it.id == id }
                 ?.let { Result.success(it) }

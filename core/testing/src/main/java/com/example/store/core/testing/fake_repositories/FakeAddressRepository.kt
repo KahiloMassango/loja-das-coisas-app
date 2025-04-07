@@ -11,21 +11,21 @@ import kotlinx.coroutines.flow.update
 
 class FakeAddressRepository: AddressRepository {
 
-    private val addresses = mutableListOf<Address>()
+    private val addresses = MutableStateFlow<List<Address>>(emptyList())
 
     override fun getAddressesStream(): Flow<List<Address>> {
-        return flowOf(addresses)
+        return addresses.asStateFlow()
     }
 
     override fun getLastAddedAddress(): Address? {
-        return addresses.lastOrNull()
+        return addresses.value.lastOrNull()
     }
 
     override suspend fun addAddress(address: Address) {
-        addresses.add(address)
+        addresses.update { it + address }
     }
 
     override suspend fun deleteAddressById(id: Int) {
-        addresses.removeIf { it.id == id }
+        addresses.update { it.filter { it.id != id } }
     }
 }

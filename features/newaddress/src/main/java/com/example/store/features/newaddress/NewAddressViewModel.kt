@@ -105,23 +105,19 @@ internal class NewAddressViewModel @Inject constructor(
     }
 
     fun saveAddress() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val newAddress = Address(
-                    id = 0,
-                    receiverName = _uiState.value.receiverName,
-                    phoneNumber = _uiState.value.phoneNumber,
-                    addressType = _uiState.value.addressType,
-                    addressLine = _uiState.value.addressLine,
-                    latitude = _uiState.value.coordinates.latitude,
-                    longitude = _uiState.value.coordinates.longitude,
-                )
-                addressRepository.addAddress(
-                    newAddress
-                )
-            } catch (e: Exception) {
-                Log.e("NewAddressViewModel", "Error saving address: $e", e)
-            }
+        viewModelScope.launch {
+            val newAddress = Address(
+                id = 0,
+                receiverName = _uiState.value.receiverName,
+                phoneNumber = _uiState.value.phoneNumber,
+                addressType = _uiState.value.addressType,
+                addressLine = _uiState.value.addressLine,
+                latitude = _uiState.value.coordinates.latitude,
+                longitude = _uiState.value.coordinates.longitude,
+            )
+            addressRepository.addAddress(
+                newAddress
+            )
         }
     }
 }

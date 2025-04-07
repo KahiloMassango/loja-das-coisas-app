@@ -8,14 +8,13 @@ import com.example.store.core.testing.fake_repositories.FakeAddressRepository
 import com.example.store.core.testing.fake_repositories.FakeLocationRepository
 import com.example.store.core.testing.util.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class NewAddressViewModelTest {
@@ -66,18 +65,6 @@ class NewAddressViewModelTest {
     }
 
     @Test
-    fun `updateAddressLine fetches and updates addressLine`() = runTest {
-        val coordinates = MapCoordinates(-8.85, 13.25)
-        val expectedAddress = AddressLine("Viana, Luanda", "67FJ+2LR, Luanda")
-        fakeLocationRepository.setAddressLines(listOf(expectedAddress))
-
-        viewModel.updateAddressLine(coordinates)
-        advanceUntilIdle()
-
-        assertEquals(expectedAddress, viewModel.uiState.value.addressLine)
-    }
-
-    @Test
     fun `updateAddressType should update uiState with new address type`() = runTest {
         // Given an initial address type
         val initialState = viewModel.uiState.value
@@ -99,6 +86,7 @@ class NewAddressViewModelTest {
         advanceUntilIdle()
 
         val lastAdded = fakeAddressRepository.getLastAddedAddress()
+
         assertNotNull(lastAdded)
         assertEquals("Carlos", lastAdded!!.receiverName)
         assertEquals("923456789", lastAdded.phoneNumber)

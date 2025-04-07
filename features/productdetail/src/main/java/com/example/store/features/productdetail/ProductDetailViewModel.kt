@@ -23,7 +23,7 @@ internal class ProductDetailViewModel @Inject constructor(
     private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val productId = savedStateHandle.get<String>("productId")!!
+    private val productId = savedStateHandle.get<String>("productId") ?: ""
 
     private val _selectedColor = MutableStateFlow<String?>(null)
     val selectedColor: StateFlow<String?> = _selectedColor
@@ -51,7 +51,7 @@ internal class ProductDetailViewModel @Inject constructor(
     }
 
 
-    private fun loadProduct() {
+    fun loadProduct() {
         viewModelScope.launch {
             productRepository.getProductById(productId)
                 .onSuccess { product ->
@@ -64,6 +64,7 @@ internal class ProductDetailViewModel @Inject constructor(
                 }
         }
     }
+
 
     private fun initAttributes(product: ProductWithVariation) {
         productImages.value = listOf(product.image) + product.productItems.mapNotNull { it.image }

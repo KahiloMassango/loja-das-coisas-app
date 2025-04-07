@@ -1,6 +1,5 @@
 package com.example.store.feature.shop
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +9,6 @@ import com.example.store.feature.shop.model.OrderCriteria
 import com.example.store.feature.shop.model.getFilters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,18 +17,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class ShopViewModel @Inject constructor(
-    val productRepository: ProductRepository,
+    private val productRepository: ProductRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val gender = savedStateHandle.get<String>("gender") ?: ""
-    val category = savedStateHandle.get<String>("category") ?: ""
-
+    val gender = savedStateHandle.getStateFlow("gender", "")
+    val category = savedStateHandle.getStateFlow("category", "")
 
     private val _uiState = MutableStateFlow<ShopUiState>(ShopUiState.Loading)
     val uiState = _uiState.asStateFlow()
-
-    val filters = getFilters(gender, category)
 
     init {
         getProducts()
@@ -39,13 +34,12 @@ internal class ShopViewModel @Inject constructor(
     fun getProducts() {
         _uiState.value = ShopUiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            productRepository.getProducts(gender, category)
+            productRepository.getProducts(gender.value, category.value)
                 .onSuccess { products ->
                     _uiState.value = ShopUiState.Success(products)
                 }
                 .onFailure {
                     _uiState.value = ShopUiState.Error
-                    Log.d("ShopViewModel", "getProducts: $it")
                 }
         }
 
@@ -57,11 +51,6 @@ internal class ShopViewModel @Inject constructor(
         }
     }
 
-    fun updateFilter(filter: String) {
-        _uiState.update { currentState ->
-            (currentState as ShopUiState.Success).copy(filter = filter)
-        }
-    }
 
 }
 

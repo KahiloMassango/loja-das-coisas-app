@@ -14,7 +14,8 @@ fun isValidName(name: String): Boolean {
 }
 
 fun isValidEmail(email: String): Boolean {
-    return Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.endsWith(".com")
+    val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$".toRegex()
+    return email.matches(emailRegex)
 }
 
 fun isValidPhoneNumber(phoneNumber: String): Boolean {

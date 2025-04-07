@@ -42,7 +42,7 @@ internal fun ShopScreen(
     onNavigateUp: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
-    val filters = viewModel.filters
+    val filters = emptyList<Filter>()
 
     Scaffold(
         topBar = {
@@ -78,7 +78,7 @@ internal fun ShopScreen(
                         orderBy = state.orderBy,
                         products = state.products,
                         filters = filters,
-                        onFilterChange = { viewModel.updateFilter(it) },
+                        onFilterChange = {  },
                         onProductClick = { onProductClick(it) },
                         onChangeOrderOption = { viewModel.updateOrderOption(it) },
                     )

@@ -34,7 +34,7 @@ internal class SearchViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val searchResults: StateFlow<List<Product>> = snapshotFlow { searchQuery }
-        .debounce(400)
+        .debounce(200)
         .mapLatest {
             productRepository.searchProducts(it).getOrElse { emptyList() }
         }.hotFlow(

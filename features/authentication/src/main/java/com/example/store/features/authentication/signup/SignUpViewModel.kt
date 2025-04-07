@@ -43,8 +43,6 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun validateForm() {
-
-
         // name
         uiState = uiState.copy(nameError = ! isValidName(uiState.name))
 
@@ -61,7 +59,6 @@ class SignUpViewModel @Inject constructor(
         uiState = uiState.copy(
             confirmPasswordError = uiState.password != uiState.confirmPassword
         )
-
     }
 
 

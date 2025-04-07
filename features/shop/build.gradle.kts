@@ -26,9 +26,9 @@ android {
 
 dependencies {
 
-    implementation(project(":core:model"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:data"))
+    implementation(projects.core.model)
+    implementation(projects.core.ui)
+    implementation(projects.core.data)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -52,6 +52,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+
+    testImplementation(projects.core.testing)
+    testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
